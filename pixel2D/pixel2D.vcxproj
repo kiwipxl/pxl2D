@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{9E9A4CA8-CB50-4ED6-80BC-CC56A5453D71}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>pixel2D</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(ProjectDir)..\SDL2.03\include;$(ProjectDir)..\SDL2Image\include;$(ProjectDir)..\SDL2_ttf\include;$(ProjectDir)..\glew-1.11.0\include\GL;$(ProjectDir)..\SDL2_mixer-2.0.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(ProjectDir)..\SDL2.03\lib\x86;$(ProjectDir)..\SDL2Image\lib\x86;$(ProjectDir)..\SDL2_ttf\lib\x86;$(ProjectDir)..\glew-1.11.0\lib\Release\Win32;$(ProjectDir)..\SDL2_mixer-2.0.0\lib\x86</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;opengl32.lib;glew32s.lib;Vfw32.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="glew32.dll" />
+    <None Include="libFLAC-8.dll" />
+    <None Include="libfreetype-6.dll" />
+    <None Include="libjpeg-9.dll" />
+    <None Include="libmikmod-2.dll" />
+    <None Include="libmodplug-1.dll" />
+    <None Include="libogg-0.dll" />
+    <None Include="libpng16-16.dll" />
+    <None Include="libtiff-5.dll" />
+    <None Include="libvorbis-0.dll" />
+    <None Include="libvorbisfile-3.dll" />
+    <None Include="libwebp-4.dll" />
+    <None Include="msvcp120.dll" />
+    <None Include="opengl.dll" />
+    <None Include="SDL2.dll" />
+    <None Include="SDL2_image.dll" />
+    <None Include="SDL2_mixer.dll" />
+    <None Include="SDL2_ttf.dll" />
+    <None Include="smpeg2.dll" />
+    <None Include="zlib1.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\renderer\BufferObject.cpp" />
+    <ClCompile Include="src\renderer\matrices\Matrix4.cpp" />
+    <ClCompile Include="src\renderer\Renderer.cpp" />
+    <ClCompile Include="src\renderer\shader\ShaderProgram.cpp" />
+    <ClCompile Include="src\renderer\shader\ShaderManager.cpp" />
+    <ClCompile Include="src\tools\timer\TimerCallback.cpp" />
+    <ClCompile Include="src\GameLoop.cpp" />
+    <ClCompile Include="src\input\InputManager.cpp" />
+    <ClCompile Include="src\input\MouseManager.cpp" />
+    <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\managers\Assets.cpp" />
+    <ClCompile Include="src\managers\WindowManager.cpp" />
+    <ClCompile Include="src\ui\components\Text.cpp" />
+    <ClCompile Include="src\ui\DebugUI.cpp" />
+    <ClCompile Include="src\Universe.cpp" />
+    <ClCompile Include="src\renderer\Texture.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\renderer\BufferObject.h" />
+    <ClInclude Include="src\renderer\matrices\Matrix4.h" />
+    <ClInclude Include="src\renderer\Renderer.h" />
+    <ClInclude Include="src\renderer\shader\ShaderProgram.h" />
+    <ClInclude Include="src\renderer\shader\ShaderManager.h" />
+    <ClInclude Include="src\renderer\VertexPoint.h" />
+    <ClInclude Include="src\tools\Point3D.h" />
+    <ClInclude Include="src\tools\Point3Df.h" />
+    <ClInclude Include="src\tools\RGBA.h" />
+    <ClInclude Include="src\tools\timer\Timer.h" />
+    <ClInclude Include="src\tools\timer\TimerCallback.h" />
+    <ClInclude Include="src\input\Key.h" />
+    <ClInclude Include="src\input\Joystick.h" />
+    <ClInclude Include="src\tools\Point2DF.h" />
+    <ClInclude Include="src\GameLoop.h" />
+    <ClInclude Include="src\input\InputManager.h" />
+    <ClInclude Include="src\input\MouseManager.h" />
+    <ClInclude Include="src\Main.h" />
+    <ClInclude Include="src\managers\Assets.h" />
+    <ClInclude Include="src\managers\WindowManager.h" />
+    <ClInclude Include="src\tools\Point2D.h" />
+    <ClInclude Include="src\ui\components\Text.h" />
+    <ClInclude Include="src\ui\DebugUI.h" />
+    <ClInclude Include="src\Universe.h" />
+    <ClInclude Include="src\renderer\Texture.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
