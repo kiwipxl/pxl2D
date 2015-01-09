@@ -48,14 +48,14 @@ void main() {
 **/
 
 in vec4 v_colour;
-in vec2 tex_coords;
+in vec2 tex_coord;
 out vec4 pixel;
 
 uniform sampler2D t0;
 uniform vec2 repeat = vec2(2, 2);
 
 void main() {
-    pixel = v_colour * texture2D(t0, vec2(mod(tex_coords.x * repeat.x, 1), mod(tex_coords.y * repeat.y, 1)));
+    pixel = v_colour * texture2D(t0, vec2(mod(tex_coord.x * repeat.x, 1), mod(tex_coord.y * repeat.y, 1)));
 }
 
 #END_FRAGMENT

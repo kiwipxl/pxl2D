@@ -53,8 +53,9 @@ in vec2 tex_coord;
 out vec4 pixel;
 
 uniform sampler2D t0;
-uniform float bloom_spread = 1;
-uniform float bloom_intensity = 2;
+uniform float bloom_spread = 2;
+uniform float bloom_intensity = .5;
+
 void main() {
 	ivec2 size = textureSize(t0, 0);
 
@@ -77,7 +78,7 @@ void main() {
         sum += h_sum / 9.0;
     }
 
-    pixel = texture(t0, tex_coord) - ((sum / 9.0) * bloom_intensity);
+    pixel = texture(t0, tex_coord) + ((sum / 9.0) * bloom_intensity);
 }
 
 #END_FRAGMENT

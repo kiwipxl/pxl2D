@@ -20,6 +20,7 @@ class Renderer {
 		int total_render_calls = 0;
 
 		Matrix4 model_view_mat;
+		Matrix4 view_mat;
 		Matrix4 perspective_mat;
 
 		void initiate();

@@ -29,7 +29,7 @@ void Texture::create_texture(SDL_Surface* surface, int buffer_size) {
 void Texture::set_colour(float r, float g, float b, float a) {
 	VertexPoint* v = buffer_object->vertex_data;
 
-	for (int n = 0; n < 4; ++n) {
+	for (int n = 0; n < buffer_object->buffer_size; ++n) {
 		v[n].colour.r = r;
 		v[n].colour.g = g;
 		v[n].colour.b = b;

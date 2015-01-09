@@ -11,9 +11,8 @@ class Universe {
 };
 
 void Renderer::initiate() {
-	universe->shader->load_glsl_shader("assets/bloom.glsl");
+	universe->shader->load_glsl_shader("assets/repeat.glsl");
 
-	perspective_mat.identity();
 	perspective_mat.set_scale(1.0f / universe->win_manager->center_x, -1.0f / universe->win_manager->center_y);
 	perspective_mat.set_position(-1.0f, 1.0f);
 }
@@ -48,20 +47,21 @@ void Renderer::render_transform(Texture* texture, SDL_Rect* src_rect, SDL_Rect* 
 
 		model_view_mat.identity();
 
+		model_view_mat.translate(-origin->x, -origin->y);
+		model_view_mat.rotate_z(angle);
 		model_view_mat.translate(rect->x + origin->x, rect->y + origin->y);
-		model_view_mat.rotate(angle);
-		model_view_mat.scale(-origin->x, -origin->y);
 		switch (flip) {
 			case SDL_FLIP_NONE:
-				model_view_mat.scale(rect->w / texture->width, rect->h / texture->height);
+				model_view_mat.scale(-.5f, -.5f);
+				//model_view_mat.scale((-rect->w / texture->width) - 1, (-rect->h / texture->height) - 1);
 				break;
 			case SDL_FLIP_HORIZONTAL:
 				model_view_mat.translate(origin->x * 2, 0);
-				model_view_mat.scale(-rect->w / texture->width, rect->h / texture->height);
+				model_view_mat.scale((-rect->w / texture->width) - 1, (rect->h / texture->height) - 1);
 				break;
 			case SDL_FLIP_VERTICAL:
 				model_view_mat.translate(0, origin->y * 2);
-				model_view_mat.scale(rect->w / texture->width, -rect->h / texture->height);
+				model_view_mat.scale((rect->w / texture->width) - 1, (-rect->h / texture->height) - 1);
 				break;
 		}
 
@@ -122,12 +122,10 @@ bool Renderer::set_buffer(Texture* texture, SDL_Rect* src_rect) {
 	return has_changed;
 }
 
-float t = 0;
-
 void Renderer::draw_buffer(Texture* texture, bool upload_buffer) {
 	glUseProgram(3);
 
-	glUniformMatrix4fv(glGetUniformLocation(3, "matrix"), 1, false, (model_view_mat * perspective_mat).get_mat());
+	glUniformMatrix4fv(glGetUniformLocation(3, "matrix"), 1, true, (model_view_mat * view_mat * perspective_mat).get_mat());
 
 	glBindTexture(GL_TEXTURE_2D, texture->id);
 
@@ -142,9 +140,9 @@ void Renderer::draw_buffer(Texture* texture, bool upload_buffer) {
 			++vertices_uploaded;
 		}
 
-		glVertexAttribPointer(0, 2, GL_FLOAT, GL_TRUE, sizeof(VertexPoint), 0);						//pos
+		glVertexAttribPointer(0, 2, GL_FLOAT, GL_TRUE, sizeof(VertexPoint), 0);							//pos
 		glVertexAttribPointer(1, 2, GL_FLOAT, GL_TRUE, sizeof(VertexPoint), (void*)sizeof(Point2DF));	//uv
-		glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, sizeof(VertexPoint), (void*)sizeof(Point2DF));	//colour
+		glVertexAttribPointer(2, 4, GL_FLOAT, GL_TRUE, sizeof(VertexPoint), (void*)sizeof(RGBA));		//colour
 
 		glBindBuffer(GL_ARRAY_BUFFER, texture->buffer_object->index_id);
 		glDrawElements(GL_QUADS, texture->buffer_object->buffer_size, GL_UNSIGNED_INT, texture->buffer_object->index_data);

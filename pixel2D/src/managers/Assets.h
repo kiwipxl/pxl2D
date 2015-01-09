@@ -16,10 +16,7 @@ class Assets {
 	public:
 		vector<Texture*> textures;
 
-		Texture* dropdown_box_sheet;
-		Texture* button_sheet;
-		Texture* messagebox_sheet;
-		Texture* plain_colours;
+		Texture* cat;
 
 		void initiate();
 

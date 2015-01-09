@@ -21,6 +21,8 @@ class Universe {
 		static Renderer* renderer;
 };
 
+float t = 0;
+
 void GameLoop::start() {
 	set_fps(90);
 	start_second_time = 0;
@@ -53,14 +55,24 @@ void GameLoop::start() {
 		universe->renderer->total_render_calls = 0;
 
 		glClear(GL_COLOR_BUFFER_BIT);
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
+
 		std::clock_t start_render = std::clock();
 		universe->timer->update();
 
 		//update render info
 		universe->debug_ui->update_render_info();
 		universe->debug_ui->update();
+
+		SDL_Rect rect;
+		rect.x = 400;
+		rect.y = 300;
+		rect.w = 500;
+		rect.h = 355;
+		SDL_Point origin;
+		origin.x = rect.w / 2;
+		origin.y = rect.h / 2;
+		t += .5f;
+		universe->renderer->render_transform(universe->assets->cat, NULL, &rect, t, &origin, SDL_RendererFlip::SDL_FLIP_NONE);
 
 		//swaps back buffer to front buffer
 		SDL_GL_SwapWindow(universe->win_manager->window);
