@@ -7,74 +7,74 @@ void PXL_initiate(int screen_width, int screen_height) {
 
 	PXL_load_glsl_shader("assets/bloom.glsl");
 
-	perspective_mat.scale(1.0f / (screen_width / 2), -1.0f / (screen_height / 2));
-	perspective_mat.translate(-1.0f, 1.0f);
+	PXL_perspective_mat.scale(1.0f / (screen_width / 2), -1.0f / (screen_height / 2));
+	PXL_perspective_mat.translate(-1.0f, 1.0f);
 }
 
-void PXL_render(PXL_Texture* texture, SDL_Rect* src_rect, SDL_Rect* rect, bool c_set_buffer) {
+void PXL_render(PXL_Texture* texture, PXL_Rect* src_rect, PXL_Rect* rect, bool c_set_buffer) {
 	if (texture->created) {
 		if (rect->x + rect->w < 0 || rect->y + rect->h < 0 || 
 			rect->x > s_width || rect->y > s_height) {
 			return;
 		}
 
-		model_view_mat.identity();
+		PXL_model_view_mat.identity();
 
-		model_view_mat.translate(rect->x, rect->y);
-		model_view_mat.scale(rect->w / texture->width, rect->h / texture->height);
+		PXL_model_view_mat.translate(rect->x, rect->y);
+		PXL_model_view_mat.scale(rect->w / texture->width, rect->h / texture->height);
 
 		bool upload_buffer = false;
 		if (c_set_buffer) { upload_buffer = PXL_set_buffer(texture, src_rect); }
 		PXL_draw_buffer(texture, upload_buffer);
 
-		++render_calls;
+		++PXL_render_calls;
 	}
 }
 
-void PXL_render_transform(PXL_Texture* texture, SDL_Rect* src_rect, SDL_Rect* rect,
-								float angle, SDL_Point* origin, SDL_RendererFlip flip, bool c_set_buffer) {
+void PXL_render_transform(PXL_Texture* texture, PXL_Rect* src_rect, PXL_Rect* rect,
+								float angle, PXL_Vec2* origin, PXL_Flip flip, bool c_set_buffer) {
 	if (texture->created) {
 		if (rect->x + rect->w < 0 || rect->y + rect->h < 0 ||
 			rect->x > s_width || rect->y > s_height) {
 			return;
 		}
 
-		model_view_mat.identity();
+		PXL_model_view_mat.identity();
 
 		float scale_x = rect->w / texture->width; float scale_y = rect->h / texture->height;
 		switch (flip) {
-			case SDL_FLIP_NONE:
-				model_view_mat.scale(scale_x, scale_y);
+			case PXL_FLIP_NONE:
+				PXL_model_view_mat.scale(scale_x, scale_y);
 				break;
-			case SDL_FLIP_HORIZONTAL:
-				model_view_mat.translate(origin->x * 2, 0);
-				model_view_mat.scale(-scale_x, scale_y);
+			case PXL_FLIP_HORIZONTAL:
+				PXL_model_view_mat.translate(origin->x * 2, 0);
+				PXL_model_view_mat.scale(-scale_x, scale_y);
 				break;
-			case SDL_FLIP_VERTICAL:
-				model_view_mat.translate(0, origin->y * 2);
-				model_view_mat.scale(scale_x, -scale_y);
+			case PXL_FLIP_VERTICAL:
+				PXL_model_view_mat.translate(0, origin->y * 2);
+				PXL_model_view_mat.scale(scale_x, -scale_y);
 				break;
 		}
 
 		origin->x /= scale_x;
 		origin->y /= scale_y;
 
-		model_view_mat.translate(-origin->x, -origin->y);
-		model_view_mat.rotate_z(angle);
-		model_view_mat.translate(rect->x + origin->x, rect->y + origin->y);
+		PXL_model_view_mat.translate(-origin->x, -origin->y);
+		PXL_model_view_mat.rotate_z(angle);
+		PXL_model_view_mat.translate(rect->x + origin->x, rect->y + origin->y);
 
 		bool upload_buffer = false;
 		if (c_set_buffer) { upload_buffer = PXL_set_buffer(texture, src_rect); }
 		PXL_draw_buffer(texture, upload_buffer);
 
-		++transform_render_calls;
+		++PXL_transform_render_calls;
 	}
 }
 
-bool PXL_set_buffer(PXL_Texture* texture, SDL_Rect* src_rect) {
+bool PXL_set_buffer(PXL_Texture* texture, PXL_Rect* src_rect) {
 	PXL_VertexPoint* v = texture->buffer_object->vertex_data;
 
-	SDL_Rect* last_s_r = &texture->last_src_rect;
+	PXL_Rect* last_s_r = &texture->last_src_rect;
 
 	float uv_x = 0; float uv_y = 0; float uv_w = 1; float uv_h = 1;
 	if (src_rect != NULL) {
@@ -123,7 +123,7 @@ bool PXL_set_buffer(PXL_Texture* texture, SDL_Rect* src_rect) {
 void PXL_draw_buffer(PXL_Texture* texture, bool upload_buffer) {
 	glUseProgram(3);
 
-	glUniformMatrix4fv(glGetUniformLocation(3, "matrix"), 1, true, (model_view_mat * view_mat * perspective_mat).get_mat());
+	glUniformMatrix4fv(glGetUniformLocation(3, "matrix"), 1, true, (PXL_model_view_mat * PXL_view_mat * PXL_perspective_mat).get_mat());
 
 	glBindTexture(GL_TEXTURE_2D, texture->id);
 
@@ -135,7 +135,7 @@ void PXL_draw_buffer(PXL_Texture* texture, bool upload_buffer) {
 		glBindBuffer(GL_ARRAY_BUFFER, texture->buffer_object->vertex_id);
 		if (upload_buffer) {
 			glBufferSubData(GL_ARRAY_BUFFER, 0, texture->buffer_object->buffer_size * sizeof(PXL_VertexPoint), texture->buffer_object->vertex_data);
-			++vertices_uploaded;
+			++PXL_vertices_uploaded;
 		}
 
 		glVertexAttribPointer(0, 2, GL_FLOAT, GL_TRUE, sizeof(PXL_VertexPoint), 0);								//pos
@@ -150,7 +150,7 @@ void PXL_draw_buffer(PXL_Texture* texture, bool upload_buffer) {
 	glDisableVertexAttribArray(1);
 	glDisableVertexAttribArray(2);
 
-	++total_render_calls;
+	++PXL_total_render_calls;
 
 	glUseProgram(0);
 }

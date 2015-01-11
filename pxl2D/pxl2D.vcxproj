@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="include\PXL_BufferObject.h" />
     <ClInclude Include="include\PXL_Matrix4.h" />
+    <ClInclude Include="include\PXL_Rect.h" />
     <ClInclude Include="include\PXL_Texture.h" />
     <ClInclude Include="include\PXL_Vec2.h" />
     <ClInclude Include="include\PXL_Vec3.h" />

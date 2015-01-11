@@ -40,25 +40,25 @@ void GameLoop::start() {
 		}
 
 		//reset render call variables
-		render_calls = 0;
-		transform_render_calls = 0;
-		vertices_uploaded = 0;
-		total_render_calls = 0;
+		PXL_render_calls = 0;
+		PXL_transform_render_calls = 0;
+		PXL_vertices_uploaded = 0;
+		PXL_total_render_calls = 0;
 
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		std::clock_t start_render = std::clock();
 
-		SDL_Rect rect;
+		PXL_Rect rect;
 		rect.x = 400;
 		rect.y = 300;
 		rect.w = 500 / 2;
 		rect.h = 355 / 2;
-		SDL_Point origin;
+		PXL_Vec2 origin;
 		origin.x = rect.w / 2;
 		origin.y = rect.h / 2;
 		t += .5f;
-		PXL_render_transform(universe->assets->cat, NULL, &rect, t, &origin, SDL_RendererFlip::SDL_FLIP_NONE);
+		PXL_render_transform(universe->assets->cat, NULL, &rect, t, &origin, PXL_FLIP_NONE);
 
 		//swaps back buffer to front buffer
 		SDL_GL_SwapWindow(universe->win_manager->window);

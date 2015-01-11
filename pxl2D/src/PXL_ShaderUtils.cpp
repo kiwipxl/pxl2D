@@ -1,6 +1,13 @@
 #include "PXL_ShaderUtils.h"
 #include <fstream>
 
+const char* start_v_header = "#START_VERTEX";
+const char* end_v_header = "#END_VERTEX";
+const char* start_f_header = "#START_FRAGMENT";
+const char* end_f_header = "#END_FRAGMENT";
+
+void log_error(string e);
+
 PXL_ShaderProgram* PXL_load_shader(string vertex_file, string fragment_file) {
 	return new PXL_ShaderProgram(PXL_load_file(vertex_file), PXL_load_file(fragment_file), vertex_file, fragment_file);
 }

@@ -2,6 +2,7 @@
 #define TEXTURE_H
 
 #include "PXL_BufferObject.h"
+#include "PXL_Rect.h"
 
 class PXL_Texture {
 
@@ -15,7 +16,7 @@ class PXL_Texture {
 		SDL_Surface* s;
 		bool created;
 		PXL_BufferObject* buffer_object = NULL;
-		SDL_Rect last_src_rect;
+		PXL_Rect last_src_rect;
 		PXL_Vec4 last_colour;
 
 		void create_texture(SDL_Surface* surface, int buffer_size = 4);
