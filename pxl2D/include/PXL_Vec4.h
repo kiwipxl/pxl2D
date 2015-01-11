@@ -1,5 +1,5 @@
-#ifndef PXL_VEC_4_H
-#define PXL_VEC_4_H
+#ifndef VEC_4_H
+#define VEC_4_H
 
 class PXL_Vec4 {
 

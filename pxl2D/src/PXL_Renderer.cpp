@@ -1,22 +1,17 @@
-#include "Renderer.h"
-#include <iostream>
-#include "ShaderUtils.h"
+#include "PXL_Renderer.h"
+#include "PXL_ShaderUtils.h"
 
-void initiate(int screen_width, int screen_height) {
+void PXL_initiate(int screen_width, int screen_height) {
 	s_width = screen_width;
 	s_height = screen_height;
 
-	P2_load_glsl_shader("assets/bloom.glsl");
+	PXL_load_glsl_shader("assets/bloom.glsl");
 
 	perspective_mat.scale(1.0f / (screen_width / 2), -1.0f / (screen_height / 2));
 	perspective_mat.translate(-1.0f, 1.0f);
 }
 
-void test() {
-
-}
-
-void render(PXL_Texture* texture, SDL_Rect* src_rect, SDL_Rect* rect, bool c_set_buffer) {
+void PXL_render(PXL_Texture* texture, SDL_Rect* src_rect, SDL_Rect* rect, bool c_set_buffer) {
 	if (texture->created) {
 		if (rect->x + rect->w < 0 || rect->y + rect->h < 0 || 
 			rect->x > s_width || rect->y > s_height) {
@@ -29,14 +24,14 @@ void render(PXL_Texture* texture, SDL_Rect* src_rect, SDL_Rect* rect, bool c_set
 		model_view_mat.scale(rect->w / texture->width, rect->h / texture->height);
 
 		bool upload_buffer = false;
-		if (c_set_buffer) { upload_buffer = set_buffer(texture, src_rect); }
-		draw_buffer(texture, upload_buffer);
+		if (c_set_buffer) { upload_buffer = PXL_set_buffer(texture, src_rect); }
+		PXL_draw_buffer(texture, upload_buffer);
 
 		++render_calls;
 	}
 }
 
-void render_transform(PXL_Texture* texture, SDL_Rect* src_rect, SDL_Rect* rect,
+void PXL_render_transform(PXL_Texture* texture, SDL_Rect* src_rect, SDL_Rect* rect,
 								float angle, SDL_Point* origin, SDL_RendererFlip flip, bool c_set_buffer) {
 	if (texture->created) {
 		if (rect->x + rect->w < 0 || rect->y + rect->h < 0 ||
@@ -69,15 +64,15 @@ void render_transform(PXL_Texture* texture, SDL_Rect* src_rect, SDL_Rect* rect,
 		model_view_mat.translate(rect->x + origin->x, rect->y + origin->y);
 
 		bool upload_buffer = false;
-		if (c_set_buffer) { upload_buffer = set_buffer(texture, src_rect); }
-		draw_buffer(texture, upload_buffer);
+		if (c_set_buffer) { upload_buffer = PXL_set_buffer(texture, src_rect); }
+		PXL_draw_buffer(texture, upload_buffer);
 
 		++transform_render_calls;
 	}
 }
 
-bool set_buffer(PXL_Texture* texture, SDL_Rect* src_rect) {
-	VertexPoint* v = texture->buffer_object->vertex_data;
+bool PXL_set_buffer(PXL_Texture* texture, SDL_Rect* src_rect) {
+	PXL_VertexPoint* v = texture->buffer_object->vertex_data;
 
 	SDL_Rect* last_s_r = &texture->last_src_rect;
 
@@ -125,7 +120,7 @@ bool set_buffer(PXL_Texture* texture, SDL_Rect* src_rect) {
 	return has_changed;
 }
 
-void draw_buffer(PXL_Texture* texture, bool upload_buffer) {
+void PXL_draw_buffer(PXL_Texture* texture, bool upload_buffer) {
 	glUseProgram(3);
 
 	glUniformMatrix4fv(glGetUniformLocation(3, "matrix"), 1, true, (model_view_mat * view_mat * perspective_mat).get_mat());
@@ -139,13 +134,13 @@ void draw_buffer(PXL_Texture* texture, bool upload_buffer) {
 	{
 		glBindBuffer(GL_ARRAY_BUFFER, texture->buffer_object->vertex_id);
 		if (upload_buffer) {
-			glBufferSubData(GL_ARRAY_BUFFER, 0, texture->buffer_object->buffer_size * sizeof(VertexPoint), texture->buffer_object->vertex_data);
+			glBufferSubData(GL_ARRAY_BUFFER, 0, texture->buffer_object->buffer_size * sizeof(PXL_VertexPoint), texture->buffer_object->vertex_data);
 			++vertices_uploaded;
 		}
 
-		glVertexAttribPointer(0, 2, GL_FLOAT, GL_TRUE, sizeof(VertexPoint), 0);								//pos
-		glVertexAttribPointer(1, 2, GL_FLOAT, GL_TRUE, sizeof(VertexPoint), (void*)sizeof(PXL_Vec2));		//uv
-		glVertexAttribPointer(2, 4, GL_FLOAT, GL_TRUE, sizeof(VertexPoint), (void*)sizeof(PXL_Vec4));		//colour
+		glVertexAttribPointer(0, 2, GL_FLOAT, GL_TRUE, sizeof(PXL_VertexPoint), 0);								//pos
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_TRUE, sizeof(PXL_VertexPoint), (void*)sizeof(PXL_Vec2));		//uv
+		glVertexAttribPointer(2, 4, GL_FLOAT, GL_TRUE, sizeof(PXL_VertexPoint), (void*)sizeof(PXL_Vec4));		//colour
 
 		glBindBuffer(GL_ARRAY_BUFFER, texture->buffer_object->index_id);
 		glDrawElements(GL_QUADS, texture->buffer_object->buffer_size, GL_UNSIGNED_INT, texture->buffer_object->index_data);

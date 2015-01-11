@@ -1,6 +1,11 @@
 #include "PXL_Texture.h"
 #include <iostream>
 
+void PXL_create_texture(SDL_Surface* surface, int buffer_size) {
+	PXL_Texture* t = new PXL_Texture();
+	t->create_texture(surface, buffer_size);
+}
+
 void PXL_Texture::create_texture(SDL_Surface* surface, int buffer_size) {
 	if (surface != NULL) {
 		//if the texture is already created then delete the texture but not the buffer
@@ -10,7 +15,7 @@ void PXL_Texture::create_texture(SDL_Surface* surface, int buffer_size) {
 		}else {
 			//free the buffer if it's already being used and create a new buffer object
 			if (buffer_object != NULL) { buffer_object->free(); }
-			buffer_object = new BufferObject(buffer_size);
+			buffer_object = new PXL_BufferObject(buffer_size);
 		}
 
 		width = surface->w;
@@ -27,7 +32,7 @@ void PXL_Texture::create_texture(SDL_Surface* surface, int buffer_size) {
 }
 
 void PXL_Texture::set_colour(float r, float g, float b, float a) {
-	VertexPoint* v = buffer_object->vertex_data;
+	PXL_VertexPoint* v = buffer_object->vertex_data;
 
 	for (int n = 0; n < buffer_object->buffer_size; ++n) {
 		v[n].colour.x = r;

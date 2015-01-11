@@ -11,27 +11,24 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\BufferObject.cpp" />
-    <ClCompile Include="src\Matrix4.cpp" />
-    <ClCompile Include="src\pxl_Texture.cpp" />
-    <ClCompile Include="src\Renderer.cpp" />
-    <ClCompile Include="src\ShaderUtils.cpp" />
-    <ClCompile Include="src\ShaderProgram.cpp" />
+    <ClCompile Include="src\PXL_BufferObject.cpp" />
+    <ClCompile Include="src\PXL_Matrix4.cpp" />
+    <ClCompile Include="src\PXL_Texture.cpp" />
+    <ClCompile Include="src\PXL_Renderer.cpp" />
+    <ClCompile Include="src\PXL_ShaderUtils.cpp" />
+    <ClCompile Include="src\PXL_ShaderProgram.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\BufferObject.h" />
-    <ClInclude Include="src\Matrix4.h" />
-    <ClInclude Include="src\PXL_Texture.h" />
-    <ClInclude Include="src\PXL_Vec2.h" />
-    <ClInclude Include="src\PXL_Vec3.h" />
-    <ClInclude Include="src\PXL_Vec4.h" />
-    <ClInclude Include="src\PXVec2.h" />
-    <ClInclude Include="src\PXVec3.h" />
-    <ClInclude Include="src\PXVec4.h" />
-    <ClInclude Include="src\Renderer.h" />
-    <ClInclude Include="src\ShaderUtils.h" />
-    <ClInclude Include="src\ShaderProgram.h" />
-    <ClInclude Include="src\VertexPoint.h" />
+    <ClInclude Include="include\PXL_BufferObject.h" />
+    <ClInclude Include="include\PXL_Matrix4.h" />
+    <ClInclude Include="include\PXL_Texture.h" />
+    <ClInclude Include="include\PXL_Vec2.h" />
+    <ClInclude Include="include\PXL_Vec3.h" />
+    <ClInclude Include="include\PXL_Vec4.h" />
+    <ClInclude Include="include\PXL_Renderer.h" />
+    <ClInclude Include="include\PXL_ShaderUtils.h" />
+    <ClInclude Include="include\PXL_ShaderProgram.h" />
+    <ClInclude Include="include\PXL_VertexPoint.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7F4BAC6B-9372-4E84-8723-216A860B7548}</ProjectGuid>
@@ -63,10 +60,11 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)lib\SDL2.03\include;$(SolutionDir)lib\glew-1.11.0\include</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)lib\SDL2.03\include;$(SolutionDir)lib\glew-1.11.0\include;$(ProjectDir)include</IncludePath>
     <OutDir>$(SolutionDir)lib\pxl2D</OutDir>
     <TargetName>pxl2D</TargetName>
     <IntDir>$(Configuration)\</IntDir>
+    <SourcePath>$(ProjectDir)src;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -75,6 +73,8 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>
+      </AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

@@ -1,12 +1,12 @@
-#include "ShaderUtils.h"
+#include "PXL_ShaderUtils.h"
 #include <fstream>
 
-ShaderProgram* P2_load_shader(string vertex_file, string fragment_file) {
-	return new ShaderProgram(P2_load_file(vertex_file), P2_load_file(fragment_file), vertex_file, fragment_file);
+PXL_ShaderProgram* PXL_load_shader(string vertex_file, string fragment_file) {
+	return new PXL_ShaderProgram(PXL_load_file(vertex_file), PXL_load_file(fragment_file), vertex_file, fragment_file);
 }
 
-ShaderProgram* P2_load_glsl_shader(string glsl_file) {
-	string s = P2_load_file(glsl_file);
+PXL_ShaderProgram* PXL_load_glsl_shader(string glsl_file) {
+	string s = PXL_load_file(glsl_file);
 
 	int start_v = s.find(start_v_header);
 	int end_v = s.find(end_v_header);
@@ -16,14 +16,14 @@ ShaderProgram* P2_load_glsl_shader(string glsl_file) {
 	if (start_v != -1 && end_v != -1 && start_f != -1 && end_f != -1) {
 		string vertex_file = s.substr(start_v + strlen(start_v_header) + 1, end_v - (start_v + strlen(start_v_header) + 1));
 		string fragment_file = s.substr(start_f + strlen(start_f_header) + 1, end_f - (start_f + strlen(start_f_header) + 1));
-		return new ShaderProgram(vertex_file, fragment_file, glsl_file + " - vertex", glsl_file + " - fragment");
+		return new PXL_ShaderProgram(vertex_file, fragment_file, glsl_file + " - vertex", glsl_file + " - fragment");
 	}else {
 		log_error("headers not found. start the vertex shader with #START_VERTEX and end with #END_VERTEX and for fragment too");
 	}
-	return new ShaderProgram("", "");
+	return new PXL_ShaderProgram("", "");
 }
 
-string P2_load_file(string file_name) {
+string PXL_load_file(string file_name) {
 	ifstream file(file_name, ifstream::in);
 	if (file) {
 		file.ignore(numeric_limits<streamsize>::max());

@@ -4,7 +4,7 @@
 #include "PXL_Vec2.h"
 #include "PXL_Vec4.h"
 
-struct VertexPoint {
+struct PXL_VertexPoint {
 
 	PXL_Vec2 pos;
 	PXL_Vec2 uv;

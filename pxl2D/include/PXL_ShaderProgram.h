@@ -7,10 +7,10 @@
 
 using namespace std;
 
-class ShaderProgram {
+class PXL_ShaderProgram {
 
 	public:
-		ShaderProgram(string vertex_shader, string fragment_shader,
+		PXL_ShaderProgram(string vertex_shader, string fragment_shader,
 			string v_shader_name = "n/a", string f_shader_name = "n/a");
 
 		GLuint get_vertex_id() { return vertex_id; }

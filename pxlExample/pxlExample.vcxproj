@@ -41,7 +41,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)lib\SDL2.03\include;$(SolutionDir)lib\SDL2Image\include;$(SolutionDir)lib\SDL2_ttf\include;$(SolutionDir)lib\glew-1.11.0\include;$(SolutionDir)lib\SDL2_mixer-2.0.0\include;$(SolutionDir)pxl2D\src;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)lib\SDL2.03\include;$(SolutionDir)lib\SDL2Image\include;$(SolutionDir)lib\SDL2_ttf\include;$(SolutionDir)lib\glew-1.11.0\include;$(SolutionDir)lib\SDL2_mixer-2.0.0\include;$(SolutionDir)pxl2D\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(SolutionDir)lib\SDL2.03\lib\x86;$(SolutionDir)lib\SDL2Image\lib\x86;$(SolutionDir)lib\SDL2_ttf\lib\x86;$(SolutionDir)lib\glew-1.11.0\lib\win32;$(SolutionDir)lib\SDL2_mixer-2.0.0\lib\x86;$(SolutionDir)lib\pxl2D</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

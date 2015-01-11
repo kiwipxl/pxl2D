@@ -1,7 +1,7 @@
-#include "ShaderProgram.h"
+#include "PXL_ShaderProgram.h"
 #include <fstream>
 
-ShaderProgram::ShaderProgram(string vertex_shader, string fragment_shader, string v_shader_name, string f_shader_name) {
+PXL_ShaderProgram::PXL_ShaderProgram(string vertex_shader, string fragment_shader, string v_shader_name, string f_shader_name) {
 	vertex_id = glCreateShader(GL_VERTEX_SHADER);
 	fragment_id = glCreateShader(GL_FRAGMENT_SHADER);
 
@@ -35,7 +35,7 @@ ShaderProgram::ShaderProgram(string vertex_shader, string fragment_shader, strin
 	}
 }
 
-bool ShaderProgram::compile(GLuint shader_id, int shader_type, string shader_name) {
+bool PXL_ShaderProgram::compile(GLuint shader_id, int shader_type, string shader_name) {
 	GLint compiled;
 	glGetObjectParameterivARB(shader_id, GL_COMPILE_STATUS, &compiled);
 	if (compiled) {
@@ -57,7 +57,7 @@ bool ShaderProgram::compile(GLuint shader_id, int shader_type, string shader_nam
 	return compiled;
 }
 
-void ShaderProgram::log(GLuint shader_id) {
+void PXL_ShaderProgram::log(GLuint shader_id) {
 	GLint log_len;
 	glGetShaderiv(shader_id, GL_INFO_LOG_LENGTH, &log_len);
 	cout << "[compiler log]: ";

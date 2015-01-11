@@ -3,7 +3,7 @@
 #include <Windows.h>
 #include "managers/WindowManager.h"
 #include "managers/Assets.h"
-#include "Renderer.h"
+#include "PXL_Renderer.h"
 
 class Universe {
 
@@ -20,7 +20,7 @@ void GameLoop::start() {
 	frame_counter = 0;
 	quit = false;
 
-	initiate(universe->win_manager->screen_width, universe->win_manager->screen_height);
+	PXL_initiate(universe->win_manager->screen_width, universe->win_manager->screen_height);
 
 	SDL_JoystickEventState(SDL_ENABLE);
 
@@ -40,10 +40,10 @@ void GameLoop::start() {
 		}
 
 		//reset render call variables
-		//render_calls = 0;
-		//transform_render_calls = 0;
-		//vertices_uploaded = 0;
-		//total_render_calls = 0;
+		render_calls = 0;
+		transform_render_calls = 0;
+		vertices_uploaded = 0;
+		total_render_calls = 0;
 
 		glClear(GL_COLOR_BUFFER_BIT);
 
@@ -58,7 +58,7 @@ void GameLoop::start() {
 		origin.x = rect.w / 2;
 		origin.y = rect.h / 2;
 		t += .5f;
-		render_transform(universe->assets->cat, NULL, &rect, t, &origin, SDL_RendererFlip::SDL_FLIP_NONE);
+		PXL_render_transform(universe->assets->cat, NULL, &rect, t, &origin, SDL_RendererFlip::SDL_FLIP_NONE);
 
 		//swaps back buffer to front buffer
 		SDL_GL_SwapWindow(universe->win_manager->window);

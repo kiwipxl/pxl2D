@@ -1,9 +1,7 @@
-#ifndef PXL_TEXTURE_H
-#define PXL_TEXTURE_H
+#ifndef TEXTURE_H
+#define TEXTURE_H
 
-#include <SDL.h>
-#include <glew.h>
-#include "BufferObject.h"
+#include "PXL_BufferObject.h"
 
 class PXL_Texture {
 
@@ -16,7 +14,7 @@ class PXL_Texture {
 		GLuint id;
 		SDL_Surface* s;
 		bool created;
-		BufferObject* buffer_object = NULL;
+		PXL_BufferObject* buffer_object = NULL;
 		SDL_Rect last_src_rect;
 		PXL_Vec4 last_colour;
 
@@ -24,5 +22,7 @@ class PXL_Texture {
 		void set_colour(float r, float g, float b, float a);
 		void free();
 };
+
+extern void PXL_create_texture(SDL_Surface* surface, int buffer_size = 4);
 
 #endif

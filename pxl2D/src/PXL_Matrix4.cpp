@@ -1,12 +1,12 @@
-#include "Matrix4.h"
+#include "PXL_Matrix4.h"
 #include <iostream>
 
-Matrix4::Matrix4() {
+PXL_Matrix4::PXL_Matrix4() {
 	mat = new GLfloat[16];
 	identity();
 }
 
-Matrix4& Matrix4::identity() {
+PXL_Matrix4& PXL_Matrix4::identity() {
 	for (int i = 0; i < 16; ++i) {
 		mat[i] = 0;
 		if (i % 5 == 0) {
@@ -20,14 +20,14 @@ Matrix4& Matrix4::identity() {
 	return *this;
 }
 
-Matrix4& Matrix4::translate(float x, float y, float z) {
+PXL_Matrix4& PXL_Matrix4::translate(float x, float y, float z) {
 	if (x != 0) { translate_x(x); }
 	if (y != 0) { translate_y(y); }
 	if (z != 0) { translate_z(z); }
 	return *this;
 }
 
-Matrix4& Matrix4::translate_x(float x) {
+PXL_Matrix4& PXL_Matrix4::translate_x(float x) {
 	mat[3] += x;
 	//mat[12] += x;
 	//mat[13] += x;
@@ -37,7 +37,7 @@ Matrix4& Matrix4::translate_x(float x) {
 	return *this;
 }
 
-Matrix4& Matrix4::translate_y(float y) {
+PXL_Matrix4& PXL_Matrix4::translate_y(float y) {
 	mat[7] += y;
 	//mat[12] += mat[4] * y;
 	//mat[13] += mat[5] * y;
@@ -47,14 +47,14 @@ Matrix4& Matrix4::translate_y(float y) {
 	return *this;
 }
 
-Matrix4& Matrix4::translate_z(float z) {
+PXL_Matrix4& PXL_Matrix4::translate_z(float z) {
 	mat[11] += z;
 	position.z += z;
 
 	return *this;
 }
 
-Matrix4& Matrix4::rotate(float x, float y, float z) {
+PXL_Matrix4& PXL_Matrix4::rotate(float x, float y, float z) {
 	if (x != 0) { rotate_x(x); }
 	if (y != 0) { rotate_y(y); }
 	if (z != 0) { rotate_z(z); }
@@ -62,7 +62,7 @@ Matrix4& Matrix4::rotate(float x, float y, float z) {
 	return *this;
 }
 
-Matrix4& Matrix4::rotate_x(float angle) {
+PXL_Matrix4& PXL_Matrix4::rotate_x(float angle) {
 	//convert angle to radians
 	angle = angle / (180.0f / 3.14f);
 	rotation.x += angle;
@@ -81,7 +81,7 @@ Matrix4& Matrix4::rotate_x(float angle) {
 	return *this;
 }
 
-Matrix4& Matrix4::rotate_y(float angle) {
+PXL_Matrix4& PXL_Matrix4::rotate_y(float angle) {
 	//convert angle to radians
 	angle = angle / (180.0f / 3.14f);
 	rotation.y += angle;
@@ -100,7 +100,7 @@ Matrix4& Matrix4::rotate_y(float angle) {
 	return *this;
 }
 
-Matrix4& Matrix4::rotate_z(float angle) {
+PXL_Matrix4& PXL_Matrix4::rotate_z(float angle) {
 	//convert angle to radians
 	angle = angle / (180.0f / 3.14f);
 	rotation.z += angle;
@@ -119,7 +119,7 @@ Matrix4& Matrix4::rotate_z(float angle) {
 	return *this;
 }
 
-Matrix4& Matrix4::scale(float x, float y, float z) {
+PXL_Matrix4& PXL_Matrix4::scale(float x, float y, float z) {
 	if (x != 1) { scale_x(x); }
 	if (y != 1) { scale_y(y); }
 	if (z != 1) { scale_z(z); }
@@ -127,7 +127,7 @@ Matrix4& Matrix4::scale(float x, float y, float z) {
 	return *this;
 }
 
-Matrix4& Matrix4::scale_x(float scale) {
+PXL_Matrix4& PXL_Matrix4::scale_x(float scale) {
 	mat[0] *= scale;
 	mat[1] *= scale;
 	mat[2] *= scale;
@@ -137,7 +137,7 @@ Matrix4& Matrix4::scale_x(float scale) {
 	return *this;
 }
 
-Matrix4& Matrix4::scale_y(float scale) {
+PXL_Matrix4& PXL_Matrix4::scale_y(float scale) {
 	mat[4] *= scale;
 	mat[5] *= scale;
 	mat[6] *= scale;
@@ -147,7 +147,7 @@ Matrix4& Matrix4::scale_y(float scale) {
 	return *this;
 }
 
-Matrix4& Matrix4::scale_z(float scale) {
+PXL_Matrix4& PXL_Matrix4::scale_z(float scale) {
 	mat[8] *= scale;
 	mat[9] *= scale;
 	mat[10] *= scale;
@@ -157,8 +157,8 @@ Matrix4& Matrix4::scale_z(float scale) {
 	return *this;
 }
 
-Matrix4& Matrix4::multiply(const Matrix4& m) {
-	Matrix4* t = new Matrix4();
+PXL_Matrix4& PXL_Matrix4::multiply(const PXL_Matrix4& m) {
+	PXL_Matrix4* t = new PXL_Matrix4();
 
 	float sum = 0;
 	for (int y = 0; y < 16; ++y) {
@@ -175,18 +175,18 @@ Matrix4& Matrix4::multiply(const Matrix4& m) {
 	return *t;
 }
 
-Matrix4* Matrix4::operator*(const Matrix4* m) {
+PXL_Matrix4* PXL_Matrix4::operator*(const PXL_Matrix4* m) {
 	return &multiply(*m);
 }
 
-Matrix4& Matrix4::operator*(const Matrix4& m) {
+PXL_Matrix4& PXL_Matrix4::operator*(const PXL_Matrix4& m) {
 	return multiply(m);
 }
 
-GLfloat& Matrix4::operator[](const int index) {
+GLfloat& PXL_Matrix4::operator[](const int index) {
 	return mat[index];
 }
 
-Matrix4::~Matrix4() {
+PXL_Matrix4::~PXL_Matrix4() {
 	delete[] mat;
 }

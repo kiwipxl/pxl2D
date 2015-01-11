@@ -4,7 +4,6 @@
 #include "managers/WindowManager.h"
 #include "managers/Assets.h"
 #include "GameLoop.h"
-#include <Renderer.h>
 
 class Universe {
 
