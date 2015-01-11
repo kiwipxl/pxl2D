@@ -15,11 +15,11 @@ void Assets::initiate() {
 /**
 loads an image in the assets folder and returns a texture from it
 **/
-P2Texture* Assets::load_texture(char* path, bool dispose_surface) {
+PXL_Texture* Assets::load_texture(char* path, bool dispose_surface) {
 	std::string texturepath = "assets/";
 	texturepath += path;
 	SDL_Surface* surface = IMG_Load(texturepath.c_str());
-	P2Texture* texture = new P2Texture();
+	PXL_Texture* texture = new PXL_Texture();
 	texture->create_texture(surface);
 	if (dispose_surface) {
 		SDL_FreeSurface(surface);
@@ -34,7 +34,7 @@ P2Texture* Assets::load_texture(char* path, bool dispose_surface) {
 free memory from all textures loaded
 **/
 void Assets::free_textures() {
-	for (P2Texture* &texture : textures) {
+	for (PXL_Texture* &texture : textures) {
 		delete texture;
 	}
 	textures.clear();

@@ -1,7 +1,7 @@
-#include "P2Texture.h"
+#include "PXL_Texture.h"
 #include <iostream>
 
-void P2Texture::create_texture(SDL_Surface* surface, int buffer_size) {
+void PXL_Texture::create_texture(SDL_Surface* surface, int buffer_size) {
 	if (surface != NULL) {
 		//if the texture is already created then delete the texture but not the buffer
 		if (created) {
@@ -26,7 +26,7 @@ void P2Texture::create_texture(SDL_Surface* surface, int buffer_size) {
 	}
 }
 
-void P2Texture::set_colour(float r, float g, float b, float a) {
+void PXL_Texture::set_colour(float r, float g, float b, float a) {
 	VertexPoint* v = buffer_object->vertex_data;
 
 	for (int n = 0; n < buffer_object->buffer_size; ++n) {
@@ -37,7 +37,7 @@ void P2Texture::set_colour(float r, float g, float b, float a) {
 	}
 }
 
-void P2Texture::free() {
+void PXL_Texture::free() {
 	if (created) {
 		glDeleteTextures(1, &id);
 		delete buffer_object;
@@ -46,6 +46,6 @@ void P2Texture::free() {
 	}
 }
 
-P2Texture::~P2Texture() {
+PXL_Texture::~PXL_Texture() {
 	free();
 }

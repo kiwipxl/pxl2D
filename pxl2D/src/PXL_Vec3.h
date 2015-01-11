@@ -1,10 +1,10 @@
-#ifndef P2_VEC_3_H
-#define P2_VEC_3_H
+#ifndef PXL_VEC3_H
+#define PXL_VEC3_H
 
-class P2Vec3 {
+class PXL_Vec3 {
 
 	public:
-		P2Vec3() {
+		PXL_Vec3() {
 			x = y = z = 0;
 		}
 

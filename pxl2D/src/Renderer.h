@@ -4,7 +4,7 @@
 #include <SDL.h>
 #include <glew.h>
 #include <vector>
-#include "P2Texture.h"
+#include "PXL_Texture.h"
 #include "Matrix4.h"
 
 static int render_calls = 0;
@@ -21,11 +21,11 @@ static int s_height;
 
 extern void initiate(int screen_width, int screen_height);
 
-extern void render(P2Texture* texture, SDL_Rect* src_rect, SDL_Rect* rect, bool c_set_buffer = true);
-extern void render_transform(P2Texture* texture, SDL_Rect* src_rect, SDL_Rect* rect,
+extern void render(PXL_Texture* texture, SDL_Rect* src_rect, SDL_Rect* rect, bool c_set_buffer = true);
+extern void render_transform(PXL_Texture* texture, SDL_Rect* src_rect, SDL_Rect* rect,
 	float angle, SDL_Point* origin, SDL_RendererFlip flip, bool c_set_buffer = true);
 
-extern bool set_buffer(P2Texture* texture, SDL_Rect* src_rect);
-extern void draw_buffer(P2Texture* texture, bool upload_buffer = false);
+extern bool set_buffer(PXL_Texture* texture, SDL_Rect* src_rect);
+extern void draw_buffer(PXL_Texture* texture, bool upload_buffer = false);
 
 #endif

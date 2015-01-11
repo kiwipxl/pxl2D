@@ -1,10 +1,10 @@
-#ifndef P2_VEC_4_H
-#define P2_VEC_4_H
+#ifndef PXL_VEC_4_H
+#define PXL_VEC_4_H
 
-class P2Vec4 {
+class PXL_Vec4 {
 
 	public:
-		P2Vec4() {
+		PXL_Vec4() {
 			x = y = z = w = 0;
 		}
 

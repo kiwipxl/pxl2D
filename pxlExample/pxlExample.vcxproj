@@ -41,8 +41,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)lib\SDL2.03\include;$(SolutionDir)lib\SDL2Image\include;$(SolutionDir)lib\SDL2_ttf\include;$(SolutionDir)lib\glew-1.11.0\include;$(SolutionDir)lib\SDL2_mixer-2.0.0\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(SolutionDir)lib\SDL2.03\lib\x86;$(SolutionDir)lib\SDL2Image\lib\x86;$(SolutionDir)lib\SDL2_ttf\lib\x86;$(SolutionDir)lib\glew-1.11.0\lib\win32;$(SolutionDir)lib\SDL2_mixer-2.0.0\lib\x86;$(SolutionDir)lib\pixel2Dlib</LibraryPath>
+    <IncludePath>$(SolutionDir)lib\SDL2.03\include;$(SolutionDir)lib\SDL2Image\include;$(SolutionDir)lib\SDL2_ttf\include;$(SolutionDir)lib\glew-1.11.0\include;$(SolutionDir)lib\SDL2_mixer-2.0.0\include;$(SolutionDir)pxl2D\src;$(IncludePath)</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(SolutionDir)lib\SDL2.03\lib\x86;$(SolutionDir)lib\SDL2Image\lib\x86;$(SolutionDir)lib\SDL2_ttf\lib\x86;$(SolutionDir)lib\glew-1.11.0\lib\win32;$(SolutionDir)lib\SDL2_mixer-2.0.0\lib\x86;$(SolutionDir)lib\pxl2D</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -54,12 +54,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\pixel2D\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;opengl32.lib;glew32s.lib;Vfw32.lib;SDL2_mixer.lib;pixel2D.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;opengl32.lib;glew32s.lib;Vfw32.lib;SDL2_mixer.lib;pxl2D.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>MSVCRT</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>

@@ -3,7 +3,7 @@
 
 #include <SDL.h>
 #include <glew.h>
-#include "P2Vec3.h"
+#include "PXL_Vec3.h"
 
 class Matrix4 {
 
@@ -17,7 +17,7 @@ class Matrix4 {
 		Matrix4& translate_x(float x);
 		Matrix4& translate_y(float y);
 		Matrix4& translate_z(float z);
-		P2Vec3 get_position() {
+		PXL_Vec3 get_position() {
 			position.x = mat[3]; position.y = mat[7]; position.z = mat[11];
 			return position;
 		}
@@ -26,13 +26,13 @@ class Matrix4 {
 		Matrix4& rotate_x(float angle);
 		Matrix4& rotate_y(float angle);
 		Matrix4& rotate_z(float angle);
-		P2Vec3 get_rotation() { return rotation; }
+		PXL_Vec3 get_rotation() { return rotation; }
 
 		Matrix4& scale(float x = 1, float y = 1, float z = 1);
 		Matrix4& scale_x(float scale);
 		Matrix4& scale_y(float scale);
 		Matrix4& scale_z(float scale);
-		P2Vec3 get_scale() {
+		PXL_Vec3 get_scale() {
 			scaled.x = mat[0]; scaled.y = mat[5]; scaled.z = mat[10];
 			return scaled;
 		}
@@ -49,9 +49,9 @@ class Matrix4 {
 
 	private:
 		GLfloat* mat;
-		P2Vec3 position;
-		P2Vec3 rotation;
-		P2Vec3 scaled;
+		PXL_Vec3 position;
+		PXL_Vec3 rotation;
+		PXL_Vec3 scaled;
 };
 
 #endif

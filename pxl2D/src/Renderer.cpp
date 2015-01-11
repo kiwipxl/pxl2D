@@ -16,7 +16,7 @@ void test() {
 
 }
 
-void render(P2Texture* texture, SDL_Rect* src_rect, SDL_Rect* rect, bool c_set_buffer) {
+void render(PXL_Texture* texture, SDL_Rect* src_rect, SDL_Rect* rect, bool c_set_buffer) {
 	if (texture->created) {
 		if (rect->x + rect->w < 0 || rect->y + rect->h < 0 || 
 			rect->x > s_width || rect->y > s_height) {
@@ -36,7 +36,7 @@ void render(P2Texture* texture, SDL_Rect* src_rect, SDL_Rect* rect, bool c_set_b
 	}
 }
 
-void render_transform(P2Texture* texture, SDL_Rect* src_rect, SDL_Rect* rect,
+void render_transform(PXL_Texture* texture, SDL_Rect* src_rect, SDL_Rect* rect,
 								float angle, SDL_Point* origin, SDL_RendererFlip flip, bool c_set_buffer) {
 	if (texture->created) {
 		if (rect->x + rect->w < 0 || rect->y + rect->h < 0 ||
@@ -76,7 +76,7 @@ void render_transform(P2Texture* texture, SDL_Rect* src_rect, SDL_Rect* rect,
 	}
 }
 
-bool set_buffer(P2Texture* texture, SDL_Rect* src_rect) {
+bool set_buffer(PXL_Texture* texture, SDL_Rect* src_rect) {
 	VertexPoint* v = texture->buffer_object->vertex_data;
 
 	SDL_Rect* last_s_r = &texture->last_src_rect;
@@ -125,7 +125,7 @@ bool set_buffer(P2Texture* texture, SDL_Rect* src_rect) {
 	return has_changed;
 }
 
-void draw_buffer(P2Texture* texture, bool upload_buffer) {
+void draw_buffer(PXL_Texture* texture, bool upload_buffer) {
 	glUseProgram(3);
 
 	glUniformMatrix4fv(glGetUniformLocation(3, "matrix"), 1, true, (model_view_mat * view_mat * perspective_mat).get_mat());
@@ -143,9 +143,9 @@ void draw_buffer(P2Texture* texture, bool upload_buffer) {
 			++vertices_uploaded;
 		}
 
-		glVertexAttribPointer(0, 2, GL_FLOAT, GL_TRUE, sizeof(VertexPoint), 0);							//pos
-		glVertexAttribPointer(1, 2, GL_FLOAT, GL_TRUE, sizeof(VertexPoint), (void*)sizeof(P2Vec2));		//uv
-		glVertexAttribPointer(2, 4, GL_FLOAT, GL_TRUE, sizeof(VertexPoint), (void*)sizeof(P2Vec4));		//colour
+		glVertexAttribPointer(0, 2, GL_FLOAT, GL_TRUE, sizeof(VertexPoint), 0);								//pos
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_TRUE, sizeof(VertexPoint), (void*)sizeof(PXL_Vec2));		//uv
+		glVertexAttribPointer(2, 4, GL_FLOAT, GL_TRUE, sizeof(VertexPoint), (void*)sizeof(PXL_Vec4));		//colour
 
 		glBindBuffer(GL_ARRAY_BUFFER, texture->buffer_object->index_id);
 		glDrawElements(GL_QUADS, texture->buffer_object->buffer_size, GL_UNSIGNED_INT, texture->buffer_object->index_data);

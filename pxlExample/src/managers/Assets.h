@@ -5,7 +5,7 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 #include <vector>
-#include <P2Texture.h>
+#include <PXL_Texture.h>
 
 using namespace std;
 
@@ -14,16 +14,16 @@ class Universe;
 class Assets {
 
 	public:
-		vector<P2Texture*> textures;
+		vector<PXL_Texture*> textures;
 
-		P2Texture* cat;
+		PXL_Texture* cat;
 
 		void initiate();
 
 		/**
 		loads an image in the assets folder and returns a texture from it
 		**/
-		P2Texture* load_texture(char* path, bool dispose_surface = true);
+		PXL_Texture* load_texture(char* path, bool dispose_surface = true);
 
 		/**
 		free memory from all textures loaded
