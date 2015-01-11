@@ -1,194 +1,69 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="src\GameLoop.cpp" />
-    <ClCompile Include="src\Main.cpp" />
-    <ClCompile Include="src\Universe.cpp" />
-    <ClCompile Include="src\managers\Assets.cpp">
-      <Filter>src\managers</Filter>
-    </ClCompile>
-    <ClCompile Include="src\renderer\BufferObject.cpp">
-      <Filter>src\renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ui\DebugUI.cpp">
-      <Filter>src\ui</Filter>
-    </ClCompile>
-    <ClCompile Include="src\input\InputManager.cpp">
-      <Filter>src\input</Filter>
-    </ClCompile>
-    <ClCompile Include="src\input\MouseManager.cpp">
-      <Filter>src\input</Filter>
-    </ClCompile>
-    <ClCompile Include="src\renderer\Renderer.cpp">
-      <Filter>src\renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\renderer\Texture.cpp">
-      <Filter>src\renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\tools\timer\TimerCallback.cpp">
-      <Filter>src\tools</Filter>
-    </ClCompile>
-    <ClCompile Include="src\managers\WindowManager.cpp">
-      <Filter>src\managers</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ui\components\Text.cpp">
-      <Filter>src\ui\components</Filter>
-    </ClCompile>
-    <ClCompile Include="src\renderer\shader\ShaderManager.cpp" />
-    <ClCompile Include="src\renderer\shader\ShaderProgram.cpp" />
-    <ClCompile Include="src\renderer\matrices\Matrix4.cpp" />
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\GameLoop.h" />
-    <ClInclude Include="src\Main.h" />
-    <ClInclude Include="src\Universe.h" />
-    <ClInclude Include="src\managers\Assets.h">
-      <Filter>src\managers</Filter>
-    </ClInclude>
-    <ClInclude Include="src\renderer\BufferObject.h">
-      <Filter>src\renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ui\DebugUI.h">
-      <Filter>src\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="src\input\Key.h">
-      <Filter>src\input</Filter>
-    </ClInclude>
-    <ClInclude Include="src\input\InputManager.h">
-      <Filter>src\input</Filter>
-    </ClInclude>
-    <ClInclude Include="src\input\Joystick.h">
-      <Filter>src\input</Filter>
-    </ClInclude>
-    <ClInclude Include="src\input\MouseManager.h">
-      <Filter>src\input</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tools\Point2D.h">
-      <Filter>src\tools</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tools\Point2DF.h">
-      <Filter>src\tools</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tools\Point3D.h">
-      <Filter>src\tools</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tools\Point3Df.h">
-      <Filter>src\tools</Filter>
-    </ClInclude>
-    <ClInclude Include="src\renderer\Renderer.h">
-      <Filter>src\renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tools\RGBA.h">
-      <Filter>src\tools</Filter>
-    </ClInclude>
-    <ClInclude Include="src\renderer\Texture.h">
-      <Filter>src\renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tools\timer\Timer.h">
-      <Filter>src\tools</Filter>
-    </ClInclude>
-    <ClInclude Include="src\tools\timer\TimerCallback.h">
-      <Filter>src\tools</Filter>
-    </ClInclude>
-    <ClInclude Include="src\renderer\VertexPoint.h">
-      <Filter>src\renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\managers\WindowManager.h">
-      <Filter>src\managers</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ui\components\Text.h">
-      <Filter>src\ui\components</Filter>
-    </ClInclude>
-    <ClInclude Include="src\renderer\shader\ShaderManager.h" />
-    <ClInclude Include="src\renderer\shader\ShaderProgram.h" />
-    <ClInclude Include="src\renderer\matrices\Matrix4.h" />
+    <ClCompile Include="src\BufferObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Matrix4.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\P2Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Renderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ShaderProgram.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ShaderUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="glew32.dll">
-      <Filter>lib</Filter>
-    </None>
-    <None Include="libFLAC-8.dll">
-      <Filter>lib</Filter>
-    </None>
-    <None Include="libfreetype-6.dll">
-      <Filter>lib</Filter>
-    </None>
-    <None Include="libjpeg-9.dll">
-      <Filter>lib</Filter>
-    </None>
-    <None Include="libmikmod-2.dll">
-      <Filter>lib</Filter>
-    </None>
-    <None Include="libmodplug-1.dll">
-      <Filter>lib</Filter>
-    </None>
-    <None Include="libogg-0.dll">
-      <Filter>lib</Filter>
-    </None>
-    <None Include="libpng16-16.dll">
-      <Filter>lib</Filter>
-    </None>
-    <None Include="libtiff-5.dll">
-      <Filter>lib</Filter>
-    </None>
-    <None Include="libvorbis-0.dll">
-      <Filter>lib</Filter>
-    </None>
-    <None Include="libvorbisfile-3.dll">
-      <Filter>lib</Filter>
-    </None>
-    <None Include="libwebp-4.dll">
-      <Filter>lib</Filter>
-    </None>
-    <None Include="msvcp120.dll">
-      <Filter>lib</Filter>
-    </None>
-    <None Include="opengl.dll">
-      <Filter>lib</Filter>
-    </None>
-    <None Include="SDL2.dll">
-      <Filter>lib</Filter>
-    </None>
-    <None Include="SDL2_image.dll">
-      <Filter>lib</Filter>
-    </None>
-    <None Include="SDL2_mixer.dll">
-      <Filter>lib</Filter>
-    </None>
-    <None Include="SDL2_ttf.dll">
-      <Filter>lib</Filter>
-    </None>
-    <None Include="smpeg2.dll">
-      <Filter>lib</Filter>
-    </None>
-    <None Include="zlib1.dll">
-      <Filter>lib</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="lib">
-      <UniqueIdentifier>{60336a69-a17a-4119-bcc2-925863e63371}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src">
-      <UniqueIdentifier>{48602934-edd9-41b8-9b42-c7e4407a61c1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\input">
-      <UniqueIdentifier>{b8e7033e-0704-4b9b-964d-ea641536ad72}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\managers">
-      <UniqueIdentifier>{66656b59-31e1-4adc-87bd-f2c29bd2d4d2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\renderer">
-      <UniqueIdentifier>{5475ff53-97f2-45d5-9158-4a8f8e6afeae}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\tools">
-      <UniqueIdentifier>{d4ee571d-ad3b-4870-9940-134d63c47a91}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\ui">
-      <UniqueIdentifier>{d461ccb5-29ff-4e16-a2de-3cb174bf0755}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\ui\components">
-      <UniqueIdentifier>{1e5aee9f-a38d-492f-9018-9a0f4c6d29d1}</UniqueIdentifier>
-    </Filter>
+    <ClInclude Include="src\BufferObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Matrix4.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\P2Texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\P2Vec2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\P2Vec3.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\P2Vec4.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Renderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ShaderProgram.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\VertexPoint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ShaderUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

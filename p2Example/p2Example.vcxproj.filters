@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="src\GameLoop.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Universe.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\managers\Assets.cpp">
+      <Filter>src\managers</Filter>
+    </ClCompile>
+    <ClCompile Include="src\managers\WindowManager.cpp">
+      <Filter>src\managers</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\GameLoop.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Main.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Universe.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\managers\Assets.h">
+      <Filter>src\managers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\managers\WindowManager.h">
+      <Filter>src\managers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{0a461d2d-8275-46cc-896d-658f9f6db205}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\managers">
+      <UniqueIdentifier>{78b05093-77ed-4ff8-8990-fa98fa699a28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="dll">
+      <UniqueIdentifier>{cc150701-2652-41dd-9f02-d2a993ff9839}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="dll\glew32.dll">
+      <Filter>dll</Filter>
+    </None>
+    <None Include="dll\libFLAC-8.dll">
+      <Filter>dll</Filter>
+    </None>
+    <None Include="dll\libfreetype-6.dll">
+      <Filter>dll</Filter>
+    </None>
+    <None Include="dll\libjpeg-9.dll">
+      <Filter>dll</Filter>
+    </None>
+    <None Include="dll\libmikmod-2.dll">
+      <Filter>dll</Filter>
+    </None>
+    <None Include="dll\libmodplug-1.dll">
+      <Filter>dll</Filter>
+    </None>
+    <None Include="dll\libogg-0.dll">
+      <Filter>dll</Filter>
+    </None>
+    <None Include="dll\libpng16-16.dll">
+      <Filter>dll</Filter>
+    </None>
+    <None Include="dll\libtiff-5.dll">
+      <Filter>dll</Filter>
+    </None>
+    <None Include="dll\libvorbis-0.dll">
+      <Filter>dll</Filter>
+    </None>
+    <None Include="dll\libvorbisfile-3.dll">
+      <Filter>dll</Filter>
+    </None>
+    <None Include="dll\libwebp-4.dll">
+      <Filter>dll</Filter>
+    </None>
+    <None Include="dll\msvcp120.dll">
+      <Filter>dll</Filter>
+    </None>
+    <None Include="dll\opengl.dll">
+      <Filter>dll</Filter>
+    </None>
+    <None Include="dll\SDL2.dll">
+      <Filter>dll</Filter>
+    </None>
+    <None Include="dll\SDL2_image.dll">
+      <Filter>dll</Filter>
+    </None>
+    <None Include="dll\SDL2_mixer.dll">
+      <Filter>dll</Filter>
+    </None>
+    <None Include="dll\SDL2_ttf.dll">
+      <Filter>dll</Filter>
+    </None>
+    <None Include="dll\smpeg2.dll">
+      <Filter>dll</Filter>
+    </None>
+    <None Include="dll\zlib1.dll">
+      <Filter>dll</Filter>
+    </None>
+  </ItemGroup>
+</Project>
