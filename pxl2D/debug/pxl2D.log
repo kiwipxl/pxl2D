@@ -1,10 +1,9 @@
-﻿Build started 12/01/2015 8:44:39 PM.
+﻿Build started 12/01/2015 9:32:49 PM.
      1>Project "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\pxl2D.vcxproj" on node 2 (Build target(s)).
      1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(364,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt src\PXL_ImageUtils.cpp
-         PXL_ImageUtils.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_imageutils.cpp(56): warning C4018: '<' : signed/unsigned mismatch
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt src\PXL_Renderer.cpp
+         PXL_Renderer.cpp
        Lib:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\lib\pxl2D\pxl2D.lib" libpng.lib zlib.lib /NOLOGO Debug\PXL_Bitmap.obj
          Debug\PXL_BufferObject.obj
@@ -25,4 +24,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.65
+Time Elapsed 00:00:00.66

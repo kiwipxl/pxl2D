@@ -12,7 +12,7 @@ void PXL_initiate(int screen_width, int screen_height) {
 }
 
 void PXL_render(PXL_Texture* texture, PXL_Rect* src_rect, PXL_Rect* rect, bool c_set_buffer) {
-	if (texture->created) {
+	if (texture->texture_created) {
 		if (rect->x + rect->w < 0 || rect->y + rect->h < 0 || 
 			rect->x > s_width || rect->y > s_height) {
 			return;
@@ -33,7 +33,7 @@ void PXL_render(PXL_Texture* texture, PXL_Rect* src_rect, PXL_Rect* rect, bool c
 
 void PXL_render_transform(PXL_Texture* texture, PXL_Rect* src_rect, PXL_Rect* rect,
 								float angle, PXL_Vec2* origin, PXL_Flip flip, bool c_set_buffer) {
-	if (texture->created) {
+	if (texture->texture_created) {
 		if (rect->x + rect->w < 0 || rect->y + rect->h < 0 ||
 			rect->x > s_width || rect->y > s_height) {
 			return;

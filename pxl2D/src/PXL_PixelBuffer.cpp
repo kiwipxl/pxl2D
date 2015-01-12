@@ -6,7 +6,7 @@ PXL_PixelBuffer::PXL_PixelBuffer() {
 }
 
 void PXL_PixelBuffer::free() {
-
+	delete[] buffer;
 }
 
 PXL_PixelBuffer::~PXL_PixelBuffer() {

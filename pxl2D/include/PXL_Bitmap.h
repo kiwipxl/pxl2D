@@ -4,12 +4,14 @@
 #include <string>
 #include "PXL_BufferObject.h"
 #include "PXL_Rect.h"
+#include "PXL_ImageUtils.h"
 
 using namespace std;
 
 class PXL_Bitmap {
 
 	public:
+		PXL_Bitmap();
 		PXL_Bitmap(string path);
 		~PXL_Bitmap();
 
@@ -17,11 +19,12 @@ class PXL_Bitmap {
 		int h;
 		char* pixels;
 
-		void create_bitmap(string path);
+		void load_bitmap(string path);
 		void free();
 
 	private:
-		bool created;
+		bool buffer_loaded;
+		PXL_PixelBuffer* buffer;
 };
 
 extern PXL_Bitmap* PXL_create_bitmap(string path);

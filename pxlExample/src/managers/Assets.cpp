@@ -19,8 +19,7 @@ PXL_Texture* Assets::load_texture(char* path, bool dispose_bitmap) {
 	std::string texture_path = "assets/";
 	texture_path += path;
 	PXL_Bitmap* bitmap = new PXL_Bitmap(texture_path);
-	PXL_Texture* texture = new PXL_Texture();
-	texture->create_texture(bitmap);
+	PXL_Texture* texture = new PXL_Texture(bitmap);
 	if (dispose_bitmap) {
 		//SDL_FreeSurface(bitmap);
 	}else {

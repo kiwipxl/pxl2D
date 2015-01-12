@@ -1,17 +1,25 @@
 #include "PXL_Texture.h"
 #include <iostream>
 
-void PXL_create_texture(PXL_Bitmap* bitmap, int buffer_size) {
-	PXL_Texture* t = new PXL_Texture();
-	t->create_texture(bitmap, buffer_size);
+PXL_Texture::PXL_Texture() {
+	texture_created = false;
+}
+
+PXL_Texture::PXL_Texture(PXL_Bitmap* bitmap) {
+	texture_created = false;
+	create_texture(bitmap);
+}
+
+PXL_Texture* PXL_create_texture(PXL_Bitmap* bitmap, int buffer_size) {
+	return new PXL_Texture(bitmap);
 }
 
 void PXL_Texture::create_texture(PXL_Bitmap* bitmap, int buffer_size) {
 	if (bitmap != NULL) {
-		//if the texture is already created then delete the texture but not the buffer
-		if (created) {
+		//if the texture is already texture_created then delete the texture but not the buffer
+		if (texture_created) {
 			glDeleteTextures(1, &id);
-			created = false;
+			texture_created = false;
 		}else {
 			//free the buffer if it's already being used and create a new buffer object
 			if (buffer_object != NULL) { buffer_object->free(); }
@@ -26,7 +34,7 @@ void PXL_Texture::create_texture(PXL_Bitmap* bitmap, int buffer_size) {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glBindTexture(GL_TEXTURE_2D, NULL);
-		created = true;
+		texture_created = true;
 		set_colour(1, 1, 1, 1);
 	}
 }
@@ -43,11 +51,11 @@ void PXL_Texture::set_colour(float r, float g, float b, float a) {
 }
 
 void PXL_Texture::free() {
-	if (created) {
+	if (texture_created) {
 		glDeleteTextures(1, &id);
 		delete buffer_object;
 		buffer_object = NULL;
-		created = false;
+		texture_created = false;
 	}
 }
 
