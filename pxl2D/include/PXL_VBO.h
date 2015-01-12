@@ -4,11 +4,11 @@
 #include <glew.h>
 #include "PXL_VertexPoint.h"
 
-class PXL_BufferObject {
+class PXL_VBO {
 
 	public:
-		PXL_BufferObject(int c_buffer_size = 4);
-		~PXL_BufferObject();
+		PXL_VBO(int c_buffer_size = 4);
+		~PXL_VBO();
 
 		int buffer_size;
 		GLuint vertex_id;

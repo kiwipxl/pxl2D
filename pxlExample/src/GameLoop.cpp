@@ -53,8 +53,8 @@ void GameLoop::start() {
 		PXL_Rect rect;
 		rect.x = 10;
 		rect.y = 10;
-		rect.w = 500;
-		rect.h = 355;
+		rect.w = 500 * 2;
+		rect.h = 355 * 2;
 		PXL_Vec2 origin;
 		origin.x = rect.w / 2;
 		origin.y = rect.h / 2;

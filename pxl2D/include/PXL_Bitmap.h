@@ -2,8 +2,6 @@
 #define BITMAP_H
 
 #include <string>
-#include "PXL_BufferObject.h"
-#include "PXL_Rect.h"
 #include "PXL_ImageUtils.h"
 
 using namespace std;

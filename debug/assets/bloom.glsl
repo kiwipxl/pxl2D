@@ -78,7 +78,7 @@ void main() {
         sum += h_sum / 9.0;
     }
 
-    pixel = texture(t0, tex_coord) + ((sum / 9.0) * bloom_intensity);
+    pixel = v_colour * (texture(t0, tex_coord) + ((sum / 9.0) * bloom_intensity));
 }
 
 #END_FRAGMENT

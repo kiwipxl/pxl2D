@@ -22,6 +22,8 @@ void WindowManager::initiate() {
 				std::cout << "context could not be created: " << SDL_GetError() << "\n";
 			}else {
 				glewInit();
+
+				std::cout << "opengl initiated (version: " << glGetString(GL_VERSION) << ")\n";
 				/**
 				glViewport(0, 0, screen_width, screen_height);
 				glMatrixMode(GL_PROJECTION);

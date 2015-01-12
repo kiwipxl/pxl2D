@@ -12,7 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\PXL_Bitmap.cpp" />
-    <ClCompile Include="src\PXL_BufferObject.cpp" />
+    <ClCompile Include="src\PXL_VBO.cpp" />
     <ClCompile Include="src\PXL_ImageUtils.cpp" />
     <ClCompile Include="src\PXL_Matrix4.cpp" />
     <ClCompile Include="src\PXL_PixelBuffer.cpp" />
@@ -23,7 +23,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\PXL_Bitmap.h" />
-    <ClInclude Include="include\PXL_BufferObject.h" />
+    <ClInclude Include="include\PXL_RGBA.h" />
+    <ClInclude Include="include\PXL_VBO.h" />
     <ClInclude Include="include\PXL_ImageUtils.h" />
     <ClInclude Include="include\PXL_Matrix4.h" />
     <ClInclude Include="include\PXL_PixelBuffer.h" />

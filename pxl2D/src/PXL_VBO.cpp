@@ -1,7 +1,7 @@
-#include "PXL_BufferObject.h"
+#include "PXL_VBO.h"
 #include <iostream>
 
-PXL_BufferObject::PXL_BufferObject(int c_buffer_size) {
+PXL_VBO::PXL_VBO(int c_buffer_size) {
 	buffer_size = c_buffer_size;
 
 	vertex_data = new PXL_VertexPoint[buffer_size];
@@ -18,11 +18,11 @@ PXL_BufferObject::PXL_BufferObject(int c_buffer_size) {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, NULL);
 }
 
-void PXL_BufferObject::free() {
+void PXL_VBO::free() {
 	glDeleteBuffers(1, &vertex_id);
 	glDeleteBuffers(1, &index_id);
 }
 
-PXL_BufferObject::~PXL_BufferObject() {
+PXL_VBO::~PXL_VBO() {
 	free();
 }
