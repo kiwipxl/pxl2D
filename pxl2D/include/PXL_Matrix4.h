@@ -1,7 +1,6 @@
 #ifndef MATRIX_4_H
 #define MATRIX_4_H
 
-#include <SDL.h>
 #include <glew.h>
 #include "PXL_Vec3.h"
 

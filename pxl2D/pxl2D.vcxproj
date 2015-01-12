@@ -11,16 +11,22 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\PXL_Bitmap.cpp" />
     <ClCompile Include="src\PXL_BufferObject.cpp" />
+    <ClCompile Include="src\PXL_ImageUtils.cpp" />
     <ClCompile Include="src\PXL_Matrix4.cpp" />
+    <ClCompile Include="src\PXL_PixelBuffer.cpp" />
     <ClCompile Include="src\PXL_Texture.cpp" />
     <ClCompile Include="src\PXL_Renderer.cpp" />
     <ClCompile Include="src\PXL_ShaderUtils.cpp" />
     <ClCompile Include="src\PXL_ShaderProgram.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\PXL_Bitmap.h" />
     <ClInclude Include="include\PXL_BufferObject.h" />
+    <ClInclude Include="include\PXL_ImageUtils.h" />
     <ClInclude Include="include\PXL_Matrix4.h" />
+    <ClInclude Include="include\PXL_PixelBuffer.h" />
     <ClInclude Include="include\PXL_Rect.h" />
     <ClInclude Include="include\PXL_Texture.h" />
     <ClInclude Include="include\PXL_Vec2.h" />
@@ -61,11 +67,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)lib\SDL2.03\include;$(SolutionDir)lib\glew-1.11.0\include;$(ProjectDir)include</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)lib\glew-1.11.0\include;$(ProjectDir)include;$(ProjectDir)lib\libpng-1.2.37\include;$(ProjectDir)lib\zlib-1.2.3\include</IncludePath>
     <OutDir>$(SolutionDir)lib\pxl2D</OutDir>
     <TargetName>pxl2D</TargetName>
     <IntDir>$(Configuration)\</IntDir>
     <SourcePath>$(ProjectDir)src;$(SourcePath)</SourcePath>
+    <LibraryPath>$(ProjectDir)lib\libpng-1.2.37\lib;$(ProjectDir)lib\zlib-1.2.3\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -81,6 +88,9 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <Lib>
+      <AdditionalDependencies>libpng.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>

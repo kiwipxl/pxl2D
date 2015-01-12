@@ -7,8 +7,6 @@ Assets* Universe::assets;
 void Universe::initiate() {
 	srand(time(NULL));
 
-	TTF_Init();
-
 	win_manager = new WindowManager();
 	game_loop = new GameLoop();
 	assets = new Assets();

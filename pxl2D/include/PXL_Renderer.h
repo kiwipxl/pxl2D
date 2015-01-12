@@ -1,7 +1,6 @@
 #ifndef RENDERER_H
 #define RENDERER_H
 
-#include <SDL.h>
 #include <glew.h>
 #include <vector>
 #include "PXL_Texture.h"

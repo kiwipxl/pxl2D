@@ -3,7 +3,7 @@
 #include <Windows.h>
 #include "managers/WindowManager.h"
 #include "managers/Assets.h"
-#include "PXL_Renderer.h"
+#include <PXL_Renderer.h>
 
 class Universe {
 
@@ -46,14 +46,15 @@ void GameLoop::start() {
 		PXL_total_render_calls = 0;
 
 		glClear(GL_COLOR_BUFFER_BIT);
+		glClearColor(1, 1, 1, 1);
 
 		std::clock_t start_render = std::clock();
 
 		PXL_Rect rect;
-		rect.x = 400;
-		rect.y = 300;
-		rect.w = 500 / 2;
-		rect.h = 355 / 2;
+		rect.x = 10;
+		rect.y = 10;
+		rect.w = 500;
+		rect.h = 355;
 		PXL_Vec2 origin;
 		origin.x = rect.w / 2;
 		origin.y = rect.h / 2;

@@ -1,13 +1,13 @@
 #include "PXL_Texture.h"
 #include <iostream>
 
-void PXL_create_texture(SDL_Surface* surface, int buffer_size) {
+void PXL_create_texture(PXL_Bitmap* bitmap, int buffer_size) {
 	PXL_Texture* t = new PXL_Texture();
-	t->create_texture(surface, buffer_size);
+	t->create_texture(bitmap, buffer_size);
 }
 
-void PXL_Texture::create_texture(SDL_Surface* surface, int buffer_size) {
-	if (surface != NULL) {
+void PXL_Texture::create_texture(PXL_Bitmap* bitmap, int buffer_size) {
+	if (bitmap != NULL) {
 		//if the texture is already created then delete the texture but not the buffer
 		if (created) {
 			glDeleteTextures(1, &id);
@@ -18,11 +18,11 @@ void PXL_Texture::create_texture(SDL_Surface* surface, int buffer_size) {
 			buffer_object = new PXL_BufferObject(buffer_size);
 		}
 
-		width = surface->w;
-		height = surface->h;
+		width = bitmap->w;
+		height = bitmap->h;
 		glGenTextures(1, &id);
 		glBindTexture(GL_TEXTURE_2D, id);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, surface->pixels);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, bitmap->pixels);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glBindTexture(GL_TEXTURE_2D, NULL);
