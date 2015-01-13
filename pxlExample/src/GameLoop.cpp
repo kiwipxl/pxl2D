@@ -3,7 +3,7 @@
 #include <Windows.h>
 #include "managers/WindowManager.h"
 #include "managers/Assets.h"
-#include <PXL_Renderer.h>
+#include <PXL_Batch.h>
 
 class Universe {
 
@@ -20,9 +20,18 @@ void GameLoop::start() {
 	frame_counter = 0;
 	quit = false;
 
-	PXL_initiate(universe->win_manager->screen_width, universe->win_manager->screen_height);
+	//PXL_initiate(universe->win_manager->screen_width, universe->win_manager->screen_height);
 
 	SDL_JoystickEventState(SDL_ENABLE);
+
+	PXL_Batch batch = PXL_Batch(PXL_LARGE_BATCH);
+
+	int amount = 2500;
+	int* pos = new int[amount * 2];
+	for (int n = 0; n < amount * 2; n += 2) {
+		pos[n] = int((rand() / float(RAND_MAX)) * 800);
+		pos[n + 1] = int((rand() / float(RAND_MAX)) * 550);
+	}
 
 	while (!quit) {
 		start_time = std::clock();
@@ -40,26 +49,34 @@ void GameLoop::start() {
 		}
 
 		//reset render call variables
-		PXL_render_calls = 0;
-		PXL_transform_render_calls = 0;
-		PXL_vertices_uploaded = 0;
-		PXL_total_render_calls = 0;
+		//PXL_render_calls = 0;
+		//PXL_transform_render_calls = 0;
+		//PXL_vertices_uploaded = 0;
+		//PXL_total_render_calls = 0;
 
 		glClear(GL_COLOR_BUFFER_BIT);
 		glClearColor(1, 1, 1, 1);
 
 		std::clock_t start_render = std::clock();
 
+		batch.start();
+
 		PXL_Rect rect;
-		rect.x = 10;
-		rect.y = 10;
-		rect.w = 500 * 2;
-		rect.h = 355 * 2;
 		PXL_Vec2 origin;
+		rect.x = 400;
+		rect.y = 300;
+		rect.w = 500 / 2;
+		rect.h = 355 / 2;
 		origin.x = rect.w / 2;
 		origin.y = rect.h / 2;
-		t += .5f;
-		PXL_render_transform(universe->assets->cat, NULL, &rect, t, &origin, PXL_FLIP_NONE);
+		for (int n = 0; n < amount * 2; n += 2) {
+			rect.x = pos[n];
+			rect.y = pos[n + 1];
+			t += .5f;
+			batch.render_transformed(universe->assets->cat, NULL, &rect, t, &origin, PXL_FLIP_NONE);
+		}
+
+		batch.end();
 
 		//swaps back buffer to front buffer
 		SDL_GL_SwapWindow(universe->win_manager->window);

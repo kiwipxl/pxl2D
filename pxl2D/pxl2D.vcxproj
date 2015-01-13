@@ -11,29 +11,26 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\PXL_Batch.cpp" />
     <ClCompile Include="src\PXL_Bitmap.cpp" />
     <ClCompile Include="src\PXL_VBO.cpp" />
     <ClCompile Include="src\PXL_ImageUtils.cpp" />
     <ClCompile Include="src\PXL_Matrix4.cpp" />
     <ClCompile Include="src\PXL_PixelBuffer.cpp" />
     <ClCompile Include="src\PXL_Texture.cpp" />
-    <ClCompile Include="src\PXL_Renderer.cpp" />
     <ClCompile Include="src\PXL_ShaderUtils.cpp" />
     <ClCompile Include="src\PXL_ShaderProgram.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\PXL_Batch.h" />
     <ClInclude Include="include\PXL_Bitmap.h" />
-    <ClInclude Include="include\PXL_RGBA.h" />
     <ClInclude Include="include\PXL_VBO.h" />
     <ClInclude Include="include\PXL_ImageUtils.h" />
     <ClInclude Include="include\PXL_Matrix4.h" />
     <ClInclude Include="include\PXL_PixelBuffer.h" />
     <ClInclude Include="include\PXL_Rect.h" />
     <ClInclude Include="include\PXL_Texture.h" />
-    <ClInclude Include="include\PXL_Vec2.h" />
-    <ClInclude Include="include\PXL_Vec3.h" />
-    <ClInclude Include="include\PXL_Vec4.h" />
-    <ClInclude Include="include\PXL_Renderer.h" />
+    <ClInclude Include="include\PXL_Vector.h" />
     <ClInclude Include="include\PXL_ShaderUtils.h" />
     <ClInclude Include="include\PXL_ShaderProgram.h" />
     <ClInclude Include="include\PXL_VertexPoint.h" />

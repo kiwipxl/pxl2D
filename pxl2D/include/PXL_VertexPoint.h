@@ -1,19 +1,24 @@
 #ifndef VERTEX_POINT_H
 #define VERTEX_POINT_H
 
-#include "PXL_RGBA.h"
-#include "PXL_Vec2.h"
-
 struct PXL_VertexPos {
-	
-	signed short x = 0;
-	signed short y = 0;
+
+	float x = 0;
+	float y = 0;
 };
 
 struct PXL_UVCoord {
 
 	unsigned short x = 0;
 	unsigned short y = 0;
+};
+
+struct PXL_RGBA {
+
+	unsigned char r = 255;
+	unsigned char g = 255;
+	unsigned char b = 255;
+	unsigned char a = 255;
 };
 
 struct PXL_VertexPoint {

@@ -1,22 +1,17 @@
 #ifndef TEXTURE_H
 #define TEXTURE_H
 
-#include "PXL_VBO.h"
+#include <glew.h>
 #include "PXL_Rect.h"
 #include "PXL_Bitmap.h"
 
-enum PXL_MinTextureFilter {
-	PXL_MIN_NEAREST_MIPMAP_NEAREST = GL_NEAREST_MIPMAP_NEAREST,
-	PXL_MIN_LINEAR_MIPMAP_NEAREST = GL_LINEAR_MIPMAP_NEAREST,
-	PXL_MIN_NEAREST_MIPMAP_LINEAR = GL_NEAREST_MIPMAP_LINEAR,
-	PXL_MIN_LINEAR_MIPMAP_LINEAR = GL_LINEAR_MIPMAP_LINEAR,
-	PXL_MIN_NEAREST = GL_NEAREST,
-	PXL_MIN_LINEAR = GL_LINEAR
-};
-
-enum PXL_MaxTextureFilter {
-	PXL_MAX_LINEAR = GL_LINEAR, 
-	PXL_MAX_NEAREST = GL_NEAREST
+enum PXL_TextureFilter {
+	PXL_GL_NEAREST_MIPMAP_NEAREST = GL_NEAREST_MIPMAP_NEAREST,
+	PXL_GL_LINEAR_MIPMAP_NEAREST = GL_LINEAR_MIPMAP_NEAREST,
+	PXL_GL_NEAREST_MIPMAP_LINEAR = GL_NEAREST_MIPMAP_LINEAR,
+	PXL_GL_LINEAR_MIPMAP_LINEAR = GL_LINEAR_MIPMAP_LINEAR,
+	PXL_GL_NEAREST = GL_NEAREST,
+	PXL_GL_LINEAR = GL_LINEAR
 };
 
 class PXL_Texture {
@@ -27,13 +22,9 @@ class PXL_Texture {
 		~PXL_Texture();
 
 		bool texture_created;
-		PXL_VBO* buffer_object = NULL;
-		PXL_Rect last_src_rect;
-		PXL_RGBA last_colour;
 
-		void create_texture(PXL_Bitmap* bitmap, int buffer_size = 4);
-		void set_colour(float r, float g, float b, float a);
-		void set_filters(PXL_MinTextureFilter min_filter = PXL_MIN_LINEAR, PXL_MaxTextureFilter max_filter = PXL_MAX_LINEAR);
+		void create_texture(PXL_Bitmap* bitmap);
+		void set_filters(PXL_TextureFilter min_filter = PXL_GL_LINEAR, PXL_TextureFilter max_filter = PXL_GL_LINEAR);
 
 		void free();
 
@@ -47,6 +38,6 @@ class PXL_Texture {
 		GLuint id;
 };
 
-extern PXL_Texture* PXL_create_texture(PXL_Bitmap* bitmap, int buffer_size = 4);
+extern PXL_Texture* PXL_create_texture(PXL_Bitmap* bitmap);
 
 #endif
