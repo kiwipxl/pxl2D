@@ -60,8 +60,10 @@ class PXL_Batch {
 
 		int batch_size;
 
-		vector<PXL_Texture*> textures;
+		vector<int> texture_ids;
 		unsigned int texture_index = 0;
+
+		void PXL_Batch::add_texture(int texture_id);
 
 		bool set_vbo(int index, PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect);
 		void draw_vbo();

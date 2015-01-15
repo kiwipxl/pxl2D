@@ -15,6 +15,7 @@ class Assets {
 		vector<PXL_Texture*> textures;
 
 		PXL_Texture* cat;
+		PXL_Texture* cat_2;
 
 		void initiate();
 

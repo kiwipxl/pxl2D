@@ -26,7 +26,7 @@ void GameLoop::start() {
 
 	PXL_Batch batch = PXL_Batch(PXL_LARGE_BATCH);
 
-	int amount = 2500;
+	int amount = 25;
 	int* pos = new int[amount * 2];
 	for (int n = 0; n < amount * 2; n += 2) {
 		pos[n] = int((rand() / float(RAND_MAX)) * 800);
@@ -53,6 +53,7 @@ void GameLoop::start() {
 
 		std::clock_t start_render = std::clock();
 
+		//silly test code stuff
 		batch.start();
 
 		PXL_Rect rect;
@@ -67,7 +68,11 @@ void GameLoop::start() {
 		for (int n = 0; n < amount * 2; n += 2) {
 			rect.x = pos[n];
 			rect.y = pos[n + 1];
-			batch.render_transformed(universe->assets->cat, NULL, &rect, t, &origin);
+			if (pos[n] >= 512) {
+				batch.render_transformed(universe->assets->cat, NULL, &rect, t, &origin);
+			}else {
+				batch.render_transformed(universe->assets->cat_2, NULL, &rect, t, &origin);
+			}
 		}
 
 		batch.end();

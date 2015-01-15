@@ -1,4 +1,4 @@
-﻿Build started 15/01/2015 11:02:50 PM.
+﻿Build started 16/01/2015 1:14:42 AM.
      1>Project "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxlExample\pxlExample.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D GLEW_STATIC /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt src\GameLoop.cpp
@@ -9,43 +9,18 @@
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\pxl_texture.h(32): warning C4244: 'return' : conversion from 'float' to 'int', possible loss of data
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\pxl_batch.h(45): warning C4244: 'return' : conversion from 'float' to 'int', possible loss of data
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\pxl_batch.h(46): warning C4244: 'return' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxlexample\src\gameloop.cpp(68): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxlexample\src\gameloop.cpp(69): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxlexample\src\gameloop.cpp(79): warning C4244: 'argument' : conversion from 'double' to 'DWORD', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxlexample\src\gameloop.cpp(70): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxlexample\src\gameloop.cpp(84): warning C4244: 'argument' : conversion from 'double' to 'DWORD', possible loss of data
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\Debug\pxlExample.exe" /INCREMENTAL /NOLOGO SDL2.lib SDL2main.lib opengl32.lib glew32s.lib Vfw32.lib pxl2D.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /NODEFAULTLIB:MSVCRT /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\Debug\pxlExample.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\Debug\pxlExample.lib" /MACHINE:X86 Debug\GameLoop.obj
          Debug\Main.obj
          Debug\Assets.obj
          Debug\WindowManager.obj
          Debug\Universe.obj
-     1>LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
-     1>pxl2D.lib(PXL_Batch.obj) : warning LNK4049: locally defined symbol ___glewBindBuffer imported
-     1>pxl2D.lib(PXL_VBO.obj) : warning LNK4049: locally defined symbol ___glewBindBuffer imported
-     1>pxl2D.lib(PXL_Batch.obj) : warning LNK4049: locally defined symbol ___glewBufferSubData imported
-     1>pxl2D.lib(PXL_Batch.obj) : warning LNK4049: locally defined symbol ___glewEnableVertexAttribArray imported
-     1>pxl2D.lib(PXL_Batch.obj) : warning LNK4049: locally defined symbol ___glewGetUniformLocation imported
-     1>pxl2D.lib(PXL_Batch.obj) : warning LNK4049: locally defined symbol ___glewUniformMatrix4fv imported
-     1>pxl2D.lib(PXL_Batch.obj) : warning LNK4049: locally defined symbol ___glewUseProgram imported
-     1>pxl2D.lib(PXL_Batch.obj) : warning LNK4049: locally defined symbol ___glewVertexAttribPointer imported
-     1>pxl2D.lib(PXL_VBO.obj) : warning LNK4049: locally defined symbol ___glewBufferData imported
-     1>pxl2D.lib(PXL_VBO.obj) : warning LNK4049: locally defined symbol ___glewDeleteBuffers imported
-     1>pxl2D.lib(PXL_VBO.obj) : warning LNK4049: locally defined symbol ___glewGenBuffers imported
-     1>pxl2D.lib(PXL_ShaderProgram.obj) : warning LNK4049: locally defined symbol ___glewAttachShader imported
-     1>pxl2D.lib(PXL_ShaderProgram.obj) : warning LNK4049: locally defined symbol ___glewCreateProgram imported
-     1>pxl2D.lib(PXL_ShaderProgram.obj) : warning LNK4049: locally defined symbol ___glewCreateShader imported
-     1>pxl2D.lib(PXL_ShaderProgram.obj) : warning LNK4049: locally defined symbol ___glewDeleteShader imported
-     1>pxl2D.lib(PXL_ShaderProgram.obj) : warning LNK4049: locally defined symbol ___glewDetachShader imported
-     1>pxl2D.lib(PXL_ShaderProgram.obj) : warning LNK4049: locally defined symbol ___glewGetProgramiv imported
-     1>pxl2D.lib(PXL_ShaderProgram.obj) : warning LNK4049: locally defined symbol ___glewGetShaderiv imported
-     1>pxl2D.lib(PXL_ShaderProgram.obj) : warning LNK4049: locally defined symbol ___glewLinkProgram imported
-     1>pxl2D.lib(PXL_ShaderProgram.obj) : warning LNK4049: locally defined symbol ___glewCompileShaderARB imported
-     1>pxl2D.lib(PXL_ShaderProgram.obj) : warning LNK4049: locally defined symbol ___glewGetInfoLogARB imported
-     1>pxl2D.lib(PXL_ShaderProgram.obj) : warning LNK4049: locally defined symbol ___glewGetObjectParameterivARB imported
-     1>pxl2D.lib(PXL_ShaderProgram.obj) : warning LNK4049: locally defined symbol ___glewShaderSourceARB imported
-     1>glew32s.lib(glew.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'glew32s.lib(glew.obj)' or at 'C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\Debug\vc120.pdb'; linking object as if no debug info
          pxlExample.vcxproj -> C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\Debug\pxlExample.exe
      1>Done Building Project "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxlExample\pxlExample.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:01.88
+Time Elapsed 00:00:01.44
