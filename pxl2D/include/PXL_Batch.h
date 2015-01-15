@@ -61,6 +61,7 @@ class PXL_Batch {
 		int batch_size;
 
 		vector<int> texture_ids;
+		vector<int> texture_offsets;
 		unsigned int texture_index = 0;
 
 		void PXL_Batch::add_texture(int texture_id);

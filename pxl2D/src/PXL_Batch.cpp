@@ -77,9 +77,8 @@ void PXL_Batch::render(PXL_Texture* texture, PXL_Rect* src_rect, PXL_Rect* rect)
 			throw exception("hit max batch render size");
 		}
 
-		set_vbo(vbo->vertex_data.size(), texture, rect, src_rect);
-
 		add_texture(texture->get_id());
+		set_vbo(vbo->vertex_data.size(), texture, rect, src_rect);
 	}
 }
 
@@ -104,6 +103,7 @@ void PXL_Batch::render_transformed(PXL_Texture* texture, PXL_Rect* src_rect, PXL
 				break;
 		}
 
+		add_texture(texture->get_id());
 		set_vbo(vbo->vertex_data.size(), texture, rect, src_rect);
 
 		PXL_VertexPoint* v = &vbo->vertex_data[0];
@@ -119,8 +119,6 @@ void PXL_Batch::render_transformed(PXL_Texture* texture, PXL_Rect* src_rect, PXL
 				v[n].pos.y = ((s * x) + (c * y)) + rect->y + origin->y;
 			}
 		}
-
-		add_texture(texture->get_id());
 	}
 }
 
@@ -171,33 +169,22 @@ void PXL_Batch::draw_vbo() {
 	if (texture_index == 0 || vbo->vertex_data.size() == 0) { return; }
 
 	//sort vertex data based on texture ids to minimise binding
-	vector<PXL_VertexPoint> temp;
-	for (int i = 0; i < vbo->vertex_data.size(); ++i) {
-		int low_id = INT_MAX;
-		int low_index = -1;
-		for (int n = 0; n < vbo->vertex_data.size(); ++n) {
-			if (vbo->vertex_data[n].texture_id < low_id) {
-				low_id = vbo->vertex_data[n].texture_id;
-				low_index = n;
-			}
-		}
-		temp.push_back(vbo->vertex_data[low_index]);
-		vbo->vertex_data[low_index].texture_id = INT_MAX;
-	}
-	vbo->vertex_data = temp;
-
-	//reverse(vbo->vertex_data.begin(), vbo->vertex_data.end());
+	//stable sort keeps the order the same
+	stable_sort(vbo->vertex_data.begin(), vbo->vertex_data.end(), 
+	[](const PXL_VertexPoint& a, const PXL_VertexPoint& b) -> bool {
+		return a.texture_id < b.texture_id;
+	});
 
 	//sort texture ids to lowest to highest
 	sort(texture_ids.begin(), texture_ids.end(), [](int a, int b) -> bool { return a < b; });
 
-	//temporary weird stuff here
-	vector<int> ids;
-	int t_id = 0;
+	//searches through the vertex data to find the offsets of each texture id
+	texture_offsets.clear();
+	int prev_id = INT_MAX;
 	for (int n = 0; n < vbo->vertex_data.size(); ++n) {
-		if (vbo->vertex_data[n].texture_id != t_id) {
-			ids.push_back(n);
-			t_id = vbo->vertex_data[n].texture_id;
+		if (vbo->vertex_data[n].texture_id != prev_id) {
+			texture_offsets.push_back(n * sizeof(PXL_VertexPoint));
+			prev_id = vbo->vertex_data[n].texture_id;
 		}
 	}
 
@@ -210,24 +197,21 @@ void PXL_Batch::draw_vbo() {
 	glVertexAttribPointer(2, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(PXL_VertexPoint), (void*)offsetof(PXL_VertexPoint, colour));
 	glVertexAttribPointer(3, 1, GL_UNSIGNED_INT, GL_TRUE, sizeof(PXL_VertexPoint), (void*)offsetof(PXL_VertexPoint, texture_id));
 
+	//loops through each texture and draws the vertex data with that texture id
 	for (int i = 0; i < texture_index; ++i) {
-		int id = texture_ids[i];
-		glBindTexture(GL_TEXTURE_2D, id);
+		glBindTexture(GL_TEXTURE_2D, texture_ids[i]);
 
-		int offset = ids[i] * sizeof(PXL_VertexPoint);
-		//more temporary stuff
+		//gets the offset and calculates the vertex data size for the texture
+		int offset = texture_offsets[i];
 		int size;
-		if (i < ids.size() - 1) {
-			size = ids[i + 1] * sizeof(PXL_VertexPoint);
-		}else {
-			size = (vbo->vertex_data.size() - ids[i]) * sizeof(PXL_VertexPoint);
-		}
+		if (i < texture_offsets.size() - 1) { size = texture_offsets[i + 1];
+		}else { size = (vbo->vertex_data.size() * sizeof(PXL_VertexPoint)) - offset; }
 
 		//upload sub data with offset and region size
-		glBufferSubData(GL_ARRAY_BUFFER, offset, size, &vbo->vertex_data[offset / 20]);
+		glBufferSubData(GL_ARRAY_BUFFER, offset, size, &vbo->vertex_data[offset / sizeof(PXL_VertexPoint)]);
 
 		//draw vertex data from binded buffer
-		glDrawArrays(GL_QUADS, offset / 20, size / 20);
+		glDrawArrays(GL_QUADS, offset / sizeof(PXL_VertexPoint), size / sizeof(PXL_VertexPoint));
 	}
 
 	//unbind buffers
