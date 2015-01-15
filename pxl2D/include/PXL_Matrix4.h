@@ -2,7 +2,7 @@
 #define MATRIX_4_H
 
 #include <glew.h>
-#include "PXL_Vector.h"
+#include "PXL_Structs.h"
 
 class PXL_Matrix4 {
 

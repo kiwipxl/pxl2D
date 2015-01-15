@@ -20,11 +20,14 @@ PXL_ShaderProgram::PXL_ShaderProgram(string vertex_shader, string fragment_shade
 	bool f_success = compile(fragment_id, GL_FRAGMENT_SHADER, f_shader_name);
 
 	if (v_success && f_success) {
+		//create program, attach shaders and link the program
 		program_id = glCreateProgram();
+
 		glAttachShader(program_id, vertex_id);
 		glAttachShader(program_id, fragment_id);
 		glLinkProgram(program_id);
 
+		//check whether program link was successful
 		GLint linked;
 		glGetProgramiv(program_id, GL_LINK_STATUS, &linked);
 		if (linked) {
@@ -32,7 +35,14 @@ PXL_ShaderProgram::PXL_ShaderProgram(string vertex_shader, string fragment_shade
 		}else {
 			cout << "shader link failed\n";
 		}
+
+		//detach shaders whether or not linking was successful
+		glDetachShader(program_id, vertex_id);
+		glDetachShader(program_id, fragment_id);
 	}
+	//delete shaders
+	glDeleteShader(vertex_id);
+	glDeleteShader(fragment_id);
 }
 
 bool PXL_ShaderProgram::compile(GLuint shader_id, int shader_type, string shader_name) {

@@ -52,11 +52,9 @@ in vec2 tex_coord;
 out vec4 pixel;
 
 uniform sampler2D t0;
-uniform vec2 repeat = vec2(2.0, 2.0);
 
 void main() {
-	ivec2 size = textureSize(t0, 0);
-    pixel = v_colour * texelFetch(t0, ivec2(mod(tex_coord.xy * repeat.xy * size.xy, size.xy)), 0);
+  pixel = v_colour * texture(t0, tex_coord);
 }
 
 #END_FRAGMENT

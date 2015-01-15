@@ -3,7 +3,7 @@
 #include <Windows.h>
 #include "managers/WindowManager.h"
 #include "managers/Assets.h"
-#include <PXL_Batch.h>
+#include <PXL.h>
 
 class Universe {
 
@@ -20,7 +20,7 @@ void GameLoop::start() {
 	frame_counter = 0;
 	quit = false;
 
-	//PXL_initiate(universe->win_manager->screen_width, universe->win_manager->screen_height);
+	PXL_init(universe->win_manager->screen_width, universe->win_manager->screen_height);
 
 	SDL_JoystickEventState(SDL_ENABLE);
 
@@ -48,12 +48,6 @@ void GameLoop::start() {
 			}
 		}
 
-		//reset render call variables
-		//PXL_render_calls = 0;
-		//PXL_transform_render_calls = 0;
-		//PXL_vertices_uploaded = 0;
-		//PXL_total_render_calls = 0;
-
 		glClear(GL_COLOR_BUFFER_BIT);
 		glClearColor(1, 1, 1, 1);
 
@@ -65,15 +59,15 @@ void GameLoop::start() {
 		PXL_Vec2 origin;
 		rect.x = 400;
 		rect.y = 300;
-		rect.w = 500 / 2;
-		rect.h = 355 / 2;
+		rect.w = 512 / 2;
+		rect.h = 320 / 2;
 		origin.x = rect.w / 2;
 		origin.y = rect.h / 2;
+		t += .5f;
 		for (int n = 0; n < amount * 2; n += 2) {
 			rect.x = pos[n];
 			rect.y = pos[n + 1];
-			t += .5f;
-			batch.render_transformed(universe->assets->cat, NULL, &rect, t, &origin, PXL_FLIP_NONE);
+			batch.render_transformed(universe->assets->cat, NULL, &rect, t, &origin);
 		}
 
 		batch.end();

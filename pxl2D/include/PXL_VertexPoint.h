@@ -22,7 +22,7 @@ struct PXL_RGBA {
 };
 
 struct PXL_VertexPoint {
-	
+
 	PXL_VertexPos pos;
 	PXL_UVCoord uv;
 	PXL_RGBA colour;

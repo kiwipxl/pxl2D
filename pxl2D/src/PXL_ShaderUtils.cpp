@@ -1,12 +1,24 @@
 #include "PXL_ShaderUtils.h"
 #include <fstream>
 
+//defines
 const char* start_v_header = "#START_VERTEX";
 const char* end_v_header = "#END_VERTEX";
 const char* start_f_header = "#START_FRAGMENT";
 const char* end_f_header = "#END_FRAGMENT";
 
 void log_shader_error(string e);
+
+PXL_ShaderProgram* PXL_default_shader;
+PXL_ShaderProgram* PXL_bloom_shader;
+PXL_ShaderProgram* PXL_repeat_shader;
+
+void PXL_shader_init() {
+	//setup premade pxl glsl shaders
+	PXL_default_shader = PXL_load_glsl_shader("assets/default.glsl");
+	PXL_bloom_shader = PXL_load_glsl_shader("assets/bloom.glsl");
+	PXL_repeat_shader = PXL_load_glsl_shader("assets/repeat.glsl");
+}
 
 PXL_ShaderProgram* PXL_load_shader(string vertex_file, string fragment_file) {
 	return new PXL_ShaderProgram(PXL_load_file(vertex_file), PXL_load_file(fragment_file), vertex_file, fragment_file);

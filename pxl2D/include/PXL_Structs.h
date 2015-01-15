@@ -1,5 +1,13 @@
-#ifndef VECTOR_H
-#define VECTOR_H
+#ifndef STRUCTS_H
+#define STRUCTS_H
+
+struct PXL_Rect {
+
+	float x = 0;
+	float y = 0;
+	float w = 0;
+	float h = 0;
+};
 
 struct PXL_Vec2 {
 

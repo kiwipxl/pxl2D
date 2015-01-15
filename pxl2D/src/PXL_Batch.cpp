@@ -1,18 +1,20 @@
 #include "PXL_Batch.h"
 #include <iostream>
 #include <algorithm>
-#include "PXL_ShaderUtils.h"
+#include "PXL.h"
 
-PXL_Batch::PXL_Batch(PXL_BatchSize size) {
+PXL_Batch::PXL_Batch(PXL_MaxRenders size) {
 	vbo_created = false;
 	create_batch(size);
 }
 
-PXL_Batch* PXL_create_batch(PXL_BatchSize size) {
+PXL_Batch* PXL_create_batch(PXL_MaxRenders size) {
 	return new PXL_Batch(size);
 }
 
-void PXL_Batch::create_batch(PXL_BatchSize size) {
+void PXL_Batch::create_batch(PXL_MaxRenders size) {
+	batch_size = size * 4;
+
 	//if the batch is already created then delete the vbo
 	if (vbo_created) {
 		free();
@@ -25,41 +27,55 @@ void PXL_Batch::create_batch(PXL_BatchSize size) {
 	}
 	vbo_created = true;
 
-	PXL_load_glsl_shader("assets/repeat.glsl");
+	use_shader(PXL_default_shader);
 
+	//enable vertex attrib pointers when rendering
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 	glEnableVertexAttribArray(2);
-
-	view_mat.identity();
-	perspective_mat.identity();
-
-	perspective_mat.scale(1.0f / (1024 / 2), -1.0f / (768 / 2));
-	perspective_mat.translate(-1.0f, 1.0f);
 }
 
 void PXL_Batch::start() {
-	texture_index = 0;
-	vbo->vertex_data.clear();
+
 }
 
 void PXL_Batch::end() {
+	//flush vbo and reset texture index and vertex data
 	draw_vbo();
 	texture_index = 0;
 	vbo->vertex_data.clear();
 }
 
+void PXL_Batch::use_shader(GLint program_id) {
+	//set perspective matrix to screen coordinates and translate to 0,0 top left
+	view_mat.identity();
+	perspective_mat.identity();
+
+	perspective_mat.scale(1.0f / PXL_center_screen_x, -1.0f / PXL_center_screen_y);
+	perspective_mat.translate(-1.0f, 1.0f);
+
+	//use specified program id
+	glUseProgram(program_id);
+
+	//set matrix uniform in the specified shader
+	glUniformMatrix4fv(glGetUniformLocation(3, "matrix"), 1, true, (view_mat * perspective_mat).get_mat());
+}
+
+void PXL_Batch::use_shader(PXL_ShaderProgram* program) {
+	use_shader(program->get_program_id());
+}
+
 void PXL_Batch::render(PXL_Texture* texture, PXL_Rect* src_rect, PXL_Rect* rect) {
 	if (texture->texture_created) {
 		if (rect->x + rect->w < 0 || rect->y + rect->h < 0 || 
-			rect->x > 1024 || rect->y > 768) {
+			rect->x > PXL_screen_width || rect->y > PXL_screen_height) {
 			return;
 		}
-
-		for (int n = 0; n < 4; ++n) {
-			vbo->vertex_data.push_back(PXL_VertexPoint());
+		if (vbo->vertex_data.size() >= batch_size) {
+			throw exception("hit max batch render size");
 		}
-		set_vertex_data(vbo->vertex_data.size() - 4, texture, rect, src_rect);
+
+		set_vbo(vbo->vertex_data.size(), texture, rect, src_rect);
 
 		textures[texture_index] = texture; ++texture_index;
 	}
@@ -69,8 +85,11 @@ void PXL_Batch::render_transformed(PXL_Texture* texture, PXL_Rect* src_rect, PXL
 								float angle, PXL_Vec2* origin, PXL_Flip flip) {
 	if (texture->texture_created) {
 		if (rect->x + rect->w < 0 || rect->y + rect->h < 0 ||
-			rect->x > 1024 || rect->y > 768) {
+			rect->x > PXL_screen_width || rect->y > PXL_screen_height) {
 			return;
+		}
+		if (vbo->vertex_data.size() >= batch_size) {
+			throw exception("hit max batch render size");
 		}
 
 		float scale_x = rect->w / texture->get_width(); float scale_y = rect->h / texture->get_height();
@@ -83,28 +102,31 @@ void PXL_Batch::render_transformed(PXL_Texture* texture, PXL_Rect* src_rect, PXL
 				break;
 		}
 
-		for (int n = 0; n < 4; ++n) {
-			vbo->vertex_data.push_back(PXL_VertexPoint());
-		}
-		set_vertex_data(vbo->vertex_data.size() - 4, texture, rect, src_rect);
+		set_vbo(vbo->vertex_data.size(), texture, rect, src_rect);
 
 		PXL_VertexPoint* v = &vbo->vertex_data[0];
 
-		angle = angle / (180.0f / 3.14f);
-		float c = cos(angle); float s = sin(angle);
-		int index = vbo->vertex_data.size() - 4;
+		if (angle != 0) {
+			angle = angle / (180.0f / 3.14f);
+			float c = cos(angle); float s = sin(angle);
+			int index = vbo->vertex_data.size() - 4;
 
-		for (int n = index; n < index + 4; ++n) {
-			int x = v[n].pos.x - origin->x - rect->x; int y = v[n].pos.y - origin->y - rect->y;
-			v[n].pos.x = ((c * x) - (s * y)) + rect->x + origin->x;
-			v[n].pos.y = ((s * x) + (c * y)) + rect->y + origin->y;
+			for (int n = index; n < index + 4; ++n) {
+				int x = v[n].pos.x - origin->x - rect->x; int y = v[n].pos.y - origin->y - rect->y;
+				v[n].pos.x = ((c * x) - (s * y)) + rect->x + origin->x;
+				v[n].pos.y = ((s * x) + (c * y)) + rect->y + origin->y;
+			}
 		}
 
 		textures[texture_index] = texture; ++texture_index;
 	}
 }
 
-bool PXL_Batch::set_vertex_data(int index, PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect) {
+bool PXL_Batch::set_vbo(int index, PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect) {
+	for (int n = 0; n < 4; ++n) {
+		vbo->vertex_data.push_back(PXL_VertexPoint());
+	}
+
 	if (index >= vbo->vertex_data.size()) {
 		throw exception("index argument is out of bounds from vertex data");
 	}
@@ -118,18 +140,18 @@ bool PXL_Batch::set_vertex_data(int index, PXL_Texture* texture, PXL_Rect* rect,
 	}
 
 	if (src_rect == NULL) {
-		v[index].uv.x = uv_x;								v[index].uv.y = uv_y;
-		v[index + 1].uv.x = uv_x + uv_w;					v[index + 1].uv.y = uv_y;
-		v[index + 2].uv.x = uv_x + uv_w;					v[index + 2].uv.y = uv_y + uv_h;
-		v[index + 3].uv.x = uv_x;							v[index + 3].uv.y = uv_y + uv_h;
+		v[index].uv.x = uv_x;											v[index].uv.y = uv_y;
+		v[index + 1].uv.x = uv_x + uv_w;								v[index + 1].uv.y = uv_y;
+		v[index + 2].uv.x = uv_x + uv_w;								v[index + 2].uv.y = uv_y + uv_h;
+		v[index + 3].uv.x = uv_x;										v[index + 3].uv.y = uv_y + uv_h;
 	}
 
 	float scale_x = rect->w / texture->get_width(); float scale_y = rect->h / texture->get_height();
 
-	v[index].pos.x = rect->x;										v[index].pos.y = rect->y;
-	v[index + 1].pos.x = rect->x + (texture->get_width() * scale_x); v[index + 1].pos.y = rect->y;
-	v[index + 2].pos.x = rect->x + (texture->get_width() * scale_x); v[index + 2].pos.y = rect->y + (texture->get_height() * scale_y);
-	v[index + 3].pos.x = rect->x;									v[index + 3].pos.y = rect->y + (texture->get_height() * scale_y);
+	v[index].pos.x = rect->x;											v[index].pos.y = rect->y;
+	v[index + 1].pos.x = rect->x + (texture->get_width() * scale_x);	v[index + 1].pos.y = rect->y;
+	v[index + 2].pos.x = rect->x + (texture->get_width() * scale_x);	v[index + 2].pos.y = rect->y + (texture->get_height() * scale_y);
+	v[index + 3].pos.x = rect->x;										v[index + 3].pos.y = rect->y + (texture->get_height() * scale_y);
 
 	return true;
 }
@@ -139,10 +161,6 @@ void PXL_Batch::draw_vbo() {
 
 	PXL_Texture* texture = textures[0];
 	if (texture == NULL) { return; }
-
-	glUseProgram(3);
-
-	glUniformMatrix4fv(glGetUniformLocation(3, "matrix"), 1, true, (view_mat * perspective_mat).get_mat());
 
 	glBindTexture(GL_TEXTURE_2D, texture->get_id());
 
@@ -158,9 +176,9 @@ void PXL_Batch::draw_vbo() {
 		//glDrawElements(GL_QUADS, vbo->vertex_data.size(), GL_UNSIGNED_BYTE, vbo->index_data);
 
 		glDrawArrays(GL_QUADS, 0, vbo->vertex_data.size());
-	}
 
-	glUseProgram(0);
+		glBindBuffer(GL_ARRAY_BUFFER, NULL);
+	}
 }
 
 void PXL_Batch::set_colour(float r, float g, float b, float a) {

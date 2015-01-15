@@ -13,8 +13,7 @@ class PXL_ShaderProgram {
 		PXL_ShaderProgram(string vertex_shader, string fragment_shader,
 			string v_shader_name = "n/a", string f_shader_name = "n/a");
 
-		GLuint get_vertex_id() { return vertex_id; }
-		GLuint get_fragment_id() { return fragment_id; }
+		GLuint get_program_id() { return program_id; }
 
 	private:
 		GLuint vertex_id;

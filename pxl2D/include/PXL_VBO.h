@@ -16,8 +16,6 @@ class PXL_VBO {
 		unsigned int size;
 		GLuint vertex_id;
 		vector<PXL_VertexPoint> vertex_data;
-		GLuint index_id;
-		GLubyte* index_data;
 
 		void free();
 };

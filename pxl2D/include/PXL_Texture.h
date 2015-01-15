@@ -2,7 +2,7 @@
 #define TEXTURE_H
 
 #include <glew.h>
-#include "PXL_Rect.h"
+#include "PXL_Structs.h"
 #include "PXL_Bitmap.h"
 
 enum PXL_TextureFilter {

@@ -1,29 +1,40 @@
-﻿Build started 14/01/2015 12:53:41 AM.
+﻿Build started 15/01/2015 11:02:48 PM.
      1>Project "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\pxl2D.vcxproj" on node 2 (Build target(s)).
      1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(364,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt src\PXL_Batch.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt src\PXL.cpp src\PXL_Batch.cpp src\PXL_VBO.cpp
          PXL_Batch.cpp
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\pxl_texture.h(31): warning C4244: 'return' : conversion from 'float' to 'int', possible loss of data
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\pxl_texture.h(32): warning C4244: 'return' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\pxl_batch.h(43): warning C4244: 'return' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\pxl_batch.h(44): warning C4244: 'return' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(98): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(108): warning C4018: '>=' : signed/unsigned mismatch
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(116): warning C4244: '=' : conversion from 'float' to 'unsigned short', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(117): warning C4244: '=' : conversion from 'float' to 'unsigned short', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(171): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(172): warning C4244: '=' : conversion from 'float' to 'unsigned char', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(173): warning C4244: '=' : conversion from 'float' to 'unsigned char', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(174): warning C4244: '=' : conversion from 'float' to 'unsigned char', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(175): warning C4244: '=' : conversion from 'float' to 'unsigned char', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\pxl_batch.h(45): warning C4244: 'return' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\pxl_batch.h(46): warning C4244: 'return' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(74): warning C4018: '>=' : signed/unsigned mismatch
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(91): warning C4018: '>=' : signed/unsigned mismatch
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(115): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(130): warning C4018: '>=' : signed/unsigned mismatch
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(138): warning C4244: '=' : conversion from 'float' to 'unsigned short', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(139): warning C4244: '=' : conversion from 'float' to 'unsigned short', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(189): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(190): warning C4244: '=' : conversion from 'float' to 'unsigned char', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(191): warning C4244: '=' : conversion from 'float' to 'unsigned char', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(192): warning C4244: '=' : conversion from 'float' to 'unsigned char', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(193): warning C4244: '=' : conversion from 'float' to 'unsigned char', possible loss of data
+         Generating Code...
+         Compiling...
+         PXL_VBO.cpp
+         PXL.cpp
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\pxl_texture.h(31): warning C4244: 'return' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\pxl_texture.h(32): warning C4244: 'return' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\pxl_batch.h(45): warning C4244: 'return' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\pxl_batch.h(46): warning C4244: 'return' : conversion from 'float' to 'int', possible loss of data
+         Generating Code...
        Lib:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\lib\pxl2D\pxl2D.lib" libpng.lib zlib.lib /NOLOGO Debug\PXL_Batch.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\lib\pxl2D\pxl2D.lib" libpng.lib zlib.lib /NOLOGO Debug\PXL.obj
+         Debug\PXL_Batch.obj
          Debug\PXL_Bitmap.obj
          Debug\PXL_VBO.obj
          Debug\PXL_ImageUtils.obj
          Debug\PXL_Matrix4.obj
-         Debug\PXL_PixelBuffer.obj
          Debug\PXL_Texture.obj
          Debug\PXL_ShaderUtils.obj
          Debug\PXL_ShaderProgram.obj
@@ -37,4 +48,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:11.32
+Time Elapsed 00:00:02.06
