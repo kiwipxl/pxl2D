@@ -59,6 +59,10 @@ void PXL_Batch::use_shader(GLint program_id) {
 	//use specified program id
 	glUseProgram(program_id);
 
+	//enable alpha blending
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	//set matrix uniform in the specified shader
 	glUniformMatrix4fv(glGetUniformLocation(3, "matrix"), 1, true, (view_mat * perspective_mat).get_mat());
 }

@@ -31,9 +31,9 @@ PXL_ShaderProgram::PXL_ShaderProgram(string vertex_shader, string fragment_shade
 		GLint linked;
 		glGetProgramiv(program_id, GL_LINK_STATUS, &linked);
 		if (linked) {
-			cout << "shader linked successfully\n";
+			cout << "shader (" + v_shader_name + ") linked successfully\n";
 		}else {
-			cout << "shader link failed\n";
+			cout << "shader (" + v_shader_name + ") link failed\n";
 		}
 
 		//detach shaders whether or not linking was successful

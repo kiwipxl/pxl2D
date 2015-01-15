@@ -53,8 +53,8 @@ in vec2 tex_coords;
 out vec4 pixel;
 
 uniform sampler2D t0;
-uniform float outline_thickness = .2;
-uniform vec3 outline_colour = vec3(0, 0, 1);
+uniform float outline_thickness = 1;
+uniform vec4 outline_colour = vec4(0, 0, 0, 1);
 uniform float outline_threshold = .5;
 
 void main() {
@@ -83,7 +83,7 @@ void main() {
         }
 
         if (sum / 9.0 >= 0.0001) {
-            pixel = vec4(outline_colour, 1);
+            pixel = outline_colour;
         }
     }
 }

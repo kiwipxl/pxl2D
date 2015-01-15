@@ -43,9 +43,9 @@ void main() {
 
 ------------------ use ------------------------
 
-    glow_size - defines the spread x and y
-    glow_colour - the colour of the glow
-    glow_intensity - glow intensity
+    outline_size - defines the spread x and y
+    outline_colour - the colour of the glow
+    outline_intensity - glow intensity
 
 **/
 
@@ -54,14 +54,14 @@ in vec2 tex_coord;
 out vec4 pixel;
 
 uniform sampler2D t0;
-uniform float glow_size = .5;
-uniform vec3 glow_colour = vec3(0, 0, 0);
-uniform float glow_intensity = 1;
-uniform float glow_threshold = .5;
+uniform float outline_size;
+uniform vec3 outline_colour;
+uniform float outline_intensity;
+uniform float outline_threshold;
 
 void main() {
     pixel = texture(t0, tex_coord);
-    if (pixel.a <= glow_threshold) {
+    if (pixel.a <= outline_threshold) {
         ivec2 size = textureSize(t0, 0);
 	
         float uv_x = tex_coord.x * size.x;
@@ -69,21 +69,21 @@ void main() {
 
         float sum = 0.0;
         for (int n = 0; n < 9; ++n) {
-            uv_y = (tex_coord.y * size.y) + (glow_size * float(n - 4.5));
+            uv_y = (tex_coord.y * size.y) + (outline_size * float(n - 4.5));
             float h_sum = 0.0;
-            h_sum += texelFetch(t0, ivec2(uv_x - (4.0 * glow_size), uv_y), 0).a;
-            h_sum += texelFetch(t0, ivec2(uv_x - (3.0 * glow_size), uv_y), 0).a;
-            h_sum += texelFetch(t0, ivec2(uv_x - (2.0 * glow_size), uv_y), 0).a;
-            h_sum += texelFetch(t0, ivec2(uv_x - glow_size, uv_y), 0).a;
+            h_sum += texelFetch(t0, ivec2(uv_x - (4.0 * outline_size), uv_y), 0).a;
+            h_sum += texelFetch(t0, ivec2(uv_x - (3.0 * outline_size), uv_y), 0).a;
+            h_sum += texelFetch(t0, ivec2(uv_x - (2.0 * outline_size), uv_y), 0).a;
+            h_sum += texelFetch(t0, ivec2(uv_x - outline_size, uv_y), 0).a;
             h_sum += texelFetch(t0, ivec2(uv_x, uv_y), 0).a;
-            h_sum += texelFetch(t0, ivec2(uv_x + glow_size, uv_y), 0).a;
-            h_sum += texelFetch(t0, ivec2(uv_x + (2.0 * glow_size), uv_y), 0).a;
-            h_sum += texelFetch(t0, ivec2(uv_x + (3.0 * glow_size), uv_y), 0).a;
-            h_sum += texelFetch(t0, ivec2(uv_x + (4.0 * glow_size), uv_y), 0).a;
+            h_sum += texelFetch(t0, ivec2(uv_x + outline_size, uv_y), 0).a;
+            h_sum += texelFetch(t0, ivec2(uv_x + (2.0 * outline_size), uv_y), 0).a;
+            h_sum += texelFetch(t0, ivec2(uv_x + (3.0 * outline_size), uv_y), 0).a;
+            h_sum += texelFetch(t0, ivec2(uv_x + (4.0 * outline_size), uv_y), 0).a;
             sum += h_sum / 9.0;
         }
 
-        pixel = vec4(glow_colour, (sum / 9.0) * glow_intensity);
+        pixel = vec4(outline_colour, (sum / 9.0) * outline_intensity);
     }
 }
 

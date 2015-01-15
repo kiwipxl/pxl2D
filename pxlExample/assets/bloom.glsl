@@ -43,8 +43,8 @@ void main() {
 
 ------------------ use ------------------------
 
-    bloom_size - defines the spread x and y
-    bloom_intensity - bloom intensity
+    outline_size - defines the spread x and y
+    outline_intensity - bloom intensity
 
 **/
 
@@ -53,8 +53,8 @@ in vec2 tex_coord;
 out vec4 pixel;
 
 uniform sampler2D t0;
-uniform float bloom_spread = 2;
-uniform float bloom_intensity = .5;
+uniform float outline_spread;
+uniform float outline_intensity;
 
 void main() {
 	ivec2 size = textureSize(t0, 0);
@@ -64,21 +64,21 @@ void main() {
 
     vec4 sum = vec4(0.0);
     for (int n = 0; n < 9; ++n) {
-        uv_y = (tex_coord.y * size.y) + (bloom_spread * float(n - 4));
+        uv_y = (tex_coord.y * size.y) + (outline_spread * float(n - 4));
         vec4 h_sum = vec4(0.0);
-        h_sum += texelFetch(t0, ivec2(uv_x - (4.0 * bloom_spread), uv_y), 0);
-        h_sum += texelFetch(t0, ivec2(uv_x - (3.0 * bloom_spread), uv_y), 0);
-        h_sum += texelFetch(t0, ivec2(uv_x - (2.0 * bloom_spread), uv_y), 0);
-        h_sum += texelFetch(t0, ivec2(uv_x - bloom_spread, uv_y), 0);
+        h_sum += texelFetch(t0, ivec2(uv_x - (4.0 * outline_spread), uv_y), 0);
+        h_sum += texelFetch(t0, ivec2(uv_x - (3.0 * outline_spread), uv_y), 0);
+        h_sum += texelFetch(t0, ivec2(uv_x - (2.0 * outline_spread), uv_y), 0);
+        h_sum += texelFetch(t0, ivec2(uv_x - outline_spread, uv_y), 0);
         h_sum += texelFetch(t0, ivec2(uv_x, uv_y), 0);
-        h_sum += texelFetch(t0, ivec2(uv_x + bloom_spread, uv_y), 0);
-        h_sum += texelFetch(t0, ivec2(uv_x + (2.0 * bloom_spread), uv_y), 0);
-        h_sum += texelFetch(t0, ivec2(uv_x + (3.0 * bloom_spread), uv_y), 0);
-        h_sum += texelFetch(t0, ivec2(uv_x + (4.0 * bloom_spread), uv_y), 0);
+        h_sum += texelFetch(t0, ivec2(uv_x + outline_spread, uv_y), 0);
+        h_sum += texelFetch(t0, ivec2(uv_x + (2.0 * outline_spread), uv_y), 0);
+        h_sum += texelFetch(t0, ivec2(uv_x + (3.0 * outline_spread), uv_y), 0);
+        h_sum += texelFetch(t0, ivec2(uv_x + (4.0 * outline_spread), uv_y), 0);
         sum += h_sum / 9.0;
     }
 
-    pixel = v_colour * (texture(t0, tex_coord) + ((sum / 9.0) * bloom_intensity));
+    pixel = v_colour * (texture(t0, tex_coord) + ((sum / 9.0) * outline_intensity));
 }
 
 #END_FRAGMENT

@@ -42,7 +42,7 @@ void main() {
 
 ------------------ use ------------------------
 
-    blur_size - blur spread amount
+    outline_size - blur spread amount
 
 **/
 
@@ -51,7 +51,7 @@ in vec2 tex_coord;
 out vec4 pixel;
 
 uniform sampler2D t0;
-uniform vec2 blur_size = vec2(.5, .5);
+uniform vec2 outline_size;
 
 void main() {
     ivec2 size = textureSize(t0, 0);
@@ -61,17 +61,17 @@ void main() {
 
     vec4 sum = vec4(0.0);
     for (int n = 0; n < 9; ++n) {
-        uv_y = (tex_coord.y * size.y) + (blur_size.y * float(n - 4.5));
+        uv_y = (tex_coord.y * size.y) + (outline_size.y * float(n - 4.5));
         vec4 h_sum = vec4(0.0);
-        h_sum += texelFetch(t0, ivec2(uv_x - (4.0 * blur_size.x), uv_y), 0);
-        h_sum += texelFetch(t0, ivec2(uv_x - (3.0 * blur_size.x), uv_y), 0);
-        h_sum += texelFetch(t0, ivec2(uv_x - (2.0 * blur_size.x), uv_y), 0);
-        h_sum += texelFetch(t0, ivec2(uv_x - blur_size.x, uv_y), 0);
+        h_sum += texelFetch(t0, ivec2(uv_x - (4.0 * outline_size.x), uv_y), 0);
+        h_sum += texelFetch(t0, ivec2(uv_x - (3.0 * outline_size.x), uv_y), 0);
+        h_sum += texelFetch(t0, ivec2(uv_x - (2.0 * outline_size.x), uv_y), 0);
+        h_sum += texelFetch(t0, ivec2(uv_x - outline_size.x, uv_y), 0);
         h_sum += texelFetch(t0, ivec2(uv_x, uv_y), 0);
-        h_sum += texelFetch(t0, ivec2(uv_x + blur_size.x, uv_y), 0);
-        h_sum += texelFetch(t0, ivec2(uv_x + (2.0 * blur_size.x), uv_y), 0);
-        h_sum += texelFetch(t0, ivec2(uv_x + (3.0 * blur_size.x), uv_y), 0);
-        h_sum += texelFetch(t0, ivec2(uv_x + (4.0 * blur_size.x), uv_y), 0);
+        h_sum += texelFetch(t0, ivec2(uv_x + outline_size.x, uv_y), 0);
+        h_sum += texelFetch(t0, ivec2(uv_x + (2.0 * outline_size.x), uv_y), 0);
+        h_sum += texelFetch(t0, ivec2(uv_x + (3.0 * outline_size.x), uv_y), 0);
+        h_sum += texelFetch(t0, ivec2(uv_x + (4.0 * outline_size.x), uv_y), 0);
         sum += h_sum / 9.0;
     }
 

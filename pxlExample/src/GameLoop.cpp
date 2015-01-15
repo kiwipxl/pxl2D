@@ -56,6 +56,8 @@ void GameLoop::start() {
 		//silly test code stuff
 		batch.start();
 
+		PXL_use_bloom_shader(&batch, 4, 1);
+
 		PXL_Rect rect;
 		PXL_Vec2 origin;
 		rect.x = 400;
@@ -69,7 +71,7 @@ void GameLoop::start() {
 			rect.x = pos[n];
 			rect.y = pos[n + 1];
 			if (pos[n] >= 512) {
-				batch.render_transformed(universe->assets->cat, NULL, &rect, t, &origin);
+				batch.render_transformed(universe->assets->cute_cat, NULL, &rect, t, &origin);
 			}else {
 				batch.render_transformed(universe->assets->cat_2, NULL, &rect, t, &origin);
 			}

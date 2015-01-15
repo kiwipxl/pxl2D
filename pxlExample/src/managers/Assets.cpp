@@ -11,6 +11,7 @@ class Universe {
 void Assets::initiate() {
 	cat = load_texture("cat.png");
 	cat_2 = load_texture("cat2.png");
+	cute_cat = load_texture("cutecat.png");
 }
 
 /**

@@ -16,6 +16,7 @@ class Assets {
 
 		PXL_Texture* cat;
 		PXL_Texture* cat_2;
+		PXL_Texture* cute_cat;
 
 		void initiate();
 
