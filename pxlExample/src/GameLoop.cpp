@@ -66,15 +66,6 @@ void GameLoop::start() {
 		origin.y = rect.h / 2;
 		t += .5f;
 
-		rect.w = (cos(t / 20.0f) + 1) * 512;
-		rect.h = (cos(t / 20.0f) + 1) * 320;
-		rect.x = 0;
-		rect.y = 0;
-		origin.x = rect.w / 2;
-		origin.y = rect.h / 2;
-		batch.add(universe->assets->cat_2, &rect, NULL, 0, 255, 255, 120, 0, &origin, PXL_FLIP_NONE);
-
-		/**
 		for (int n = 0; n < amount * 2; n += 2) {
 			rect.x = pos[n];
 			rect.y = pos[n + 1];
@@ -85,10 +76,9 @@ void GameLoop::start() {
 			if (pos[n] >= 512) {
 				batch.add(universe->assets->cute_cat, &rect, NULL, 0, 120, 200, 120, t, &origin, PXL_FLIP_NONE);
 			}else {
-				batch.add(universe->assets->cat_2, &rect, NULL, 120, 255, 0, 200, t, &origin, PXL_FLIP_NONE);
+				batch.add(universe->assets->cat_2, &rect, NULL, 120, 255, 0, 120, t, &origin, PXL_FLIP_NONE);
 			}
 		}
-		**/
 
 		batch.render_all();
 

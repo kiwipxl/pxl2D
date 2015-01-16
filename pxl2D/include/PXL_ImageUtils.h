@@ -3,6 +3,8 @@
 
 #include <string>
 
+using namespace std;
+
 class PXL_PixelBuffer {
 
 	public:
@@ -19,8 +21,10 @@ class PXL_PixelBuffer {
 		}
 };
 
-using namespace std;
-
+/**
+\*brief: loads the contents of a png image into a PXL_PixelBuffer
+\*param [file_name]: the path and file name of the png to load
+**/
 extern PXL_PixelBuffer* PXL_load_png(string file_name);
 
 #endif

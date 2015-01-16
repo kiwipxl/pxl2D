@@ -14,7 +14,6 @@
     <ClCompile Include="src\PXL.cpp" />
     <ClCompile Include="src\PXL_Batch.cpp" />
     <ClCompile Include="src\PXL_Bitmap.cpp" />
-    <ClCompile Include="src\PXL_VBO.cpp" />
     <ClCompile Include="src\PXL_ImageUtils.cpp" />
     <ClCompile Include="src\PXL_Matrix4.cpp" />
     <ClCompile Include="src\PXL_Texture.cpp" />
@@ -25,7 +24,6 @@
     <ClInclude Include="include\PXL.h" />
     <ClInclude Include="include\PXL_Batch.h" />
     <ClInclude Include="include\PXL_Bitmap.h" />
-    <ClInclude Include="include\PXL_VBO.h" />
     <ClInclude Include="include\PXL_ImageUtils.h" />
     <ClInclude Include="include\PXL_Matrix4.h" />
     <ClInclude Include="include\PXL_Texture.h" />

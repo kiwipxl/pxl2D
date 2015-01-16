@@ -9,8 +9,23 @@ struct PXL_Batch;
 
 using namespace std;
 
+/**
+\*brief: creates a shader program from the specified vertex and fragment shader paths
+\*param [vertex_file]: the path to the vertex shader file
+\*param [fragment_file]: the path to the fragment shader file
+**/
 extern PXL_ShaderProgram* PXL_load_shader(string vertex_file, string fragment_file);
+
+/**
+\*brief: creates a shader program from the specified glsl custom shader path
+\*param [glsl_file]: the path to the glsl shader file
+**/
 extern PXL_ShaderProgram* PXL_load_glsl_shader(string glsl_file);
+
+/**
+\*brief: reads the contents of a file
+\*param [file_name]: the path and file name to load
+**/
 extern string PXL_load_file(string file_name);
 
 //premade pxl glsl shaders
@@ -22,15 +37,70 @@ extern PXL_ShaderProgram* PXL_blur_shader;
 extern PXL_ShaderProgram* PXL_outline_shader;
 extern PXL_ShaderProgram* PXL_outer_glow_shader;
 
+/**
+\*brief: initialises prebuilt shaders, note: this should only ever be called by PXL
+**/
 extern void PXL_shader_init();
 
+/**
+\*brief: sets a prebuilt default shader onto the specified batch
+\*param [batch]: the batch object to set the shader to
+**/
 extern void PXL_use_default_shader(PXL_Batch* batch);
-extern void PXL_use_bloom_shader(PXL_Batch* b, float spread = 2, float intensity = .5f);
+
+/**
+\*brief: sets a prebuilt bloom shader onto the specified batch
+\*param [batch]: the batch object to set the shader to
+\*param [spread]: the bloom spread amount
+\*param [intensity]: the bloom intensity
+**/
+extern void PXL_use_bloom_shader(PXL_Batch* batch, float spread = 2, float intensity = .5f);
+
+/**
+\*brief: sets a prebuilt default shader onto the specified batch
+\*param [batch]: the batch object to set the shader to
+\*param [repeat_x]: the amount of times to repeat textures horizontally
+\*param [repeat_y]: the amount of times to repeat textures vertically
+**/
 extern void PXL_use_repeat_shader(PXL_Batch* batch, float repeat_x = 2, float repeat_y = 2);
+
+/**
+\*brief: sets a prebuilt default shader onto the specified batch
+\*param [batch]: the batch object to set the shader to
+**/
 extern void PXL_use_grayscale_shader(PXL_Batch* batch);
+
+/**
+\*brief: sets a prebuilt default shader onto the specified batch
+\*param [batch]: the batch object to set the shader to
+\*param [spread_x]: the value to blur horizontally
+\*param [spread_y]: the value to blur vertically
+**/
 extern void PXL_use_blur_shader(PXL_Batch* batch, float spread_x = 2, float spread_y = 2);
+
+/**
+\*brief: sets a prebuilt default shader onto the specified batch
+\*param [batch]: the batch object to set the shader to
+\*param [thickness]: the outline thickness
+\*param [r]: red colour for the outline which ranges from 0 to 255
+\*param [g]: green colour for the outline which ranges from 0 to 255
+\*param [b]: blue colour for the outline which ranges from 0 to 255
+\*param [a]: alpha colour for the outline which ranges from 0 to 255
+\*param [threshold]: the value from 0 to 1 which defines in what alpha will the outline be filled in
+**/
 extern void PXL_use_outline_shader(PXL_Batch* batch, 
 								   float thickness = 1, float r = 0, float g = 0, float b = 0, float a = 1, float threshold = .5f);
+
+/**
+\*brief: sets a prebuilt default shader onto the specified batch
+\*param [batch]: the batch object to set the shader to
+\*param [size]: the size of the glow
+\*param [r]: red colour for the outline which ranges from 0 to 255
+\*param [g]: green colour for the outline which ranges from 0 to 255
+\*param [b]: blue colour for the outline which ranges from 0 to 255
+\*param [intensity]: the intensity of the glow
+\*param [threshold]: the value from 0 to 1 which defines in what alpha will the outline be filled in
+**/
 extern void PXL_use_outer_glow_shader(PXL_Batch* batch, float size = 4, float r = 0, float g = 0, float b = 0, 
 									  float intensity = 4, float threshold = .5f);
 

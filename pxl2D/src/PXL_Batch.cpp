@@ -13,18 +13,21 @@ PXL_Batch* PXL_create_batch(PXL_MaxRenders size) {
 }
 
 void PXL_Batch::create_batch(PXL_MaxRenders size) {
-	batch_size = size * 4;
+	max_renders = size * 4;
 
 	//if the batch is already created then delete the vbo
-	if (vbo_created) {
-		free();
-	}else {
-		//free the vbo if it's already being used and create a new vbo object
-		if (vbo != NULL) { vbo->free(); }
-		vbo = new PXL_VBO(size);
-		vbo->vertex_data.clear();
+	if (vbo_created) { free(); }
+
+	{
+		//create the vbo
+		glGenBuffers(1, &vertex_id);
+		glBindBuffer(GL_ARRAY_BUFFER, vertex_id);
+		glBufferData(GL_ARRAY_BUFFER, size * sizeof(PXL_VertexPoint), NULL, GL_STATIC_DRAW);
+		glBindBuffer(GL_ARRAY_BUFFER, NULL);
+
+		vertex_data.clear();
+		vbo_created = true;
 	}
-	vbo_created = true;
 
 	set_shader(PXL_default_shader);
 
@@ -55,7 +58,7 @@ void PXL_Batch::render_all() {
 void PXL_Batch::clear_all() {
 	//reset texture index and vertex data
 	texture_ids.clear();
-	vbo->vertex_data.clear();
+	vertex_data.clear();
 }
 
 void PXL_Batch::set_shader(GLint shader_program_id) {
@@ -116,7 +119,7 @@ void PXL_Batch::add_texture(int texture_id) {
 bool PXL_Batch::verify_texture_add(PXL_Texture* texture, PXL_Rect* rect) {
 	if (texture->texture_created) {
 		if (rect->x + rect->w > 0 && rect->y + rect->h > 0 && rect->x < PXL_screen_width && rect->y < PXL_screen_height) {
-			if (vbo->vertex_data.size() >= batch_size) {
+			if (vertex_data.size() >= max_renders) {
 				throw exception("hit max batch render size");
 			}
 
@@ -130,15 +133,15 @@ void PXL_Batch::add_vertices(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src
 							 float rotation, PXL_Vec2* origin, PXL_Flip flip, 
 							 int r, int g, int b, int a) {
 	//creates 4 new vertex points and adds them to the vertex data
-	int index = vbo->vertex_data.size();
+	int index = vertex_data.size();
 
 	for (int n = 0; n < 4; ++n) {
-		vbo->vertex_data.push_back(PXL_VertexPoint());
+		vertex_data.push_back(PXL_VertexPoint());
 		//set the texture id for the vertex
-		vbo->vertex_data[index + n].texture_id = texture->get_id();
+		vertex_data[index + n].texture_id = texture->get_id();
 	}
 
-	if (index >= vbo->vertex_data.size()) {
+	if (index >= vertex_data.size()) {
 		throw exception("index argument is out of bounds from vertex data");
 	}
 
@@ -149,7 +152,7 @@ void PXL_Batch::add_vertices(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src
 }
 
 void PXL_Batch::set_vertex_pos(int index, PXL_Texture* texture, PXL_Rect* rect, float rotation, PXL_Vec2* origin, PXL_Flip flip) {
-	PXL_VertexPoint* v = &vbo->vertex_data[index];
+	PXL_VertexPoint* v = &vertex_data[index];
 
 	//set origin
 	float origin_x = 0; float origin_y = 0;
@@ -197,7 +200,7 @@ void PXL_Batch::set_vertex_pos(int index, PXL_Texture* texture, PXL_Rect* rect, 
 }
 
 void PXL_Batch::set_vertex_uvs(int index, PXL_Texture* texture, PXL_Rect* src_rect) {
-	PXL_VertexPoint* v = &vbo->vertex_data[index];
+	PXL_VertexPoint* v = &vertex_data[index];
 
 	//default un-normalised uv coords
 	unsigned short uv_x = 0; unsigned short uv_y = 0; unsigned short uv_w = USHRT_MAX; unsigned short uv_h = USHRT_MAX;
@@ -217,7 +220,7 @@ void PXL_Batch::set_vertex_uvs(int index, PXL_Texture* texture, PXL_Rect* src_re
 }
 
 void PXL_Batch::set_vertex_colours(int index, int r, int g, int b, int a) {
-	PXL_VertexPoint* v = &vbo->vertex_data[index];
+	PXL_VertexPoint* v = &vertex_data[index];
 
 	//set vertex colours
 	for (int n = 0; n < 4; ++n) {
@@ -230,11 +233,11 @@ void PXL_Batch::set_vertex_colours(int index, int r, int g, int b, int a) {
 
 void PXL_Batch::draw_vbo() {
 	//if there are no textures to draw or no vertex data then return
-	if (texture_ids.size() == 0 || vbo->vertex_data.size() == 0) { return; }
+	if (texture_ids.size() == 0 || vertex_data.size() == 0) { return; }
 
 	//sort vertex data based on texture ids to minimise binding
 	//stable sort keeps the order the same
-	stable_sort(vbo->vertex_data.begin(), vbo->vertex_data.end(), 
+	stable_sort(vertex_data.begin(), vertex_data.end(), 
 	[](const PXL_VertexPoint& a, const PXL_VertexPoint& b) -> bool {
 		return a.texture_id < b.texture_id;
 	});
@@ -245,15 +248,15 @@ void PXL_Batch::draw_vbo() {
 	//searches through the vertex data to find the offsets of each texture id
 	texture_offsets.clear();
 	int prev_id = INT_MAX;
-	for (int n = 0; n < vbo->vertex_data.size(); ++n) {
-		if (vbo->vertex_data[n].texture_id != prev_id) {
+	for (int n = 0; n < vertex_data.size(); ++n) {
+		if (vertex_data[n].texture_id != prev_id) {
 			texture_offsets.push_back(n * sizeof(PXL_VertexPoint));
-			prev_id = vbo->vertex_data[n].texture_id;
+			prev_id = vertex_data[n].texture_id;
 		}
 	}
 
 	//binds vertex buffer
-	glBindBuffer(GL_ARRAY_BUFFER, vbo->vertex_id);
+	glBindBuffer(GL_ARRAY_BUFFER, vertex_id);
 
 	//set vertex shader attrib pointers
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(PXL_VertexPoint), (void*)offsetof(PXL_VertexPoint, pos));
@@ -269,10 +272,10 @@ void PXL_Batch::draw_vbo() {
 		int offset = texture_offsets[i];
 		int size;
 		if (i < texture_offsets.size() - 1) { size = texture_offsets[i + 1];
-		}else { size = (vbo->vertex_data.size() * sizeof(PXL_VertexPoint)) - offset; }
+		}else { size = (vertex_data.size() * sizeof(PXL_VertexPoint)) - offset; }
 
 		//upload sub data with offset and region size
-		glBufferSubData(GL_ARRAY_BUFFER, offset, size, &vbo->vertex_data[offset / sizeof(PXL_VertexPoint)]);
+		glBufferSubData(GL_ARRAY_BUFFER, offset, size, &vertex_data[offset / sizeof(PXL_VertexPoint)]);
 
 		//draw vertex data from binded buffer
 		glDrawArrays(GL_QUADS, offset / sizeof(PXL_VertexPoint), size / sizeof(PXL_VertexPoint));
@@ -283,29 +286,8 @@ void PXL_Batch::draw_vbo() {
 	glBindTexture(GL_TEXTURE_2D, NULL);
 }
 
-void PXL_Batch::set_colour(float r, float g, float b, float a) {
-	if (vbo->vertex_data.size() == 0) { return; }
-
-	PXL_VertexPoint* v = &vbo->vertex_data[0];
-
-	for (int n = 0; n < vbo->vertex_data.size(); ++n) {
-		v[n].colour.r = r;
-		v[n].colour.g = g;
-		v[n].colour.b = b;
-		v[n].colour.a = a;
-	}
-}
-
-void PXL_Batch::set_filters(PXL_TextureFilter min_filter, PXL_TextureFilter max_filter) {
-	glBindTexture(GL_TEXTURE_2D, id);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, min_filter);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, max_filter);
-	glBindTexture(GL_TEXTURE_2D, NULL);
-}
-
 void PXL_Batch::free() {
-	delete vbo;
-	vbo = NULL;
+	glDeleteBuffers(1, &vertex_id);
 	vbo_created = false;
 }
 
