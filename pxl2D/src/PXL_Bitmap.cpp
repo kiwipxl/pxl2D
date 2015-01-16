@@ -23,7 +23,7 @@ void PXL_Bitmap::load_bitmap(string path) {
 	buffer = PXL_load_png(path);
 	w = buffer->width;
 	h = buffer->height;
-	pixels = buffer->buffer;
+	pixels = &buffer->buffer[0];
 
 	buffer_loaded = true;
 }

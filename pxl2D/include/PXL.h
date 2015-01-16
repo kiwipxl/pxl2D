@@ -4,6 +4,7 @@
 #include "PXL_Batch.h"
 #include "PXL_ShaderUtils.h"
 
+//screen info
 extern int PXL_screen_width;
 extern int PXL_screen_height;
 extern int PXL_center_screen_x;

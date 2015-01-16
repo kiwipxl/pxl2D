@@ -29,6 +29,4 @@ struct PXL_VertexPoint {
 	unsigned int texture_id;
 };
 
-static int PXL_vertex_point_size = sizeof(PXL_VertexPoint) - sizeof(int);
-
 #endif
