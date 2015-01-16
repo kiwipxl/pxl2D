@@ -54,9 +54,7 @@ void GameLoop::start() {
 		std::clock_t start_render = std::clock();
 
 		//silly test code stuff
-		batch.start();
-
-		PXL_use_bloom_shader(&batch, 4, 1);
+		PXL_use_default_shader(&batch);
 
 		PXL_Rect rect;
 		PXL_Vec2 origin;
@@ -67,17 +65,32 @@ void GameLoop::start() {
 		origin.x = rect.w / 2;
 		origin.y = rect.h / 2;
 		t += .5f;
+
+		rect.w = (cos(t / 20.0f) + 1) * 512;
+		rect.h = (cos(t / 20.0f) + 1) * 320;
+		rect.x = 0;
+		rect.y = 0;
+		origin.x = rect.w / 2;
+		origin.y = rect.h / 2;
+		batch.add(universe->assets->cat_2, &rect, NULL, 0, 255, 255, 120, 0, &origin, PXL_FLIP_NONE);
+
+		/**
 		for (int n = 0; n < amount * 2; n += 2) {
 			rect.x = pos[n];
 			rect.y = pos[n + 1];
+			if (n >= amount - 1 && n <= amount + 1) {
+				batch.render_all();
+				PXL_use_bloom_shader(&batch);
+			}
 			if (pos[n] >= 512) {
-				batch.render_transformed(universe->assets->cute_cat, NULL, &rect, t, &origin);
+				batch.add(universe->assets->cute_cat, &rect, NULL, 0, 120, 200, 120, t, &origin, PXL_FLIP_NONE);
 			}else {
-				batch.render_transformed(universe->assets->cat_2, NULL, &rect, t, &origin);
+				batch.add(universe->assets->cat_2, &rect, NULL, 120, 255, 0, 200, t, &origin, PXL_FLIP_NONE);
 			}
 		}
+		**/
 
-		batch.end();
+		batch.render_all();
 
 		//swaps back buffer to front buffer
 		SDL_GL_SwapWindow(universe->win_manager->window);

@@ -23,11 +23,21 @@ void PXL_Batch::create_batch(PXL_MaxRenders size) {
 		if (vbo != NULL) { vbo->free(); }
 		vbo = new PXL_VBO(size);
 		vbo->vertex_data.clear();
-		texture_ids.assign(size, INT_MAX);
 	}
 	vbo_created = true;
 
-	use_shader(PXL_default_shader);
+	set_shader(PXL_default_shader);
+
+	//set perspective matrix to screen coordinates and translate to 0,0 top left
+	view_mat.identity();
+	perspective_mat.identity();
+
+	perspective_mat.scale(1.0f / PXL_center_screen_x, -1.0f / PXL_center_screen_y);
+	perspective_mat.translate(-1.0f, 1.0f);
+
+	//enable alpha blending
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	//enable vertex attrib pointers when rendering
 	glEnableVertexAttribArray(0);
@@ -36,106 +46,95 @@ void PXL_Batch::create_batch(PXL_MaxRenders size) {
 	glEnableVertexAttribArray(3);
 }
 
-void PXL_Batch::start() {
-
+void PXL_Batch::render_all() {
+	//draw vbo and clear all data
+	draw_vbo();
+	clear_all();
 }
 
-void PXL_Batch::end() {
-	//flush vbo and reset texture index and vertex data
-	draw_vbo();
-	texture_ids.assign(texture_index, INT_MAX);
-	texture_index = 0;
+void PXL_Batch::clear_all() {
+	//reset texture index and vertex data
+	texture_ids.clear();
 	vbo->vertex_data.clear();
 }
 
-void PXL_Batch::use_shader(GLint program_id) {
-	//set perspective matrix to screen coordinates and translate to 0,0 top left
-	view_mat.identity();
-	perspective_mat.identity();
-
-	perspective_mat.scale(1.0f / PXL_center_screen_x, -1.0f / PXL_center_screen_y);
-	perspective_mat.translate(-1.0f, 1.0f);
-
+void PXL_Batch::set_shader(GLint shader_program_id) {
 	//use specified program id
-	glUseProgram(program_id);
+	glUseProgram(shader_program_id);
 
-	//enable alpha blending
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	//set matrix uniform in the specified shader
+	//set matrix uniform in the vertex shader for the program
 	glUniformMatrix4fv(glGetUniformLocation(3, "matrix"), 1, true, (view_mat * perspective_mat).get_mat());
 }
 
-void PXL_Batch::use_shader(PXL_ShaderProgram* program) {
-	use_shader(program->get_program_id());
+void PXL_Batch::set_shader(PXL_ShaderProgram* shader) {
+	set_shader(shader->get_program_id());
 }
 
-void PXL_Batch::render(PXL_Texture* texture, PXL_Rect* src_rect, PXL_Rect* rect) {
-	if (texture->texture_created) {
-		if (rect->x + rect->w < 0 || rect->y + rect->h < 0 || 
-			rect->x > PXL_screen_width || rect->y > PXL_screen_height) {
-			return;
-		}
-		if (vbo->vertex_data.size() >= batch_size) {
-			throw exception("hit max batch render size");
-		}
-
+void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect) {
+	if (verify_texture_add(texture, rect)) {
 		add_texture(texture->get_id());
-		set_vbo(vbo->vertex_data.size(), texture, rect, src_rect);
+		add_vertices(texture, rect, src_rect);
 	}
 }
 
-void PXL_Batch::render_transformed(PXL_Texture* texture, PXL_Rect* src_rect, PXL_Rect* rect,
-								float angle, PXL_Vec2* origin, PXL_Flip flip) {
-	if (texture->texture_created) {
-		if (rect->x + rect->w < 0 || rect->y + rect->h < 0 ||
-			rect->x > PXL_screen_width || rect->y > PXL_screen_height) {
-			return;
-		}
-		if (vbo->vertex_data.size() >= batch_size) {
-			throw exception("hit max batch render size");
-		}
-
-		float scale_x = rect->w / texture->get_width(); float scale_y = rect->h / texture->get_height();
-		switch (flip) {
-			case PXL_FLIP_NONE:
-				break;
-			case PXL_FLIP_HORIZONTAL:
-				break;
-			case PXL_FLIP_VERTICAL:
-				break;
-		}
-
+void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, PXL_Flip flip) {
+	if (verify_texture_add(texture, rect)) {
 		add_texture(texture->get_id());
-		set_vbo(vbo->vertex_data.size(), texture, rect, src_rect);
+		add_vertices(texture, rect, src_rect);
+	}
+}
 
-		PXL_VertexPoint* v = &vbo->vertex_data[0];
+void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, float rotation, PXL_Vec2* origin, PXL_Flip flip) {
+	if (verify_texture_add(texture, rect)) {
+		add_texture(texture->get_id());
+		add_vertices(texture, rect, src_rect, rotation, origin, flip);
+	}
+}
 
-		if (angle != 0) {
-			angle = angle / (180.0f / 3.14f);
-			float c = cos(angle); float s = sin(angle);
-			int index = vbo->vertex_data.size() - 4;
+void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, int r, int g, int b, int a, PXL_Flip flip) {
+	if (verify_texture_add(texture, rect)) {
+		add_texture(texture->get_id());
+		add_vertices(texture, rect, src_rect, 0, NULL, flip, r, g, b, a);
+	}
+}
 
-			for (int n = index; n < index + 4; ++n) {
-				int x = v[n].pos.x - origin->x - rect->x; int y = v[n].pos.y - origin->y - rect->y;
-				v[n].pos.x = ((c * x) - (s * y)) + rect->x + origin->x;
-				v[n].pos.y = ((s * x) + (c * y)) + rect->y + origin->y;
-			}
-		}
+void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, int r, int g, int b, int a, 
+					float rotation, PXL_Vec2* origin, PXL_Flip flip) {
+	if (verify_texture_add(texture, rect)) {
+		add_texture(texture->get_id());
+		add_vertices(texture, rect, src_rect, rotation, origin, flip, r, g, b, a);
 	}
 }
 
 void PXL_Batch::add_texture(int texture_id) {
 	//if texture id is not already in texture ids vector then add it
 	if (find(texture_ids.begin(), texture_ids.end(), texture_id) == texture_ids.end()) {
-		texture_ids[texture_index] = texture_id; ++texture_index;
+		texture_ids.push_back(texture_id);
 	}
 }
 
-bool PXL_Batch::set_vbo(int index, PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect) {
+bool PXL_Batch::verify_texture_add(PXL_Texture* texture, PXL_Rect* rect) {
+	if (texture->texture_created) {
+		if (rect->x + rect->w > 0 && rect->y + rect->h > 0 && rect->x < PXL_screen_width && rect->y < PXL_screen_height) {
+			if (vbo->vertex_data.size() >= batch_size) {
+				throw exception("hit max batch render size");
+			}
+
+			return true;
+		}
+	}
+	return false;
+}
+
+void PXL_Batch::add_vertices(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, 
+							 float rotation, PXL_Vec2* origin, PXL_Flip flip, 
+							 int r, int g, int b, int a) {
+	//creates 4 new vertex points and adds them to the vertex data
+	int index = vbo->vertex_data.size();
+
 	for (int n = 0; n < 4; ++n) {
 		vbo->vertex_data.push_back(PXL_VertexPoint());
+		//set the texture id for the vertex
 		vbo->vertex_data[index + n].texture_id = texture->get_id();
 	}
 
@@ -143,34 +142,95 @@ bool PXL_Batch::set_vbo(int index, PXL_Texture* texture, PXL_Rect* rect, PXL_Rec
 		throw exception("index argument is out of bounds from vertex data");
 	}
 
-	PXL_VertexPoint* v = &vbo->vertex_data[0];
+	//set vertex pos, uvs and colours
+	set_vertex_pos(index, texture, rect, rotation, origin, flip);
+	set_vertex_uvs(index, texture, src_rect);
+	set_vertex_colours(index, r, g, b, a);
+}
 
+void PXL_Batch::set_vertex_pos(int index, PXL_Texture* texture, PXL_Rect* rect, float rotation, PXL_Vec2* origin, PXL_Flip flip) {
+	PXL_VertexPoint* v = &vbo->vertex_data[index];
+
+	//set origin
+	float origin_x = 0; float origin_y = 0;
+	if (origin != NULL) { origin_x = origin->x; origin_y = origin->y; }
+
+	//get positions from rect
+	int x = rect->x - origin_x; int y = rect->y - origin_y;
+
+	//set scale
+	float scale_x = rect->w / texture->get_width(); float scale_y = rect->h / texture->get_height();
+	switch (flip) {
+		case PXL_FLIP_NONE:
+			break;
+		case PXL_FLIP_HORIZONTAL:
+			scale_x = -scale_x;
+			x += rect->w;
+			origin_x -= rect->w;
+			break;
+		case PXL_FLIP_VERTICAL:
+			scale_y = -scale_y;
+			y += rect->h;
+			origin_y -= rect->h;
+			break;
+	}
+
+	//set vertex position including scale
+	v[0].pos.x = x;											v[0].pos.y = y;
+	v[1].pos.x = x + (texture->get_width() * scale_x);		v[1].pos.y = y;
+	v[2].pos.x = x + (texture->get_width() * scale_x);		v[2].pos.y = y + (texture->get_height() * scale_y);
+	v[3].pos.x = x;											v[3].pos.y = y + (texture->get_height() * scale_y);
+
+	//apply rotation
+	if (rotation != 0) {
+		//set rotation to degrees rather than radians
+		rotation = rotation / (180.0f / 3.14f);
+		float c = cos(rotation); float s = sin(rotation);
+
+		//apply rotation transformation
+		for (int n = 0; n < 4; ++n) {
+			int v_x = (v[n].pos.x - origin_x) - x; int v_y = (v[n].pos.y - origin_y) - y;
+			v[n].pos.x = ((c * v_x) - (s * v_y)) + x + origin_x;
+			v[n].pos.y = ((s * v_x) + (c * v_y)) + y + origin_y;
+		}
+	}
+}
+
+void PXL_Batch::set_vertex_uvs(int index, PXL_Texture* texture, PXL_Rect* src_rect) {
+	PXL_VertexPoint* v = &vbo->vertex_data[index];
+
+	//default un-normalised uv coords
 	unsigned short uv_x = 0; unsigned short uv_y = 0; unsigned short uv_w = USHRT_MAX; unsigned short uv_h = USHRT_MAX;
 	if (src_rect != NULL) {
+		//calculate uv x, y, w, h by the src rect
 		uv_x = (src_rect->x / texture->get_width()) * USHRT_MAX; uv_y = (src_rect->y / texture->get_height()) * USHRT_MAX;
 		uv_w = (src_rect->w / texture->get_width()) * USHRT_MAX; uv_h = (src_rect->h / texture->get_height()) * USHRT_MAX;
 	}
 
+	//set uv coordinates
 	if (src_rect == NULL) {
-		v[index].uv.x = uv_x;											v[index].uv.y = uv_y;
-		v[index + 1].uv.x = uv_x + uv_w;								v[index + 1].uv.y = uv_y;
-		v[index + 2].uv.x = uv_x + uv_w;								v[index + 2].uv.y = uv_y + uv_h;
-		v[index + 3].uv.x = uv_x;										v[index + 3].uv.y = uv_y + uv_h;
+		v[0].uv.x = uv_x;										v[0].uv.y = uv_y;
+		v[1].uv.x = uv_x + uv_w;								v[1].uv.y = uv_y;
+		v[2].uv.x = uv_x + uv_w;								v[2].uv.y = uv_y + uv_h;
+		v[3].uv.x = uv_x;										v[3].uv.y = uv_y + uv_h;
 	}
+}
 
-	float scale_x = rect->w / texture->get_width(); float scale_y = rect->h / texture->get_height();
+void PXL_Batch::set_vertex_colours(int index, int r, int g, int b, int a) {
+	PXL_VertexPoint* v = &vbo->vertex_data[index];
 
-	v[index].pos.x = rect->x;											v[index].pos.y = rect->y;
-	v[index + 1].pos.x = rect->x + (texture->get_width() * scale_x);	v[index + 1].pos.y = rect->y;
-	v[index + 2].pos.x = rect->x + (texture->get_width() * scale_x);	v[index + 2].pos.y = rect->y + (texture->get_height() * scale_y);
-	v[index + 3].pos.x = rect->x;										v[index + 3].pos.y = rect->y + (texture->get_height() * scale_y);
-
-	return true;
+	//set vertex colours
+	for (int n = 0; n < 4; ++n) {
+		v[n].colour.r = r;
+		v[n].colour.g = g;
+		v[n].colour.b = b;
+		v[n].colour.a = a;
+	}
 }
 
 void PXL_Batch::draw_vbo() {
 	//if there are no textures to draw or no vertex data then return
-	if (texture_index == 0 || vbo->vertex_data.size() == 0) { return; }
+	if (texture_ids.size() == 0 || vbo->vertex_data.size() == 0) { return; }
 
 	//sort vertex data based on texture ids to minimise binding
 	//stable sort keeps the order the same
@@ -202,7 +262,7 @@ void PXL_Batch::draw_vbo() {
 	glVertexAttribPointer(3, 1, GL_UNSIGNED_INT, GL_TRUE, sizeof(PXL_VertexPoint), (void*)offsetof(PXL_VertexPoint, texture_id));
 
 	//loops through each texture and draws the vertex data with that texture id
-	for (int i = 0; i < texture_index; ++i) {
+	for (int i = 0; i < texture_ids.size(); ++i) {
 		glBindTexture(GL_TEXTURE_2D, texture_ids[i]);
 
 		//gets the offset and calculates the vertex data size for the texture

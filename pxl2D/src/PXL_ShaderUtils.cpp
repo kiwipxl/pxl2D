@@ -30,38 +30,38 @@ void PXL_shader_init() {
 }
 
 void PXL_use_default_shader(PXL_Batch* batch) {
-	batch->use_shader(PXL_default_shader);
+	batch->set_shader(PXL_default_shader);
 }
 
 void PXL_use_bloom_shader(PXL_Batch* batch, float spread, float intensity) {
-	batch->use_shader(PXL_bloom_shader);
+	batch->set_shader(PXL_bloom_shader);
 	glUniform1f(glGetUniformLocation(PXL_bloom_shader->get_program_id(), "outline_spread"), spread);
 	glUniform1f(glGetUniformLocation(PXL_bloom_shader->get_program_id(), "outline_intensity"), intensity);
 }
 
 void PXL_use_repeat_shader(PXL_Batch* batch, float repeat_x, float repeat_y) {
-	batch->use_shader(PXL_repeat_shader);
+	batch->set_shader(PXL_repeat_shader);
 	glUniform2f(glGetUniformLocation(PXL_repeat_shader->get_program_id(), "repeat"), repeat_x, repeat_y);
 }
 
 void PXL_use_grayscale_shader(PXL_Batch* batch) {
-	batch->use_shader(PXL_grayscale_shader);
+	batch->set_shader(PXL_grayscale_shader);
 }
 
 void PXL_use_blur_shader(PXL_Batch* batch, float spread_x, float spread_y) {
-	batch->use_shader(PXL_blur_shader);
+	batch->set_shader(PXL_blur_shader);
 	glUniform2f(glGetUniformLocation(PXL_blur_shader->get_program_id(), "outline_size"), spread_x, spread_y);
 }
 
 void PXL_use_outline_shader(PXL_Batch* batch, float thickness, float r, float g, float b, float a, float threshold) {
-	batch->use_shader(PXL_outline_shader);
+	batch->set_shader(PXL_outline_shader);
 	glUniform1f(glGetUniformLocation(PXL_outline_shader->get_program_id(), "outline_thickness"), thickness);
 	glUniform4f(glGetUniformLocation(PXL_outline_shader->get_program_id(), "outline_colour"), r, g, b, a);
 	glUniform1f(glGetUniformLocation(PXL_outline_shader->get_program_id(), "outline_threshold"), threshold);
 }
 
 void PXL_use_outer_glow_shader(PXL_Batch* batch, float size, float r, float g, float b, float intensity, float threshold) {
-	batch->use_shader(PXL_outer_glow_shader);
+	batch->set_shader(PXL_outer_glow_shader);
 	glUniform1f(glGetUniformLocation(PXL_outline_shader->get_program_id(), "outline_size"), size);
 	glUniform3f(glGetUniformLocation(PXL_outline_shader->get_program_id(), "outline_colour"), r, g, b);
 	glUniform1f(glGetUniformLocation(PXL_outline_shader->get_program_id(), "outline_threshold"), threshold);
