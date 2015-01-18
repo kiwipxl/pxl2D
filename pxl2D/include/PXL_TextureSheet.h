@@ -21,7 +21,7 @@ class PXL_TextureSheet : public PXL_Texture {
 		~PXL_TextureSheet();
 
 		//sheet info
-		bool background_blending = false;
+		bool alpha_blending = true;
 
 		/**
 		\*brief: creates the texture sheet from all added bitmaps and textures
@@ -52,22 +52,19 @@ class PXL_TextureSheet : public PXL_Texture {
 		/**
 		\*brief: sets the background colour where no textures are when the sheet is created
 		\*param [r, g, b, a]: colour values ranging from 0 to 255 that define the background colour
-		\*param [blending]: defines whether alpha images will be filled with the background colour
 		**/
-		void set_background_colour(int r, int g, int b, int a, bool blending = false);
+		void set_background_colour(int r, int g, int b, int a);
 		/**
 		\*brief: sets the background colour where no textures are when the sheet is created
 		\*param: vector of r, g, b, a colours
-		\*param [blending]: defines whether alpha images will be filled with the background colour
 		**/
-		void set_background_colour(PXL_RGBA colour, bool blending = false);
+		void set_background_colour(PXL_RGBA colour);
 
 		/**
 		\*brief: sets the background colour where no textures are when the sheet is created
 		\*param: vector of r, g, b, a colours
-		\*param [blending]: defines whether alpha images will be filled with the background colour
 		**/
-		void set_background_colour(PXL_Vec4 colour, bool blending = false);
+		void set_background_colour(PXL_Vec4 colour);
 
 		/**
 		\*brief: deletes all texture sheet information

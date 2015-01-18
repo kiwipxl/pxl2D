@@ -29,7 +29,6 @@ void GameLoop::start() {
 	sheet_rect.x = 0; sheet_rect.y = 0; sheet_rect.w = 1024; sheet_rect.h = 512;
 	PXL_Batch batch = PXL_Batch(PXL_LARGE_BATCH);
 	PXL_TextureSheet sheet;
-	sheet.set_background_colour(200, 120, 40, 255, false);
 	sheet.add(universe->assets->cat, &sheet_rect);
 	sheet_rect.x = 700; sheet_rect.y = 0; sheet_rect.w = 512; sheet_rect.h = 256;
 	sheet.add(universe->assets->cute_cat, &sheet_rect);
@@ -87,8 +86,6 @@ void GameLoop::start() {
 		origin.y = rect.h / 2;
 		t += .5f;
 
-		batch.add(&sheet, &sheet_rect, NULL, 120, 255, 255, 255, t, &sheet_origin, PXL_FLIP_NONE);
-
 		for (int n = 0; n < amount * 2; n += 2) {
 			rect.x = pos[n] + rect.w;
 			rect.y = pos[n + 1] + rect.h;
@@ -102,6 +99,8 @@ void GameLoop::start() {
 				batch.add(universe->assets->cat, &rect, NULL, 200, 220, 120, 240, t, &origin, PXL_FLIP_NONE);
 			}
 		}
+
+		batch.add(&sheet, &sheet_rect, NULL, 120, 255, 255, 255, t, &sheet_origin, PXL_FLIP_NONE);
 
 		batch.render_all();
 

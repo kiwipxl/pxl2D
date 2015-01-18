@@ -6,6 +6,7 @@ PXL_TextureSheet::PXL_TextureSheet() {
 	texture_created = false;
 	width = 0;
 	height = 0;
+	set_background_colour(0, 0, 0, 0);
 }
 
 void PXL_TextureSheet::create() {
@@ -18,19 +19,12 @@ void PXL_TextureSheet::create() {
 	//initialise pixel array for sheet based on sheet width/height multiplied by 4 (r, g, b, a)
 	int arr_size = (width * height) * 4;
 	pixels = new char[arr_size];
-	//set each pixel to the background colour if background blending is true
+	//set each pixel to the background colour
 	for (int n = 0; n < arr_size; n += 4) {
-		if (background_blending) {
-			pixels[n] = (char)bg_colour.r;
-			pixels[n + 1] = (char)bg_colour.g;
-			pixels[n + 2] = (char)bg_colour.b;
-			pixels[n + 3] = (char)bg_colour.a;
-		}else {
-			pixels[n] = 0;
-			pixels[n + 1] = 0;
-			pixels[n + 2] = 0;
-			pixels[n + 3] = 0;
-		}
+		pixels[n] = (char)bg_colour.r;
+		pixels[n + 1] = (char)bg_colour.g;
+		pixels[n + 2] = (char)bg_colour.b;
+		pixels[n + 3] = (char)bg_colour.a;
 	}
 
 	//loops through all pixel data and copy it into the pixel array
@@ -53,20 +47,16 @@ void PXL_TextureSheet::create() {
 
 				char value = buffer->buffer[buffer_index];
 
-				//checks whether the current value is an alpha pixel
-				if (n % 4 == 3) {
+				//checks whether the current pixel value is red
+				if (n % 4 == 0) {
 					//calculate pixel offset x based on scale x
 					offset_x += (scale_x - 1) * 4;
 
-					//if background blending is enabled, check whether the alpha is greater than 1 
-					//and set the colour to the bg colour
-					if (background_blending) {
-						if (value >= 0) {
-							pixels[index + n - 3] = bg_colour.r;
-							pixels[index + n - 2] = bg_colour.g;
-							pixels[index + n - 1] = bg_colour.b;
-							value = bg_colour.a;
-						}
+					//if alpha blending is on, check whether the alpha value for the current pixel 
+					//is greater than 0 and skip the current pixel as a previous pixel has already been placed
+					if (alpha_blending && buffer->buffer[buffer_index + 3] >= 0) {
+						n += 3;
+						continue;
 					}
 				}
 
@@ -92,31 +82,25 @@ void PXL_TextureSheet::create() {
 /**
 \*brief: sets the background colour where no textures are when the sheet is created
 \*param [r, g, b, a] colour values ranging from 0 to 255 that define the background colour
-\*param [blending]: defines whether alpha images will be filled with the background colour
 **/
-void PXL_TextureSheet::set_background_colour(int r, int g, int b, int a, bool blending) {
+void PXL_TextureSheet::set_background_colour(int r, int g, int b, int a) {
 	bg_colour.r = r; bg_colour.g = g; bg_colour.b = b; bg_colour.a = a;
-	background_blending = blending;
 }
 
 /**
 \*brief: sets the background colour where no textures are when the sheet is created
 \*param: vector of r, g, b, a colours
-\*param [blending]: defines whether alpha images will be filled with the background colour
 **/
-void PXL_TextureSheet::set_background_colour(PXL_RGBA colour, bool blending) {
+void PXL_TextureSheet::set_background_colour(PXL_RGBA colour) {
 	bg_colour = colour;
-	background_blending = blending;
 }
 
 /**
 \*brief: sets the background colour where no textures are when the sheet is created
 \*param: vector of r, g, b, a colours
-\*param [blending]: defines whether alpha images will be filled with the background colour
 **/
-void PXL_TextureSheet::set_background_colour(PXL_Vec4 colour, bool blending) {
+void PXL_TextureSheet::set_background_colour(PXL_Vec4 colour) {
 	bg_colour.r = colour.x; bg_colour.g = colour.y; bg_colour.b = colour.z; bg_colour.a = colour.w;
-	blending = background_blending;
 }
 
 void PXL_TextureSheet::add(PXL_Bitmap* bitmap, PXL_Rect* rect) {
