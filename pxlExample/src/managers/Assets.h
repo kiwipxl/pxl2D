@@ -23,7 +23,7 @@ class Assets {
 		/**
 		loads an image in the assets folder and returns a texture from it
 		**/
-		PXL_Texture* load_texture(char* path, bool dispose_surface = true);
+		PXL_Texture* load_texture(char* path);
 
 		/**
 		free memory from all textures loaded

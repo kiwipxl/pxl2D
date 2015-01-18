@@ -19,6 +19,7 @@
     <ClCompile Include="src\PXL_Texture.cpp" />
     <ClCompile Include="src\PXL_ShaderUtils.cpp" />
     <ClCompile Include="src\PXL_ShaderProgram.cpp" />
+    <ClCompile Include="src\PXL_TextureSheet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\PXL.h" />
@@ -30,6 +31,7 @@
     <ClInclude Include="include\PXL_Structs.h" />
     <ClInclude Include="include\PXL_ShaderUtils.h" />
     <ClInclude Include="include\PXL_ShaderProgram.h" />
+    <ClInclude Include="include\PXL_TextureSheet.h" />
     <ClInclude Include="include\PXL_VertexPoint.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

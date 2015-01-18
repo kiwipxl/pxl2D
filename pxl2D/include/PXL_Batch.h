@@ -8,6 +8,7 @@
 #include "PXL_Matrix4.h"
 #include "PXL_Structs.h"
 #include "PXL_ShaderUtils.h"
+#include "PXL_TextureSheet.h"
 
 enum PXL_Flip {
 	PXL_FLIP_NONE,
@@ -64,6 +65,14 @@ class PXL_Batch {
 		\*param [src_rect]: specifies which part of the texture to use, NULL to use the whole texture
 		**/
 		void add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect);
+
+		/**
+		\*brief: adds the specified texture to the render queue
+		\*param [texture]: the texture to add to the batch
+		\*param [rect]: specifies where on the screen the texture will be rendered to
+		\*param [src_rect]: specifies which part of the texture to use, NULL to use the whole texture
+		**/
+		void add(PXL_TextureSheet* sheet, PXL_Rect* rect, PXL_Rect* src_rect);
 
 		/**
 		\*brief: adds the specified texture with it's transformations to the render queue

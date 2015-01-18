@@ -80,6 +80,13 @@ void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect) {
 	}
 }
 
+void PXL_Batch::add(PXL_TextureSheet* texture, PXL_Rect* rect, PXL_Rect* src_rect) {
+	//if (verify_texture_add(texture, rect)) {
+		//add_texture(texture->get_id());
+		//add_vertices(texture, rect, src_rect);
+	//}
+}
+
 void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, PXL_Flip flip) {
 	if (verify_texture_add(texture, rect)) {
 		add_texture(texture->get_id());
@@ -211,12 +218,10 @@ void PXL_Batch::set_vertex_uvs(int index, PXL_Texture* texture, PXL_Rect* src_re
 	}
 
 	//set uv coordinates
-	if (src_rect == NULL) {
-		v[0].uv.x = uv_x;										v[0].uv.y = uv_y;
-		v[1].uv.x = uv_x + uv_w;								v[1].uv.y = uv_y;
-		v[2].uv.x = uv_x + uv_w;								v[2].uv.y = uv_y + uv_h;
-		v[3].uv.x = uv_x;										v[3].uv.y = uv_y + uv_h;
-	}
+	v[0].uv.x = uv_x;										v[0].uv.y = uv_y;
+	v[1].uv.x = uv_x + uv_w;								v[1].uv.y = uv_y;
+	v[2].uv.x = uv_x + uv_w;								v[2].uv.y = uv_y + uv_h;
+	v[3].uv.x = uv_x;										v[3].uv.y = uv_y + uv_h;
 }
 
 void PXL_Batch::set_vertex_colours(int index, int r, int g, int b, int a) {
@@ -280,10 +285,6 @@ void PXL_Batch::draw_vbo() {
 		//draw vertex data from binded buffer
 		glDrawArrays(GL_QUADS, offset / sizeof(PXL_VertexPoint), size / sizeof(PXL_VertexPoint));
 	}
-
-	//unbind buffers
-	glBindBuffer(GL_ARRAY_BUFFER, NULL);
-	glBindTexture(GL_TEXTURE_2D, NULL);
 }
 
 void PXL_Batch::free() {

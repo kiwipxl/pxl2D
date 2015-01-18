@@ -24,7 +24,28 @@ void GameLoop::start() {
 
 	SDL_JoystickEventState(SDL_ENABLE);
 
+	PXL_Rect sheet_rect;
+	PXL_Vec2 sheet_origin;
+	sheet_rect.x = 0; sheet_rect.y = 0; sheet_rect.w = 1024; sheet_rect.h = 512;
 	PXL_Batch batch = PXL_Batch(PXL_LARGE_BATCH);
+	PXL_TextureSheet sheet;
+	sheet.set_background_colour(200, 120, 40, 255, true);
+	sheet.add(universe->assets->cat, &sheet_rect);
+	sheet_rect.x = 700; sheet_rect.y = 0; sheet_rect.w = 512; sheet_rect.h = 256;
+	sheet.add(universe->assets->cute_cat, &sheet_rect);
+	sheet.create();
+	sheet_rect.x = 400;
+	sheet_rect.y = 200;
+	sheet_rect.w = 1024;
+	sheet_rect.h = 200;
+	sheet.add(universe->assets->cat_2, &sheet_rect);
+	sheet.create();
+	sheet_rect.w = sheet.get_width();
+	sheet_rect.h = sheet.get_height();
+	sheet_rect.x = sheet_rect.w / 2;
+	sheet_rect.y = sheet_rect.h / 2;
+	sheet_origin.x = sheet_rect.w / 2;
+	sheet_origin.y = sheet_rect.h / 2;
 
 	int amount = 25;
 	int* pos = new int[amount * 2];
@@ -66,9 +87,11 @@ void GameLoop::start() {
 		origin.y = rect.h / 2;
 		t += .5f;
 
+		batch.add(&sheet, &sheet_rect, NULL, 255, 255, 255, 255, t, &sheet_origin, PXL_FLIP_NONE);
+
 		for (int n = 0; n < amount * 2; n += 2) {
-			rect.x = pos[n];
-			rect.y = pos[n + 1];
+			rect.x = pos[n] + rect.w;
+			rect.y = pos[n + 1] + rect.h;
 			if (n >= amount - 1 && n <= amount + 1) {
 				batch.render_all();
 				PXL_use_bloom_shader(&batch);
@@ -76,7 +99,7 @@ void GameLoop::start() {
 			if (pos[n] >= 512) {
 				batch.add(universe->assets->cute_cat, &rect, NULL, 0, 120, 200, 120, t, &origin, PXL_FLIP_NONE);
 			}else {
-				batch.add(universe->assets->cat_2, &rect, NULL, 120, 255, 0, 120, t, &origin, PXL_FLIP_NONE);
+				batch.add(universe->assets->cat_2, &rect, NULL, 255, 255, 255, 255, t, &origin, PXL_FLIP_NONE);
 			}
 		}
 

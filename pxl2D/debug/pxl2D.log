@@ -1,35 +1,25 @@
-﻿Build started 17/01/2015 1:06:02 AM.
+﻿Build started 19/01/2015 1:30:57 AM.
      1>Project "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\pxl2D.vcxproj" on node 2 (Build target(s)).
      1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(364,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt src\PXL.cpp src\PXL_Batch.cpp src\PXL_ShaderUtils.cpp
-         PXL.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\pxl_batch.h(25): warning C4099: 'PXL_Batch' : type name first seen using 'struct' now seen using 'class'
-                 c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\pxl_shaderutils.h(8) : see declaration of 'PXL_Batch'
-         Generating Code...
-         Compiling...
-         PXL_ShaderUtils.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\pxl_batch.h(25): warning C4099: 'PXL_Batch' : type name first seen using 'struct' now seen using 'class'
-                 c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\pxl_shaderutils.h(8) : see declaration of 'PXL_Batch'
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_shaderutils.cpp(101): warning C4244: 'initializing' : conversion from 'std::streamsize' to 'unsigned int', possible loss of data
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt src\PXL_Batch.cpp
          PXL_Batch.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\pxl_batch.h(25): warning C4099: 'PXL_Batch' : type name first seen using 'struct' now seen using 'class'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\pxl_batch.h(26): warning C4099: 'PXL_Batch' : type name first seen using 'struct' now seen using 'class'
                  c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\pxl_shaderutils.h(8) : see declaration of 'PXL_Batch'
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(122): warning C4018: '>=' : signed/unsigned mismatch
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(144): warning C4018: '>=' : signed/unsigned mismatch
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(162): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(171): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(176): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(182): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(183): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(185): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(195): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(209): warning C4244: '=' : conversion from 'float' to 'unsigned short', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(210): warning C4244: '=' : conversion from 'float' to 'unsigned short', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(251): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(268): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(274): warning C4018: '<' : signed/unsigned mismatch
-         Generating Code...
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(129): warning C4018: '>=' : signed/unsigned mismatch
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(151): warning C4018: '>=' : signed/unsigned mismatch
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(169): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(178): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(183): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(189): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(190): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(192): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(202): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(216): warning C4244: '=' : conversion from 'float' to 'unsigned short', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(217): warning C4244: '=' : conversion from 'float' to 'unsigned short', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(256): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(273): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_batch.cpp(279): warning C4018: '<' : signed/unsigned mismatch
        Lib:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\lib\pxl2D\pxl2D.lib" libpng.lib zlib.lib /NOLOGO Debug\PXL.obj
          Debug\PXL_Batch.obj
@@ -39,6 +29,7 @@
          Debug\PXL_Texture.obj
          Debug\PXL_ShaderUtils.obj
          Debug\PXL_ShaderProgram.obj
+         Debug\PXL_TextureSheet.obj
      1>zlib.lib(zlib1.dll) : warning LNK4006: _DllGetVersion already defined in libpng.lib(libpng12.dll); second definition ignored
      1>zlib.lib(zlib1.dll) : warning LNK4006: __imp__DllGetVersion already defined in libpng.lib(libpng12.dll); second definition ignored
      1>zlib.lib(zlib1.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
@@ -49,4 +40,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:02.60
+Time Elapsed 00:00:01.29

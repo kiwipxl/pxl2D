@@ -11,6 +11,16 @@ void read_png(png_structp read, png_bytep data, png_size_t length);
 
 ifstream file;
 
+/**
+\*brief: clamps a value from min to max
+\*param [v]: float value
+\*param [min]: min float value
+\*param [max]: max float value
+**/
+extern float PXL_clamp(float v, float min, float max) {
+	return v < min ? min : v && v > max ? max : v;
+}
+
 PXL_PixelBuffer* PXL_load_png(string file_name) {
 	file.open(file_name, ios::binary);
 
@@ -50,7 +60,8 @@ PXL_PixelBuffer* PXL_load_png(string file_name) {
 	buffer->height = png_height;
 
 	const unsigned int row_length = buffer->width * ((bit_depth * channels) / 8);
-	buffer->buffer = new char[row_length * buffer->height];
+	buffer->buffer_size = row_length * buffer->height;
+	buffer->buffer = new char[buffer->buffer_size];
 
 	png_bytep* row_pointers = new png_bytep[buffer->height];
 	for (int y = 0; y < buffer->height; ++y) {

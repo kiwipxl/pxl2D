@@ -16,7 +16,7 @@ PXL_Texture* PXL_create_texture(PXL_Bitmap* bitmap) {
 
 void PXL_Texture::create_texture(PXL_Bitmap* bitmap) {
 	if (bitmap != NULL) {
-		//if the texture is already texture_created then delete the texture but not the buffer
+		//if the texture is already created then delete the texture but not the buffer
 		if (texture_created) {
 			glDeleteTextures(1, &id);
 			texture_created = false;
@@ -32,6 +32,16 @@ void PXL_Texture::create_texture(PXL_Bitmap* bitmap) {
 
 		texture_created = true;
 	}
+}
+
+char* PXL_Texture::get_pixels() {
+	if (texture_created) {
+		glBindTexture(GL_TEXTURE_2D, id);
+		char* pixels = new char[(width * height) * 4];
+		glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+		return &pixels[0];
+	}
+	return NULL;
 }
 
 void PXL_Texture::set_filters(PXL_TextureFilter min_filter, PXL_TextureFilter max_filter) {

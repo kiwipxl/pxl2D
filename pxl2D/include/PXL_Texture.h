@@ -48,6 +48,11 @@ class PXL_Texture {
 		void set_filters(PXL_TextureFilter min_filter = PXL_GL_LINEAR, PXL_TextureFilter max_filter = PXL_GL_LINEAR);
 
 		/**
+		\*brief: collects all pixel information from opengl
+		**/
+		char* get_pixels();
+
+		/**
 		\*brief: deletes all texture information
 		**/
 		void free();
@@ -65,7 +70,7 @@ class PXL_Texture {
 		**/
 		GLint get_id() { return id; }
 
-	private:
+	protected:
 		//texture info
 		int width;
 		int height;

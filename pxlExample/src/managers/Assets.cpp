@@ -17,16 +17,10 @@ void Assets::initiate() {
 /**
 loads an image in the assets folder and returns a texture from it
 **/
-PXL_Texture* Assets::load_texture(char* path, bool dispose_bitmap) {
+PXL_Texture* Assets::load_texture(char* path) {
 	std::string texture_path = "assets/";
 	texture_path += path;
-	PXL_Bitmap* bitmap = new PXL_Bitmap(texture_path);
-	PXL_Texture* texture = new PXL_Texture(bitmap);
-	if (dispose_bitmap) {
-		//SDL_FreeSurface(bitmap);
-	}else {
-		//texture->s = bitmap;
-	}
+	PXL_Texture* texture = new PXL_Texture(&PXL_Bitmap(texture_path));
 	textures.push_back(texture);
 	return texture;
 }

@@ -3,6 +3,7 @@
 
 #include "PXL_Batch.h"
 #include "PXL_ShaderUtils.h"
+#include "PXL_TextureSheet.h"
 
 //screen info
 extern int PXL_screen_width;
