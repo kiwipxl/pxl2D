@@ -2,6 +2,7 @@
 #include <iostream>
 
 PXL_TextureSheet::PXL_TextureSheet() {
+	//initiate sheet
 	texture_created = false;
 	width = 0;
 	height = 0;
@@ -18,12 +19,17 @@ void PXL_TextureSheet::create() {
 	int arr_size = (width * height) * 4;
 	pixels = new char[arr_size];
 	//set each pixel to the background colour if background blending is true
-	if (background_blending) {
-		for (int n = 0; n < arr_size; n += 4) {
+	for (int n = 0; n < arr_size; n += 4) {
+		if (background_blending) {
 			pixels[n] = (char)bg_colour.r;
 			pixels[n + 1] = (char)bg_colour.g;
 			pixels[n + 2] = (char)bg_colour.b;
 			pixels[n + 3] = (char)bg_colour.a;
+		}else {
+			pixels[n] = 0;
+			pixels[n + 1] = 0;
+			pixels[n + 2] = 0;
+			pixels[n + 3] = 0;
 		}
 	}
 

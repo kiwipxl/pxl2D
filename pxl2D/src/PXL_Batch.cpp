@@ -46,7 +46,6 @@ void PXL_Batch::create_batch(PXL_MaxRenders size) {
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 	glEnableVertexAttribArray(2);
-	glEnableVertexAttribArray(3);
 }
 
 void PXL_Batch::render_all() {
@@ -78,13 +77,6 @@ void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect) {
 		add_texture(texture->get_id());
 		add_vertices(texture, rect, src_rect);
 	}
-}
-
-void PXL_Batch::add(PXL_TextureSheet* texture, PXL_Rect* rect, PXL_Rect* src_rect) {
-	//if (verify_texture_add(texture, rect)) {
-		//add_texture(texture->get_id());
-		//add_vertices(texture, rect, src_rect);
-	//}
 }
 
 void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, PXL_Flip flip) {
@@ -267,7 +259,6 @@ void PXL_Batch::draw_vbo() {
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(PXL_VertexPoint), (void*)offsetof(PXL_VertexPoint, pos));
 	glVertexAttribPointer(1, 2, GL_UNSIGNED_SHORT, GL_TRUE, sizeof(PXL_VertexPoint), (void*)offsetof(PXL_VertexPoint, uv));
 	glVertexAttribPointer(2, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(PXL_VertexPoint), (void*)offsetof(PXL_VertexPoint, colour));
-	glVertexAttribPointer(3, 1, GL_UNSIGNED_INT, GL_TRUE, sizeof(PXL_VertexPoint), (void*)offsetof(PXL_VertexPoint, texture_id));
 
 	//loops through each texture and draws the vertex data with that texture id
 	for (int i = 0; i < texture_ids.size(); ++i) {
@@ -276,8 +267,11 @@ void PXL_Batch::draw_vbo() {
 		//gets the offset and calculates the vertex data size for the texture
 		int offset = texture_offsets[i];
 		int size;
-		if (i < texture_offsets.size() - 1) { size = texture_offsets[i + 1];
-		}else { size = (vertex_data.size() * sizeof(PXL_VertexPoint)) - offset; }
+		if (i < texture_offsets.size() - 1) {
+			size = texture_offsets[i + 1] - texture_offsets[i];
+		}else {
+			size = (vertex_data.size() * sizeof(PXL_VertexPoint)) - offset;
+		}
 
 		//upload sub data with offset and region size
 		glBufferSubData(GL_ARRAY_BUFFER, offset, size, &vertex_data[offset / sizeof(PXL_VertexPoint)]);
