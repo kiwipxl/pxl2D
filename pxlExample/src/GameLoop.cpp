@@ -25,28 +25,29 @@ void GameLoop::start() {
 	SDL_JoystickEventState(SDL_ENABLE);
 
 	PXL_Rect sheet_rect;
+	PXL_Rect sheet_src;
 	PXL_Vec2 sheet_origin;
-	sheet_rect.x = 0; sheet_rect.y = 0; sheet_rect.w = 1024; sheet_rect.h = 512;
-	PXL_Batch batch = PXL_Batch(PXL_LARGE_BATCH);
 	PXL_TextureSheet sheet;
-	sheet.add(universe->assets->cat, &sheet_rect);
+
+	sheet_src.x = 0; sheet_src.y = 0; sheet_src.w = 512; sheet_src.h = 320;
+	sheet_rect.x = 0; sheet_rect.y = 0; sheet_rect.w = 1024; sheet_rect.h = 1024;
+	sheet.add(universe->assets->cat, &sheet_rect, &sheet_src);
+
 	sheet_rect.x = 700; sheet_rect.y = 0; sheet_rect.w = 512; sheet_rect.h = 256;
 	sheet.add(universe->assets->cute_cat, &sheet_rect);
-	sheet.create();
-	sheet_rect.x = 400;
-	sheet_rect.y = 200;
-	sheet_rect.w = 1024;
-	sheet_rect.h = 200;
-	sheet.add(universe->assets->cat_2, &sheet_rect);
-	sheet.create();
-	sheet_rect.w = sheet.get_width() / 2;
-	sheet_rect.h = sheet.get_height() / 2;
-	sheet_rect.x = 400;
-	sheet_rect.y = 300;
-	sheet_origin.x = sheet_rect.w / 2;
-	sheet_origin.y = sheet_rect.h / 2;
 
-	int amount = 8;
+	sheet_rect.x = 400; sheet_rect.y = 280; sheet_rect.w = 1024; sheet_rect.h = 200;
+	sheet.add(universe->assets->cat_2, &sheet_rect);
+
+	sheet_rect.w = sheet.get_width() / 2; sheet_rect.h = sheet.get_height() / 2;
+	sheet_rect.x = 400; sheet_rect.y = 300;
+	sheet_origin.x = sheet_rect.w / 2; sheet_origin.y = sheet_rect.h / 2;
+
+	sheet.create();
+
+	PXL_Batch batch = PXL_Batch(PXL_LARGE_BATCH);
+
+	int amount = 0;
 	int* pos = new int[amount * 2];
 	for (int n = 0; n < amount * 2; n += 2) {
 		pos[n] = int((rand() / float(RAND_MAX)) * 800);
@@ -84,7 +85,9 @@ void GameLoop::start() {
 		rect.h = 320 / 2;
 		origin.x = rect.w / 2;
 		origin.y = rect.h / 2;
-		t += .5f;
+		//t += .5f;
+
+		batch.add(&sheet, &sheet_rect, NULL, 120, 255, 255, 255, t, &sheet_origin, PXL_FLIP_NONE);
 
 		for (int n = 0; n < amount * 2; n += 2) {
 			rect.x = pos[n] + rect.w;
@@ -99,8 +102,6 @@ void GameLoop::start() {
 				batch.add(universe->assets->cat, &rect, NULL, 200, 220, 120, 240, t, &origin, PXL_FLIP_NONE);
 			}
 		}
-
-		batch.add(&sheet, &sheet_rect, NULL, 120, 255, 255, 255, t, &sheet_origin, PXL_FLIP_NONE);
 
 		batch.render_all();
 

@@ -30,24 +30,27 @@ class PXL_TextureSheet : public PXL_Texture {
 
 		/**
 		\*brief: adds bitmap pixels to the texture sheet
-		\*param [bitmap]: holds all pixel information for an image
+		\*param [bitmap]: the bitmap to be added to the sheet
 		\*param [rect]: where in the sheet the rect will be placed
+		\*param [src_rect]: the region of the bitmap which will be used
 		**/
-		void add(PXL_Bitmap* bitmap, PXL_Rect* rect);
+		void add(PXL_Bitmap* bitmap, PXL_Rect* rect, PXL_Rect* src_rect = NULL);
 
 		/**
 		\*brief: adds bitmap pixels to the texture sheet
-		\*param [bitmap]: holds all pixel information for an image
+		\*param [texture]: the texture to be added to the sheet
 		\*param [rect]: where in the sheet the rect will be placed
+		\*param [src_rect]: the region of the texture which will be used
 		**/
-		void add(PXL_Texture* texture, PXL_Rect* rect);
+		void add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect = NULL);
 
 		/**
 		\*brief: adds a pixel buffer to the texture sheet
 		\*param [buffer]: holds all pixel information for an image
 		\*param [rect]: where in the sheet the rect will be placed
+		\*param [src_rect]: the region of the texture which will be used
 		**/
-		void add(PXL_PixelBuffer* buffer, PXL_Rect* rect);
+		void add(PXL_PixelBuffer* buffer, PXL_Rect* rect, PXL_Rect* src_rect = NULL);
 
 		/**
 		\*brief: sets the background colour where no textures are when the sheet is created

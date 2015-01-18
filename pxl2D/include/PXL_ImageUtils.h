@@ -2,6 +2,7 @@
 #define IMAGE_UTILS_H
 
 #include <string>
+#include "PXL_Structs.h"
 
 using namespace std;
 
@@ -23,6 +24,7 @@ class PXL_PixelBuffer {
 		unsigned int height;
 		unsigned int max_width;
 		unsigned int max_height;
+		PXL_Rect src_rect;
 
 		void free() {
 			delete[] buffer;
