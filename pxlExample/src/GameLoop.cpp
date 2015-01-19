@@ -29,8 +29,8 @@ void GameLoop::start() {
 	PXL_Vec2 sheet_origin;
 	PXL_TextureSheet sheet;
 
-	sheet_src.x = 0; sheet_src.y = 0; sheet_src.w = 512; sheet_src.h = 320;
-	sheet_rect.x = 0; sheet_rect.y = 0; sheet_rect.w = 1024; sheet_rect.h = 1024;
+	sheet_src.x = 128; sheet_src.y = 64; sheet_src.w = 320; sheet_src.h = 200;
+	sheet_rect.x = 0; sheet_rect.y = 0; sheet_rect.w = 512; sheet_rect.h = 512;
 	sheet.add(universe->assets->cat, &sheet_rect, &sheet_src);
 
 	sheet_rect.x = 700; sheet_rect.y = 0; sheet_rect.w = 512; sheet_rect.h = 256;
@@ -47,7 +47,7 @@ void GameLoop::start() {
 
 	PXL_Batch batch = PXL_Batch(PXL_LARGE_BATCH);
 
-	int amount = 0;
+	int amount = 4;
 	int* pos = new int[amount * 2];
 	for (int n = 0; n < amount * 2; n += 2) {
 		pos[n] = int((rand() / float(RAND_MAX)) * 800);
@@ -85,9 +85,9 @@ void GameLoop::start() {
 		rect.h = 320 / 2;
 		origin.x = rect.w / 2;
 		origin.y = rect.h / 2;
-		//t += .5f;
+		t += .5f;
 
-		batch.add(&sheet, &sheet_rect, NULL, 120, 255, 255, 255, t, &sheet_origin, PXL_FLIP_NONE);
+		batch.add(&sheet, &sheet_rect, NULL, t, &sheet_origin, PXL_FLIP_NONE);
 
 		for (int n = 0; n < amount * 2; n += 2) {
 			rect.x = pos[n] + rect.w;
