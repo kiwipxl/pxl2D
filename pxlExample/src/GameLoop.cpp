@@ -25,7 +25,8 @@ void GameLoop::start() {
 	SDL_JoystickEventState(SDL_ENABLE);
 
 	PXL_Font* font = new PXL_Font("assets/arcade.ttf");
-	PXL_Text text(font, "", 100, 450, 64);
+	PXL_Text text(font, "", 150, 450, 64);
+	text.set_origin(PXL_CENTER_ORIGIN);
 
 	PXL_Rect sheet_rect;
 	PXL_Rect sheet_src;
@@ -109,11 +110,9 @@ void GameLoop::start() {
 		batch.render_all();
 		PXL_use_default_shader(&batch);
 
-		text.text = "timer: " + to_string(t);
-		text.set_origin(PXL_CENTER_ORIGIN);
+		text.set_text("timer: " + to_string(t));
 		text.rotation += 2;
 		text.colour.r = ((cos(t / 4) / 2) + .5f) * 255;
-		text.colour.a = ((sin(t / 4) / 2) + .5f) * 255;
 		text.render(&batch);
 
 		batch.render_all();
