@@ -22,11 +22,18 @@ class PXL_TextureSheet : public PXL_Texture {
 
 		//sheet info
 		bool alpha_blending = true;
+		vector<PXL_PixelBuffer*> pixel_data;
+		PXL_RGBA bg_colour;
 
 		/**
 		\*brief: creates the texture sheet from all added bitmaps and textures
 		**/
 		void create();
+
+		/**
+		\*brief: deletes all pixel buffers added to this sheet
+		**/
+		void delete_pixel_vec();
 
 		/**
 		\*brief: adds bitmap pixels to the texture sheet
@@ -53,32 +60,9 @@ class PXL_TextureSheet : public PXL_Texture {
 		void add(PXL_PixelBuffer* buffer, PXL_Rect* rect, PXL_Rect* src_rect = NULL);
 
 		/**
-		\*brief: sets the background colour where no textures are when the sheet is created
-		\*param [r, g, b, a]: colour values ranging from 0 to 255 that define the background colour
-		**/
-		void set_background_colour(int r, int g, int b, int a);
-		/**
-		\*brief: sets the background colour where no textures are when the sheet is created
-		\*param: vector of r, g, b, a colours
-		**/
-		void set_background_colour(PXL_RGBA colour);
-
-		/**
-		\*brief: sets the background colour where no textures are when the sheet is created
-		\*param: vector of r, g, b, a colours
-		**/
-		void set_background_colour(PXL_Vec4 colour);
-
-		/**
 		\*brief: deletes all texture sheet information
 		**/
 		void free();
-
-	private:
-		//sheet info
-		char* pixels;
-		vector<PXL_PixelBuffer*> pixel_data;
-		PXL_RGBA bg_colour;
 };
 
 #endif

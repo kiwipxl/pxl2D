@@ -12,4 +12,5 @@ void PXL_init(int screen_width, int screen_height) {
 	PXL_center_screen_y = PXL_screen_height / 2;
 
 	PXL_shader_init();
+	PXL_font_init();
 }

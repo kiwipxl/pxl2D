@@ -5,82 +5,78 @@
 #include "PXL_Structs.h"
 #include "PXL_Bitmap.h"
 
-enum PXL_TextureFilter {
-	PXL_GL_NEAREST_MIPMAP_NEAREST = GL_NEAREST_MIPMAP_NEAREST,
-	PXL_GL_LINEAR_MIPMAP_NEAREST = GL_LINEAR_MIPMAP_NEAREST,
-	PXL_GL_NEAREST_MIPMAP_LINEAR = GL_NEAREST_MIPMAP_LINEAR,
-	PXL_GL_LINEAR_MIPMAP_LINEAR = GL_LINEAR_MIPMAP_LINEAR,
-	PXL_GL_NEAREST = GL_NEAREST,
-	PXL_GL_LINEAR = GL_LINEAR
-};
+typedef int PXL_TextureFilter;
 
+#define PXL_GL_NEAREST_MIPMAP_NEAREST GL_NEAREST_MIPMAP_NEAREST
+#define PXL_GL_LINEAR_MIPMAP_NEAREST GL_LINEAR_MIPMAP_NEAREST
+#define PXL_GL_NEAREST_MIPMAP_LINEAR GL_NEAREST_MIPMAP_LINEAR
+#define PXL_GL_LINEAR_MIPMAP_LINEAR GL_LINEAR_MIPMAP_LINEAR
+#define PXL_GL_NEAREST GL_NEAREST
+#define PXL_GL_LINEAR GL_LINEAR
+
+#define PXL_clamp(v, min, max) v < min ? min : v && v > max ? max : v
+
+/** The PXL_Texture class handles uploading of pixel data to the GPU to create a texture that can be
+used with a PXL_Batch to render images to the screen
+A texture can be created with a PXL_Bitmap, a PXL_PixelBuffer or a raw pixel array.
+**/
 class PXL_Texture {
 
 	public:
-		/**
-		\*brief: default constructor
-		**/
 		PXL_Texture();
-		/**
-		\*brief: creates the texture from specified bitmap
-		\*param [bitmap]: holds all pixel information for an image
+		/** Creates the texture from specified bitmap
+		@param bitmap Holds all pixel information for an image
+		@param pixel_mode The pixel type of the pixel data (default is R, G, B, A)
 		**/
-		PXL_Texture(PXL_Bitmap* bitmap);
-		/**
-		\*brief: batch deconstructor
-		**/
+		PXL_Texture(PXL_Bitmap* bitmap, int pixel_mode = GL_RGBA);
 		~PXL_Texture();
 
-		//texture info
-		bool texture_created;
+		bool texture_created; /**< Defines whether the texture has been created or not **/
 
-		/**
-		\*brief: creates the texture from specified bitmap
-		\*param [bitmap]: holds all pixel information for an image
+		/** Creates the texture from specified bitmap
+		@param bitmap Holds all pixel information for an image
+		@param pixel_mode The pixel type of the pixel data (default is R, G, B, A)
 		**/
-		void create_texture(PXL_Bitmap* bitmap);
+		void create_texture(PXL_Bitmap* bitmap, int pixel_mode = GL_RGBA);
 
-		/**
-		\*brief: sets filter parameters for uploaded texture
-		\*param [min_filter]: the filter type for when the texture is minimised
-		\*param [max_filter]: the filter type for when the texture is maximised
+		/** Sets filter parameters for uploaded texture
+		@param min_filter The filter value for when the texture is scaled and is smaller than its original size
+		@param max_filter The filter value for when the texture is scaled and is larger than its original size
 		**/
 		void set_filters(PXL_TextureFilter min_filter = PXL_GL_LINEAR, PXL_TextureFilter max_filter = PXL_GL_LINEAR);
 
-		/**
-		\*brief: collects all pixel information from opengl
-		**/
-		char* get_pixels();
-
-		/**
-		\*brief: deletes all texture information
+		/** Deletes all texture information
 		**/
 		void free();
 
-		/**
-		\*brief: gets the texture width
+		/** Gets the raw pixel array contents stored in the GPU
+		\return A raw pixel byte array
 		**/
-		int get_width() { return width; }
-		/**
-		\*brief: gets the texture height
+		unsigned char* get_pixels();
+		/** Gets the texture width
+		\return The width of the texture
 		**/
-		int get_height() { return height; }
-		/**
-		\*brief: gets the id associated with this texture
+		const int get_width() { return width; }
+		/** Gets the texture height
+		\return The height of the texture
 		**/
-		GLint get_id() { return id; }
+		const int get_height() { return height; }
+		/** Gets the id associated with this texture
+		\return The id
+		**/
+		const GLint get_id() { return id; }
 
 	protected:
-		//texture info
-		int width;
-		int height;
-		GLuint id;
+		int width; /**< The width of the texture **/
+		int height; /**< The height of the texture **/
+		GLuint id; /**< The id associated with the texture **/
 };
 
 /**
-\*brief: creates a texture from specified bitmap
-\*param [bitmap]: holds all pixel information for an image
+\*brief: Creates a texture from specified bitmap
+@param bitmap Holds all pixel information for an image
+@param pixel_mode The pixel type of the pixel data (default is R, G, B, A)
 **/
-extern PXL_Texture* PXL_create_texture(PXL_Bitmap* bitmap);
+extern PXL_Texture* PXL_create_texture(PXL_Bitmap* bitmap, int pixel_mode = GL_RGBA);
 
 #endif

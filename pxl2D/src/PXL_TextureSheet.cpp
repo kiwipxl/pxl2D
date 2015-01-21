@@ -6,7 +6,7 @@ PXL_TextureSheet::PXL_TextureSheet() {
 	texture_created = false;
 	width = 0;
 	height = 0;
-	set_background_colour(0, 0, 0, 0);
+	bg_colour.r = bg_colour.g = bg_colour.b = bg_colour.a = 0;
 }
 
 void PXL_TextureSheet::create() {
@@ -18,7 +18,7 @@ void PXL_TextureSheet::create() {
 
 	//initialise pixel array for sheet based on sheet width/height multiplied by 4 (r, g, b, a)
 	int arr_size = (width * height) * 4;
-	pixels = new char[arr_size];
+	unsigned char* pixels = new unsigned char[arr_size];
 	//set each pixel to the background colour
 	for (int n = 0; n < arr_size; n += 4) {
 		pixels[n] = (char)bg_colour.r;
@@ -31,6 +31,8 @@ void PXL_TextureSheet::create() {
 	for (PXL_PixelBuffer* buffer : pixel_data) {
 		//start index based in pixels based on buffer x and y position
 		int index = (buffer->x * 4) + (buffer->y * (width * 4));
+		int channels = buffer->channels;
+		int r_channel = 4 - channels;
 		//calculate scale x and y
 		float scale_x = buffer->max_width / float(buffer->width);
 		float src_scale_x = float(buffer->src_rect.w) / buffer->max_width;
@@ -45,26 +47,26 @@ void PXL_TextureSheet::create() {
 			offset_y += scale_y - 1;
 			src_offset_y += (src_scale_y - 1) * scale_y;
 			//loop through the width of the image multiplied by 4 (r, g, b, a) values
-			for (int n = 0; n < buffer->width * 4; ++n) {
+			for (int n = r_channel; n < buffer->width * 4; n += r_channel + 1) {
 				//calculate buffer index in one dimensional buffer array that scales width/height
 				int buffer_index;
 				//calculate y position
-				buffer_index = ((buffer->max_width * (i + int(offset_y + (src_offset_y + buffer->src_rect.y)))) * 4);
+				buffer_index = ((buffer->max_width * (i + int(offset_y + (src_offset_y + buffer->src_rect.y)))) * channels);
 				//calculate x position
-				buffer_index += n + (int((offset_x + src_offset_x) / 4) * 4);
-				buffer_index += buffer->src_rect.x * 4;
+				buffer_index += (n / (r_channel + 1)) + (int((offset_x + src_offset_x) / 4) * 4);
+				buffer_index += buffer->src_rect.x * channels;
 				if (buffer_index >= buffer->buffer_size) { break; }
 
-				char value = buffer->buffer[buffer_index];
+				unsigned char value = buffer->buffer[buffer_index];
 
 				//checks whether the current pixel value is red
-				if (n % 4 == 0) {
+				if (n % channels == 0) {
 					//calculate pixel offset x based on scale x
 					offset_x += (scale_x - 1) * 4;
-					src_offset_x += (src_scale_x - 1) * (4 * (scale_x));
+					src_offset_x += (src_scale_x - 1) * (4 * scale_x);
 					//if alpha blending is on, check whether the alpha value for the current pixel 
 					//is greater than 0 and skip the current pixel as a previous pixel has already been placed
-					if (alpha_blending && buffer->buffer[buffer_index + 3] >= 0) {
+					if (channels == 4 && alpha_blending && buffer->buffer[buffer_index + 3] == 0) {
 						n += 3;
 						continue;
 					}
@@ -87,30 +89,15 @@ void PXL_TextureSheet::create() {
 	set_filters();
 
 	texture_created = true;
+	delete[] pixels;
 }
 
-/**
-\*brief: sets the background colour where no textures are when the sheet is created
-\*param [r, g, b, a] colour values ranging from 0 to 255 that define the background colour
-**/
-void PXL_TextureSheet::set_background_colour(int r, int g, int b, int a) {
-	bg_colour.r = r; bg_colour.g = g; bg_colour.b = b; bg_colour.a = a;
-}
-
-/**
-\*brief: sets the background colour where no textures are when the sheet is created
-\*param: vector of r, g, b, a colours
-**/
-void PXL_TextureSheet::set_background_colour(PXL_RGBA colour) {
-	bg_colour = colour;
-}
-
-/**
-\*brief: sets the background colour where no textures are when the sheet is created
-\*param: vector of r, g, b, a colours
-**/
-void PXL_TextureSheet::set_background_colour(PXL_Vec4 colour) {
-	bg_colour.r = colour.x; bg_colour.g = colour.y; bg_colour.b = colour.z; bg_colour.a = colour.w;
+void PXL_TextureSheet::delete_pixel_vec() {
+	int size = pixel_data.size();
+	for (int n = 0; n < size; ++n) {
+		delete pixel_data[n];
+	}
+	pixel_data.clear();
 }
 
 /**
@@ -121,7 +108,7 @@ void PXL_TextureSheet::set_background_colour(PXL_Vec4 colour) {
 **/
 void PXL_TextureSheet::add(PXL_Bitmap* bitmap, PXL_Rect* rect, PXL_Rect* src_rect) {
 	add(new PXL_PixelBuffer(rect->x, rect->y, rect->w, rect->h, bitmap->w, bitmap->h, 
-							&bitmap->pixels[0], (bitmap->w * bitmap->h) * 4), rect);
+							&bitmap->pixels[0], (bitmap->w * bitmap->h) * 4, 4), rect);
 }
 
 /**
@@ -132,7 +119,7 @@ void PXL_TextureSheet::add(PXL_Bitmap* bitmap, PXL_Rect* rect, PXL_Rect* src_rec
 **/
 void PXL_TextureSheet::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect) {
 	add(new PXL_PixelBuffer(rect->x, rect->y, rect->w, rect->h, texture->get_width(), texture->get_height(), 
-							texture->get_pixels(), (texture->get_width() * texture->get_height()) * 4), rect, src_rect);
+							texture->get_pixels(), (texture->get_width() * texture->get_height()) * 4, 4), rect, src_rect);
 }
 
 /**
@@ -146,6 +133,10 @@ void PXL_TextureSheet::add(PXL_PixelBuffer* buffer, PXL_Rect* rect, PXL_Rect* sr
 	int h = rect->y + rect->h;
 	if (w > width) { width = w; }
 	if (h > height) { height = h; }
+	buffer->x = rect->x;
+	buffer->y = rect->y;
+	buffer->width = rect->w;
+	buffer->height = rect->h;
 
 	if (src_rect == NULL) {
 		buffer->src_rect.w = buffer->max_width;

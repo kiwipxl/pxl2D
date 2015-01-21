@@ -3,17 +3,17 @@
 #include <algorithm>
 #include "PXL.h"
 
-PXL_Batch::PXL_Batch(PXL_MaxRenders size) {
+PXL_Batch::PXL_Batch(PXL_MaxRenders max_renders) {
 	vbo_created = false;
-	create_batch(size);
+	create_batch(max_renders);
 }
 
-PXL_Batch* PXL_create_batch(PXL_MaxRenders size) {
-	return new PXL_Batch(size);
+PXL_Batch* PXL_create_batch(PXL_MaxRenders max_renders) {
+	return new PXL_Batch(max_renders);
 }
 
-void PXL_Batch::create_batch(PXL_MaxRenders size) {
-	max_renders = size * 4;
+void PXL_Batch::create_batch(PXL_MaxRenders max_renders) {
+	max_renders_amount = max_renders * 4;
 
 	//if the batch is already created then delete the vbo
 	if (vbo_created) { free(); }
@@ -22,7 +22,7 @@ void PXL_Batch::create_batch(PXL_MaxRenders size) {
 		//create the vbo
 		glGenBuffers(1, &vertex_id);
 		glBindBuffer(GL_ARRAY_BUFFER, vertex_id);
-		glBufferData(GL_ARRAY_BUFFER, size * sizeof(PXL_VertexPoint), NULL, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, max_renders * sizeof(PXL_VertexPoint), NULL, GL_STATIC_DRAW);
 		glBindBuffer(GL_ARRAY_BUFFER, NULL);
 
 		vertex_data.clear();
@@ -82,7 +82,7 @@ void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect) {
 void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, PXL_Flip flip) {
 	if (verify_texture_add(texture, rect)) {
 		add_texture(texture->get_id());
-		add_vertices(texture, rect, src_rect);
+		add_vertices(texture, rect, src_rect, 0, NULL, flip);
 	}
 }
 
@@ -118,7 +118,7 @@ void PXL_Batch::add_texture(int texture_id) {
 bool PXL_Batch::verify_texture_add(PXL_Texture* texture, PXL_Rect* rect) {
 	if (texture->texture_created) {
 		if (rect->x + rect->w > 0 && rect->y + rect->h > 0 && rect->x < PXL_screen_width && rect->y < PXL_screen_height) {
-			if (vertex_data.size() >= max_renders) {
+			if (vertex_data.size() >= max_renders_amount) {
 				throw exception("hit max batch render size");
 			}
 

@@ -10,6 +10,13 @@ PXL_Bitmap::PXL_Bitmap(string path) {
 	load_bitmap(path);
 }
 
+PXL_Bitmap::PXL_Bitmap(int width, int height, unsigned char* buffer) {
+	buffer_loaded = true;
+	w = width;
+	h = height;
+	pixels = &buffer[0];
+}
+
 PXL_Bitmap* PXL_create_bitmap(string path) {
 	return new PXL_Bitmap(path);
 }
@@ -17,13 +24,15 @@ PXL_Bitmap* PXL_create_bitmap(string path) {
 void PXL_Bitmap::load_bitmap(string path) {
 	if (buffer_loaded) {
 		buffer_loaded = false;
-		delete buffer;
+		delete pixels;
 	}
 	
-	buffer = PXL_load_png(path);
-	w = buffer->width;
-	h = buffer->height;
-	pixels = &buffer->buffer[0];
+	PXL_PixelBuffer* pix_buf = PXL_load_png(path);
+	w = pix_buf->width;
+	h = pix_buf->height;
+	pixels = new unsigned char[pix_buf->buffer_size];
+	memcpy(pixels, pix_buf->buffer, pix_buf->buffer_size);
+	delete pix_buf;
 
 	buffer_loaded = true;
 }
@@ -31,7 +40,7 @@ void PXL_Bitmap::load_bitmap(string path) {
 void PXL_Bitmap::free() {
 	if (buffer_loaded) {
 		buffer_loaded = false;
-		delete buffer;
+		delete pixels;
 	}
 }
 

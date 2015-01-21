@@ -19,6 +19,13 @@ class PXL_Bitmap {
 		**/
 		PXL_Bitmap(string path);
 		/**
+		\*brief: creates the bitmap with specified values
+		\*param [width]: the width of the image
+		\*param [height]: the height of the image
+		\*param [buffer]: an array of pixels for the image
+		**/
+		PXL_Bitmap(int width, int height, unsigned char* buffer);
+		/**
 		\*brief: bitmap deconstructor
 		**/
 		~PXL_Bitmap();
@@ -26,7 +33,7 @@ class PXL_Bitmap {
 		//bitmap data
 		int w;
 		int h;
-		char* pixels;
+		unsigned char* pixels;
 
 		/**
 		\*brief: loads a bitmap from the specified path
@@ -42,7 +49,6 @@ class PXL_Bitmap {
 	private:
 		//buffer info
 		bool buffer_loaded;
-		PXL_PixelBuffer* buffer;
 };
 
 /**
