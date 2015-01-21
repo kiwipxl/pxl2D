@@ -110,7 +110,7 @@ void GameLoop::start() {
 		batch.render_all();
 		PXL_use_default_shader(&batch);
 
-		text.set_text("timer: " + to_string(t));
+		text.set_text("timer: " + to_string(t) + "\nnewline");
 		text.rotation += 2;
 		text.colour.r = ((cos(t / 4) / 2) + .5f) * 255;
 		text.render(&batch);

@@ -38,6 +38,8 @@ class PXL_Text {
 		int y;
 		int width = 0;
 		int height = 0;
+		int max_width = INT_MAX;
+		int max_height = INT_MAX;
 		float rotation = 0;
 		PXL_RGBA colour;
 		PXL_TextOrigin origin_point_type = PXL_TOP_LEFT_ORIGIN;
