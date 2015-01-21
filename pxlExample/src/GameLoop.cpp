@@ -25,7 +25,7 @@ void GameLoop::start() {
 	SDL_JoystickEventState(SDL_ENABLE);
 
 	PXL_Font* font = new PXL_Font("assets/arcade.ttf");
-	PXL_Text text(font, "", 64, 4);
+	PXL_Text text(font, "", 100, 450, 64);
 
 	PXL_Rect sheet_rect;
 	PXL_Rect sheet_src;
@@ -90,8 +90,6 @@ void GameLoop::start() {
 		origin.y = rect.h / 2;
 		t += .5f;
 
-		text.text = "timer: " + to_string(t);
-		text.render(&batch);
 		batch.add(&sheet, &sheet_rect, NULL, t, &sheet_origin, PXL_FLIP_NONE);
 
 		for (int n = 0; n < amount * 2; n += 2) {
@@ -99,7 +97,7 @@ void GameLoop::start() {
 			rect.y = pos[n + 1] + rect.h;
 			if (n >= amount - 1 && n <= amount + 1) {
 				batch.render_all();
-				PXL_use_bloom_shader(&batch, cos(t / 4) + 1.5f, sin(t / 8) + 1);
+				PXL_use_bloom_shader(&batch, cos(t / 4) + 1, (sin(t / 8) / 2) + .5f);
 			}
 			if (pos[n] >= 512) {
 				batch.add(universe->assets->cat_2, &rect, NULL, 0, 120, 200, 120, t, &origin, PXL_FLIP_NONE);
@@ -107,6 +105,16 @@ void GameLoop::start() {
 				batch.add(universe->assets->cat, &rect, NULL, 200, 220, 120, 240, t, &origin, PXL_FLIP_NONE);
 			}
 		}
+
+		batch.render_all();
+		PXL_use_default_shader(&batch);
+
+		text.text = "timer: " + to_string(t);
+		text.set_origin(PXL_CENTER_ORIGIN);
+		text.rotation += 2;
+		text.colour.r = ((cos(t / 4) / 2) + .5f) * 255;
+		text.colour.a = ((sin(t / 4) / 2) + .5f) * 255;
+		text.render(&batch);
 
 		batch.render_all();
 

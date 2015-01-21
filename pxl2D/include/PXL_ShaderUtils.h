@@ -36,6 +36,7 @@ extern PXL_ShaderProgram* PXL_grayscale_shader;
 extern PXL_ShaderProgram* PXL_blur_shader;
 extern PXL_ShaderProgram* PXL_outline_shader;
 extern PXL_ShaderProgram* PXL_outer_glow_shader;
+extern PXL_ShaderProgram* PXL_text_shader;
 
 /**
 \*brief: initialises prebuilt shaders, note: this should only ever be called by PXL
@@ -89,7 +90,7 @@ extern void PXL_use_blur_shader(PXL_Batch* batch, float spread_x = 2, float spre
 \*param [threshold]: the value from 0 to 1 which defines in what alpha will the outline be filled in
 **/
 extern void PXL_use_outline_shader(PXL_Batch* batch, 
-								   float thickness = 1, float r = 0, float g = 0, float b = 0, float a = 1, float threshold = .5f);
+								   float thickness = 1, float r = 0, float g = 0, float b = 0, float a = 255, float threshold = .5f);
 
 /**
 \*brief: sets a prebuilt default shader onto the specified batch
@@ -101,7 +102,20 @@ extern void PXL_use_outline_shader(PXL_Batch* batch,
 \*param [intensity]: the intensity of the glow
 \*param [threshold]: the value from 0 to 1 which defines in what alpha will the outline be filled in
 **/
-extern void PXL_use_outer_glow_shader(PXL_Batch* batch, float size = 4, float r = 0, float g = 0, float b = 0, 
+extern void PXL_use_outer_glow_shader(PXL_Batch* batch, float size = 4, float r = 0, float g = 0, float b = 0,
 									  float intensity = 4, float threshold = .5f);
+
+/**
+\*brief: sets a prebuilt default shader onto the specified batch
+\*param [batch]: the batch object to set the shader to
+\*param [thickness]: the text thickness
+\*param [r]: red colour for the text which ranges from 0 to 255
+\*param [g]: green colour for the text which ranges from 0 to 255
+\*param [b]: blue colour for the text which ranges from 0 to 255
+\*param [a]: alpha colour for the text which ranges from 0 to 255
+\*param [threshold]: the value from 0 to 1 which defines in what alpha will the text be filled in
+**/
+extern void PXL_use_text_shader(PXL_Batch* batch, 
+								float r = 0, float g = 0, float b = 0, float a = 255);
 
 #endif
