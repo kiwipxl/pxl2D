@@ -5,34 +5,28 @@ PXL_Text::PXL_Text(PXL_Font* f_font, string f_text, int f_pos_x, int f_pos_y, sh
 	text_loaded = false;
 	font = f_font;
 	text = f_text;
-	font_size = f_size;
+	size = f_size;
 	x = f_pos_x;
 	y = f_pos_y;
 	colour.r = colour.g = colour.b = 0;
 	colour.a = 255;
-	font_size = 24;
-	set_origin(PXL_TOP_LEFT_ORIGIN);
-
-	max_width = 100;
-	max_height = 40;
+	set_scale(1, 1);
 }
 
 PXL_Text* PXL_create_text(PXL_Font* f_font, string f_text, int f_pos_x, int f_pos_y, short f_size) {
 	return new PXL_Text(f_font, f_text, f_pos_x, f_pos_y, f_size);
 }
 
-bool PXL_Text::calculate_char_pos(char symbol) {
-	font_scale = font_size / float(font->max_font_size);
-
+bool PXL_Text::set_char_pos(char symbol, int start_x) {
 	src_rect = font->get_glyph_rects()[font->get_glyph_index(symbol)];
-	rect.w = src_rect.w * font_scale;
-	rect.h = src_rect.h * font_scale;
+	rect.w = src_rect.w * font_scale.x;
+	rect.h = src_rect.h * font_scale.y;
 	if (symbol == ' ') {
-		rect.x += (font->max_char_width * font_scale) + space_kerning;
+		rect.x += (font->get_max_char_width() * font_scale.x) + spacing_kerning;
 		return true;
 	}else if (symbol == '\n') {
-		rect.x = x;
-		rect.y += (font->max_char_height * font_scale) + vertical_kerning;
+		rect.x = start_x;
+		rect.y += (font->get_max_char_height() * font_scale.y) + vertical_kerning;
 		return true;
 	}
 
@@ -40,21 +34,28 @@ bool PXL_Text::calculate_char_pos(char symbol) {
 }
 
 void PXL_Text::set_origin(float x, float y) {
-	origin_point_type = PXL_CUSTOM_ORIGIN;
+	origin_type = PXL_CUSTOM_ORIGIN;
 	origin.x = x; origin.y = y;
 }
 
 void PXL_Text::set_origin(const PXL_TextOrigin origin_point) {
-	origin_point_type = origin_point;
+	origin_type = origin_point;
 
 	rect.x = 0; rect.y = 0;
 	width = 0; height = 0;
 	for (int n = 0; n < text.length(); ++n) {
-		if (calculate_char_pos(text[n])) { continue; }
+		if (set_char_pos(text[n], 0)) {
+			width = MAX(width, rect.x);
+			height = MAX(height, rect.y);
+			continue;
+		}
 		width = MAX(width, rect.x);
 		height = MAX(height, rect.y);
 		rect.x += rect.w + kerning;
 	}
+
+	height += font->get_max_char_height() * font_scale.y;
+	if (clamp_max_size) { width = MIN(width, max_width); height = MIN(height, max_height); }
 
 	switch (origin_point) {
 		case PXL_TOP_LEFT_ORIGIN:
@@ -91,28 +92,33 @@ void PXL_Text::render(PXL_Batch* batch) {
 	batch->render_all();
 	PXL_use_text_shader(batch);
 
-	rect.x = x; rect.y = y;
-	int pos_x = 0;
-	int pos_y = 0;
-	for (int n = 0; n < text.length(); ++n) {
-		if (calculate_char_pos(text[n])) { continue; }
-		pos_x = (rect.x - x) + src_rect.w;
-		pos_y = (rect.y - y) + src_rect.h;
-		if (pos_x - rect.w >= max_width) { continue; }
-		if (pos_y - rect.h >= max_height) { continue; }
-		int offset_x = rect.w + kerning;
+	scaled_max.x = max_width; scaled_max.y = max_height;
+	if (scale_max_size) { scaled_max.x = max_width * font_scale.x; scaled_max.y = max_height * font_scale.y; }
 
-		//cut off texture width if it goes over the max width
-		if (pos_x >= max_width) {
-			src_rect.w = src_rect.w - abs(max_width - pos_x);
-			src_rect.w = MIN(src_rect.w, max_width);
-			rect.w = src_rect.w * font_scale;
-		}
-		//cut off texture height if it goes over the max height
-		if (pos_y >= max_height) {
-			src_rect.h = src_rect.h - abs(max_height - pos_y);
-			src_rect.h = MIN(src_rect.h, max_height);
-			rect.h = src_rect.h * font_scale;
+	rect.x = x; rect.y = y;
+	float pos_x = 0; float pos_y = 0;
+	for (int n = 0; n < text.length(); ++n) {
+		if (set_char_pos(text[n], x)) { continue; }
+
+		float offset_x = rect.w + kerning;
+		if (max_width != INT_MAX || max_height != INT_MAX) {
+			pos_x = (rect.x - x) + rect.w;
+			pos_y = (rect.y - y) + rect.h;
+			if (pos_x - rect.w >= scaled_max.x) { continue; }
+			if (pos_y - rect.h >= scaled_max.y) { continue; }
+
+			//cut off texture width if it goes over the max width
+			if (pos_x >= scaled_max.x) {
+				src_rect.w = src_rect.w - fabs(scaled_max.x - pos_x);
+				src_rect.w = MIN(src_rect.w, scaled_max.x);
+				rect.w = src_rect.w * font_scale.x;
+			}
+			//cut off texture height if it goes over the max height
+			if (pos_y >= scaled_max.y) {
+				src_rect.h = src_rect.h - fabs(scaled_max.y - pos_y);
+				src_rect.h = MIN(src_rect.h, scaled_max.y);
+				rect.h = src_rect.h * font_scale.y;
+			}
 		}
 
 		temp_origin.x = (x + origin.x) - rect.x; temp_origin.y = (y + origin.y) - rect.y;

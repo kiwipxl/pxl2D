@@ -1,29 +1,7 @@
-﻿Build started 21/01/2015 8:42:55 PM.
+﻿Build started 22/01/2015 9:52:07 PM.
      1>Project "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\pxl2D.vcxproj" on node 2 (Build target(s)).
      1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(364,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt src\PXL_Text.cpp
-         PXL_Text.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\pxl_shaderutils.h(8): warning C4099: 'PXL_Batch' : type name first seen using 'class' now seen using 'struct'
-                 c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\pxl_fontutils.h(10) : see declaration of 'PXL_Batch'
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_text.cpp(34): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_text.cpp(52): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_text.cpp(54): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_text.cpp(55): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_text.cpp(64): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_text.cpp(67): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_text.cpp(70): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_text.cpp(73): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_text.cpp(76): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_text.cpp(79): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_text.cpp(82): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_text.cpp(85): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_text.cpp(94): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_text.cpp(99): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_text.cpp(101): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_text.cpp(102): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_text.cpp(105): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
-       Lib:
+     1>Lib:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\lib\pxl2D\pxl2D.lib" libpng.lib zlib.lib freetype.lib /NOLOGO Debug\PXL.obj
          Debug\PXL_Batch.obj
          Debug\PXL_Bitmap.obj
@@ -51,4 +29,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.55
+Time Elapsed 00:00:00.17

@@ -1,4 +1,4 @@
-﻿Build started 21/01/2015 8:42:57 PM.
+﻿Build started 22/01/2015 9:53:23 PM.
      1>Project "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxlExample\pxlExample.vcxproj" on node 2 (Build target(s)).
      1>Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\Debug\pxlExample.exe" /INCREMENTAL /NOLOGO SDL2.lib SDL2main.lib opengl32.lib glew32s.lib Vfw32.lib pxl2D.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /NODEFAULTLIB:MSVCRT /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\Debug\pxlExample.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\Debug\pxlExample.lib" /MACHINE:X86 Debug\GameLoop.obj
@@ -6,6 +6,7 @@
          Debug\Assets.obj
          Debug\WindowManager.obj
          Debug\Universe.obj
+         LINK : C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\Debug\pxlExample.exe not found or not built by the last incremental link; performing full link
      1>LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
      1>pxl2D.lib(PXL_ShaderUtils.obj) : warning LNK4049: locally defined symbol ___glewGetUniformLocation imported
      1>pxl2D.lib(PXL_Batch.obj) : warning LNK4049: locally defined symbol ___glewGetUniformLocation imported
@@ -40,4 +41,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.10
+Time Elapsed 00:00:00.48

@@ -24,8 +24,8 @@ void GameLoop::start() {
 
 	SDL_JoystickEventState(SDL_ENABLE);
 
-	PXL_Font* font = new PXL_Font("assets/arcade.ttf");
-	PXL_Text text(font, "", 150, 450, 64);
+	PXL_Font* font = new PXL_Font("assets/square.ttf");
+	PXL_Text text(font, "", 150, 450, 42);
 	text.set_origin(PXL_CENTER_ORIGIN);
 
 	PXL_Rect sheet_rect;
@@ -108,11 +108,15 @@ void GameLoop::start() {
 		}
 
 		batch.render_all();
-		PXL_use_default_shader(&batch);
 
-		text.set_text("timer: " + to_string(t) + "\nnewline");
-		text.rotation += 2;
+		text.set_text("timer: \nnewline<size=40>BIGTEXT");
+		text.rotation += cos(t / 10);
+		text.scale_max_size = true;
+		text.clamp_max_size = true;
 		text.colour.r = ((cos(t / 4) / 2) + .5f) * 255;
+		text.colour.g = ((sin(t / 4) / 2) + .5f) * 255;
+		text.colour.b = ((sin(t / 4) / 2) + .5f) * 255;
+		text.scale(sin(t / 10) / 50, sin(t / 10) / 50);
 		text.render(&batch);
 
 		batch.render_all();

@@ -36,34 +36,44 @@ class PXL_Text {
 		PXL_Font* font;
 		int x;
 		int y;
-		int width = 0;
-		int height = 0;
 		int max_width = INT_MAX;
 		int max_height = INT_MAX;
+		bool scale_max_size = true;
+		bool clamp_max_size = true;
 		float rotation = 0;
 		PXL_RGBA colour;
-		PXL_TextOrigin origin_point_type = PXL_TOP_LEFT_ORIGIN;
+		PXL_TextOrigin origin_type = PXL_TOP_LEFT_ORIGIN;
 
-		void rotate(float degrees);
-
-		void set_rotation(float degrees);
+		void scale(float scale_x, float scale_y) {
+			text_scale.x += scale_x; text_scale.y += scale_y; set_origin(origin_type); set_font_scale();
+		}
+		void set_scale(float scale_x, float scale_y) {
+			text_scale.x = scale_x; text_scale.y = scale_y; set_origin(origin_type); set_font_scale();
+		}
+		void set_font_scale() {
+			font_scale.x = (size / float(font->get_max_font_size())) * text_scale.x;
+			font_scale.y = (size / float(font->get_max_font_size())) * text_scale.y;
+		}
 
 		void set_origin(float x = 0, float y = 0);
 		void set_origin(const PXL_TextOrigin origin_point = PXL_TOP_LEFT_ORIGIN);
 
-		void set_text(string new_text = "") { text = new_text; set_origin(origin_point_type); }
+		void set_text(string new_text = "") { text = new_text; set_origin(origin_type); }
 		string get_text() { return text; }
 
-		void set_font_size(short c_font_size) { font_size = c_font_size; set_origin(origin_point_type); }
-		short get_font_size() { return font_size; }
+		void set_size(short c_size) { size = c_size; set_origin(origin_type); set_font_scale(); }
+		short get_size() { return size; }
 
-		void set_kerning(short c_kerning) { kerning = c_kerning; set_origin(origin_point_type); }
+		float get_width() { return width; }
+		float get_height() { return height; }
+
+		void set_kerning(short c_kerning) { kerning = c_kerning; set_origin(origin_type); }
 		short get_kerning() { return kerning; }
 
-		void set_space_kerning(short c_space_kerning) { space_kerning = c_space_kerning; set_origin(origin_point_type); }
-		short get_space_kerning() { return space_kerning; }
+		void set_spacing_kerning(short c_spacing_kerning) { spacing_kerning = c_spacing_kerning; set_origin(origin_type); }
+		short get_spacing_kerning() { return spacing_kerning; }
 
-		void set_vertical_kerning(short c_vertical_kerning) { vertical_kerning = c_vertical_kerning; set_origin(origin_point_type); }
+		void set_vertical_kerning(short c_vertical_kerning) { vertical_kerning = c_vertical_kerning; set_origin(origin_type); }
 		short get_vertical_kerning() { return vertical_kerning; }
 
 		/**
@@ -80,17 +90,21 @@ class PXL_Text {
 		//text info
 		bool text_loaded;
 		string text = "";
-		short font_size;
+		short size;
+		float width = 0;
+		float height = 0;
 		PXL_Rect rect;
 		PXL_Rect src_rect;
 		PXL_Vec2 origin;
 		PXL_Vec2 temp_origin;
-		float font_scale;
+		PXL_Vec2 font_scale;
+		PXL_Vec2 text_scale;
+		PXL_Vec2 scaled_max;
 		short kerning = 4;
-		short space_kerning = 0;
-		short vertical_kerning = 0;
+		short spacing_kerning = 0;
+		short vertical_kerning = 4;
 
-		bool calculate_char_pos(char symbol);
+		bool set_char_pos(char symbol, int start_x);
 };
 
 /**

@@ -9,10 +9,16 @@ PXL_Font::PXL_Font(string path, int c_max_font_size) {
 		FT_Set_Pixel_Sizes(f, max_font_size, 0);
 		cout << "charmaps: " << f->num_charmaps << "\n";
 		cout << "num glyphs: " << f->num_glyphs << "\n";
-		
+
+		name = f->family_name;
+		num_glyphs = f->num_glyphs;
+		width = f->max_advance_width;
+		height = f->max_advance_height;
+
 		glyph_sheet = new PXL_TextureSheet();
 		PXL_Rect rect;
 		glyph_rects = new PXL_Rect[f->num_glyphs];
+		f->style_flags = FT_STYLE_FLAG_BOLD;
 		for (int n = 0; n < f->num_glyphs; ++n) {
 			FT_Load_Glyph(f, n, FT_LOAD_RENDER);
 			PXL_PixelBuffer* pix_buf = new PXL_PixelBuffer();
