@@ -1,15 +1,27 @@
-﻿Build started 22/01/2015 9:53:23 PM.
+﻿Build started 23/01/2015 3:26:24 AM.
      1>Project "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxlExample\pxlExample.vcxproj" on node 2 (Build target(s)).
-     1>Link:
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D GLEW_STATIC /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt src\GameLoop.cpp
+         GameLoop.cpp
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxlexample\src\gameloop.h(18): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxlexample\src\gameloop.h(22): warning C4244: 'return' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\pxl_batch.h(33): warning C4099: 'PXL_Batch' : type name first seen using 'struct' now seen using 'class'
+                 c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\pxl_shaderutils.h(8) : see declaration of 'PXL_Batch'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxlexample\src\gameloop.cpp(47): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxlexample\src\gameloop.cpp(114): warning C4244: '=' : conversion from 'float' to 'unsigned char', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxlexample\src\gameloop.cpp(115): warning C4244: '=' : conversion from 'float' to 'unsigned char', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxlexample\src\gameloop.cpp(116): warning C4244: '=' : conversion from 'float' to 'unsigned char', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxlexample\src\gameloop.cpp(126): warning C4244: 'argument' : conversion from 'double' to 'DWORD', possible loss of data
+       Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\Debug\pxlExample.exe" /INCREMENTAL /NOLOGO SDL2.lib SDL2main.lib opengl32.lib glew32s.lib Vfw32.lib pxl2D.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /NODEFAULTLIB:MSVCRT /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\Debug\pxlExample.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\Debug\pxlExample.lib" /MACHINE:X86 Debug\GameLoop.obj
          Debug\Main.obj
          Debug\Assets.obj
          Debug\WindowManager.obj
          Debug\Universe.obj
-         LINK : C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\Debug\pxlExample.exe not found or not built by the last incremental link; performing full link
      1>LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
      1>pxl2D.lib(PXL_ShaderUtils.obj) : warning LNK4049: locally defined symbol ___glewGetUniformLocation imported
      1>pxl2D.lib(PXL_Batch.obj) : warning LNK4049: locally defined symbol ___glewGetUniformLocation imported
+     1>pxl2D.lib(PXL_Lights.obj) : warning LNK4049: locally defined symbol ___glewGetUniformLocation imported
      1>pxl2D.lib(PXL_ShaderUtils.obj) : warning LNK4049: locally defined symbol ___glewUniform1f imported
      1>pxl2D.lib(PXL_ShaderUtils.obj) : warning LNK4049: locally defined symbol ___glewUniform2f imported
      1>pxl2D.lib(PXL_ShaderUtils.obj) : warning LNK4049: locally defined symbol ___glewUniform3f imported
@@ -23,6 +35,8 @@
      1>pxl2D.lib(PXL_Batch.obj) : warning LNK4049: locally defined symbol ___glewUniformMatrix4fv imported
      1>pxl2D.lib(PXL_Batch.obj) : warning LNK4049: locally defined symbol ___glewUseProgram imported
      1>pxl2D.lib(PXL_Batch.obj) : warning LNK4049: locally defined symbol ___glewVertexAttribPointer imported
+     1>pxl2D.lib(PXL_Lights.obj) : warning LNK4049: locally defined symbol ___glewUniform1fv imported
+     1>pxl2D.lib(PXL_Lights.obj) : warning LNK4049: locally defined symbol ___glewUniform1i imported
      1>pxl2D.lib(PXL_ShaderProgram.obj) : warning LNK4049: locally defined symbol ___glewAttachShader imported
      1>pxl2D.lib(PXL_ShaderProgram.obj) : warning LNK4049: locally defined symbol ___glewCreateProgram imported
      1>pxl2D.lib(PXL_ShaderProgram.obj) : warning LNK4049: locally defined symbol ___glewCreateShader imported
@@ -41,4 +55,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.48
+Time Elapsed 00:00:01.54

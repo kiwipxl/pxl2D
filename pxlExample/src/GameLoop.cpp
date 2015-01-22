@@ -43,18 +43,25 @@ void GameLoop::start() {
 	sheet_rect.x = 400; sheet_rect.y = 280; sheet_rect.w = 1024; sheet_rect.h = 200;
 	sheet.add(universe->assets->cat_2, &sheet_rect);
 
-	sheet_rect.w = sheet.get_width() / 2; sheet_rect.h = sheet.get_height() / 2;
-	sheet_rect.x = 400; sheet_rect.y = 300;
-	sheet_origin.x = sheet_rect.w / 2; sheet_origin.y = sheet_rect.h / 2;
+	sheet_rect.x = 0; sheet_rect.y = 0;
+	sheet_rect.w = PXL_screen_width; sheet_rect.h = PXL_screen_height;
+	//sheet_origin.x = sheet_rect.w / 2; sheet_origin.y = sheet_rect.h / 2;
 
 	sheet.create();
 
+	for (int n = 0; n < 72 * 7; n += 7) {
+		float radius = 100 + ((rand() / float(RAND_MAX)) * 200);
+		PXL_create_point_light(int((rand() / float(RAND_MAX)) * (PXL_screen_width + radius)),
+							   int((rand() / float(RAND_MAX)) * (PXL_screen_height + radius)), radius, .25f, 
+							   rand() / float(RAND_MAX), rand() / float(RAND_MAX), rand() / float(RAND_MAX));
+	}
+
 	PXL_Batch batch = PXL_Batch(PXL_LARGE_BATCH);
 
-	int amount = 4;
+	int amount = 2;
 	int* pos = new int[amount * 2];
 	for (int n = 0; n < amount * 2; n += 2) {
-		pos[n] = int((rand() / float(RAND_MAX)) * 800);
+		pos[n] = int((rand() / float(RAND_MAX)) * 700);
 		pos[n + 1] = int((rand() / float(RAND_MAX)) * 550);
 	}
 
@@ -79,8 +86,6 @@ void GameLoop::start() {
 		std::clock_t start_render = std::clock();
 
 		//silly test code stuff
-		PXL_use_default_shader(&batch);
-
 		PXL_Rect rect;
 		PXL_Vec2 origin;
 		rect.x = 400;
@@ -91,31 +96,24 @@ void GameLoop::start() {
 		origin.y = rect.h / 2;
 		t += .5f;
 
-		batch.add(&sheet, &sheet_rect, NULL, t, &sheet_origin, PXL_FLIP_NONE);
+		PXL_render_point_lights(&batch);
+		batch.add(&sheet, &sheet_rect, NULL, 0, &sheet_origin, PXL_FLIP_NONE);
+		batch.render_all();
 
+		PXL_set_bloom_shader(&batch, cos(t / 4) + 1, (sin(t / 8) / 2) + .5f);
 		for (int n = 0; n < amount * 2; n += 2) {
 			rect.x = pos[n] + rect.w;
 			rect.y = pos[n + 1] + rect.h;
-			if (n >= amount - 1 && n <= amount + 1) {
-				batch.render_all();
-				PXL_use_bloom_shader(&batch, cos(t / 4) + 1, (sin(t / 8) / 2) + .5f);
-			}
-			if (pos[n] >= 512) {
-				batch.add(universe->assets->cat_2, &rect, NULL, 0, 120, 200, 120, t, &origin, PXL_FLIP_NONE);
-			}else {
-				batch.add(universe->assets->cat, &rect, NULL, 200, 220, 120, 240, t, &origin, PXL_FLIP_NONE);
-			}
+			batch.add(universe->assets->cat, &rect, NULL, 200, 220, 120, 100, t, &origin, PXL_FLIP_NONE);
 		}
 
 		batch.render_all();
 
-		text.set_text("timer: \nnewline<size=40>BIGTEXT");
+		text.set_text("timer: hi\nnewline BIGTEXT");
 		text.rotation += cos(t / 10);
-		text.scale_max_size = true;
-		text.clamp_max_size = true;
 		text.colour.r = ((cos(t / 4) / 2) + .5f) * 255;
-		text.colour.g = ((sin(t / 4) / 2) + .5f) * 255;
-		text.colour.b = ((sin(t / 4) / 2) + .5f) * 255;
+		text.colour.g = ((sin(t / 6) / 2) + .5f) * 255;
+		text.colour.b = ((sin(t / 8) / 2) + .5f) * 255;
 		text.scale(sin(t / 10) / 50, sin(t / 10) / 50);
 		text.render(&batch);
 

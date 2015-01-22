@@ -13,4 +13,5 @@ void PXL_init(int screen_width, int screen_height) {
 
 	PXL_shader_init();
 	PXL_font_init();
+	PXL_lights_init();
 }

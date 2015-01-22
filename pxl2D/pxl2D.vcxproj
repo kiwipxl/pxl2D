@@ -17,6 +17,7 @@
     <ClCompile Include="src\PXL_Font.cpp" />
     <ClCompile Include="src\PXL_FontUtils.cpp" />
     <ClCompile Include="src\PXL_ImageUtils.cpp" />
+    <ClCompile Include="src\PXL_Lights.cpp" />
     <ClCompile Include="src\PXL_Matrix4.cpp" />
     <ClCompile Include="src\PXL_Text.cpp" />
     <ClCompile Include="src\PXL_Texture.cpp" />
@@ -31,6 +32,7 @@
     <ClInclude Include="include\PXL_Font.h" />
     <ClInclude Include="include\PXL_FontUtils.h" />
     <ClInclude Include="include\PXL_ImageUtils.h" />
+    <ClInclude Include="include\PXL_Lights.h" />
     <ClInclude Include="include\PXL_Matrix4.h" />
     <ClInclude Include="include\PXL_Text.h" />
     <ClInclude Include="include\PXL_Texture.h" />

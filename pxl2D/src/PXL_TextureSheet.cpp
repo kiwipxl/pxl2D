@@ -66,7 +66,7 @@ void PXL_TextureSheet::create() {
 					src_offset_x += (src_scale_x - 1) * (4 * scale_x);
 					//if alpha blending is on, check whether the alpha value for the current pixel 
 					//is greater than 0 and skip the current pixel as a previous pixel has already been placed
-					if (channels == 4 && alpha_blending && buffer->buffer[buffer_index + 3] == 0) {
+					if (channels == 4 && alpha_blending && buffer->buffer[buffer_index + 3] <= 250) {
 						n += 3;
 						continue;
 					}

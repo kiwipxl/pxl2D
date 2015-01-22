@@ -22,7 +22,7 @@ bool PXL_Text::set_char_pos(char symbol, int start_x) {
 	rect.w = src_rect.w * font_scale.x;
 	rect.h = src_rect.h * font_scale.y;
 	if (symbol == ' ') {
-		rect.x += (font->get_max_char_width() * font_scale.x) + spacing_kerning;
+		rect.x += ((font->get_max_char_width() * font_scale.x) / 2) + spacing_kerning;
 		return true;
 	}else if (symbol == '\n') {
 		rect.x = start_x;
@@ -90,7 +90,7 @@ void PXL_Text::set_origin(const PXL_TextOrigin origin_point) {
 
 void PXL_Text::render(PXL_Batch* batch) {
 	batch->render_all();
-	PXL_use_text_shader(batch);
+	PXL_set_text_shader(batch);
 
 	scaled_max.x = max_width; scaled_max.y = max_height;
 	if (scale_max_size) { scaled_max.x = max_width * font_scale.x; scaled_max.y = max_height * font_scale.y; }

@@ -9,6 +9,7 @@
 #include "PXL_Structs.h"
 #include "PXL_ShaderUtils.h"
 #include "PXL_TextureSheet.h"
+#include "PXL_ShaderProgram.h"
 
 typedef int PXL_Flip;
 
@@ -37,6 +38,10 @@ class PXL_Batch {
 		**/
 		PXL_Batch(PXL_MaxRenders max_renders = PXL_SMALL_BATCH);
 		~PXL_Batch();
+
+		//batch matrices
+		PXL_Matrix4 view_mat;
+		PXL_Matrix4 perspective_mat;
 
 		/** Creates the batch with the specified max render size
 		@param size the max amount of adds this batch can have and the size of the vbo uploaded
@@ -129,10 +134,6 @@ class PXL_Batch {
 		unsigned int size;
 		GLuint vertex_id;
 		vector<PXL_VertexPoint> vertex_data;
-
-		//batch matrices
-		PXL_Matrix4 view_mat;
-		PXL_Matrix4 perspective_mat;
 
 		//batch textures
 		vector<int> texture_ids;
