@@ -81,18 +81,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\GameLoop.cpp" />
     <ClCompile Include="src\Main.cpp" />
-    <ClCompile Include="src\managers\Assets.cpp" />
-    <ClCompile Include="src\managers\WindowManager.cpp" />
-    <ClCompile Include="src\Universe.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\GameLoop.h" />
-    <ClInclude Include="src\Main.h" />
-    <ClInclude Include="src\managers\Assets.h" />
-    <ClInclude Include="src\managers\WindowManager.h" />
-    <ClInclude Include="src\Universe.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="dll\glew32.dll" />

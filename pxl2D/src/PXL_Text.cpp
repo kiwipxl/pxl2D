@@ -28,6 +28,8 @@ bool PXL_Text::set_char_pos(char symbol, int start_x) {
 		rect.x = start_x;
 		rect.y += (font->get_max_char_height() * font_scale.y) + vertical_kerning;
 		return true;
+	}else if (src_rect.w <= 1 && src_rect.h <= 1) {
+		return true;
 	}
 
 	return false;

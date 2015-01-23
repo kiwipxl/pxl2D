@@ -7,12 +7,17 @@
 #include "PXL_FontUtils.h"
 #include "PXL_Text.h"
 #include "PXL_Lights.h"
+#include <glew.h>
 
 //screen info
 extern int PXL_screen_width;
 extern int PXL_screen_height;
 extern int PXL_center_screen_x;
 extern int PXL_center_screen_y;
+
+class HDC__;
+typedef HDC__* HDC;
+extern HDC PXL_handle_dc;
 
 /**
 \*brief: initialises PXL

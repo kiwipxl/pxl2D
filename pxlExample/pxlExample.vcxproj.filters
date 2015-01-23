@@ -1,38 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="src\GameLoop.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="src\Main.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Universe.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\managers\Assets.cpp">
-      <Filter>src\managers</Filter>
-    </ClCompile>
-    <ClCompile Include="src\managers\WindowManager.cpp">
-      <Filter>src\managers</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\GameLoop.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Main.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Universe.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\managers\Assets.h">
-      <Filter>src\managers</Filter>
-    </ClInclude>
-    <ClInclude Include="src\managers\WindowManager.h">
-      <Filter>src\managers</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
