@@ -1,6 +1,19 @@
 # pxl2D
-PXL2D is a 2D rendering library that can be built on top of any c++ framework, such as SDL.
+pxl2D is a cross-platform 2D game engine written in c++. The aim of pxl2D is to provide as much functionality as it can while being very
+versitle so you can focus on making your game rather than how you will implement technical solutions.
 
-The aim of PXL2D is to support fast GPU multi-platform rendering with the support of batching, texture regions and more.
+##Current features
+	- Window handling
+	- Render batching
+	- Texture sheets
+	- TTF text rendering
+	- Various pre-built shaders
 
-Development of PXL2D is very early right now, so features will slowly be added over time.
+##Future features
+	- Frame buffers
+	- Point lights
+	- Animation handling
+	- Z ordering
+
+pxl2D is it it's very early stages as of now, so features will slowly be added over time. Note: everything currently implemented is
+Windows only for the time being.
