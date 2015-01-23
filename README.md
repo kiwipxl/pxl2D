@@ -1,6 +1,6 @@
 # pxl2D
-pxl2D is a cross-platform 2D game engine written in c++. The aim of pxl2D is to provide as much functionality as it can while being very
-versitle so you can focus on making your game rather than how you will implement technical solutions.
+pxl2D is a cross-platform 2D game engine written in c++. The aim of pxl2D is to provide as much functionality as possible so you can focus on making your game rather than how you will implement technical solutions. It's designed to be versitle so you also have
+the ability to do more.
 
 ##Current features
 	- Window handling
