@@ -1,7 +1,7 @@
 #include "PXL_Batch.h"
 #include <iostream>
 #include <algorithm>
-#include "PXL.h"
+#include "PXL_Window.h"
 
 PXL_Batch::PXL_Batch(PXL_MaxRenders max_renders) {
 	vbo_created = false;
@@ -31,11 +31,11 @@ void PXL_Batch::create_batch(PXL_MaxRenders max_renders) {
 
 	set_shader(PXL_default_shader);
 
-	//set perspective matrix to screen coordinates and translate to 0,0 top left
+	//set perspective matrix to window coordinates and translate to 0,0 top left
 	view_mat.identity();
 	perspective_mat.identity();
 
-	perspective_mat.scale(1.0f / PXL_center_screen_x, -1.0f / PXL_center_screen_y);
+	perspective_mat.scale(1.0f / PXL_center_window_x, -1.0f / PXL_center_window_y);
 	perspective_mat.translate(-1.0f, 1.0f);
 
 	//enable alpha blending
@@ -117,7 +117,7 @@ void PXL_Batch::add_texture(int texture_id) {
 
 bool PXL_Batch::verify_texture_add(PXL_Texture* texture, PXL_Rect* rect) {
 	if (texture->texture_created) {
-		if (rect->x + rect->w > 0 && rect->y + rect->h > 0 && rect->x < PXL_screen_width && rect->y < PXL_screen_height) {
+		if (rect->x + rect->w > 0 && rect->y + rect->h > 0 && rect->x < PXL_window_width && rect->y < PXL_window_height) {
 			if (vertex_data.size() >= max_renders_amount) {
 				throw exception("hit max batch render size");
 			}

@@ -17,8 +17,11 @@ int main(int argc, char* args[]) {
 	std::clock_t start_time;
 	std::clock_t start_second_time = 0;
 	int frame_counter = 0;
+	timeBeginPeriod(1);
 
-	PXL_init(1024, 768);
+	PXL_create_window(1024, 768, "PXL Example Project");
+	PXL_init();
+
 	PXL_Texture* cat = load_texture("cat.png");
 	PXL_Texture* cat_2 = load_texture("cat2.png");
 	PXL_Texture* cute_cat = load_texture("cutecat.png");
@@ -43,15 +46,15 @@ int main(int argc, char* args[]) {
 	sheet.add(cat_2, &sheet_rect);
 
 	sheet_rect.x = 0; sheet_rect.y = 0;
-	sheet_rect.w = PXL_screen_width; sheet_rect.h = PXL_screen_height;
+	sheet_rect.w = PXL_window_width; sheet_rect.h = PXL_window_height;
 	//sheet_origin.x = sheet_rect.w / 2; sheet_origin.y = sheet_rect.h / 2;
 
 	sheet.create();
 
 	for (int n = 0; n < 72 * 7; n += 7) {
 		float radius = 100 + ((rand() / float(RAND_MAX)) * 200);
-		PXL_create_point_light(int((rand() / float(RAND_MAX)) * (PXL_screen_width + radius)),
-			int((rand() / float(RAND_MAX)) * (PXL_screen_height + radius)), radius, .25f,
+		PXL_create_point_light(int((rand() / float(RAND_MAX)) * (PXL_window_width + radius)),
+			int((rand() / float(RAND_MAX)) * (PXL_window_height + radius)), radius, .25f,
 			rand() / float(RAND_MAX), rand() / float(RAND_MAX), rand() / float(RAND_MAX));
 	}
 
@@ -81,7 +84,7 @@ int main(int argc, char* args[]) {
 		glClear(GL_COLOR_BUFFER_BIT);
 		glClearColor(1, 1, 1, 1);
 
-		std::clock_t start_render = std::clock();
+		std::clock_t render_timer = std::clock();
 
 		//silly test code stuff
 		PXL_Rect rect;
@@ -118,12 +121,10 @@ int main(int argc, char* args[]) {
 		batch.render_all();
 
 		//swaps back buffer to front buffer
-		//glFlush();
-		//glFinish();
-		SwapBuffers(PXL_handle_dc);
+		PXL_swap_buffers();
 
 		double ms = std::clock() - start_time;
-		if (ms >= 0 && ms < ms_per_frame) { Sleep(floor(ms_per_frame - ms)); }
+		if (ms >= 0 && ms < ms_per_frame) { Sleep(ms_per_frame - ms); }
 
 		++frame_counter;
 		if (std::clock() - start_second_time >= 1000) {

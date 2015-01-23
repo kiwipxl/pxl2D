@@ -25,6 +25,7 @@
     <ClCompile Include="src\PXL_ShaderUtils.cpp" />
     <ClCompile Include="src\PXL_ShaderProgram.cpp" />
     <ClCompile Include="src\PXL_TextureSheet.cpp" />
+    <ClCompile Include="src\PXL_Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\PXL.h" />
@@ -43,6 +44,7 @@
     <ClInclude Include="include\PXL_ShaderProgram.h" />
     <ClInclude Include="include\PXL_TextureSheet.h" />
     <ClInclude Include="include\PXL_VertexPoint.h" />
+    <ClInclude Include="include\PXL_Window.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7F4BAC6B-9372-4E84-8723-216A860B7548}</ProjectGuid>
@@ -96,7 +98,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>libpng.lib;zlib.lib;freetype.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libpng.lib;zlib.lib;freetype.lib;glew32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

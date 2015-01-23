@@ -1,6 +1,6 @@
 #include "PXL_FrameBuffer.h"
 #include <iostream>
-#include "PXL.h"
+#include "PXL_Window.h"
 
 PXL_FrameBuffer::PXL_FrameBuffer() {
 	frame_buffer_created = false;
@@ -20,8 +20,8 @@ void PXL_FrameBuffer::create_frame_buffer() {
 
 	glGenFramebuffers(1, &id);
 	glBindFramebuffer(GL_FRAMEBUFFER, id);
-	glFramebufferParameteri(GL_DRAW_FRAMEBUFFER, GL_FRAMEBUFFER_DEFAULT_WIDTH, PXL_screen_width);
-	glFramebufferParameteri(GL_DRAW_FRAMEBUFFER, GL_FRAMEBUFFER_DEFAULT_HEIGHT, PXL_screen_height);
+	glFramebufferParameteri(GL_DRAW_FRAMEBUFFER, GL_FRAMEBUFFER_DEFAULT_WIDTH, PXL_window_width);
+	glFramebufferParameteri(GL_DRAW_FRAMEBUFFER, GL_FRAMEBUFFER_DEFAULT_HEIGHT, PXL_window_height);
 	glFramebufferParameteri(GL_DRAW_FRAMEBUFFER, GL_FRAMEBUFFER_DEFAULT_SAMPLES, 4);
 	glBindFramebuffer(GL_FRAMEBUFFER, NULL);
 
