@@ -6,7 +6,6 @@
 #include "PXL_Structs.h"
 #include "PXL_Bitmap.h"
 #include "PXL_Texture.h"
-#include "PXL_VertexPoint.h"
 
 class PXL_TextureSheet : public PXL_Texture {
 
@@ -22,7 +21,7 @@ class PXL_TextureSheet : public PXL_Texture {
 
 		//sheet info
 		bool alpha_blending = true;
-		vector<PXL_PixelBuffer*> pixel_data;
+		std::vector<PXL_PixelBuffer*> pixel_data;
 		PXL_RGBA bg_colour;
 
 		/**

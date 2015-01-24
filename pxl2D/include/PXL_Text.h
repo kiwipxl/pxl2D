@@ -5,8 +5,6 @@
 #include "PXL_FontUtils.h"
 #include "PXL_Batch.h"
 
-using namespace std;
-
 enum PXL_TextOrigin {
 	PXL_TOP_LEFT_ORIGIN,
 	PXL_TOP_CENTER_ORIGIN,
@@ -26,7 +24,7 @@ class PXL_Text {
 		/**
 		\*brief: text constructor
 		**/
-		PXL_Text(PXL_Font* f_font, string f_text, 
+		PXL_Text(PXL_Font* f_font, std::string f_text, 
 				 int f_pos_x = 0, int f_pos_y = 0, short f_size = 24);
 		/**
 		\*brief: text deconstructor
@@ -58,8 +56,8 @@ class PXL_Text {
 		void set_origin(float x = 0, float y = 0);
 		void set_origin(const PXL_TextOrigin origin_point = PXL_TOP_LEFT_ORIGIN);
 
-		void set_text(string new_text = "") { text = new_text; set_origin(origin_type); }
-		string get_text() { return text; }
+		void set_text(std::string new_text = "") { text = new_text; set_origin(origin_type); }
+		std::string get_text() { return text; }
 
 		void set_size(short c_size) { size = c_size; set_origin(origin_type); set_font_scale(); }
 		short get_size() { return size; }
@@ -89,7 +87,7 @@ class PXL_Text {
 	private:
 		//text info
 		bool text_loaded;
-		string text = "";
+		std::string text = "";
 		short size;
 		float width = 0;
 		float height = 0;
@@ -111,7 +109,7 @@ class PXL_Text {
 \*brief: loads and creates a text from the specified path
 \*param [path]: the path and file name for the text to load
 **/
-extern PXL_Text* PXL_create_text(PXL_Font* f_font, string c_text, 
+extern PXL_Text* PXL_create_text(PXL_Font* f_font, std::string c_text, 
 								 int f_pos_x = 0, int f_pos_y = 0, short f_size = 24, short f_kerning = 4);
 
 #endif

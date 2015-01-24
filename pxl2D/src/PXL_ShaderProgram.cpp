@@ -1,7 +1,8 @@
 #include "PXL_ShaderProgram.h"
 #include <fstream>
 
-PXL_ShaderProgram::PXL_ShaderProgram(string vertex_shader, string fragment_shader, string v_shader_name, string f_shader_name) {
+PXL_ShaderProgram::PXL_ShaderProgram(std::string vertex_shader, std::string fragment_shader, 
+									 std::string v_shader_name, std::string f_shader_name) {
 	vertex_id = glCreateShader(GL_VERTEX_SHADER);
 	fragment_id = glCreateShader(GL_FRAGMENT_SHADER);
 
@@ -31,9 +32,9 @@ PXL_ShaderProgram::PXL_ShaderProgram(string vertex_shader, string fragment_shade
 		GLint linked;
 		glGetProgramiv(program_id, GL_LINK_STATUS, &linked);
 		if (linked) {
-			cout << "shader (" + v_shader_name + ") linked successfully\n";
+			std::cout << "shader (" + v_shader_name + ") linked successfully\n";
 		}else {
-			cout << "shader (" + v_shader_name + ") link failed\n";
+			std::cout << "shader (" + v_shader_name + ") link failed\n";
 		}
 
 		//detach shaders whether or not linking was successful
@@ -45,21 +46,21 @@ PXL_ShaderProgram::PXL_ShaderProgram(string vertex_shader, string fragment_shade
 	glDeleteShader(fragment_id);
 }
 
-bool PXL_ShaderProgram::compile(GLuint shader_id, int shader_type, string shader_name) {
+bool PXL_ShaderProgram::compile(GLuint shader_id, int shader_type, std::string shader_name) {
 	GLint compiled;
 	glGetObjectParameterivARB(shader_id, GL_COMPILE_STATUS, &compiled);
 	if (compiled) {
-		cout << "shader compiled successfully\n";
+		std::cout << "shader compiled successfully\n";
 	}else {
 		switch (shader_type) {
 			case GL_VERTEX_SHADER:
-				cout << "vertex shader (" << shader_name << ") failed to compile\n";
+				std::cout << "vertex shader (" << shader_name << ") failed to compile\n";
 				break;
 			case GL_FRAGMENT_SHADER:
-				cout << "fragment shader (" << shader_name << ") failed to compile\n";
+				std::cout << "fragment shader (" << shader_name << ") failed to compile\n";
 				break;
 			default:
-				cout << "unknown shader (" << shader_name << ") failed to compile\n";
+				std::cout << "unknown shader (" << shader_name << ") failed to compile\n";
 				break;
 		}
 		log(shader_id);
@@ -70,15 +71,15 @@ bool PXL_ShaderProgram::compile(GLuint shader_id, int shader_type, string shader
 void PXL_ShaderProgram::log(GLuint shader_id) {
 	GLint log_len;
 	glGetShaderiv(shader_id, GL_INFO_LOG_LENGTH, &log_len);
-	cout << "[compiler log]: ";
+	std::cout << "[compiler log]: ";
 	if (log_len > 1) {
 		GLchar* log = (GLchar*)malloc(log_len);
 
 		glGetInfoLogARB(shader_id, log_len, 0, log);
 
-		cout << log << "\n";
+		std::cout << log << "\n";
 		delete log;
 	}else {
-		cout << "empty\n";
+		std::cout << "empty\n";
 	}
 }

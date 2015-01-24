@@ -4,8 +4,6 @@
 #include "PXL_FontUtils.h"
 #include "PXL_TextureSheet.h"
 
-using namespace std;
-
 typedef struct FT_FaceRec_* FT_Face;
 
 #define MIN(v, v2) v < v2 ? v : v2
@@ -18,14 +16,14 @@ class PXL_Font {
 		\*brief: loads the font
 		\*param [path]: the path and file name for the font to load
 		**/
-		PXL_Font(string path, int c_max_font_size = 72);
+		PXL_Font(std::string path, int c_max_font_size = 72);
 		/**
 		\*brief: font deconstructor
 		**/
 		~PXL_Font();
 
 		PXL_TextureSheet* glyph_sheet; /**> Texture sheet containing all glyphs in this font **/
-		string name;
+		std::string name;
 		int num_glyphs;
 		int width;
 		int height;
@@ -58,6 +56,6 @@ class PXL_Font {
 \*brief: loads and creates a font from the specified path
 \*param [path]: the path and file name for the font to load
 **/
-extern PXL_Font* PXL_create_font(string path, int c_max_font_size = 72);
+extern PXL_Font* PXL_create_font(std::string path, int c_max_font_size = 72);
 
 #endif

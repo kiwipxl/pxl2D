@@ -5,17 +5,11 @@
 #include <vector>
 #include "PXL_ShaderUtils.h"
 
-using namespace std;
-
 struct PXL_PointLight {
 
-	int x;
-	int y;
-	float radius;
-	float intensity;
-	float r;
-	float g;
-	float b;
+	int x, y;
+	float radius, intensity;
+	float r, g, b;
 };
 
 extern void PXL_lights_init();

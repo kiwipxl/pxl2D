@@ -5,7 +5,7 @@ PXL_Bitmap::PXL_Bitmap() {
 	buffer_loaded = false;
 }
 
-PXL_Bitmap::PXL_Bitmap(string path) {
+PXL_Bitmap::PXL_Bitmap(std::string path) {
 	buffer_loaded = false;
 	load_bitmap(path);
 }
@@ -17,11 +17,11 @@ PXL_Bitmap::PXL_Bitmap(int width, int height, unsigned char* buffer) {
 	pixels = &buffer[0];
 }
 
-PXL_Bitmap* PXL_create_bitmap(string path) {
+PXL_Bitmap* PXL_create_bitmap(std::string path) {
 	return new PXL_Bitmap(path);
 }
 
-void PXL_Bitmap::load_bitmap(string path) {
+void PXL_Bitmap::load_bitmap(std::string path) {
 	if (buffer_loaded) {
 		buffer_loaded = false;
 		delete pixels;

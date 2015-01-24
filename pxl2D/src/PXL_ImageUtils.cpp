@@ -5,14 +5,14 @@
 
 #define PNG_SIG_SIZE 8
 
-void log_image_error(string e);
-bool png_validate(ifstream& file);
+void log_image_error(std::string e);
+bool png_validate(std::ifstream& file);
 void read_png(png_structp read, png_bytep data, png_size_t length);
 
-ifstream file;
+std::ifstream file;
 
-PXL_PixelBuffer* PXL_load_png(string file_name) {
-	file.open(file_name, ios::binary);
+PXL_PixelBuffer* PXL_load_png(std::string file_name) {
+	file.open(file_name, std::ios::binary);
 
 	if (!png_validate(file)) {
 		log_image_error("(" + file_name + ") is not a valid png");
@@ -72,7 +72,7 @@ void read_png(png_structp png_pointer, png_bytep data, png_size_t length) {
 	file.read((char*)data, length);
 }
 
-bool png_validate(ifstream& file) {
+bool png_validate(std::ifstream& file) {
 	//allocate a buffer of 8 constant bytes
 	png_byte png_sig[PNG_SIG_SIZE];
 
@@ -83,6 +83,6 @@ bool png_validate(ifstream& file) {
 	return (png_sig_cmp(png_sig, 0, PNG_SIG_SIZE) == 0);
 }
 
-void log_image_error(string e) {
-	cout << "[imageutils log error]: " << e << "\n";
+void log_image_error(std::string e) {
+	std::cout << "[imageutils log error]: " << e << "\n";
 }

@@ -5,8 +5,6 @@
 #include "PXL_Structs.h"
 #include "PXL_Font.h"
 
-using namespace std;
-
 class PXL_Batch;
 typedef struct FT_LibraryRec_* FT_Library;
 

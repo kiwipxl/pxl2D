@@ -4,8 +4,6 @@
 #include <string>
 #include "PXL_ImageUtils.h"
 
-using namespace std;
-
 class PXL_Bitmap {
 
 	public:
@@ -17,7 +15,7 @@ class PXL_Bitmap {
 		\*brief: loads the bitmap
 		\*param [path]: the path and file name for the bitmap to load
 		**/
-		PXL_Bitmap(string path);
+		PXL_Bitmap(std::string path);
 		/**
 		\*brief: creates the bitmap with specified values
 		\*param [width]: the width of the image
@@ -39,7 +37,7 @@ class PXL_Bitmap {
 		\*brief: loads a bitmap from the specified path
 		\*param [path]: the path and file name for the bitmap to load
 		**/
-		void load_bitmap(string path);
+		void load_bitmap(std::string path);
 
 		/**
 		\*brief: frees all data from the bitmap
@@ -55,6 +53,6 @@ class PXL_Bitmap {
 \*brief: loads and creates a bitmap from the specified path
 \*param [path]: the path and file name for the bitmap to load
 **/
-extern PXL_Bitmap* PXL_create_bitmap(string path);
+extern PXL_Bitmap* PXL_create_bitmap(std::string path);
 
 #endif

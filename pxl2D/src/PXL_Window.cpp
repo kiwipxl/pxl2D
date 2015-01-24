@@ -5,7 +5,7 @@ int PXL_window_width;
 int PXL_window_height;
 int PXL_center_window_x;
 int PXL_center_window_y;
-vector<PXL_Window*> PXL_windows;
+std::vector<PXL_Window*> PXL_windows;
 
 PIXELFORMATDESCRIPTOR pix_format_desc =                  // pix_format_desc Tells Windows How We Want Things To Be
 {
@@ -43,13 +43,13 @@ LRESULT CALLBACK win_proc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 	return 0;
 }
 
-PXL_Window::PXL_Window(int window_width, int window_height, string title) {
+PXL_Window::PXL_Window(int window_width, int window_height, std::string title) {
 	window_loaded = false;
 	create_window(window_width, window_height, title);
 	PXL_windows.push_back(this);
 }
 
-PXL_Window* PXL_create_window(int window_width, int window_height, string title) {
+PXL_Window* PXL_create_window(int window_width, int window_height, std::string title) {
 	return new PXL_Window(window_width, window_height, title);
 }
 
@@ -61,7 +61,7 @@ void PXL_swap_buffers(int window_index) {
 	SwapBuffers(PXL_windows[window_index]->device_context_handle);
 }
 
-void PXL_Window::create_window(int window_width, int window_height, string title) {
+void PXL_Window::create_window(int window_width, int window_height, std::string title) {
 	free();
 
 	PXL_window_width = window_width;

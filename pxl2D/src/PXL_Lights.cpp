@@ -3,7 +3,7 @@
 #include <algorithm>
 #include "PXL_Batch.h"
 
-vector<PXL_PointLight*> point_lights_vec;
+std::vector<PXL_PointLight*> point_lights_vec;
 GLfloat* point_lights_arr;
 PXL_ShaderProgram* point_light_shader;
 const int max_point_lights = 72;

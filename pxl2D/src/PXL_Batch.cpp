@@ -119,7 +119,7 @@ bool PXL_Batch::verify_texture_add(PXL_Texture* texture, PXL_Rect* rect) {
 	if (texture->texture_created) {
 		if (rect->x + rect->w > 0 && rect->y + rect->h > 0 && rect->x < PXL_window_width && rect->y < PXL_window_height) {
 			if (vertex_data.size() >= max_renders_amount) {
-				throw exception("hit max batch render size");
+				throw std::exception("hit max batch render size");
 			}
 
 			return true;
@@ -141,7 +141,7 @@ void PXL_Batch::add_vertices(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src
 	}
 
 	if (index >= vertex_data.size()) {
-		throw exception("index argument is out of bounds from vertex data");
+		throw std::exception("index argument is out of bounds from vertex data");
 	}
 
 	//set vertex pos, uvs and colours

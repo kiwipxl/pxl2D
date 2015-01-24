@@ -8,7 +8,7 @@ const char* end_v_header = "#END_VERTEX";
 const char* start_f_header = "#START_FRAGMENT";
 const char* end_f_header = "#END_FRAGMENT";
 
-void log_shader_error(string e);
+void log_shader_error(std::string e);
 
 PXL_ShaderProgram* PXL_default_shader;
 PXL_ShaderProgram* PXL_bloom_shader;
@@ -75,12 +75,12 @@ void PXL_set_text_shader(PXL_Batch* batch, float r, float g, float b, float a) {
 	glUniform3f(glGetUniformLocation(PXL_text_shader->get_program_id(), "text_colour"), r / 255.0f, g / 255.0f, b / 255.0f);
 }
 
-PXL_ShaderProgram* PXL_load_shader(string vertex_file, string fragment_file) {
+PXL_ShaderProgram* PXL_load_shader(std::string vertex_file, std::string fragment_file) {
 	return new PXL_ShaderProgram(PXL_load_file(vertex_file), PXL_load_file(fragment_file), vertex_file, fragment_file);
 }
 
-PXL_ShaderProgram* PXL_load_glsl_shader(string glsl_file) {
-	string s = PXL_load_file(glsl_file);
+PXL_ShaderProgram* PXL_load_glsl_shader(std::string glsl_file) {
+	std::string s = PXL_load_file(glsl_file);
 
 	int start_v = s.find(start_v_header);
 	int end_v = s.find(end_v_header);
@@ -88,8 +88,8 @@ PXL_ShaderProgram* PXL_load_glsl_shader(string glsl_file) {
 	int end_f = s.find(end_f_header);
 
 	if (start_v != -1 && end_v != -1 && start_f != -1 && end_f != -1) {
-		string vertex_file = s.substr(start_v + strlen(start_v_header) + 1, end_v - (start_v + strlen(start_v_header) + 1));
-		string fragment_file = s.substr(start_f + strlen(start_f_header) + 1, end_f - (start_f + strlen(start_f_header) + 1));
+		std::string vertex_file = s.substr(start_v + strlen(start_v_header) + 1, end_v - (start_v + strlen(start_v_header) + 1));
+		std::string fragment_file = s.substr(start_f + strlen(start_f_header) + 1, end_f - (start_f + strlen(start_f_header) + 1));
 		return new PXL_ShaderProgram(vertex_file, fragment_file, glsl_file + " - vertex", glsl_file + " - fragment");
 	}else {
 		log_shader_error("headers not found. start the vertex shader with #START_VERTEX and end with #END_VERTEX and for fragment too");
@@ -97,12 +97,12 @@ PXL_ShaderProgram* PXL_load_glsl_shader(string glsl_file) {
 	return new PXL_ShaderProgram("", "");
 }
 
-string PXL_load_file(string file_name) {
-	ifstream file(file_name, ifstream::in);
+std::string PXL_load_file(std::string file_name) {
+	std::ifstream file(file_name, std::ifstream::in);
 	if (file) {
-		file.ignore(numeric_limits<streamsize>::max());
-		streamsize size = file.gcount();
-		file.seekg(0, ifstream::beg);
+		file.ignore(std::numeric_limits<std::streamsize>::max());
+		std::streamsize size = file.gcount();
+		file.seekg(0, std::ifstream::beg);
 
 		if (size >= 0) {
 			char* buffer = new char[size];
@@ -125,6 +125,6 @@ string PXL_load_file(string file_name) {
 	return "";
 }
 
-void log_shader_error(string e) {
-	cout << "[shader log error]: " << e << "\n";
+void log_shader_error(std::string e) {
+	std::cout << "[shader log error]: " << e << "\n";
 }

@@ -2,7 +2,6 @@
 #define BATCH_H
 
 #include <vector>
-#include "PXL_VertexPoint.h"
 #include "PXL_Bitmap.h"
 #include "PXL_Texture.h"
 #include "PXL_Matrix4.h"
@@ -133,11 +132,11 @@ class PXL_Batch {
 		bool vbo_created;
 		unsigned int size;
 		GLuint vertex_id;
-		vector<PXL_VertexPoint> vertex_data;
+		std::vector<PXL_VertexPoint> vertex_data;
 
 		//batch textures
-		vector<int> texture_ids;
-		vector<int> texture_offsets;
+		std::vector<int> texture_ids;
+		std::vector<int> texture_offsets;
 
 		/** Adds a texture id to a vector if it is not already in it
 		@param texture_id the id binded to the texture

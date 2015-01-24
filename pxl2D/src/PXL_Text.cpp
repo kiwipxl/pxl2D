@@ -1,7 +1,7 @@
 #include "PXL_Text.h"
 #include <iostream>
 
-PXL_Text::PXL_Text(PXL_Font* f_font, string f_text, int f_pos_x, int f_pos_y, short f_size) {
+PXL_Text::PXL_Text(PXL_Font* f_font, std::string f_text, int f_pos_x, int f_pos_y, short f_size) {
 	text_loaded = false;
 	font = f_font;
 	text = f_text;
@@ -13,7 +13,7 @@ PXL_Text::PXL_Text(PXL_Font* f_font, string f_text, int f_pos_x, int f_pos_y, sh
 	set_scale(1, 1);
 }
 
-PXL_Text* PXL_create_text(PXL_Font* f_font, string f_text, int f_pos_x, int f_pos_y, short f_size) {
+PXL_Text* PXL_create_text(PXL_Font* f_font, std::string f_text, int f_pos_x, int f_pos_y, short f_size) {
 	return new PXL_Text(f_font, f_text, f_pos_x, f_pos_y, f_size);
 }
 

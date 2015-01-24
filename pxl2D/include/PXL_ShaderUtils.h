@@ -7,26 +7,24 @@
 
 struct PXL_Batch;
 
-using namespace std;
-
 /**
 \*brief: creates a shader program from the specified vertex and fragment shader paths
 \*param [vertex_file]: the path to the vertex shader file
 \*param [fragment_file]: the path to the fragment shader file
 **/
-extern PXL_ShaderProgram* PXL_load_shader(string vertex_file, string fragment_file);
+extern PXL_ShaderProgram* PXL_load_shader(std::string vertex_file, std::string fragment_file);
 
 /**
 \*brief: creates a shader program from the specified glsl custom shader path
 \*param [glsl_file]: the path to the glsl shader file
 **/
-extern PXL_ShaderProgram* PXL_load_glsl_shader(string glsl_file);
+extern PXL_ShaderProgram* PXL_load_glsl_shader(std::string glsl_file);
 
 /**
 \*brief: reads the contents of a file
 \*param [file_name]: the path and file name to load
 **/
-extern string PXL_load_file(string file_name);
+extern std::string PXL_load_file(std::string file_name);
 
 //premade pxl glsl shaders
 extern PXL_ShaderProgram* PXL_default_shader;

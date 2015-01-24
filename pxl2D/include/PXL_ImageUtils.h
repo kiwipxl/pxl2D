@@ -5,8 +5,6 @@
 #include <iostream>
 #include "PXL_Structs.h"
 
-using namespace std;
-
 struct PXL_PixelBuffer {
 
 	PXL_PixelBuffer() { }
@@ -38,6 +36,6 @@ struct PXL_PixelBuffer {
 \*brief: loads the contents of a png image into a PXL_PixelBuffer
 \*param [file_name]: the path and file name of the png to load
 **/
-extern PXL_PixelBuffer* PXL_load_png(string file_name);
+extern PXL_PixelBuffer* PXL_load_png(std::string file_name);
 
 #endif

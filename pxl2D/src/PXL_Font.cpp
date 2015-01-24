@@ -3,12 +3,12 @@
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
-PXL_Font::PXL_Font(string path, int c_max_font_size) {
+PXL_Font::PXL_Font(std::string path, int c_max_font_size) {
 	max_font_size = c_max_font_size;
 	if (!FT_New_Face(PXL_FT_lib, path.c_str(), 0, &f)) {
 		FT_Set_Pixel_Sizes(f, max_font_size, 0);
-		cout << "charmaps: " << f->num_charmaps << "\n";
-		cout << "num glyphs: " << f->num_glyphs << "\n";
+		std::cout << "charmaps: " << f->num_charmaps << "\n";
+		std::cout << "num glyphs: " << f->num_glyphs << "\n";
 
 		name = f->family_name;
 		num_glyphs = f->num_glyphs;
@@ -55,7 +55,7 @@ int PXL_Font::get_glyph_index(int char_code) {
 	return FT_Get_Char_Index(f, char_code);
 }
 
-PXL_Font* PXL_create_font(string path, int c_max_font_size) {
+PXL_Font* PXL_create_font(std::string path, int c_max_font_size) {
 	return new PXL_Font(path, c_max_font_size);
 }
 

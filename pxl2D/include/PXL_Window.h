@@ -5,21 +5,19 @@
 #include <vector>
 #include <Windows.h>
 
-using namespace std;
-
 class PXL_Window;
 
 extern int PXL_window_width;
 extern int PXL_window_height;
 extern int PXL_center_window_x;
 extern int PXL_center_window_y;
-extern vector<PXL_Window*> PXL_windows;
+extern std::vector<PXL_Window*> PXL_windows;
 
 /**
 \*brief: loads and creates a window from the specified path
 \*param [path]: the path and file name for the window to load
 **/
-extern PXL_Window* PXL_create_window(int window_width, int window_height, string title);
+extern PXL_Window* PXL_create_window(int window_width, int window_height, std::string title);
 extern void PXL_swap_buffers(PXL_Window* window);
 extern void PXL_swap_buffers(int window_index = 0);
 
@@ -33,7 +31,7 @@ class PXL_Window {
 		\*param [height]: the height of the image
 		\*param [window]: an array of pixels for the image
 		**/
-		PXL_Window(int window_width, int window_height, string title);
+		PXL_Window(int window_width, int window_height, std::string title);
 		/**
 		\*brief: window deconstructor
 		**/
@@ -56,7 +54,7 @@ class PXL_Window {
 		\*brief: loads a window from the specified path
 		\*param [path]: the path and file name for the window to load
 		**/
-		void create_window(int window_width, int window_height, string title);
+		void create_window(int window_width, int window_height, std::string title);
 
 		/**
 		\*brief: frees all data from the window

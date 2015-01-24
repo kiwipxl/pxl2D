@@ -5,8 +5,6 @@
 #include <string>
 #include <iostream>
 
-using namespace std;
-
 class PXL_ShaderProgram {
 
 	public:
@@ -17,8 +15,8 @@ class PXL_ShaderProgram {
 		\*param [v_shader_name]: the name of the vertex shader file
 		\*param [f_shader_name]: the name of the fragment shader file
 		**/
-		PXL_ShaderProgram(string vertex_shader, string fragment_shader,
-						  string v_shader_name = "n/a", string f_shader_name = "n/a");
+		PXL_ShaderProgram(std::string vertex_shader,		 std::string fragment_shader,
+						  std::string v_shader_name = "n/a", std::string f_shader_name = "n/a");
 
 		/**
 		\*brief: gets the program id
@@ -37,7 +35,7 @@ class PXL_ShaderProgram {
 		\*param [shader_type]: the type of shader, being either GL_VERTEX_SHADER or GL_FRAGMENT_SHADER
 		\*param [shader_name]: the name of the shader to compile
 		**/
-		bool compile(GLuint shader_id, int shader_type, string shader_name);
+		bool compile(GLuint shader_id, int shader_type, std::string shader_name);
 
 		/**
 		\*brief: gathers any logs from the shader and prints it if there is
