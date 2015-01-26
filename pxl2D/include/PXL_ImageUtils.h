@@ -8,11 +8,16 @@
 struct PXL_PixelBuffer {
 
 	PXL_PixelBuffer() { }
-	PXL_PixelBuffer(int pos_x, int pos_y, unsigned int w, unsigned int h, 
-					unsigned int max_w, unsigned int max_h, unsigned char* pixels, 
-					unsigned int size, unsigned int channel_size) :
-					x(pos_x), y(pos_y), width(w), height(h), max_width(max_w), max_height(max_h), 
-					buffer(pixels), buffer_size(size), channels(channel_size) { }
+	PXL_PixelBuffer(int pos_x, int pos_y, 
+					unsigned int w, unsigned int h, 
+					unsigned int max_w, unsigned int max_h, 
+					unsigned char* pixels, unsigned int size, 
+					unsigned int channel_size) :
+					x(pos_x), y(pos_y), 
+					width(w), height(h), 
+					max_width(max_w), max_height(max_h), 
+					buffer(pixels), buffer_size(size), 
+					channels(channel_size) { }
 	~PXL_PixelBuffer() { free(); }
 
 	unsigned char* buffer;

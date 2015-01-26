@@ -10,6 +10,8 @@ PXL_Texture* load_texture(char* path) {
 }
 
 int main(int argc, char* args[]) {
+	srand(time(NULL));
+
 	float t = 0;
 	float fps = 60;
 	float ms_per_frame = 1000 / fps;
@@ -51,11 +53,12 @@ int main(int argc, char* args[]) {
 
 	sheet.create();
 
+	std::vector<PXL_PointLight*> point_lights;
 	for (int n = 0; n < 72 * 7; n += 7) {
-		float radius = 100 + ((rand() / float(RAND_MAX)) * 200);
-		PXL_create_point_light(int((rand() / float(RAND_MAX)) * (PXL_window_width + radius)),
-			int((rand() / float(RAND_MAX)) * (PXL_window_height + radius)), radius, .25f,
-			rand() / float(RAND_MAX), rand() / float(RAND_MAX), rand() / float(RAND_MAX));
+		float radius = 200 + ((rand() / float(RAND_MAX)) * 200);
+		point_lights.push_back(PXL_create_point_light(int((rand() / float(RAND_MAX)) * (PXL_window_width + radius)),
+			int((rand() / float(RAND_MAX)) * (PXL_window_height + radius)), radius, .2f,
+			rand() / float(RAND_MAX), rand() / float(RAND_MAX), rand() / float(RAND_MAX)));
 	}
 
 	PXL_Batch batch = PXL_Batch(PXL_LARGE_BATCH);
@@ -81,8 +84,8 @@ int main(int argc, char* args[]) {
 			DispatchMessage(&msg);
 		}
 
-		glClear(GL_COLOR_BUFFER_BIT);
 		glClearColor(1, 1, 1, 1);
+		glClear(GL_COLOR_BUFFER_BIT);
 
 		std::clock_t render_timer = std::clock();
 
@@ -97,9 +100,14 @@ int main(int argc, char* args[]) {
 		origin.y = rect.h / 2;
 		t += .5f;
 
-		PXL_render_point_lights(&batch);
+		PXL_set_default_shader(&batch);
 		batch.add(&sheet, &sheet_rect, NULL, 0, &sheet_origin, PXL_FLIP_NONE);
-		batch.render_all();
+
+		for (int n = 0; n < point_lights.size(); ++n) {
+			point_lights[n]->intensity += cos(t / (10 + (n / 10))) / 15;
+			point_lights[n]->radius += sin(t / (10 + (n / 10))) / 15;
+		}
+		PXL_render_point_lights(&batch);
 
 		PXL_set_bloom_shader(&batch, cos(t / 4) + 1, (sin(t / 8) / 2) + .5f);
 		for (int n = 0; n < amount * 2; n += 2) {
@@ -110,7 +118,7 @@ int main(int argc, char* args[]) {
 
 		batch.render_all();
 
-		text.set_text("timer: hi\nnewline BIGTEXT");
+		text.set_text("timer: " + std::to_string(t) + "\nnewline testtext");
 		text.rotation += cos(t / 10);
 		text.colour.r = ((cos(t / 4) / 2) + .5f) * 255;
 		text.colour.g = ((sin(t / 6) / 2) + .5f) * 255;
@@ -121,6 +129,8 @@ int main(int argc, char* args[]) {
 		batch.render_all();
 
 		//swaps back buffer to front buffer
+		//glBindFramebuffer(GL_FRAMEBUFFER, 1);
+		//glBlitFramebuffer(0, 0, PXL_window_width, PXL_window_height, 0, 0, PXL_window_width, PXL_window_height, GL_COLOR_BUFFER_BIT, GL_NEAREST);
 		PXL_swap_buffers();
 
 		double ms = std::clock() - start_time;

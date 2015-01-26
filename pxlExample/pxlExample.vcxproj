@@ -41,8 +41,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)lib\SDL2.03\include;$(SolutionDir)lib\glew-1.11.0\include;$(SolutionDir)pxl2D\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(SolutionDir)lib\SDL2.03\lib\x86;$(SolutionDir)lib\glew-1.11.0\lib\win32;$(SolutionDir)lib\pxl2D</LibraryPath>
+    <IncludePath>$(SolutionDir)pxl2D\include;$(ProjectDir)lib\glew-1.11.0\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(ProjectDir)lib\pxl2D;$(ProjectDir)lib\glew-1.11.0\lib\win32</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -59,7 +59,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;opengl32.lib;glew32s.lib;Vfw32.lib;pxl2D.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Vfw32.lib;pxl2D.lib;opengl32.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>MSVCRT</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>

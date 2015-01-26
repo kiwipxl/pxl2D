@@ -7,10 +7,13 @@
 
 struct PXL_PointLight {
 
-	int x, y;
+	float x, y;
 	float radius, intensity;
 	float r, g, b;
 };
+
+extern std::vector<PXL_PointLight*> PXL_point_lights;
+extern int PXL_max_point_lights;
 
 extern void PXL_lights_init();
 extern PXL_PointLight* PXL_create_point_light(int x, int y, float radius, float intensity, float r, float g, float b);

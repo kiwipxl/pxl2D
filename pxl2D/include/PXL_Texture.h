@@ -29,6 +29,7 @@ class PXL_Texture {
 		@param pixel_mode The pixel type of the pixel data (default is R, G, B, A)
 		**/
 		PXL_Texture(PXL_Bitmap* bitmap, int pixel_mode = GL_RGBA);
+		PXL_Texture(int w, int h, void* pixels = NULL, int pixel_mode = GL_RGBA);
 		~PXL_Texture();
 
 		bool texture_created; /**< Defines whether the texture has been created or not **/
@@ -38,6 +39,7 @@ class PXL_Texture {
 		@param pixel_mode The pixel type of the pixel data (default is R, G, B, A)
 		**/
 		void create_texture(PXL_Bitmap* bitmap, int pixel_mode = GL_RGBA);
+		void create_texture(int w, int h, void* pixels, int pixel_mode = GL_RGBA);
 
 		/** Sets filter parameters for uploaded texture
 		@param min_filter The filter value for when the texture is scaled and is smaller than its original size

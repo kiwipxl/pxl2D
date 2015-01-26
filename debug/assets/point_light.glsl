@@ -52,18 +52,26 @@ in vec2 tex_coord;
 out vec4 pixel;
 
 uniform sampler2D t0;
-uniform float points[6];
+uniform float points[504];
+uniform int points_length;
+const int point_size = 7;
 
 void main() {
-	ivec2 size = textureSize(t0, 0);
   	pixel = texture(t0, tex_coord);
-  	vec2 pos = tex_coord * size;
-  	for (int n = 0; n < 2; n += 3) {
+
+  	vec2 pos = tex_coord * textureSize(t0, 0);
+  	float size;
+  	float intensity;
+  	for (int n = 0; n < points_length; n += point_size) {
+  		size = points[n + 2];
+  		intensity = points[n + 3];
   		float dist = sqrt(pow(pos.x - points[n], 2) + pow(pos.y - points[n + 1], 2));
-  		if (dist <= points[n + 2]) {
-  			float intensity = .25;
-  			pixel.r += intensity - (dist / (points[n + 2] / intensity));
-  			pixel.a -= intensity - (dist / (points[n + 2] / intensity));
+  		if (dist <= size) {
+  			float a = intensity - (dist / (size / intensity));
+  			pixel.r -= a * points[n + 4];
+  			pixel.g -= a * points[n + 5];
+  			pixel.b -= a * points[n + 6];
+  			pixel.a += a;
   		}
   	}
 }

@@ -1,6 +1,7 @@
 #ifndef PXL_H
 #define PXL_H
 
+#define GLEW_STATIC
 #include "PXL_Batch.h"
 #include "PXL_ShaderUtils.h"
 #include "PXL_TextureSheet.h"

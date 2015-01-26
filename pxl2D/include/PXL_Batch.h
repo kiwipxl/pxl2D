@@ -9,6 +9,7 @@
 #include "PXL_ShaderUtils.h"
 #include "PXL_TextureSheet.h"
 #include "PXL_ShaderProgram.h"
+#include "PXL_FrameBuffer.h"
 
 typedef int PXL_Flip;
 
@@ -47,7 +48,8 @@ class PXL_Batch {
 		**/
 		void create_batch(PXL_MaxRenders max_renders = PXL_SMALL_BATCH);
 
-		/** Renders everything that was added to the batch and clears all data when finished
+		/** Renders everything that was added to the batch and clears all data when finished. You
+		can set where the target will render to using set_target with a PXL_FrameBuffer.
 		@see clear_all(), add()
 		**/
 		void render_all();
@@ -56,6 +58,13 @@ class PXL_Batch {
 		@see render_all(), add()
 		**/
 		void clear_all();
+
+		/** Sets the target framebuffer to render to. When render_all is called, everything will be 
+		rendered to the target. Specifying a target of NULL will render to the default buffer.
+		Read more about frame buffers here: https://www.opengl.org/wiki/Framebuffer_Object
+		@see render_all(), clear_all(), add()
+		**/
+		void set_target(PXL_FrameBuffer* buffer = NULL);
 
 		/** Sets the shader to use when the batch render is called
 		@param shader_program_id the id associated with a PXL_ShaderProgram
@@ -127,6 +136,7 @@ class PXL_Batch {
 	private:
 		//batch info
 		int max_renders_amount;
+		PXL_FrameBuffer* target_frame_buffer = NULL;
 
 		//vbo
 		bool vbo_created;

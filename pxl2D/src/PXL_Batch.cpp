@@ -228,6 +228,11 @@ void PXL_Batch::set_vertex_colours(int index, int r, int g, int b, int a) {
 	}
 }
 
+void PXL_Batch::set_target(PXL_FrameBuffer* f) {
+	//sets the target frame buffer to be used for rendering
+	target_frame_buffer = f;
+}
+
 void PXL_Batch::draw_vbo() {
 	//if there are no textures to draw or no vertex data then return
 	if (texture_ids.size() == 0 || vertex_data.size() == 0) { return; }
@@ -252,6 +257,10 @@ void PXL_Batch::draw_vbo() {
 		}
 	}
 
+	//if a framebuffer is specified, bind to it, if not bind to the default framebuffer
+	if (target_frame_buffer != NULL) {
+		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, target_frame_buffer->get_id());
+	}
 	//binds vertex buffer
 	glBindBuffer(GL_ARRAY_BUFFER, vertex_id);
 
@@ -279,6 +288,9 @@ void PXL_Batch::draw_vbo() {
 		//draw vertex data from binded buffer
 		glDrawArrays(GL_QUADS, offset / sizeof(PXL_VertexPoint), size / sizeof(PXL_VertexPoint));
 	}
+
+	//set back to default framebuffer
+	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
 }
 
 void PXL_Batch::free() {

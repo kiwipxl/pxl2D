@@ -1,20 +1,24 @@
-﻿Build started 24/01/2015 2:55:18 PM.
+﻿Build started 26/01/2015 4:55:54 PM.
      1>Project "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxlExample\pxlExample.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D GLEW_STATIC /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt src\Main.cpp
          Main.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\pxl_batch.h(32): warning C4099: 'PXL_Batch' : type name first seen using 'struct' now seen using 'class'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\pxl.h(4): warning C4005: 'GLEW_STATIC' : macro redefinition
+                 command-line arguments :  see previous definition of 'GLEW_STATIC'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\pxl_batch.h(33): warning C4099: 'PXL_Batch' : type name first seen using 'struct' now seen using 'class'
                  c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\pxl_shaderutils.h(8) : see declaration of 'PXL_Batch'
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxlexample\src\main.cpp(49): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxlexample\src\main.cpp(115): warning C4244: '=' : conversion from 'float' to 'unsigned char', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxlexample\src\main.cpp(116): warning C4244: '=' : conversion from 'float' to 'unsigned char', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxlexample\src\main.cpp(117): warning C4244: '=' : conversion from 'float' to 'unsigned char', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxlexample\src\main.cpp(127): warning C4244: 'argument' : conversion from 'double' to 'DWORD', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxlexample\src\main.cpp(13): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxlexample\src\main.cpp(51): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxlexample\src\main.cpp(106): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxlexample\src\main.cpp(123): warning C4244: '=' : conversion from 'float' to 'unsigned char', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxlexample\src\main.cpp(124): warning C4244: '=' : conversion from 'float' to 'unsigned char', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxlexample\src\main.cpp(125): warning C4244: '=' : conversion from 'float' to 'unsigned char', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxlexample\src\main.cpp(137): warning C4244: 'argument' : conversion from 'double' to 'DWORD', possible loss of data
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\Debug\pxlExample.exe" /INCREMENTAL /NOLOGO SDL2.lib SDL2main.lib opengl32.lib glew32s.lib Vfw32.lib pxl2D.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /NODEFAULTLIB:MSVCRT /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\Debug\pxlExample.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\Debug\pxlExample.lib" /MACHINE:X86 Debug\Main.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\Debug\pxlExample.exe" /INCREMENTAL /NOLOGO Vfw32.lib pxl2D.lib opengl32.lib glew32s.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /NODEFAULTLIB:MSVCRT /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\Debug\pxlExample.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\Debug\pxlExample.lib" /MACHINE:X86 Debug\Main.obj
          pxlExample.vcxproj -> C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\Debug\pxlExample.exe
      1>Done Building Project "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxlExample\pxlExample.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:01.19
+Time Elapsed 00:00:01.13

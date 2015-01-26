@@ -64,17 +64,12 @@ void PXL_swap_buffers(int window_index) {
 void PXL_Window::create_window(int window_width, int window_height, std::string title) {
 	free();
 
-	PXL_window_width = window_width;
-	PXL_window_height = window_height;
-	PXL_center_window_x = PXL_window_width / 2;
-	PXL_center_window_y = PXL_window_height / 2;
-
 	instance_handle = GetModuleHandle(NULL);
 	class_name = title.c_str();
 	window_name = title.c_str();
 
 	win_class.cbSize = sizeof(WNDCLASSEX);
-	win_class.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
+	win_class.style = CS_DROPSHADOW | CS_OWNDC;
 	win_class.lpfnWndProc = win_proc;
 	win_class.cbClsExtra = 0;
 	win_class.cbWndExtra = 0;
@@ -86,12 +81,22 @@ void PXL_Window::create_window(int window_width, int window_height, std::string 
 	win_class.lpszClassName = class_name;
 	win_class.hIconSm = LoadIcon(NULL, IDI_INFORMATION);
 
+	//calculate adjusted window rect with border so the client rect is the same size as the specified width/height
+	tagRECT rect;
+	rect.left = 0; rect.top = 0; rect.right = window_width; rect.bottom = window_height;
+	AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
+
+	PXL_window_width = window_width;
+	PXL_window_height = window_height;
+	PXL_center_window_x = PXL_window_width / 2;
+	PXL_center_window_y = PXL_window_height / 2;
+
 	if (!RegisterClassEx(&win_class)) {
 		MessageBox(NULL, "Window registration failed", "An error occurred!", MB_ICONEXCLAMATION | MB_OK);
 	}
 
 	win_handle = CreateWindowEx(WS_EX_CLIENTEDGE, class_name, window_name, WS_OVERLAPPEDWINDOW, 
-							    CW_USEDEFAULT, CW_USEDEFAULT, PXL_window_width, PXL_window_height,
+							    CW_USEDEFAULT, CW_USEDEFAULT, (rect.right - rect.left) + 8, (rect.bottom - rect.top) + 8,  
 								NULL, NULL, instance_handle, NULL);
 
 	if (win_handle == NULL) {

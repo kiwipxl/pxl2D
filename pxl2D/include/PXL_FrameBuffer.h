@@ -1,9 +1,8 @@
 #ifndef FRAME_BUFFER_H
 #define FRAME_BUFFER_H
 
-#include <glew.h>
 #include "PXL_Structs.h"
-#include "PXL_Bitmap.h"
+#include "PXL_Texture.h"
 
 /** The PXL_FrameBuffer class handles uploading of pixel data to the GPU to create a frame_buffer that can be
 used with a PXL_Batch to render images to the screen
@@ -27,6 +26,8 @@ class PXL_FrameBuffer {
 		**/
 		void create_frame_buffer();
 
+		void clear(float r, float g, float b, float a);
+
 		/** Deletes all frame_buffer information
 		**/
 		void free();
@@ -47,11 +48,14 @@ class PXL_FrameBuffer {
 		\return The id
 		**/
 		const GLint get_id() { return id; }
+		PXL_Texture* get_texture() { return texture; }
+		const GLint get_texture_id() { return texture->get_id(); }
 
 	protected:
 		int width; /**< The width of the frame_buffer **/
 		int height; /**< The height of the frame_buffer **/
 		GLuint id; /**< The id associated with the frame_buffer **/
+		PXL_Texture* texture;
 };
 
 /**
