@@ -2,13 +2,13 @@
 #define PXL_H
 
 #define GLEW_STATIC
-#include "PXL_Batch.h"
-#include "PXL_ShaderUtils.h"
-#include "PXL_TextureSheet.h"
-#include "PXL_FontUtils.h"
-#include "PXL_Text.h"
-#include "PXL_Lights.h"
-#include "PXL_Window.h"
+#include "graphics/PXL_Batch.h"
+#include "graphics/PXL_ShaderUtils.h"
+#include "graphics/PXL_TextureSheet.h"
+#include "graphics/PXL_FontUtils.h"
+#include "graphics/PXL_Text.h"
+#include "graphics/PXL_Lights.h"
+#include "system/PXL_Window.h"
 #include <glew.h>
 
 /** Initialises PXL
