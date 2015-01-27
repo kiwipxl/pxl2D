@@ -2,6 +2,7 @@
 #include <iostream>
 #include <algorithm>
 #include "PXL_Window.h"
+#include "system/PXL_Exception.h"
 
 PXL_Batch::PXL_Batch(PXL_MaxRenders max_renders) {
 	vbo_created = false;
@@ -58,6 +59,7 @@ void PXL_Batch::clear_all() {
 	//reset texture index and vertex data
 	texture_ids.clear();
 	vertex_data.clear();
+	num_added = 0;
 }
 
 void PXL_Batch::set_shader(GLint shader_program_id) {
@@ -76,6 +78,7 @@ void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect) {
 	if (verify_texture_add(texture, rect)) {
 		add_texture(texture->get_id());
 		add_vertices(texture, rect, src_rect);
+		++num_added;
 	}
 }
 
@@ -83,6 +86,7 @@ void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, PX
 	if (verify_texture_add(texture, rect)) {
 		add_texture(texture->get_id());
 		add_vertices(texture, rect, src_rect, 0, NULL, flip);
+		++num_added;
 	}
 }
 
@@ -90,6 +94,7 @@ void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, fl
 	if (verify_texture_add(texture, rect)) {
 		add_texture(texture->get_id());
 		add_vertices(texture, rect, src_rect, rotation, origin, flip);
+		num_added;
 	}
 }
 
@@ -97,6 +102,7 @@ void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, in
 	if (verify_texture_add(texture, rect)) {
 		add_texture(texture->get_id());
 		add_vertices(texture, rect, src_rect, 0, NULL, flip, r, g, b, a);
+		++num_added;
 	}
 }
 
@@ -105,6 +111,7 @@ void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, in
 	if (verify_texture_add(texture, rect)) {
 		add_texture(texture->get_id());
 		add_vertices(texture, rect, src_rect, rotation, origin, flip, r, g, b, a);
+		++num_added;
 	}
 }
 
@@ -119,7 +126,8 @@ bool PXL_Batch::verify_texture_add(PXL_Texture* texture, PXL_Rect* rect) {
 	if (texture->texture_created) {
 		if (rect->x + rect->w > 0 && rect->y + rect->h > 0 && rect->x < PXL_window_width && rect->y < PXL_window_height) {
 			if (vertex_data.size() >= max_renders_amount) {
-				throw std::exception("hit max batch render size");
+				PXL_show_exception("Hit the max batch render size");
+				return false;
 			}
 
 			return true;
@@ -141,7 +149,7 @@ void PXL_Batch::add_vertices(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src
 	}
 
 	if (index >= vertex_data.size()) {
-		throw std::exception("index argument is out of bounds from vertex data");
+		PXL_show_exception("Index argument is out of bounds from vertex data");
 	}
 
 	//set vertex pos, uvs and colours

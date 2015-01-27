@@ -25,6 +25,7 @@
     <ClCompile Include="src\graphics\PXL_ShaderUtils.cpp" />
     <ClCompile Include="src\graphics\PXL_ShaderProgram.cpp" />
     <ClCompile Include="src\graphics\PXL_TextureSheet.cpp" />
+    <ClCompile Include="src\system\PXL_Exception.cpp" />
     <ClCompile Include="src\system\PXL_Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -43,6 +44,8 @@
     <ClInclude Include="include\graphics\PXL_ShaderUtils.h" />
     <ClInclude Include="include\graphics\PXL_ShaderProgram.h" />
     <ClInclude Include="include\graphics\PXL_TextureSheet.h" />
+    <ClInclude Include="include\system\PXL_Config.h" />
+    <ClInclude Include="include\system\PXL_Exception.h" />
     <ClInclude Include="include\system\PXL_Window.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -62,7 +65,7 @@
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -81,6 +84,11 @@
     <IntDir>$(Configuration)\</IntDir>
     <SourcePath>$(ProjectDir)src;$(ProjectDir)src\graphics;$(ProjectDir)src\system;$(SourcePath)</SourcePath>
     <LibraryPath>$(ProjectDir)lib\libpng-1.2.37\lib;$(ProjectDir)lib\zlib-1.2.3\lib;$(ProjectDir)lib\freetype-2.3.5\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)lib\glew-1.11.0\include;$(ProjectDir)lib\libpng-1.2.37\include;$(ProjectDir)lib\zlib-1.2.3\include;$(ProjectDir)lib\freetype-2.3.5\include;$(ProjectDir)lib\freetype-2.3.5\include\freetype2;$(ProjectDir)include;$(ProjectDir)include\graphics;$(ProjectDir)include\system</IncludePath>
+    <LibraryPath>$(ProjectDir)lib\libpng-1.2.37\lib;$(ProjectDir)lib\zlib-1.2.3\lib;$(ProjectDir)lib\freetype-2.3.5\lib;$(LibraryPath)</LibraryPath>
+    <SourcePath>$(ProjectDir)src;$(ProjectDir)src\graphics;$(ProjectDir)src\system;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -116,6 +124,9 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <Lib>
+      <AdditionalDependencies>libpng.lib;zlib.lib;freetype.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

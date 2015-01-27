@@ -3,6 +3,7 @@
 #include <algorithm>
 #include "PXL_Batch.h"
 #include "PXL_FrameBuffer.h"
+#include "system/PXL_Exception.h"
 
 std::vector<PXL_PointLight*> PXL_point_lights;
 int PXL_max_point_lights = 72;
@@ -32,6 +33,8 @@ PXL_PointLight* PXL_create_point_light(int x, int y, float radius, float intensi
 		point_lights_arr.push_back(light->b);
 
 		return light;
+	}else {
+		PXL_show_exception("Cannot create more than " + std::to_string(PXL_max_point_lights) + " lights");
 	}
 	return NULL;
 }

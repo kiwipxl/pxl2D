@@ -132,10 +132,12 @@ class PXL_Batch {
 		\return the max renders amount this batch has
 		**/
 		int get_max_renders() { return max_renders_amount; }
+		int get_num_added() { return num_added; }
 
 	private:
 		//batch info
 		int max_renders_amount;
+		int num_added;
 		PXL_FrameBuffer* target_frame_buffer = NULL;
 
 		//vbo

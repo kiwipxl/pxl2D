@@ -1,14 +1,13 @@
 #include "PXL_ShaderUtils.h"
 #include <fstream>
 #include "PXL_Batch.h"
+#include "system/PXL_Exception.h"
 
 //defines
 const char* start_v_header = "#START_VERTEX";
 const char* end_v_header = "#END_VERTEX";
 const char* start_f_header = "#START_FRAGMENT";
 const char* end_f_header = "#END_FRAGMENT";
-
-void log_shader_error(std::string e);
 
 PXL_ShaderProgram* PXL_default_shader;
 PXL_ShaderProgram* PXL_bloom_shader;
@@ -92,9 +91,11 @@ PXL_ShaderProgram* PXL_load_glsl_shader(std::string glsl_file) {
 		std::string fragment_file = s.substr(start_f + strlen(start_f_header) + 1, end_f - (start_f + strlen(start_f_header) + 1));
 		return new PXL_ShaderProgram(vertex_file, fragment_file, glsl_file + " - vertex", glsl_file + " - fragment");
 	}else {
-		log_shader_error("headers not found. start the vertex shader with #START_VERTEX and end with #END_VERTEX and for fragment too");
+		PXL_show_exception("Headers not found when loading (" + glsl_file + "). Custom PXL_glsl shaders use " + 
+							start_v_header + " at the beginning of a vertex shader and " + end_v_header + " at the end. Fragment " + 
+							"shaders use " + start_f_header + " and " + end_f_header, true, false);
 	}
-	return new PXL_ShaderProgram("", "");
+	return NULL;
 }
 
 std::string PXL_load_file(std::string file_name) {
@@ -113,18 +114,14 @@ std::string PXL_load_file(std::string file_name) {
 				buffer[size] = '\0';
 				return buffer;
 			}else {
-				log_shader_error("(" + file_name + ") could not be read successfully");
+				PXL_show_exception("(" + file_name + ") could not be read successfully", true, false);
 				delete[] buffer;
 			}
 		}else {
-			log_shader_error("size of (" + file_name + ") is less than zero");
+			PXL_show_exception("(" + file_name + ") does not contain any content when read", true, false);
 		}
 	}else {
-		log_shader_error("couldn't load shader file (" + file_name + "), may not exist");
+		PXL_show_exception("Couldn't load shader file (" + file_name + "). It may not exist", true, false);
 	}
 	return "";
-}
-
-void log_shader_error(std::string e) {
-	std::cout << "[shader log error]: " << e << "\n";
 }

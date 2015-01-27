@@ -1,9 +1,10 @@
 #include "PXL.h"
+#include "system/PXL_Exception.h"
 
 void PXL_init() {
 	GLenum error;
 	if ((error = glewInit()) != GLEW_OK) {
-		MessageBox(NULL, (char*)glewGetErrorString(error), "An error occurred!", MB_ICONEXCLAMATION | MB_OK);
+		PXL_show_exception("Could not initialise PXL: " + (std::string)(char*)glewGetErrorString(error));
 		return;
 	}
 	std::cout << "glew initiated\n";
