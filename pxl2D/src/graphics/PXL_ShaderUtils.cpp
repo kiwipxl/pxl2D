@@ -4,10 +4,10 @@
 #include "system/PXL_Exception.h"
 
 //defines
-const char* start_v_header = "#START_VERTEX";
-const char* end_v_header = "#END_VERTEX";
-const char* start_f_header = "#START_FRAGMENT";
-const char* end_f_header = "#END_FRAGMENT";
+const char* start_v_header = "//[START_VERTEX]";
+const char* end_v_header = "//[END_VERTEX]";
+const char* start_f_header = "//[START_FRAGMENT]";
+const char* end_f_header = "//[END_FRAGMENT]";
 
 PXL_ShaderProgram* PXL_default_shader;
 PXL_ShaderProgram* PXL_bloom_shader;

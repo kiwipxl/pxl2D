@@ -1,4 +1,4 @@
-#START_VERTEX
+//[START_VERTEX]
 #version 140
 
 /**
@@ -28,9 +28,9 @@ void main() {
    gl_Position = matrix * vec4(a_position, 0, 1);
 }
 
-#END_VERTEX
+//[END_VERTEX]
 
-#START_FRAGMENT
+//[START_FRAGMENT]
 #version 140
 
 /**
@@ -57,11 +57,14 @@ uniform int points_length;
 const int point_size = 7;
 
 void main() {
-  	pixel = texture(t0, tex_coord);
-
+	pixel = vec4(1, 1, 1, 0);
+	
   	vec2 pos = tex_coord * textureSize(t0, 0);
   	float size;
   	float intensity;
+  	if (pos.x >= 1020) {
+  		pixel = vec4(0, 0, 0, 1);
+  	}
   	for (int n = 0; n < points_length; n += point_size) {
   		size = points[n + 2];
   		intensity = points[n + 3];
@@ -76,4 +79,4 @@ void main() {
   	}
 }
 
-#END_FRAGMENT
+//[END_FRAGMENT]

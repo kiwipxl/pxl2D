@@ -1,4 +1,4 @@
-#START_VERTEX
+//[START_VERTEX]
 #version 140
 
 /**
@@ -28,9 +28,9 @@ void main() {
    gl_Position = matrix * vec4(a_position, 0, 1);
 }
 
-#END_VERTEX
+//[END_VERTEX]
 
-#START_FRAGMENT
+//[START_FRAGMENT]
 #version 140
 
 /**
@@ -55,4 +55,4 @@ void main() {
     pixel.rgb = vec3(g, g, g);
 }
 
-#END_FRAGMENT
+//[END_FRAGMENT]

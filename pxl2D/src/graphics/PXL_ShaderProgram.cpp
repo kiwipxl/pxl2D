@@ -1,14 +1,15 @@
 #include "PXL_ShaderProgram.h"
 #include <fstream>
+#include "system/PXL_Exception.h"
 
 PXL_ShaderProgram::PXL_ShaderProgram(std::string vertex_shader, std::string fragment_shader, 
 									 std::string v_shader_name, std::string f_shader_name) {
 	vertex_id = glCreateShader(GL_VERTEX_SHADER);
 	fragment_id = glCreateShader(GL_FRAGMENT_SHADER);
 
-	const GLcharARB* v_shader = vertex_shader.c_str();
+	const GLchar* v_shader = vertex_shader.c_str();
 	const GLint v_len = vertex_shader.length();
-	const GLcharARB* f_shader = fragment_shader.c_str();
+	const GLchar* f_shader = fragment_shader.c_str();
 	const GLint f_len = fragment_shader.length();
 
 	glShaderSourceARB(vertex_id, 1, &v_shader, &v_len);
@@ -34,7 +35,7 @@ PXL_ShaderProgram::PXL_ShaderProgram(std::string vertex_shader, std::string frag
 		if (linked) {
 			std::cout << "shader (" + v_shader_name + ") linked successfully\n";
 		}else {
-			std::cout << "shader (" + v_shader_name + ") link failed\n";
+			PXL_show_exception("shader (" + v_shader_name + ") link failed", true, false);
 		}
 
 		//detach shaders whether or not linking was successful
@@ -54,13 +55,13 @@ bool PXL_ShaderProgram::compile(GLuint shader_id, int shader_type, std::string s
 	}else {
 		switch (shader_type) {
 			case GL_VERTEX_SHADER:
-				std::cout << "vertex shader (" << shader_name << ") failed to compile\n";
+				PXL_show_exception("Vertex shader(" + shader_name + ") failed to compile", true, false);
 				break;
 			case GL_FRAGMENT_SHADER:
-				std::cout << "fragment shader (" << shader_name << ") failed to compile\n";
+				PXL_show_exception("Fragment shader (" + shader_name + ") failed to compile", true, false);
 				break;
 			default:
-				std::cout << "unknown shader (" << shader_name << ") failed to compile\n";
+				PXL_show_exception("Unknown shader (" + shader_name + ") failed to compile", true, false);
 				break;
 		}
 		log(shader_id);
