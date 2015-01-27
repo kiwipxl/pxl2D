@@ -2,7 +2,7 @@
 #version 140
 
 /**
--------------- default vertex shader -------------
+-------------- texture coords vertex shader -------------
 
     author: Richman Stewart
 
@@ -34,15 +34,16 @@ void main() {
 #version 140
 
 /**
------------- default fragment shader ------------
+------------ texture repeat fragment shader ------------
 
     author: Richman Stewart
 
-    simple default fragment shader that multiplies
-    the vertex colour with a texel
+    repeats the original texture x, y amount of times
 
 ---------------------- use -----------------------------
 
+    repeat - the amount of times to repeat
+    the texture horizontally and vertically
 
 **/
 
@@ -53,7 +54,15 @@ out vec4 pixel;
 uniform sampler2D t0;
 
 void main() {
-  pixel = v_colour * texture(t0, tex_coord);
+  //pixel = v_colour * texture(t0, tex_coord);
+  vec4 s1 = textureOffset(t0, tex_coord, ivec2( -1, -1 ));
+  vec4 s2 = textureOffset(t0, tex_coord, ivec2( +1, -1 ));
+  vec4 s3 = textureOffset(t0, tex_coord, ivec2( -1, +1 ));
+  vec4 s4 = textureOffset(t0, tex_coord, ivec2( +1, +1 ));
+  vec4 sx = 4.0 * ((s4 + s3) - (s2 + s1));
+  vec4 sy = 4.0 * ((s2 + s4) - (s1 + s3));
+  vec4 sobel = sqrt(sx * sx + sy * sy);
+  pixel = sobel;
 }
 
 //[END_FRAGMENT]

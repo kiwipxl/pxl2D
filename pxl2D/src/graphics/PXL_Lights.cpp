@@ -4,6 +4,7 @@
 #include "PXL_Batch.h"
 #include "PXL_FrameBuffer.h"
 #include "system/PXL_Exception.h"
+#include "system/PXL_Window.h"
 
 std::vector<PXL_PointLight*> PXL_point_lights;
 int PXL_max_point_lights = 72;
@@ -59,14 +60,8 @@ void PXL_render_point_lights(PXL_Batch* batch) {
 	glUniform1i(glGetUniformLocation(point_light_shader->get_program_id(), "points_length"), PXL_point_lights.size() * 7);
 
 	PXL_Rect rect;
-	rect.x = 0; rect.y = 0; rect.w = 1024; rect.h = 768;
+	rect.x = 0; rect.y = 0; rect.w = PXL_window_width; rect.h = PXL_window_height;
 	batch->add(frame_buffer->get_texture(), &rect, NULL);
-	batch->set_target(frame_buffer);
-	batch->render_all();
-	batch->set_target();
-
-	batch->add(frame_buffer->get_texture(), &rect, NULL);
-	PXL_set_default_shader(batch);
 	batch->render_all();
 }
 

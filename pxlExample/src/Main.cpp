@@ -57,7 +57,7 @@ int main(int argc, char* args[]) {
 	for (int n = 0; n < 72 * 7; n += 7) {
 		float radius = 200 + ((rand() / float(RAND_MAX)) * 200);
 		point_lights.push_back(PXL_create_point_light(int((rand() / float(RAND_MAX)) * (PXL_window_width + radius)),
-			int((rand() / float(RAND_MAX)) * (PXL_window_height + radius)), radius, .2f,
+			int((rand() / float(RAND_MAX)) * (PXL_window_height + radius)), radius, .25f, 
 			rand() / float(RAND_MAX), rand() / float(RAND_MAX), rand() / float(RAND_MAX)));
 	}
 
@@ -84,7 +84,7 @@ int main(int argc, char* args[]) {
 			DispatchMessage(&msg);
 		}
 
-		glClearColor(1, 1, 1, 1);
+		glClearColor(1, 0, 1, 1);
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		std::clock_t render_timer = std::clock();
@@ -104,8 +104,9 @@ int main(int argc, char* args[]) {
 		batch.add(&sheet, &sheet_rect, NULL, 0, &sheet_origin, PXL_FLIP_NONE);
 
 		for (int n = 0; n < point_lights.size(); ++n) {
-			point_lights[n]->intensity += cos(t / (10 + (n / 10))) / 15;
+			point_lights[n]->intensity += cos(t / (10 + (n / 10))) / 40;
 			point_lights[n]->radius += sin(t / (10 + (n / 10))) / 15;
+			point_lights[n]->intensity = PXL_clamp(point_lights[n]->intensity, 0, 99);
 		}
 		PXL_render_point_lights(&batch);
 

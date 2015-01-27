@@ -56,6 +56,7 @@ class PXL_FrameBuffer {
 		int height; /**< The height of the frame_buffer **/
 		GLuint id; /**< The id associated with the frame_buffer **/
 		PXL_Texture* texture;
+		GLuint depth_id;
 };
 
 /**

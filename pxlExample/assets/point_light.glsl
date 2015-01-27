@@ -57,26 +57,23 @@ uniform int points_length;
 const int point_size = 7;
 
 void main() {
-	pixel = vec4(1, 1, 1, 0);
-	
-  	vec2 pos = tex_coord * textureSize(t0, 0);
-  	float size;
-  	float intensity;
-  	if (pos.x >= 1020) {
-  		pixel = vec4(0, 0, 0, 1);
-  	}
-  	for (int n = 0; n < points_length; n += point_size) {
-  		size = points[n + 2];
-  		intensity = points[n + 3];
-  		float dist = sqrt(pow(pos.x - points[n], 2) + pow(pos.y - points[n + 1], 2));
-  		if (dist <= size) {
-  			float a = intensity - (dist / (size / intensity));
-  			pixel.r -= a * points[n + 4];
-  			pixel.g -= a * points[n + 5];
-  			pixel.b -= a * points[n + 6];
-  			pixel.a += a;
-  		}
-  	}
+	pixel = vec4(0, 0, 0, 0);
+
+	vec2 pos = tex_coord * textureSize(t0, 0);
+	float size;
+	float intensity;
+	for (int n = 0; n < points_length; n += point_size) {
+		size = points[n + 2];
+		intensity = points[n + 3];
+		float dist = sqrt(pow(pos.x - points[n], 2) + pow(pos.y - points[n + 1], 2));
+		if (dist <= size) {
+			float a = intensity - (dist / (size / intensity));
+			pixel.r += a * points[n + 4];
+			pixel.g += a * points[n + 5];
+			pixel.b += a * points[n + 6];
+			pixel.a += a * pixel.rgb;
+		}
+	}
 }
 
 //[END_FRAGMENT]

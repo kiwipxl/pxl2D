@@ -18,6 +18,7 @@ void PXL_FrameBuffer::create_frame_buffer() {
 		frame_buffer_created = false;
 	}
 
+	//creates the frame buffer container object
 	glGenFramebuffers(1, &id);
 	glBindFramebuffer(GL_FRAMEBUFFER, id);
 	glFramebufferParameteri(GL_DRAW_FRAMEBUFFER, GL_FRAMEBUFFER_DEFAULT_WIDTH, PXL_window_width);
@@ -26,6 +27,11 @@ void PXL_FrameBuffer::create_frame_buffer() {
 
 	texture = new PXL_Texture(PXL_window_width, PXL_window_height);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, get_texture_id(), 0);
+
+	glGenRenderbuffers(1, &depth_id);
+	glBindRenderbuffer(GL_RENDERBUFFER, depth_id);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, PXL_window_width, PXL_window_height);
+	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, depth_id);
 
 	clear(1, 1, 1, 0);
 
