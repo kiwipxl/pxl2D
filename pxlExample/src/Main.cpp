@@ -19,6 +19,7 @@ int main(int argc, char* args[]) {
 	std::clock_t start_time;
 	std::clock_t start_second_time = 0;
 	int frame_counter = 0;
+	long average_time = 0;
 	timeBeginPeriod(1);
 
 	PXL_create_window(1024, 768, "PXL Example Project");
@@ -84,10 +85,9 @@ int main(int argc, char* args[]) {
 			DispatchMessage(&msg);
 		}
 
+		PXL_start_timer();
 		glClearColor(1, 1, 1, 1);
 		glClear(GL_COLOR_BUFFER_BIT);
-
-		std::clock_t render_timer = std::clock();
 
 		//silly test code stuff
 		PXL_Rect rect;
@@ -108,6 +108,7 @@ int main(int argc, char* args[]) {
 			point_lights[n]->radius += sin(t / (10 + (n / 10))) / 15;
 			point_lights[n]->intensity = PXL_clamp(point_lights[n]->intensity, 0, 99);
 		}
+
 		PXL_render_point_lights(&batch);
 
 		PXL_set_bloom_shader(&batch, cos(t / 4) + 1, (sin(t / 8) / 2) + .5f);
@@ -133,12 +134,16 @@ int main(int argc, char* args[]) {
 		//glBindFramebuffer(GL_FRAMEBUFFER, 1);
 		//glBlitFramebuffer(0, 0, PXL_window_width, PXL_window_height, 0, 0, PXL_window_width, PXL_window_height, GL_COLOR_BUFFER_BIT, GL_NEAREST);
 		PXL_swap_buffers();
+		average_time += PXL_stop_timer();
 
 		double ms = std::clock() - start_time;
 		if (ms >= 0 && ms < ms_per_frame) { Sleep(ms_per_frame - ms); }
 
 		++frame_counter;
 		if (std::clock() - start_second_time >= 1000) {
+			std::cout << "elapsed: " << average_time / frame_counter << "\n";
+			average_time = 0;
+
 			std::cout << "fps: " << frame_counter << "\n";
 			frame_counter = 0;
 			start_second_time = std::clock();

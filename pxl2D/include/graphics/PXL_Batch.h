@@ -52,7 +52,7 @@ class PXL_Batch {
 		can set where the target will render to using set_target with a PXL_FrameBuffer.
 		@see clear_all(), add()
 		**/
-		void render_all();
+		void render_all(bool depth_test = true);
 
 		/** Clears everything in the render queue
 		@see render_all(), add()

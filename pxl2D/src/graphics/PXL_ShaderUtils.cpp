@@ -1,7 +1,8 @@
 #include "PXL_ShaderUtils.h"
 #include <fstream>
 #include "PXL_Batch.h"
-#include "system/PXL_Exception.h"
+#include "PXL_System.h"
+#include "PXL_Config.h"
 
 //defines
 const char* start_v_header = "//[START_VERTEX]";
@@ -20,14 +21,14 @@ PXL_ShaderProgram* PXL_text_shader;
 
 void PXL_shader_init() {
 	//setup premade pxl glsl shaders
-	PXL_default_shader = PXL_load_glsl_shader("assets/default.glsl");
-	PXL_bloom_shader = PXL_load_glsl_shader("assets/bloom.glsl");
-	PXL_repeat_shader = PXL_load_glsl_shader("assets/repeat.glsl");
-	PXL_grayscale_shader = PXL_load_glsl_shader("assets/grayscale.glsl");
-	PXL_blur_shader = PXL_load_glsl_shader("assets/blur.glsl");
-	PXL_outline_shader = PXL_load_glsl_shader("assets/outline.glsl");
-	PXL_outer_glow_shader = PXL_load_glsl_shader("assets/outer_glow.glsl");
-	PXL_text_shader = PXL_load_glsl_shader("assets/text.glsl");
+	PXL_default_shader = PXL_load_glsl_shader(PXL_append_char(PXL_PREBUILT_SHADER_PATH, "default.glsl"));
+	PXL_bloom_shader = PXL_load_glsl_shader(PXL_append_char(PXL_PREBUILT_SHADER_PATH, "bloom.glsl"));
+	PXL_repeat_shader = PXL_load_glsl_shader(PXL_append_char(PXL_PREBUILT_SHADER_PATH, "repeat.glsl"));
+	PXL_grayscale_shader = PXL_load_glsl_shader(PXL_append_char(PXL_PREBUILT_SHADER_PATH, "grayscale.glsl"));
+	PXL_blur_shader = PXL_load_glsl_shader(PXL_append_char(PXL_PREBUILT_SHADER_PATH, "blur.glsl"));
+	PXL_outline_shader = PXL_load_glsl_shader(PXL_append_char(PXL_PREBUILT_SHADER_PATH, "outline.glsl"));
+	PXL_outer_glow_shader = PXL_load_glsl_shader(PXL_append_char(PXL_PREBUILT_SHADER_PATH, "outer_glow.glsl"));
+	PXL_text_shader = PXL_load_glsl_shader(PXL_append_char(PXL_PREBUILT_SHADER_PATH, "text.glsl"));
 }
 
 void PXL_set_default_shader(PXL_Batch* batch) {

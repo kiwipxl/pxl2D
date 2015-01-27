@@ -42,7 +42,6 @@ void PXL_Batch::create_batch(PXL_MaxRenders max_renders) {
 	//enable alpha blending
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	//glEnable(GL_DEPTH_TEST);
 
 	//enable vertex attrib pointers when rendering
 	glEnableVertexAttribArray(0);
@@ -50,7 +49,15 @@ void PXL_Batch::create_batch(PXL_MaxRenders max_renders) {
 	glEnableVertexAttribArray(2);
 }
 
-void PXL_Batch::render_all() {
+void PXL_Batch::render_all(bool depth_test) {
+	//enable/disable depth testing depending on depth_test input
+	if (depth_test) {
+		glClear(GL_DEPTH_BUFFER_BIT);
+		glEnable(GL_DEPTH_TEST);
+	}else {
+		glDisable(GL_DEPTH_TEST);
+	}
+
 	//draw vbo and clear all data
 	draw_vbo();
 	clear_all();
