@@ -3,6 +3,7 @@
 
 #include <glew.h>
 #include "PXL_Structs.h"
+#include "system/PXL_Math.h"
 
 class PXL_Matrix4 {
 

@@ -3,11 +3,9 @@
 
 #include "PXL_FontUtils.h"
 #include "PXL_TextureSheet.h"
+#include "system/PXL_Math.h"
 
 typedef struct FT_FaceRec_* FT_Face;
-
-#define MIN(v, v2) v < v2 ? v : v2
-#define MAX(v, v2) v > v2 ? v : v2
 
 class PXL_Font {
 

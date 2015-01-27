@@ -46,6 +46,7 @@
     <ClInclude Include="include\graphics\PXL_TextureSheet.h" />
     <ClInclude Include="include\system\PXL_Config.h" />
     <ClInclude Include="include\system\PXL_Exception.h" />
+    <ClInclude Include="include\system\PXL_Math.h" />
     <ClInclude Include="include\system\PXL_Window.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

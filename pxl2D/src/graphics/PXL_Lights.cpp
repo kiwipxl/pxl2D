@@ -7,7 +7,6 @@
 #include "system/PXL_Window.h"
 
 std::vector<PXL_PointLight*> PXL_point_lights;
-int PXL_max_point_lights = 72;
 std::vector<GLfloat> point_lights_arr;
 PXL_ShaderProgram* point_light_shader;
 PXL_FrameBuffer* frame_buffer;

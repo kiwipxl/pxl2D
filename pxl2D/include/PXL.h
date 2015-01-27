@@ -9,6 +9,7 @@
 #include "graphics/PXL_Text.h"
 #include "graphics/PXL_Lights.h"
 #include "system/PXL_Window.h"
+#include "system/PXL_Math.h"
 #include <glew.h>
 
 /** Initialises PXL

@@ -46,18 +46,15 @@ void PXL_Text::set_origin(const PXL_TextOrigin origin_point) {
 	rect.x = 0; rect.y = 0;
 	width = 0; height = 0;
 	for (int n = 0; n < text.length(); ++n) {
-		if (set_char_pos(text[n], 0)) {
-			width = MAX(width, rect.x);
-			height = MAX(height, rect.y);
-			continue;
-		}
-		width = MAX(width, rect.x);
-		height = MAX(height, rect.y);
+		bool special_symbol_found = set_char_pos(text[n], 0);
+		width = PXL_max(width, rect.x);
+		height = PXL_max(height, rect.y);
+		if (special_symbol_found) { continue; }
 		rect.x += rect.w + kerning;
 	}
 
 	height += font->get_max_char_height() * font_scale.y;
-	if (clamp_max_size) { width = MIN(width, max_width); height = MIN(height, max_height); }
+	if (clamp_max_size) { width = PXL_min(width, max_width); height = PXL_min(height, max_height); }
 
 	switch (origin_point) {
 		case PXL_TOP_LEFT_ORIGIN:
@@ -112,13 +109,13 @@ void PXL_Text::render(PXL_Batch* batch) {
 			//cut off texture width if it goes over the max width
 			if (pos_x >= scaled_max.x) {
 				src_rect.w = src_rect.w - fabs(scaled_max.x - pos_x);
-				src_rect.w = MIN(src_rect.w, scaled_max.x);
+				src_rect.w = PXL_min(src_rect.w, scaled_max.x);
 				rect.w = src_rect.w * font_scale.x;
 			}
 			//cut off texture height if it goes over the max height
 			if (pos_y >= scaled_max.y) {
 				src_rect.h = src_rect.h - fabs(scaled_max.y - pos_y);
-				src_rect.h = MIN(src_rect.h, scaled_max.y);
+				src_rect.h = PXL_min(src_rect.h, scaled_max.y);
 				rect.h = src_rect.h * font_scale.y;
 			}
 		}

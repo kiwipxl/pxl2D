@@ -27,8 +27,8 @@ PXL_Font::PXL_Font(std::string path, int c_max_font_size) {
 			pix_buf->max_width = pix_buf->width;
 			pix_buf->max_height = pix_buf->height;
 
-			max_char_width = MAX(max_char_width, pix_buf->max_width);
-			max_char_height = MAX(max_char_height, pix_buf->max_height);
+			max_char_width = PXL_max(max_char_width, pix_buf->max_width);
+			max_char_height = PXL_max(max_char_height, pix_buf->max_height);
 
 			pix_buf->channels = 1;
 			pix_buf->buffer_size = pix_buf->width * pix_buf->height;

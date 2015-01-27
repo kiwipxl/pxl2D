@@ -14,8 +14,6 @@ typedef int PXL_TextureFilter;
 #define PXL_GL_NEAREST GL_NEAREST
 #define PXL_GL_LINEAR GL_LINEAR
 
-#define PXL_clamp(v, min, max) v < min ? min : v && v > max ? max : v
-
 /** The PXL_Texture class handles uploading of pixel data to the GPU to create a texture that can be
 used with a PXL_Batch to render images to the screen
 A texture can be created with a PXL_Bitmap, a PXL_PixelBuffer or a raw pixel array.

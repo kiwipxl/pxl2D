@@ -195,7 +195,7 @@ void PXL_Batch::set_vertex_pos(int index, PXL_Texture* texture, PXL_Rect* rect, 
 	//apply rotation
 	if (rotation != 0) {
 		//set rotation to degrees rather than radians
-		rotation = rotation / (180.0f / 3.14f);
+		rotation = rotation / PXL_radian;
 		float c = cos(rotation); float s = sin(rotation);
 
 		//apply rotation transformation

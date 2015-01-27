@@ -64,7 +64,7 @@ PXL_Matrix4& PXL_Matrix4::rotate(float x, float y, float z) {
 
 PXL_Matrix4& PXL_Matrix4::rotate_x(float angle) {
 	//convert angle to radians
-	angle = angle / (180.0f / 3.14f);
+	angle = angle / PXL_radian;
 	rotation.x += angle;
 
 	float cos_a = cos(rotation.x) * scaled.x; float sin_a = sin(rotation.x) * scaled.y;
@@ -83,7 +83,7 @@ PXL_Matrix4& PXL_Matrix4::rotate_x(float angle) {
 
 PXL_Matrix4& PXL_Matrix4::rotate_y(float angle) {
 	//convert angle to radians
-	angle = angle / (180.0f / 3.14f);
+	angle = angle / PXL_radian;
 	rotation.y += angle;
 
 	float cos_a = cos(rotation.y) * scaled.x; float sin_a = sin(rotation.y) * scaled.y;
@@ -102,7 +102,7 @@ PXL_Matrix4& PXL_Matrix4::rotate_y(float angle) {
 
 PXL_Matrix4& PXL_Matrix4::rotate_z(float angle) {
 	//convert angle to radians
-	angle = angle / (180.0f / 3.14f);
+	angle = angle / PXL_radian;
 	rotation.z += angle;
 
 	float cos_a = cos(rotation.z) * scaled.x; float sin_a = sin(rotation.z) * scaled.y;
