@@ -56,21 +56,23 @@ int main(int argc, char* args[]) {
 
 	std::vector<PXL_PointLight*> point_lights;
 	for (int n = 0; n < 72 * 7; n += 7) {
-		float radius = 200 + ((rand() / float(RAND_MAX)) * 200);
-		point_lights.push_back(PXL_create_point_light(int((rand() / float(RAND_MAX)) * (PXL_window_width + radius)),
-			int((rand() / float(RAND_MAX)) * (PXL_window_height + radius)), radius, .25f, 
+		float radius = 200 + ((rand() / float(RAND_MAX)) * 400);
+		point_lights.push_back(PXL_create_point_light(int((rand() / float(RAND_MAX)) * PXL_window_width),
+			int((rand() / float(RAND_MAX)) * PXL_window_height), radius, .15f, 
 			rand() / float(RAND_MAX), rand() / float(RAND_MAX), rand() / float(RAND_MAX)));
 	}
 
-	PXL_Batch batch = PXL_Batch(PXL_LARGE_BATCH);
+	PXL_Batch batch = PXL_Batch(PXL_SMALL_BATCH);
 	PXL_set_default_shader(&batch);
 
-	int amount = 10000;
+	int amount = 1000;
 	int* pos = new int[amount * 2];
 	for (int n = 0; n < amount * 2; n += 2) {
 		pos[n] = int((rand() / float(RAND_MAX)) * 800);
 		pos[n + 1] = int((rand() / float(RAND_MAX)) * 700);
 	}
+
+	PXL_set_clear_colour(0, 0, 0, 1);
 
 	MSG msg;
 	start_second_time.start();
@@ -99,6 +101,7 @@ int main(int argc, char* args[]) {
 		origin.y = rect.h / 2;
 		t += .5f;
 
+		PXL_set_default_shader(&batch);
 		for (int n = 0; n < amount * 2; n += 2) {
 			rect.x = pos[n] + origin.x;
 			rect.y = pos[n + 1] + origin.y;
@@ -113,23 +116,13 @@ int main(int argc, char* args[]) {
 		batch.render_all();
 		average_time += PXL_stop_timer();
 
-		/**
 		for (int n = 0; n < point_lights.size(); ++n) {
-			point_lights[n]->intensity += cos(t / (10 + (n / 10))) / 40;
+			point_lights[n]->intensity += cos(t / (10 + (n / 10))) / 250;
 			point_lights[n]->radius += sin(t / (10 + (n / 10))) / 15;
 			point_lights[n]->intensity = PXL_clamp(point_lights[n]->intensity, 0, 99);
 		}
 
 		PXL_render_point_lights(&batch);
-
-		//PXL_set_bloom_shader(&batch, cos(t / 4) + 1, (sin(t / 8) / 2) + .5f);
-		for (int n = 0; n < amount * 2; n += 2) {
-			rect.x = pos[n] + rect.w;
-			rect.y = pos[n + 1] + rect.h;
-			batch.add(cat, &rect, NULL, t, &origin, PXL_FLIP_NONE);
-		}
-
-		batch.render_all();
 
 		text.set_text("timer: " + std::to_string(t) + "\nnewline testtext");
 		text.rotation += cos(t / 10);
@@ -137,10 +130,9 @@ int main(int argc, char* args[]) {
 		text.colour.g = ((sin(t / 6) / 2) + .5f) * 255;
 		text.colour.b = ((sin(t / 8) / 2) + .5f) * 255;
 		text.scale(sin(t / 10) / 50, sin(t / 10) / 50);
-		//text.render(&batch);
+		text.render(&batch);
 
 		batch.render_all();
-		**/
 
 		//swaps back buffer to front buffer
 		//glBindFramebuffer(GL_FRAMEBUFFER, 1);

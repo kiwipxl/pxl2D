@@ -147,10 +147,6 @@ class PXL_Batch {
 		GLuint vertex_buffer_id;
 		std::vector<PXL_VertexBatch> vertex_batches;
 
-		//batch textures
-		std::vector<int> texture_ids;
-		std::vector<int> texture_offsets;
-
 		/** Verifies whether the texture should be added to the batch and returns the result
 		@param rect used to check the texture position on the screen
 		**/

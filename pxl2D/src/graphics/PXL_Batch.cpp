@@ -71,9 +71,6 @@ void PXL_Batch::render_all(bool depth_test) {
 }
 
 void PXL_Batch::clear_all() {
-	//reset texture index and vertex data
-	texture_ids.clear();
-	num_added = 0;
 	num_added = 0;
 }
 
@@ -241,13 +238,6 @@ void PXL_Batch::draw_vbo() {
 	//if there are no textures to draw or no vertex data then return
 	if (num_added == 0) { return; }
 
-	//sort vertex data based on texture ids to minimise binding
-	//stable sort keeps the order the same
-	/*std::sort(vertex_batches.begin(), vertex_batches.begin() + num_added, 
-	[](const PXL_VertexBatch& a, const PXL_VertexBatch& b) -> bool {
-		return a.texture_id < b.texture_id;
-	});*/
-
 	//if a framebuffer is specified, bind to it, if not bind to the default framebuffer
 	if (target_frame_buffer != NULL) {
 		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, target_frame_buffer->get_id());
@@ -265,14 +255,14 @@ void PXL_Batch::draw_vbo() {
 	int offset_bytes = 0;
 	int prev_id = vertex_batches[0].texture_id;
 	for (int i = 0; i < num_added; ++i) {
-		if (vertex_batches[i].texture_id != prev_id) {
+		if (vertex_batches[i].texture_id != prev_id || i >= num_added - 1) {
 			prev_id = vertex_batches[i].texture_id;
 			glBindTexture(GL_TEXTURE_2D, prev_id);
 
 			//gets the offset and calculates the vertex data size for the texture
 			int offset = offset_bytes / sizeof(PXL_VertexPoint);
 			int v_size = 0;
-			int size = i - offset;
+			int size = i - offset; if (i >= num_added - 1) { ++size; }
 
 			//upload sub data with offset and region size
 			for (int n = 0; n < size; ++n) {
