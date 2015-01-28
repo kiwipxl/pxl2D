@@ -36,7 +36,6 @@ struct PXL_VertexPoint {
 	PXL_Vec2 pos;
 	PXL_UVCoord uv;
 	PXL_RGBA colour;
-	unsigned int texture_id;
 };
 
 #endif

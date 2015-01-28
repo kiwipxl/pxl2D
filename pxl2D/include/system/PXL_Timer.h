@@ -9,6 +9,8 @@
 struct PXL_Timer {
 
 	public:
+		long elapsed = 0;
+
 		void start() {
 			QueryPerformanceFrequency(&freq);
 			QueryPerformanceCounter(&start_time);
@@ -16,14 +18,15 @@ struct PXL_Timer {
 
 		long end() {
 			QueryPerformanceCounter(&end_time);
-			elapsed.QuadPart = end_time.QuadPart - start_time.QuadPart;
-			elapsed.QuadPart *= 1000000;
-			elapsed.QuadPart /= freq.QuadPart;
-			return elapsed.QuadPart;
+			elapsed_ms.QuadPart = end_time.QuadPart - start_time.QuadPart;
+			elapsed_ms.QuadPart *= 1000000;
+			elapsed_ms.QuadPart /= freq.QuadPart;
+			elapsed = elapsed_ms.QuadPart;
+			return elapsed;
 		}
 
 	private:
-		LARGE_INTEGER start_time, end_time, elapsed, freq;
+		LARGE_INTEGER start_time, end_time, elapsed_ms, freq;
 };
 #endif
 

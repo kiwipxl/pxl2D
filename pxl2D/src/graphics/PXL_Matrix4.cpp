@@ -1,6 +1,8 @@
 #include "PXL_Matrix4.h"
 #include <iostream>
 
+GLfloat* temp_mat = new GLfloat[16];
+
 PXL_Matrix4::PXL_Matrix4() {
 	mat = new GLfloat[16];
 	identity();
@@ -158,21 +160,20 @@ PXL_Matrix4& PXL_Matrix4::scale_z(float scale) {
 }
 
 PXL_Matrix4& PXL_Matrix4::multiply(const PXL_Matrix4& m) {
-	PXL_Matrix4* t = new PXL_Matrix4();
-
 	float sum = 0;
 	for (int y = 0; y < 16; ++y) {
 		for (int x = 0; x < 4; ++x) {
 			sum += mat[(4 * x) + (y % 4)] * m.mat[x + (int(y / 4) * 4)];
 		}
-		(*t)[y] = sum;
+		temp_mat[y] = sum;
 		sum = 0;
 	}
-	t->position = t->get_position();
-	t->rotation = t->get_rotation();
-	t->scaled = t->get_scale();
+	memcpy(mat, temp_mat, 16 * sizeof(GLfloat));
+	position = get_position();
+	rotation = get_rotation();
+	scaled = get_scale();
 
-	return *t;
+	return *this;
 }
 
 PXL_Matrix4* PXL_Matrix4::operator*(const PXL_Matrix4* m) {
@@ -189,4 +190,5 @@ GLfloat& PXL_Matrix4::operator[](const int index) {
 
 PXL_Matrix4::~PXL_Matrix4() {
 	delete[] mat;
+	mat = NULL;
 }

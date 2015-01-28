@@ -22,12 +22,16 @@ class PXL_ShaderProgram {
 		\*brief: gets the program id
 		**/
 		GLuint get_program_id() { return program_id; }
+		GLuint get_matrix_loc() { return matrix_loc; }
 
 	private:
 		//shaderprogram ids
 		GLuint vertex_id;
 		GLuint fragment_id;
 		GLuint program_id;
+
+		//cached locations
+		GLuint matrix_loc;
 
 		/**
 		\*brief: takes in a shader id and attempts to compile it

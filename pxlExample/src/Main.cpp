@@ -16,8 +16,8 @@ int main(int argc, char* args[]) {
 	float fps = 60;
 	float ms_per_frame = 1000 / fps;
 	bool quit = false;
-	std::clock_t start_time;
-	std::clock_t start_second_time = 0;
+	PXL_Timer start_time;
+	PXL_Timer start_second_time;
 	int frame_counter = 0;
 	long average_time = 0;
 	timeBeginPeriod(1);
@@ -63,18 +63,19 @@ int main(int argc, char* args[]) {
 	}
 
 	PXL_Batch batch = PXL_Batch(PXL_LARGE_BATCH);
+	PXL_set_default_shader(&batch);
 
-	int amount = 2;
+	int amount = 10000;
 	int* pos = new int[amount * 2];
 	for (int n = 0; n < amount * 2; n += 2) {
-		pos[n] = int((rand() / float(RAND_MAX)) * 700);
-		pos[n + 1] = int((rand() / float(RAND_MAX)) * 550);
+		pos[n] = int((rand() / float(RAND_MAX)) * 800);
+		pos[n + 1] = int((rand() / float(RAND_MAX)) * 700);
 	}
 
 	MSG msg;
-
+	start_second_time.start();
 	while (!quit) {
-		start_time = std::clock();
+		start_time.start();
 
 		while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
 			if (msg.message == WM_QUIT) {
@@ -85,9 +86,7 @@ int main(int argc, char* args[]) {
 			DispatchMessage(&msg);
 		}
 
-		PXL_start_timer();
-		glClearColor(1, 1, 1, 1);
-		glClear(GL_COLOR_BUFFER_BIT);
+		PXL_clear();
 
 		//silly test code stuff
 		PXL_Rect rect;
@@ -100,9 +99,21 @@ int main(int argc, char* args[]) {
 		origin.y = rect.h / 2;
 		t += .5f;
 
-		PXL_set_default_shader(&batch);
-		batch.add(&sheet, &sheet_rect, NULL, 0, &sheet_origin, PXL_FLIP_NONE);
+		for (int n = 0; n < amount * 2; n += 2) {
+			rect.x = pos[n] + origin.x;
+			rect.y = pos[n + 1] + origin.y;
+			if (rect.x >= 512) {
+				batch.add(cat, &rect, NULL, t, &origin, PXL_FLIP_NONE);
+			}else {
+				batch.add(cat_2, &rect, NULL, t, &origin, PXL_FLIP_NONE);
+			}
+		}
 
+		PXL_start_timer();
+		batch.render_all();
+		average_time += PXL_stop_timer();
+
+		/**
 		for (int n = 0; n < point_lights.size(); ++n) {
 			point_lights[n]->intensity += cos(t / (10 + (n / 10))) / 40;
 			point_lights[n]->radius += sin(t / (10 + (n / 10))) / 15;
@@ -111,7 +122,7 @@ int main(int argc, char* args[]) {
 
 		PXL_render_point_lights(&batch);
 
-		PXL_set_bloom_shader(&batch, cos(t / 4) + 1, (sin(t / 8) / 2) + .5f);
+		//PXL_set_bloom_shader(&batch, cos(t / 4) + 1, (sin(t / 8) / 2) + .5f);
 		for (int n = 0; n < amount * 2; n += 2) {
 			rect.x = pos[n] + rect.w;
 			rect.y = pos[n + 1] + rect.h;
@@ -126,27 +137,28 @@ int main(int argc, char* args[]) {
 		text.colour.g = ((sin(t / 6) / 2) + .5f) * 255;
 		text.colour.b = ((sin(t / 8) / 2) + .5f) * 255;
 		text.scale(sin(t / 10) / 50, sin(t / 10) / 50);
-		text.render(&batch);
+		//text.render(&batch);
 
 		batch.render_all();
+		**/
 
 		//swaps back buffer to front buffer
 		//glBindFramebuffer(GL_FRAMEBUFFER, 1);
 		//glBlitFramebuffer(0, 0, PXL_window_width, PXL_window_height, 0, 0, PXL_window_width, PXL_window_height, GL_COLOR_BUFFER_BIT, GL_NEAREST);
 		PXL_swap_buffers();
-		average_time += PXL_stop_timer();
 
-		double ms = std::clock() - start_time;
+		double ms = start_time.end() / 1000.0f;
 		if (ms >= 0 && ms < ms_per_frame) { Sleep(ms_per_frame - ms); }
 
 		++frame_counter;
-		if (std::clock() - start_second_time >= 1000) {
-			std::cout << "elapsed: " << average_time / frame_counter << "\n";
+		if (start_second_time.end() / 1000.0f >= 1000) {
+			std::cout << "elapsed: " << average_time / frame_counter << 
+						 ", ms: " << (average_time / frame_counter) / 1000.0f << "\n";
 			average_time = 0;
 
 			std::cout << "fps: " << frame_counter << "\n";
 			frame_counter = 0;
-			start_second_time = std::clock();
+			start_second_time.start();
 		}
 	}
 

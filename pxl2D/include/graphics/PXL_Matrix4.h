@@ -106,7 +106,7 @@ class PXL_Matrix4 {
 		/**
 		\*brief: returns a copy of the matrix
 		**/
-		GLfloat* get_mat() { return &mat[0]; }
+		GLfloat* get_mat() { return mat; }
 		/**
 		\*brief: sets the matrix data to another matrix data reference
 		\*param [new_mat]: the new mat to be replaced

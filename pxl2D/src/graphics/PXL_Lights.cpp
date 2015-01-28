@@ -10,10 +10,16 @@ std::vector<PXL_PointLight*> PXL_point_lights;
 std::vector<GLfloat> point_lights_arr;
 PXL_ShaderProgram* point_light_shader;
 PXL_FrameBuffer* frame_buffer;
+GLuint shader_points_loc;
+GLuint shader_points_length_loc;
 
 void PXL_lights_init() {
 	point_light_shader = PXL_load_glsl_shader("assets/point_light.glsl");
 	frame_buffer = new PXL_FrameBuffer();
+
+	glUseProgram(point_light_shader->get_program_id());
+	shader_points_loc = glGetUniformLocation(point_light_shader->get_program_id(), "points");
+	shader_points_length_loc = glGetUniformLocation(point_light_shader->get_program_id(), "points_length");
 }
 
 PXL_PointLight* PXL_create_point_light(int x, int y, float radius, float intensity, float r, float g, float b) {
@@ -54,14 +60,16 @@ void PXL_render_point_lights(PXL_Batch* batch) {
 		index += 7;
 	}
 
-	batch->set_shader(point_light_shader->get_program_id());
-	glUniform1fv(glGetUniformLocation(point_light_shader->get_program_id(), "points"), PXL_point_lights.size() * 7, &point_lights_arr[0]);
-	glUniform1i(glGetUniformLocation(point_light_shader->get_program_id(), "points_length"), PXL_point_lights.size() * 7);
+	batch->set_shader(point_light_shader);
+	glUniform1fv(shader_points_loc, PXL_point_lights.size() * 7, &point_lights_arr[0]);
+	glUniform1i(shader_points_length_loc, PXL_point_lights.size() * 7);
 
 	PXL_Rect rect;
 	rect.x = 0; rect.y = 0; rect.w = PXL_window_width; rect.h = PXL_window_height;
 	batch->add(frame_buffer->get_texture(), &rect, NULL);
 	batch->render_all();
+
+	PXL_set_default_shader(batch);
 }
 
 void PXL_remove_point_light(PXL_PointLight* light, bool delete_pointer) {

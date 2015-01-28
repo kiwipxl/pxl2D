@@ -11,13 +11,20 @@
 #include "PXL_ShaderProgram.h"
 #include "PXL_FrameBuffer.h"
 
+struct PXL_VertexBatch {
+
+	std::vector<PXL_VertexPoint> vertices;
+	unsigned int texture_id;
+	PXL_ShaderProgram* shader;
+};
+
 typedef int PXL_Flip;
 
 #define PXL_FLIP_NONE 0
 #define PXL_FLIP_HORIZONTAL 1
 #define PXL_FLIP_VERTICAL 2
 
-typedef int PXL_MaxRenders;
+typedef int PXL_MaxQuads;
 
 #define PXL_TINY_BATCH 100
 #define PXL_SMALL_BATCH 2000
@@ -36,7 +43,7 @@ class PXL_Batch {
 		/** Creates a batch with a specified max render size
 		@param size the max amount of adds this batch can have
 		**/
-		PXL_Batch(PXL_MaxRenders max_renders = PXL_SMALL_BATCH);
+		PXL_Batch(PXL_MaxQuads max_quads = PXL_SMALL_BATCH);
 		~PXL_Batch();
 
 		//batch matrices
@@ -46,7 +53,7 @@ class PXL_Batch {
 		/** Creates the batch with the specified max render size
 		@param size the max amount of adds this batch can have and the size of the vbo uploaded
 		**/
-		void create_batch(PXL_MaxRenders max_renders = PXL_SMALL_BATCH);
+		void create_batch(PXL_MaxQuads max_quads = PXL_SMALL_BATCH);
 
 		/** Renders everything that was added to the batch and clears all data when finished. You
 		can set where the target will render to using set_target with a PXL_FrameBuffer.
@@ -65,12 +72,6 @@ class PXL_Batch {
 		@see render_all(), clear_all(), add()
 		**/
 		void set_target(PXL_FrameBuffer* buffer = NULL);
-
-		/** Sets the shader to use when the batch render is called
-		@param shader_program_id the id associated with a PXL_ShaderProgram
-		@see render_all()
-		**/
-		void set_shader(GLint shader_program_id = PXL_default_shader->get_program_id());
 
 		/** Sets the shader to use when the batch render is called
 		@param shader the PXL_ShaderProgram to use
@@ -131,29 +132,24 @@ class PXL_Batch {
 		/** Gets the max render size of the batch
 		\return the max renders amount this batch has
 		**/
-		int get_max_renders() { return max_renders_amount; }
+		int get_max_quads() { return max_quads_amount; }
 		int get_num_added() { return num_added; }
 
 	private:
 		//batch info
-		int max_renders_amount;
+		int max_quads_amount;
 		int num_added;
 		PXL_FrameBuffer* target_frame_buffer = NULL;
 
 		//vbo
 		bool vbo_created;
 		unsigned int size;
-		GLuint vertex_id;
-		std::vector<PXL_VertexPoint> vertex_data;
+		GLuint vertex_buffer_id;
+		std::vector<PXL_VertexBatch> vertex_batches;
 
 		//batch textures
 		std::vector<int> texture_ids;
 		std::vector<int> texture_offsets;
-
-		/** Adds a texture id to a vector if it is not already in it
-		@param texture_id the id binded to the texture
-		**/
-		void PXL_Batch::add_texture(int texture_id);
 
 		/** Verifies whether the texture should be added to the batch and returns the result
 		@param rect used to check the texture position on the screen
@@ -204,6 +200,6 @@ class PXL_Batch {
 /** Creates a batch and returns it
 @param size the max amount of adds this batch can have
 **/
-extern PXL_Batch* PXL_create_batch(PXL_MaxRenders max_renders = PXL_SMALL_BATCH);
+extern PXL_Batch* PXL_create_batch(PXL_MaxQuads max_quads = PXL_SMALL_BATCH);
 
 #endif

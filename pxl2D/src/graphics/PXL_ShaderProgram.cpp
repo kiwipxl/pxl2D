@@ -12,11 +12,11 @@ PXL_ShaderProgram::PXL_ShaderProgram(std::string vertex_shader, std::string frag
 	const GLchar* f_shader = fragment_shader.c_str();
 	const GLint f_len = fragment_shader.length();
 
-	glShaderSourceARB(vertex_id, 1, &v_shader, &v_len);
-	glShaderSourceARB(fragment_id, 1, &f_shader, &f_len);
+	glShaderSource(vertex_id, 1, &v_shader, &v_len);
+	glShaderSource(fragment_id, 1, &f_shader, &f_len);
 
-	glCompileShaderARB(vertex_id);
-	glCompileShaderARB(fragment_id);
+	glCompileShader(vertex_id);
+	glCompileShader(fragment_id);
 
 	bool v_success = compile(vertex_id, GL_VERTEX_SHADER, v_shader_name);
 	bool f_success = compile(fragment_id, GL_FRAGMENT_SHADER, f_shader_name);
@@ -34,6 +34,7 @@ PXL_ShaderProgram::PXL_ShaderProgram(std::string vertex_shader, std::string frag
 		glGetProgramiv(program_id, GL_LINK_STATUS, &linked);
 		if (linked) {
 			std::cout << "shader (" + v_shader_name + ") linked successfully\n";
+			matrix_loc = glGetUniformLocation(program_id, "matrix");
 		}else {
 			PXL_show_exception("shader (" + v_shader_name + ") link failed", true, false);
 		}

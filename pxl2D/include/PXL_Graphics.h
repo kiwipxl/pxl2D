@@ -14,4 +14,8 @@
 **/
 extern void PXL_graphics_init();
 
+extern void PXL_set_clear_colour(float r, float g, float b, float a);
+extern void PXL_set_clear_depth(float d);
+extern void PXL_clear();
+
 #endif
