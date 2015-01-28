@@ -85,3 +85,9 @@ void PXL_ShaderProgram::log(GLuint shader_id) {
 		std::cout << "empty\n";
 	}
 }
+
+GLuint PXL_ShaderProgram::add_uniform_location(std::string uniform_name) {
+	GLuint loc = glGetUniformLocation(program_id, uniform_name.c_str());
+	locations.push_back(loc);
+	return loc;
+}

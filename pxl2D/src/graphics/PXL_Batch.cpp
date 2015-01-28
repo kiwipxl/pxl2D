@@ -75,12 +75,14 @@ void PXL_Batch::clear_all() {
 }
 
 void PXL_Batch::set_shader(PXL_ShaderProgram* shader) {
-	//use specified program id
-	glUseProgram(shader->get_program_id());
+	if (shader != NULL) {
+		//use specified program id
+		glUseProgram(shader->get_program_id());
 
-	//set matrix uniform in the vertex shader for the program
-	view_mat.identity();
-	glUniformMatrix4fv(shader->get_matrix_loc(), 1, true, (view_mat * perspective_mat).get_mat());
+		//set matrix uniform in the vertex shader for the program
+		view_mat.identity();
+		glUniformMatrix4fv(shader->get_matrix_loc(), 1, true, (view_mat * perspective_mat).get_mat());
+	}
 }
 
 void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect) {
@@ -254,8 +256,12 @@ void PXL_Batch::draw_vbo() {
 	int v_index = 0;
 	int offset_bytes = 0;
 	int prev_id = vertex_batches[0].texture_id;
+	PXL_ShaderProgram* prev_shader = PXL_default_shader;
 	for (int i = 0; i < num_added; ++i) {
-		if (vertex_batches[i].texture_id != prev_id || i >= num_added - 1) {
+		if (vertex_batches[i].texture_id != prev_id || vertex_batches[i].shader != PXL_default_shader || i >= num_added - 1) {
+			if (vertex_batches[i].texture_id == prev_id && vertex_batches[i].shader != PXL_default_shader) {
+				set_shader(vertex_batches[i].shader);
+			}
 			prev_id = vertex_batches[i].texture_id;
 			glBindTexture(GL_TEXTURE_2D, prev_id);
 

@@ -4,6 +4,7 @@
 #include <glew.h>
 #include <string>
 #include <iostream>
+#include <vector>
 
 class PXL_ShaderProgram {
 
@@ -23,6 +24,8 @@ class PXL_ShaderProgram {
 		**/
 		GLuint get_program_id() { return program_id; }
 		GLuint get_matrix_loc() { return matrix_loc; }
+		GLuint get_uniform_location(int index) { return locations[index]; }
+		GLuint add_uniform_location(std::string uniform_name);
 
 	private:
 		//shaderprogram ids
@@ -32,6 +35,7 @@ class PXL_ShaderProgram {
 
 		//cached locations
 		GLuint matrix_loc;
+		std::vector<GLuint> locations;
 
 		/**
 		\*brief: takes in a shader id and attempts to compile it

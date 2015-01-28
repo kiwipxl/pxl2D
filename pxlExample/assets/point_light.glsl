@@ -54,6 +54,7 @@ out vec4 pixel;
 uniform sampler2D t0;
 uniform float points[504];
 uniform int points_length;
+uniform float max_alpha = 1;
 const int point_size = 7;
 
 void main() {
@@ -74,6 +75,7 @@ void main() {
 			pixel.a += a * pixel.rgb;
 		}
 	}
+	pixel.a = clamp(pixel.a, 0, max_alpha);
 }
 
 //[END_FRAGMENT]
