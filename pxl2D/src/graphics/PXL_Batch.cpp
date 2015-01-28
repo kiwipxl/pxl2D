@@ -92,31 +92,33 @@ void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect) {
 	}
 }
 
-void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, PXL_Flip flip) {
+void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, PXL_Flip flip, PXL_ShaderProgram* shader) {
 	if (verify_texture_add(texture, rect)) {
-		add_vertices(texture, rect, src_rect, 0, NULL, flip);
+		add_vertices(texture, rect, src_rect, 0, NULL, flip, 1, 1, 1, 1, shader);
 		++num_added;
 	}
 }
 
-void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, float rotation, PXL_Vec2* origin, PXL_Flip flip) {
+void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, float rotation, PXL_Vec2* origin, 
+					PXL_Flip flip, PXL_ShaderProgram* shader) {
 	if (verify_texture_add(texture, rect)) {
-		add_vertices(texture, rect, src_rect, rotation, origin, flip);
+		add_vertices(texture, rect, src_rect, rotation, origin, flip, 1, 1, 1, 1, shader);
 		++num_added;
 	}
 }
 
-void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, int r, int g, int b, int a, PXL_Flip flip) {
+void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, float r, float g, float b, float a, 
+					PXL_Flip flip, PXL_ShaderProgram* shader) {
 	if (verify_texture_add(texture, rect)) {
-		add_vertices(texture, rect, src_rect, 0, NULL, flip, r, g, b, a);
+		add_vertices(texture, rect, src_rect, 0, NULL, flip, r, g, b, a, shader);
 		++num_added;
 	}
 }
 
-void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, int r, int g, int b, int a, 
-					float rotation, PXL_Vec2* origin, PXL_Flip flip) {
+void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, float r, float g, float b, float a, 
+					float rotation, PXL_Vec2* origin, PXL_Flip flip, PXL_ShaderProgram* shader) {
 	if (verify_texture_add(texture, rect)) {
-		add_vertices(texture, rect, src_rect, rotation, origin, flip, r, g, b, a);
+		add_vertices(texture, rect, src_rect, rotation, origin, flip, r, g, b, a, shader);
 		++num_added;
 	}
 }
@@ -137,9 +139,10 @@ bool PXL_Batch::verify_texture_add(PXL_Texture* texture, PXL_Rect* rect) {
 
 void PXL_Batch::add_vertices(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, 
 							 float rotation, PXL_Vec2* origin, PXL_Flip flip, 
-							 int r, int g, int b, int a) {
-	//set the texture id for the vertex batch
+							 float r, float g, float b, float a, PXL_ShaderProgram* shader) {
+	//set the texture id and shader program for the vertex batch
 	vertex_batches[num_added].texture_id = texture->get_id();
+	vertex_batches[num_added].shader = shader;
 
 	if (num_added >= max_quads_amount) {
 		PXL_show_exception("Hit max batch quad size at " + std::to_string(max_quads_amount) + " max quads.");
@@ -217,17 +220,15 @@ void PXL_Batch::set_vertex_uvs(int index, PXL_Texture* texture, PXL_Rect* src_re
 	v[3].uv.x = uv_x;										v[3].uv.y = uv_y + uv_h;
 }
 
-void PXL_Batch::set_vertex_colours(int index, int r, int g, int b, int a) {
+void PXL_Batch::set_vertex_colours(int index, float r, float g, float b, float a) {
 	PXL_VertexPoint* v = &vertex_batches[index].vertices[0];
 
 	//set vertex colours
-	if (r != 1 && g != 1 && b != 1 || a != 1) {
-		for (int n = 0; n < 4; ++n) {
-			v[n].colour.r = r;
-			v[n].colour.g = g;
-			v[n].colour.b = b;
-			v[n].colour.a = a;
-		}
+	for (int n = 0; n < 4; ++n) {
+		v[n].colour.r = r * 255;
+		v[n].colour.g = g * 255;
+		v[n].colour.b = b * 255;
+		v[n].colour.a = a * 255;
 	}
 }
 
@@ -258,9 +259,11 @@ void PXL_Batch::draw_vbo() {
 	int prev_id = vertex_batches[0].texture_id;
 	PXL_ShaderProgram* prev_shader = PXL_default_shader;
 	for (int i = 0; i < num_added; ++i) {
-		if (vertex_batches[i].texture_id != prev_id || vertex_batches[i].shader != PXL_default_shader || i >= num_added - 1) {
-			if (vertex_batches[i].texture_id == prev_id && vertex_batches[i].shader != PXL_default_shader) {
-				set_shader(vertex_batches[i].shader);
+		if (vertex_batches[i].texture_id != prev_id || 
+			(vertex_batches[i].shader != NULL && vertex_batches[i].shader != prev_shader) || i >= num_added - 1) {
+			if (vertex_batches[i].shader != prev_shader) {
+				//set_shader(vertex_batches[i].shader);
+				//prev_shader = vertex_batches[i].shader;
 			}
 			prev_id = vertex_batches[i].texture_id;
 			glBindTexture(GL_TEXTURE_2D, prev_id);

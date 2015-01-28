@@ -9,7 +9,7 @@ PXL_Text::PXL_Text(PXL_Font* f_font, std::string f_text, int f_pos_x, int f_pos_
 	x = f_pos_x;
 	y = f_pos_y;
 	colour.r = colour.g = colour.b = 0;
-	colour.a = 255;
+	colour.a = 1;
 	set_scale(1, 1);
 }
 

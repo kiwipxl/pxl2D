@@ -15,7 +15,7 @@ struct PXL_VertexBatch {
 
 	std::vector<PXL_VertexPoint> vertices;
 	unsigned int texture_id;
-	PXL_ShaderProgram* shader;
+	PXL_ShaderProgram* shader = NULL;
 };
 
 typedef int PXL_Flip;
@@ -93,37 +93,43 @@ class PXL_Batch {
 		@param rotation the rotation transformation of the texture
 		@param origin the origin point of which the texture rotates around, NULL to use top-left (0, 0)
 		@param flip defines the flip transformation for the texture
+		@param shader The shader to use when rendering this texture. Use NULL to ignore this parameter
 		**/
-		void add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, float rotation, PXL_Vec2* origin, PXL_Flip flip);
+		void add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, float rotation, PXL_Vec2* origin, 
+				 PXL_Flip flip, PXL_ShaderProgram* shader = NULL);
 
 		/** Adds the specified texture with it's transformations to the render queue
 		@param texture The texture to add to the batch
 		@param rect Specifies where on the screen the texture will be rendered to
 		@param src_rect Specifies which part of the texture to use, NULL to use the whole texture
 		@param flip defines the flip transformation for the texture
+		@param shader The shader to use when rendering this texture. Use NULL to ignore this parameter
 		**/
-		void add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, PXL_Flip flip);
+		void add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, PXL_Flip flip, PXL_ShaderProgram* shader = NULL);
 
 		/** Adds the specified texture with a colour modification
 		@param texture The texture to add to the batch
 		@param rect Specifies where on the screen the texture will be rendered to
-		@param src_rect Specifies which part of the texture to use, NULL to use the whole texture
-		@param r, g, b, a colour ranges from 0 to 255 which set the texture colour
+		@param src_rect Specifies which part of the texture to use. Use NULL to use the whole texture
+		@param r, g, b, a colour ranges from 0 to 1 which set the texture colour
 		@param flip defines the flip transformation for the texture
+		@param shader The shader to use when rendering this texture. Use NULL to ignore this parameter
 		**/
-		void add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, int r, int g, int b, int a, PXL_Flip flip);
+		void add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, float r, float g, float b, float a, 
+				 PXL_Flip flip, PXL_ShaderProgram* shader = NULL);
 
 		/** Adds the specified texture with a colour modification
 		@param texture The texture to add to the batch
 		@param rect Specifies where on the screen the texture will be rendered to
-		@param src_rect Specifies which part of the texture to use, NULL to use the whole texture
-		@param r, g, b, a colour ranges from 0 to 255 which set the texture colour
+		@param src_rect Specifies which part of the texture to use. Use NULL to use the whole texture
+		@param r, g, b, a colour ranges from 0 to 1 which set the texture colour
 		@param rotation the rotation transformation of the texture
-		@param origin the origin point of which the texture rotates around, NULL to use top-left (0, 0)
+		@param origin the origin point of which the texture rotates around. Use NULL for top-left (0, 0)
 		@param flip defines the flip transformation for the texture
+		@param shader The shader to use when rendering this texture. Use NULL to ignore this parameter
 		**/
-		void add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, int r, int g, int b, int a, 
-				 float rotation, PXL_Vec2* origin, PXL_Flip flip);
+		void add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, float r, float g, float b, float a,
+				 float rotation, PXL_Vec2* origin, PXL_Flip flip, PXL_ShaderProgram* shader = NULL);
 
 		/** Deletes everything made in this batch
 		**/
@@ -159,11 +165,11 @@ class PXL_Batch {
 		@param rotation the rotation transformation of the texture
 		@param origin the origin point of which the texture rotates around, NULL to use top-left (0, 0)
 		@param flip defines the flip transformation for the texture
-		@param r, g, b, a colour ranges from 0 to 255 which set the texture colour
+		@param r, g, b, a colour ranges from 0 to 1 which set the texture colour
 		**/
 		void add_vertices(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect,
 						  float rotation = 0, PXL_Vec2* origin = NULL, PXL_Flip flip = PXL_FLIP_NONE, 
-						  int r = 255, int g = 255, int b = 255, int a = 255);
+						  float r = 1, float g = 1, float b = 1, float a = 1, PXL_ShaderProgram* shader = NULL);
 
 		/** Calculates the vertex position for 4 different vertex points
 		@param index the index for the starting point in the vertex data
@@ -184,9 +190,9 @@ class PXL_Batch {
 
 		/** Calculates the vertex colours for 4 different vertex points
 		@param index the index for the starting point in the vertex data
-		@param r, g, b, a colour ranges from 0 to 255 which set the texture colour
+		@param r, g, b, a colour ranges from 0 to 1 which set the texture colour
 		**/
-		void set_vertex_colours(int index, int r, int g, int b, int a);
+		void set_vertex_colours(int index, float r, float g, float b, float a);
 
 		/** Sorts the vertex data texture ids and uploads vertex data in sections depending on texture id, uploads and draws it
 		**/

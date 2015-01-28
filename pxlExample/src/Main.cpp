@@ -106,7 +106,7 @@ int main(int argc, char* args[]) {
 			rect.x = pos[n] + origin.x;
 			rect.y = pos[n + 1] + origin.y;
 			if (rect.x >= 512) {
-				batch.add(cat, &rect, NULL, t, &origin, PXL_FLIP_NONE);
+				batch.add(cat, &rect, NULL, .75f, .5f, 1, 1, t, &origin, PXL_FLIP_NONE);
 			}else {
 				batch.add(cat_2, &rect, NULL, t, &origin, PXL_FLIP_NONE);
 			}
@@ -117,8 +117,8 @@ int main(int argc, char* args[]) {
 		average_time += PXL_stop_timer();
 
 		for (int n = 0; n < point_lights.size(); ++n) {
-			point_lights[n]->intensity += cos(t / (10 + (n / 10))) / 250;
-			point_lights[n]->radius += sin(t / (10 + (n / 10))) / 15;
+			point_lights[n]->intensity = (sin(t / (10 + (n / 10))) + 1) / 8;
+			point_lights[n]->radius += sin(t / (10 + (n / 10)));
 			point_lights[n]->intensity = PXL_clamp(point_lights[n]->intensity, 0, 99);
 		}
 
@@ -126,9 +126,7 @@ int main(int argc, char* args[]) {
 
 		text.set_text("timer: " + std::to_string(t) + "\nnewline testtext");
 		text.rotation += cos(t / 10);
-		text.colour.r = ((cos(t / 4) / 2) + .5f) * 255;
-		text.colour.g = ((sin(t / 6) / 2) + .5f) * 255;
-		text.colour.b = ((sin(t / 8) / 2) + .5f) * 255;
+		text.set_colour(.5f, 0, 1, 1);
 		text.scale(sin(t / 10) / 50, sin(t / 10) / 50);
 		text.render(&batch);
 
