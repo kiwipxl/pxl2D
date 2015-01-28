@@ -1,4 +1,4 @@
-﻿Build started 28/01/2015 5:54:35 PM.
+﻿Build started 28/01/2015 7:53:35 PM.
      1>Project "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxlExample\pxlExample.vcxproj" on node 2 (Build target(s)).
      1>Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\Debug\pxlExample.exe" /INCREMENTAL /NOLOGO Vfw32.lib pxl2D.lib opengl32.lib glew32s.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /NODEFAULTLIB:MSVCRT /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\Debug\pxlExample.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\Debug\pxlExample.lib" /MACHINE:X86 Debug\Main.obj
@@ -6,10 +6,13 @@
      1>pxl2D.lib(PXL_ShaderUtils.obj) : warning LNK4049: locally defined symbol ___glewGetUniformLocation imported
      1>pxl2D.lib(PXL_ShaderProgram.obj) : warning LNK4049: locally defined symbol ___glewGetUniformLocation imported
      1>pxl2D.lib(PXL_ShaderUtils.obj) : warning LNK4049: locally defined symbol ___glewUniform1f imported
-     1>pxl2D.lib(PXL_Lights.obj) : warning LNK4049: locally defined symbol ___glewUniform1f imported
+     1>pxl2D.lib(PXL_Lights.obj) : warning LNK4217: locally defined symbol ___glewUniform1f imported in function __unwindfunclet$??0?$_Vector_alloc@$0A@U?$_Vec_base_types@PAUPXL_PointLight@@V?$allocator@PAUPXL_PointLight@@@std@@@std@@@std@@QAE@ABV?$allocator@PAUPXL_PointLight@@@1@@Z$0
      1>pxl2D.lib(PXL_ShaderUtils.obj) : warning LNK4049: locally defined symbol ___glewUniform2f imported
      1>pxl2D.lib(PXL_ShaderUtils.obj) : warning LNK4049: locally defined symbol ___glewUniform3f imported
      1>pxl2D.lib(PXL_ShaderUtils.obj) : warning LNK4049: locally defined symbol ___glewUniform4f imported
+     1>pxl2D.lib(PXL_ShaderUtils.obj) : warning LNK4049: locally defined symbol ___glewUseProgram imported
+     1>pxl2D.lib(PXL_Batch.obj) : warning LNK4217: locally defined symbol ___glewUseProgram imported in function "void __cdecl `dynamic initializer for 'public: static class std::locale::id std::num_put<char,class std::back_insert_iterator<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > > >::id''(void)" (??__E?id@?$num_put@DV?$back_insert_iterator@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@std@@@std@@2V0locale@2@A@@YAXXZ)
+     1>pxl2D.lib(PXL_Lights.obj) : warning LNK4217: locally defined symbol ___glewUseProgram imported in function "public: __thiscall std::_Vector_alloc<0,struct std::_Vec_base_types<struct PXL_PointLight *,class std::allocator<struct PXL_PointLight *> > >::~_Vector_alloc<0,struct std::_Vec_base_types<struct PXL_PointLight *,class std::allocator<struct PXL_PointLight *> > >(void)" (??1?$_Vector_alloc@$0A@U?$_Vec_base_types@PAUPXL_PointLight@@V?$allocator@PAUPXL_PointLight@@@std@@@std@@@std@@QAE@XZ)
      1>pxl2D.lib(PXL_Batch.obj) : warning LNK4049: locally defined symbol ___glewBindBuffer imported
      1>pxl2D.lib(PXL_FrameBuffer.obj) : warning LNK4049: locally defined symbol ___glewBindBuffer imported
      1>pxl2D.lib(PXL_Batch.obj) : warning LNK4049: locally defined symbol ___glewBufferData imported
@@ -18,8 +21,6 @@
      1>pxl2D.lib(PXL_Batch.obj) : warning LNK4049: locally defined symbol ___glewGenBuffers imported
      1>pxl2D.lib(PXL_Batch.obj) : warning LNK4049: locally defined symbol ___glewEnableVertexAttribArray imported
      1>pxl2D.lib(PXL_Batch.obj) : warning LNK4049: locally defined symbol ___glewUniformMatrix4fv imported
-     1>pxl2D.lib(PXL_Batch.obj) : warning LNK4049: locally defined symbol ___glewUseProgram imported
-     1>pxl2D.lib(PXL_Lights.obj) : warning LNK4049: locally defined symbol ___glewUseProgram imported
      1>pxl2D.lib(PXL_Batch.obj) : warning LNK4049: locally defined symbol ___glewVertexAttribPointer imported
      1>pxl2D.lib(PXL_Batch.obj) : warning LNK4049: locally defined symbol ___glewBindFramebuffer imported
      1>pxl2D.lib(PXL_FrameBuffer.obj) : warning LNK4049: locally defined symbol ___glewBindFramebuffer imported
@@ -53,4 +54,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.45
+Time Elapsed 00:00:00.41

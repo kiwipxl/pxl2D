@@ -73,12 +73,6 @@ class PXL_Batch {
 		**/
 		void set_target(PXL_FrameBuffer* buffer = NULL);
 
-		/** Sets the shader to use when the batch render is called
-		@param shader the PXL_ShaderProgram to use
-		@see render_all()
-		**/
-		void set_shader(PXL_ShaderProgram* shader = PXL_default_shader);
-
 		/** Adds the specified texture to the render queue
 		@param texture The texture to add to the batch
 		@param rect Specifies where on the screen the texture will be rendered to
@@ -152,6 +146,12 @@ class PXL_Batch {
 		unsigned int size;
 		GLuint vertex_buffer_id;
 		std::vector<PXL_VertexBatch> vertex_batches;
+
+		/** Sets the shader to use when the batch render is called
+		@param shader the PXL_ShaderProgram to use
+		@see render_all()
+		**/
+		void set_shader(PXL_ShaderProgram* shader = PXL_default_shader);
 
 		/** Verifies whether the texture should be added to the batch and returns the result
 		@param rect used to check the texture position on the screen

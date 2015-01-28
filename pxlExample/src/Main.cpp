@@ -62,10 +62,10 @@ int main(int argc, char* args[]) {
 			rand() / float(RAND_MAX), rand() / float(RAND_MAX), rand() / float(RAND_MAX)));
 	}
 
-	PXL_Batch batch = PXL_Batch(PXL_SMALL_BATCH);
+	PXL_Batch batch = PXL_Batch(PXL_MEDIUM_BATCH);
 	PXL_set_default_shader(&batch);
 
-	int amount = 1000;
+	int amount = 2000;
 	int* pos = new int[amount * 2];
 	for (int n = 0; n < amount * 2; n += 2) {
 		pos[n] = int((rand() / float(RAND_MAX)) * 800);
@@ -102,18 +102,15 @@ int main(int argc, char* args[]) {
 		origin.y = rect.h / 2;
 		t += .5f;
 
-		PXL_set_default_shader(&batch);
 		for (int n = 0; n < amount * 2; n += 2) {
 			rect.x = pos[n] + origin.x;
 			rect.y = pos[n + 1] + origin.y;
 			if (rect.x >= 512) {
-				//batch.add(cat, &rect, NULL, .75f, .5f, 1, 1, t, &origin, PXL_FLIP_NONE);
+				batch.add(cat, &rect, NULL, .75f, .5f, 1, 1, t, &origin, PXL_FLIP_NONE, PXL_grayscale_shader);
 			}else {
-				//batch.add(cat_2, &rect, NULL, t, &origin, PXL_FLIP_NONE);
+				batch.add(cat_2, &rect, NULL, t, &origin, PXL_FLIP_NONE);
 			}
 		}
-
-		//batch.render_all();
 
 		for (int n = 0; n < point_lights.size(); ++n) {
 			point_lights[n]->intensity = (sin(t / (10 + (n / 10))) + 1) / 8;
@@ -123,16 +120,13 @@ int main(int argc, char* args[]) {
 
 		PXL_render_point_lights(&batch);
 
-		//PXL_set_outline_shader(&batch);
-		batch.add(cat_2, &rect, NULL, PXL_FLIP_NONE, PXL_repeat_shader);
-
 		text.set_text("timer: " + std::to_string(t) + "\nnewline testtext");
 		text.rotation += cos(t / 10);
 		text.set_colour(.5f, 0, 1, 1);
 		text.scale(sin(t / 10) / 50, sin(t / 10) / 50);
 		text.render(&batch);
 
-		batch.render_all(false);
+		batch.render_all();
 
 		average_time += PXL_stop_timer();
 
