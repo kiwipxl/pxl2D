@@ -257,29 +257,33 @@ void PXL_Batch::draw_vbo() {
 	int v_index = 0;
 	int offset_bytes = 0;
 	int prev_id = vertex_batches[0].texture_id;
-	PXL_ShaderProgram* prev_shader = PXL_default_shader;
+	PXL_ShaderProgram* prev_shader = vertex_batches[0].shader;
 	for (int i = 0; i < num_added; ++i) {
 		if (vertex_batches[i].texture_id != prev_id || 
 			(vertex_batches[i].shader != NULL && vertex_batches[i].shader != prev_shader) || i >= num_added - 1) {
-			if (vertex_batches[i].shader != prev_shader) {
-				//set_shader(vertex_batches[i].shader);
-				//prev_shader = vertex_batches[i].shader;
+			if (vertex_batches[i].shader != prev_shader || i >= num_added - 1) {
+				if (vertex_batches[i].shader == NULL) {
+					set_shader(PXL_default_shader);
+				}else {
+					set_shader(prev_shader);
+				}
 			}
-			prev_id = vertex_batches[i].texture_id;
 			glBindTexture(GL_TEXTURE_2D, prev_id);
+			prev_id = vertex_batches[i].texture_id;
+			prev_shader = vertex_batches[i].shader;
 
 			//gets the offset and calculates the vertex data size for the texture
 			int offset = offset_bytes / sizeof(PXL_VertexPoint);
 			int v_size = 0;
-			int size = i - offset; if (i >= num_added - 1) { ++size; }
+			int size = i - v_index;
 
 			//upload sub data with offset and region size
 			for (int n = 0; n < size; ++n) {
 				int v_bytes = vertex_batches[v_index].vertices.size() * sizeof(PXL_VertexPoint);
 				glBufferSubData(GL_ARRAY_BUFFER, offset_bytes, v_bytes, &vertex_batches[v_index].vertices[0]);
-				++v_index;
 				v_size += vertex_batches[v_index].vertices.size();
 				offset_bytes += v_bytes;
+				++v_index;
 			}
 
 			//draw vertex data from binded buffer

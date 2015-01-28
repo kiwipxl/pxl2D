@@ -88,6 +88,7 @@ int main(int argc, char* args[]) {
 			DispatchMessage(&msg);
 		}
 
+		PXL_start_timer();
 		PXL_clear();
 
 		//silly test code stuff
@@ -106,15 +107,13 @@ int main(int argc, char* args[]) {
 			rect.x = pos[n] + origin.x;
 			rect.y = pos[n + 1] + origin.y;
 			if (rect.x >= 512) {
-				batch.add(cat, &rect, NULL, .75f, .5f, 1, 1, t, &origin, PXL_FLIP_NONE);
+				//batch.add(cat, &rect, NULL, .75f, .5f, 1, 1, t, &origin, PXL_FLIP_NONE);
 			}else {
-				batch.add(cat_2, &rect, NULL, t, &origin, PXL_FLIP_NONE);
+				//batch.add(cat_2, &rect, NULL, t, &origin, PXL_FLIP_NONE);
 			}
 		}
 
-		PXL_start_timer();
-		batch.render_all();
-		average_time += PXL_stop_timer();
+		//batch.render_all();
 
 		for (int n = 0; n < point_lights.size(); ++n) {
 			point_lights[n]->intensity = (sin(t / (10 + (n / 10))) + 1) / 8;
@@ -124,13 +123,18 @@ int main(int argc, char* args[]) {
 
 		PXL_render_point_lights(&batch);
 
+		//PXL_set_outline_shader(&batch);
+		batch.add(cat_2, &rect, NULL, PXL_FLIP_NONE, PXL_repeat_shader);
+
 		text.set_text("timer: " + std::to_string(t) + "\nnewline testtext");
 		text.rotation += cos(t / 10);
 		text.set_colour(.5f, 0, 1, 1);
 		text.scale(sin(t / 10) / 50, sin(t / 10) / 50);
 		text.render(&batch);
 
-		batch.render_all();
+		batch.render_all(false);
+
+		average_time += PXL_stop_timer();
 
 		//swaps back buffer to front buffer
 		//glBindFramebuffer(GL_FRAMEBUFFER, 1);

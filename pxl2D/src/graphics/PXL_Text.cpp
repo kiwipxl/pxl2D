@@ -88,9 +88,6 @@ void PXL_Text::set_origin(const PXL_TextOrigin origin_point) {
 }
 
 void PXL_Text::render(PXL_Batch* batch) {
-	batch->render_all();
-	PXL_set_text_shader(batch);
-
 	scaled_max.x = max_width; scaled_max.y = max_height;
 	if (scale_max_size) { scaled_max.x = max_width * font_scale.x; scaled_max.y = max_height * font_scale.y; }
 
@@ -122,11 +119,11 @@ void PXL_Text::render(PXL_Batch* batch) {
 
 		temp_origin.x = (x + origin.x) - rect.x; temp_origin.y = (y + origin.y) - rect.y;
 		rect.x += temp_origin.x; rect.y += temp_origin.y;
-		batch->add(font->glyph_sheet, &rect, &src_rect, colour.r, colour.g, colour.g, colour.a, rotation, &temp_origin, PXL_FLIP_NONE);
+		batch->add(font->glyph_sheet, &rect, &src_rect, colour.r, colour.g, colour.g, colour.a, 
+				   rotation, &temp_origin, PXL_FLIP_NONE, PXL_text_shader);
 		rect.x += offset_x;
 		rect.x -= temp_origin.x; rect.y -= temp_origin.y;
 	}
-	batch->render_all();
 }
 
 void PXL_Text::free() {
