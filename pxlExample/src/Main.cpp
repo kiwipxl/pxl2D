@@ -20,6 +20,8 @@ int main(int argc, char* args[]) {
 	PXL_Timer start_second_time;
 	int frame_counter = 0;
 	long average_time = 0;
+	int average_count = 0;
+	int seconds_elapsed = 0;
 	timeBeginPeriod(1);
 
 	PXL_create_window(1024, 768, "PXL Example Project");
@@ -62,10 +64,10 @@ int main(int argc, char* args[]) {
 			rand() / float(RAND_MAX), rand() / float(RAND_MAX), rand() / float(RAND_MAX)));
 	}
 
-	PXL_Batch batch = PXL_Batch(PXL_SMALL_BATCH);
+	PXL_Batch batch = PXL_Batch(PXL_LARGE_BATCH);
 	PXL_set_default_shader(&batch);
 
-	int amount = 500;
+	int amount = 20000;
 	int* pos = new int[amount * 2];
 	for (int n = 0; n < amount * 2; n += 2) {
 		pos[n] = int((rand() / float(RAND_MAX)) * 800);
@@ -128,21 +130,26 @@ int main(int argc, char* args[]) {
 
 		batch.render_all();
 
-		average_time += PXL_stop_timer();
-
 		//swaps back buffer to front buffer
 		//glBindFramebuffer(GL_FRAMEBUFFER, 1);
 		//glBlitFramebuffer(0, 0, PXL_window_width, PXL_window_height, 0, 0, PXL_window_width, PXL_window_height, GL_COLOR_BUFFER_BIT, GL_NEAREST);
 		PXL_swap_buffers();
 
+		average_time += PXL_stop_timer();
+
 		double ms = start_time.end() / 1000.0f;
 		if (ms >= 0 && ms < ms_per_frame) { Sleep(ms_per_frame - ms); }
 
 		++frame_counter;
+		++average_count;
 		if (start_second_time.end() / 1000.0f >= 1000) {
-			std::cout << "elapsed: " << average_time / frame_counter << 
-						 ", ms: " << (average_time / frame_counter) / 1000.0f << "\n";
-			average_time = 0;
+			if (seconds_elapsed % 2 == 0) {
+				std::cout << "elapsed: " << average_time / average_count <<
+					", ms: " << (average_time / average_count) / 1000.0f << "\n";
+				average_time = 0;
+				average_count = 0;
+			}
+			++seconds_elapsed;
 
 			std::cout << "fps: " << frame_counter << "\n";
 			frame_counter = 0;

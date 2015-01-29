@@ -30,9 +30,9 @@ void PXL_Batch::create_batch(PXL_MaxQuads max_quads) {
 
 		for (int n = 0; n < max_quads_amount; ++n) {
 			vertex_batches.push_back(PXL_VertexBatch());
-			for (int i = 0; i < 4; ++i) {
-				vertex_batches[n].vertices.push_back(PXL_VertexPoint());
-			}
+		}
+		for (int n = 0; n < max_quads_amount * 4; ++n) {
+			vertex_data.push_back(PXL_VertexPoint());
 		}
 		vbo_created = true;
 	}
@@ -50,10 +50,18 @@ void PXL_Batch::create_batch(PXL_MaxQuads max_quads) {
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+	//binds vertex buffer
+	glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_id);
+
 	//enable vertex attrib pointers when rendering
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 	glEnableVertexAttribArray(2);
+
+	//set vertex shader attrib pointers
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(PXL_VertexPoint), (void*)offsetof(PXL_VertexPoint, pos));
+	glVertexAttribPointer(1, 2, GL_UNSIGNED_SHORT, GL_TRUE, sizeof(PXL_VertexPoint), (void*)offsetof(PXL_VertexPoint, uv));
+	glVertexAttribPointer(2, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(PXL_VertexPoint), (void*)offsetof(PXL_VertexPoint, colour));
 }
 
 void PXL_Batch::render_all(bool depth_test) {
@@ -72,6 +80,7 @@ void PXL_Batch::render_all(bool depth_test) {
 
 void PXL_Batch::clear_all() {
 	num_added = 0;
+	vertex_data_size = 0;
 }
 
 void PXL_Batch::set_shader(PXL_ShaderProgram* shader) {
@@ -160,10 +169,12 @@ void PXL_Batch::add_quad(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rec
 	set_quad_pos(texture, rect, rotation, origin, flip);
 	set_quad_uvs(texture, src_rect);
 	set_quad_colours(r, g, b, a);
+
+	vertex_data_size += 4;
 }
 
 void PXL_Batch::set_quad_pos(PXL_Texture* texture, PXL_Rect* rect, float rotation, PXL_Vec2* origin, PXL_Flip flip) {
-	PXL_VertexPoint* v = &vertex_batches[num_added].vertices[0];
+	PXL_VertexPoint* v = &vertex_data[vertex_data_size];
 
 	//set origin
 	float origin_x = 0; float origin_y = 0;
@@ -211,7 +222,7 @@ void PXL_Batch::set_quad_pos(PXL_Texture* texture, PXL_Rect* rect, float rotatio
 }
 
 void PXL_Batch::set_quad_uvs(PXL_Texture* texture, PXL_Rect* src_rect) {
-	PXL_VertexPoint* v = &vertex_batches[num_added].vertices[0];
+	PXL_VertexPoint* v = &vertex_data[vertex_data_size];
 
 	//default un-normalised uv coords
 	unsigned short uv_x = 0; unsigned short uv_y = 0; unsigned short uv_w = USHRT_MAX; unsigned short uv_h = USHRT_MAX;
@@ -229,7 +240,7 @@ void PXL_Batch::set_quad_uvs(PXL_Texture* texture, PXL_Rect* src_rect) {
 }
 
 void PXL_Batch::set_quad_colours(float r, float g, float b, float a) {
-	PXL_VertexPoint* v = &vertex_batches[num_added].vertices[0];
+	PXL_VertexPoint* v = &vertex_data[vertex_data_size];
 
 	//set vertex colours
 	for (int n = 0; n < 4; ++n) {
@@ -255,19 +266,16 @@ void PXL_Batch::draw_vbo() {
 	}
 	//binds vertex buffer
 	glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_id);
-
-	//set vertex shader attrib pointers
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(PXL_VertexPoint), (void*)offsetof(PXL_VertexPoint, pos));
-	glVertexAttribPointer(1, 2, GL_UNSIGNED_SHORT, GL_TRUE, sizeof(PXL_VertexPoint), (void*)offsetof(PXL_VertexPoint, uv));
-	glVertexAttribPointer(2, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(PXL_VertexPoint), (void*)offsetof(PXL_VertexPoint, colour));
+	glBufferSubData(GL_ARRAY_BUFFER, 0, vertex_data_size * sizeof(PXL_VertexPoint), &vertex_data[0]);
 
 	//loops through each texture and draws the vertex data with that texture id
-	int v_index = 0;
-	int offset_bytes = 0;
+	int size = 0;
+	int offset = 0;
 	int prev_id = vertex_batches[0].texture_id;
 	PXL_ShaderProgram* prev_shader = vertex_batches[0].shader;
 	set_shader(prev_shader);
 	for (int i = 0; i < num_added; ++i) {
+		if (i >= num_added - 1) { size += 4; }
 		if (vertex_batches[i].texture_id != prev_id || 
 			(vertex_batches[i].shader != NULL && vertex_batches[i].shader != prev_shader) || i >= num_added - 1) {
 			if (vertex_batches[i].shader != prev_shader || i >= num_added - 1) {
@@ -277,25 +285,14 @@ void PXL_Batch::draw_vbo() {
 			prev_id = vertex_batches[i].texture_id;
 			prev_shader = vertex_batches[i].shader;
 
-			//gets the offset and calculates the vertex data size for the texture
-			int offset = offset_bytes / sizeof(PXL_VertexPoint);
-			int v_size = 0;
-			int size = i - v_index; if (num_added == 1 || i >= num_added - 1) { ++size; }
+			//draw vertex data from vertex data in buffer
+			glDrawArrays(GL_QUADS, offset, size);
 
-			//upload sub data with offset and region size
-			for (int n = 0; n < size; ++n) {
-				int v_bytes = vertex_batches[v_index].vertices.size() * sizeof(PXL_VertexPoint);
-				glBufferSubData(GL_ARRAY_BUFFER, offset_bytes, v_bytes, &vertex_batches[v_index].vertices[0]);
-				v_size += vertex_batches[v_index].vertices.size();
-				offset_bytes += v_bytes;
-				++v_index;
-			}
-
-			//draw vertex data from binded buffer
-			glDrawArrays(GL_QUADS, offset, v_size);
+			offset += size;
+			size = 0;
 		}
+		size += 4;
 	}
-	//glDrawArrays(GL_QUADS, 0, num_added);
 
 	//set back to default framebuffer
 	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);

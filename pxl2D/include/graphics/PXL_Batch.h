@@ -13,7 +13,8 @@
 
 struct PXL_VertexBatch {
 
-	std::vector<PXL_VertexPoint> vertices;
+	int vertex_index;
+	int num_vertices;
 	unsigned int texture_id;
 	PXL_ShaderProgram* shader = NULL;
 };
@@ -159,6 +160,8 @@ class PXL_Batch {
 		bool vbo_created; /**> Defines whether or not the vertex buffer object has been created **/
 		GLuint vertex_buffer_id; /**> The id associated with the vertex buffer object **/
 		std::vector<PXL_VertexBatch> vertex_batches; /**> List that contains vertex batches used for rendering **/
+		std::vector<PXL_VertexPoint> vertex_data;
+		int vertex_data_size;
 
 		/** Starts using specified shader
 		@param shader A PXL_ShaderProgram shader object
