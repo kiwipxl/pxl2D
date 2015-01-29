@@ -78,7 +78,16 @@ class PXL_Batch {
 		@param rect Specifies where on the screen the texture will be rendered to
 		@param src_rect Specifies which part of the texture to use, NULL to use the whole texture
 		**/
-		void add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect);
+		void add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect = NULL);
+
+		/** Adds the specified texture with it's transformations to the render queue
+		@param texture The texture to add to the batch
+		@param rect Specifies where on the screen the texture will be rendered to
+		@param src_rect Specifies which part of the texture to use, NULL to use the whole texture
+		@param flip defines the flip transformation for the texture
+		@param shader The shader to use when rendering this texture. Use NULL to use the default shader
+		**/
+		void add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, PXL_ShaderProgram* shader);
 
 		/** Adds the specified texture with it's transformations to the render queue
 		@param texture The texture to add to the batch
@@ -87,19 +96,21 @@ class PXL_Batch {
 		@param rotation the rotation transformation of the texture
 		@param origin the origin point of which the texture rotates around, NULL to use top-left (0, 0)
 		@param flip defines the flip transformation for the texture
-		@param shader The shader to use when rendering this texture. Use NULL to ignore this parameter
+		@param shader The shader to use when rendering this texture. Use NULL to use the default shader
 		**/
-		void add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, float rotation, PXL_Vec2* origin, 
-				 PXL_Flip flip, PXL_ShaderProgram* shader = NULL);
+		void add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, float rotation, PXL_Vec2* origin);
 
 		/** Adds the specified texture with it's transformations to the render queue
 		@param texture The texture to add to the batch
 		@param rect Specifies where on the screen the texture will be rendered to
 		@param src_rect Specifies which part of the texture to use, NULL to use the whole texture
+		@param rotation the rotation transformation of the texture
+		@param origin the origin point of which the texture rotates around, NULL to use top-left (0, 0)
 		@param flip defines the flip transformation for the texture
-		@param shader The shader to use when rendering this texture. Use NULL to ignore this parameter
+		@param shader The shader to use when rendering this texture. Use NULL to use the default shader
 		**/
-		void add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, PXL_Flip flip, PXL_ShaderProgram* shader = NULL);
+		void add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, float rotation, PXL_Vec2* origin, 
+				 PXL_Flip flip, PXL_ShaderProgram* shader);
 
 		/** Adds the specified texture with a colour modification
 		@param texture The texture to add to the batch
@@ -107,10 +118,10 @@ class PXL_Batch {
 		@param src_rect Specifies which part of the texture to use. Use NULL to use the whole texture
 		@param r, g, b, a colour ranges from 0 to 1 which set the texture colour
 		@param flip defines the flip transformation for the texture
-		@param shader The shader to use when rendering this texture. Use NULL to ignore this parameter
+		@param shader The shader to use when rendering this texture. Use NULL to use the default shader
 		**/
-		void add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, float r, float g, float b, float a, 
-				 PXL_Flip flip, PXL_ShaderProgram* shader = NULL);
+		void add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, PXL_Flip flip, PXL_ShaderProgram* shader,
+				 float r = 1, float g = 1, float b = 1, float a = 1);
 
 		/** Adds the specified texture with a colour modification
 		@param texture The texture to add to the batch
@@ -120,81 +131,79 @@ class PXL_Batch {
 		@param rotation the rotation transformation of the texture
 		@param origin the origin point of which the texture rotates around. Use NULL for top-left (0, 0)
 		@param flip defines the flip transformation for the texture
-		@param shader The shader to use when rendering this texture. Use NULL to ignore this parameter
+		@param shader The shader to use when rendering this texture. Use NULL to use the default shader
 		**/
-		void add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, float r, float g, float b, float a,
-				 float rotation, PXL_Vec2* origin, PXL_Flip flip, PXL_ShaderProgram* shader = NULL);
+		void add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, float rotation, PXL_Vec2* origin,
+			PXL_Flip flip, PXL_ShaderProgram* shader, float r = 1, float g = 1, float b = 1, float a = 1);
 
 		/** Deletes everything made in this batch
 		**/
 		void free();
 
-		/** Gets the max render size of the batch
-		\return the max renders amount this batch has
+		/** Gets the max amount of quads this batch can add
+		\return Max quad amount number
 		**/
 		int get_max_quads() { return max_quads_amount; }
+		/** Gets the amount of items added to the batch
+		@return The number of added items
+		**/
 		int get_num_added() { return num_added; }
 
 	private:
 		//batch info
-		int max_quads_amount;
-		int num_added;
-		PXL_FrameBuffer* target_frame_buffer = NULL;
+		int max_quads_amount; /**> The max amount of quads this batch can add **/
+		int num_added; /**> The current number of added items in this batch **/
+		PXL_FrameBuffer* target_frame_buffer = NULL; /**> The target frame buffer object to use when rendering **/
 
 		//vbo
-		bool vbo_created;
-		unsigned int size;
-		GLuint vertex_buffer_id;
-		std::vector<PXL_VertexBatch> vertex_batches;
+		bool vbo_created; /**> Defines whether or not the vertex buffer object has been created **/
+		GLuint vertex_buffer_id; /**> The id associated with the vertex buffer object **/
+		std::vector<PXL_VertexBatch> vertex_batches; /**> List that contains vertex batches used for rendering **/
 
-		/** Sets the shader to use when the batch render is called
-		@param shader the PXL_ShaderProgram to use
-		@see render_all()
+		/** Starts using specified shader
+		@param shader A PXL_ShaderProgram shader object
 		**/
 		void set_shader(PXL_ShaderProgram* shader = PXL_default_shader);
 
 		/** Verifies whether the texture should be added to the batch and returns the result
-		@param rect used to check the texture position on the screen
+		@param rect Used to check the texture position on the screen
 		**/
 		bool verify_texture_add(PXL_Texture* texture, PXL_Rect* rect);
 
-		/** Adds 4 new vertex points to the vertex data and calculates the new vertex pos, uvs and colour
+		/** Calculates the new vertex pos, uvs and colour based on the specified parameters and stores it in the vertex batches list
 		@param texture The texture to add to the batch
 		@param rect Specifies where on the screen the texture will be rendered to
 		@param src_rect Specifies which part of the texture to use, NULL to use the whole texture
-		@param rotation the rotation transformation of the texture
-		@param origin the origin point of which the texture rotates around, NULL to use top-left (0, 0)
-		@param flip defines the flip transformation for the texture
-		@param r, g, b, a colour ranges from 0 to 1 which set the texture colour
+		@param rotation The rotation transformation of the texture
+		@param origin The origin point of which the texture rotates around, NULL to use top-left (0, 0)
+		@param flip Defines the flip transformation for the texture
+		@param r, g, b, a Colour ranges from 0 to 1 which set the texture colour
 		**/
-		void add_vertices(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect,
+		void add_quad(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect,
 						  float rotation = 0, PXL_Vec2* origin = NULL, PXL_Flip flip = PXL_FLIP_NONE, 
 						  float r = 1, float g = 1, float b = 1, float a = 1, PXL_ShaderProgram* shader = NULL);
 
-		/** Calculates the vertex position for 4 different vertex points
-		@param index the index for the starting point in the vertex data
+		/** Calculates the vertex position for a quad based on the parameters
 		@param texture The texture to add to the batch
 		@param rect Specifies where on the screen the texture will be rendered to
-		@param rotation the rotation transformation of the texture
-		@param origin the origin point of which the texture rotates around, NULL to use top-left (0, 0)
-		@param flip defines the flip transformation for the texture
+		@param rotation The rotation transformation of the texture
+		@param origin The origin point of which the texture rotates around. Use NULL to use the top-left (0, 0)
+		@param flip Defines the flip transformation for the texture
 		**/
-		void set_vertex_pos(int index, PXL_Texture* texture, PXL_Rect* rect, float rotation, PXL_Vec2* origin, PXL_Flip flip);
+		void set_quad_pos(PXL_Texture* texture, PXL_Rect* rect, float rotation, PXL_Vec2* origin, PXL_Flip flip);
 
 		/** Calculates the vertex uvs for 4 different vertex points
-		@param index the index for the starting point in the vertex data
 		@param texture The texture to add to the batch
 		@param src_rect Specifies which part of the texture to use, NULL to use the whole texture
 		**/
-		void set_vertex_uvs(int index, PXL_Texture* texture, PXL_Rect* src_rect);
+		void set_quad_uvs(PXL_Texture* texture, PXL_Rect* src_rect);
 
 		/** Calculates the vertex colours for 4 different vertex points
-		@param index the index for the starting point in the vertex data
-		@param r, g, b, a colour ranges from 0 to 1 which set the texture colour
+		@param r, g, b, a Colour ranges from 0 to 1 which set the texture colour
 		**/
-		void set_vertex_colours(int index, float r, float g, float b, float a);
+		void set_quad_colours(float r, float g, float b, float a);
 
-		/** Sorts the vertex data texture ids and uploads vertex data in sections depending on texture id, uploads and draws it
+		/** Draws each item in the vertex batches list
 		**/
 		void draw_vbo();
 };

@@ -62,10 +62,10 @@ int main(int argc, char* args[]) {
 			rand() / float(RAND_MAX), rand() / float(RAND_MAX), rand() / float(RAND_MAX)));
 	}
 
-	PXL_Batch batch = PXL_Batch(PXL_MEDIUM_BATCH);
+	PXL_Batch batch = PXL_Batch(PXL_SMALL_BATCH);
 	PXL_set_default_shader(&batch);
 
-	int amount = 2000;
+	int amount = 500;
 	int* pos = new int[amount * 2];
 	for (int n = 0; n < amount * 2; n += 2) {
 		pos[n] = int((rand() / float(RAND_MAX)) * 800);
@@ -106,9 +106,9 @@ int main(int argc, char* args[]) {
 			rect.x = pos[n] + origin.x;
 			rect.y = pos[n + 1] + origin.y;
 			if (rect.x >= 512) {
-				batch.add(cat, &rect, NULL, .75f, .5f, 1, 1, t, &origin, PXL_FLIP_NONE, PXL_grayscale_shader);
+				batch.add(cat, &rect, NULL, t, &origin, PXL_FLIP_NONE, PXL_grayscale_shader, .75f, .5f, 1, 1);
 			}else {
-				batch.add(cat_2, &rect, NULL, t, &origin, PXL_FLIP_NONE);
+				batch.add(cat_2, &rect, NULL, t, &origin);
 			}
 		}
 

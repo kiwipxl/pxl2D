@@ -119,8 +119,8 @@ void PXL_Text::render(PXL_Batch* batch) {
 
 		temp_origin.x = (x + origin.x) - rect.x; temp_origin.y = (y + origin.y) - rect.y;
 		rect.x += temp_origin.x; rect.y += temp_origin.y;
-		batch->add(font->glyph_sheet, &rect, &src_rect, colour.r, colour.g, colour.g, colour.a, 
-				   rotation, &temp_origin, PXL_FLIP_NONE, PXL_text_shader);
+		batch->add(font->glyph_sheet, &rect, &src_rect, rotation, &temp_origin, PXL_FLIP_NONE, 
+				   PXL_text_shader, colour.r, colour.g, colour.g, colour.a);
 		rect.x += offset_x;
 		rect.x -= temp_origin.x; rect.y -= temp_origin.y;
 	}

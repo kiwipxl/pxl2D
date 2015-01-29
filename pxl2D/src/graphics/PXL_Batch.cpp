@@ -88,14 +88,21 @@ void PXL_Batch::set_shader(PXL_ShaderProgram* shader) {
 
 void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect) {
 	if (verify_texture_add(texture, rect)) {
-		add_vertices(texture, rect, src_rect);
+		add_quad(texture, rect, src_rect);
 		++num_added;
 	}
 }
 
-void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, PXL_Flip flip, PXL_ShaderProgram* shader) {
+void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, PXL_ShaderProgram* shader) {
 	if (verify_texture_add(texture, rect)) {
-		add_vertices(texture, rect, src_rect, 0, NULL, flip, 1, 1, 1, 1, shader);
+		add_quad(texture, rect, src_rect, 0, NULL, 0, 1, 1, 1, 1, shader);
+		++num_added;
+	}
+}
+
+void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, float rotation, PXL_Vec2* origin) {
+	if (verify_texture_add(texture, rect)) {
+		add_quad(texture, rect, src_rect, rotation, origin, 0, 1, 1, 1, 1, NULL);
 		++num_added;
 	}
 }
@@ -103,23 +110,23 @@ void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, PX
 void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, float rotation, PXL_Vec2* origin, 
 					PXL_Flip flip, PXL_ShaderProgram* shader) {
 	if (verify_texture_add(texture, rect)) {
-		add_vertices(texture, rect, src_rect, rotation, origin, flip, 1, 1, 1, 1, shader);
+		add_quad(texture, rect, src_rect, rotation, origin, flip, 1, 1, 1, 1, shader);
 		++num_added;
 	}
 }
 
-void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, float r, float g, float b, float a, 
-					PXL_Flip flip, PXL_ShaderProgram* shader) {
+void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, PXL_Flip flip, PXL_ShaderProgram* shader, 
+					float r, float g, float b, float a) {
 	if (verify_texture_add(texture, rect)) {
-		add_vertices(texture, rect, src_rect, 0, NULL, flip, r, g, b, a, shader);
+		add_quad(texture, rect, src_rect, 0, NULL, flip, r, g, b, a, shader);
 		++num_added;
 	}
 }
 
-void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, float r, float g, float b, float a, 
-					float rotation, PXL_Vec2* origin, PXL_Flip flip, PXL_ShaderProgram* shader) {
+void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, float rotation, PXL_Vec2* origin, 
+					PXL_Flip flip, PXL_ShaderProgram* shader, float r, float g, float b, float a) {
 	if (verify_texture_add(texture, rect)) {
-		add_vertices(texture, rect, src_rect, rotation, origin, flip, r, g, b, a, shader);
+		add_quad(texture, rect, src_rect, rotation, origin, flip, r, g, b, a, shader);
 		++num_added;
 	}
 }
@@ -138,7 +145,7 @@ bool PXL_Batch::verify_texture_add(PXL_Texture* texture, PXL_Rect* rect) {
 	return false;
 }
 
-void PXL_Batch::add_vertices(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, 
+void PXL_Batch::add_quad(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, 
 							 float rotation, PXL_Vec2* origin, PXL_Flip flip, 
 							 float r, float g, float b, float a, PXL_ShaderProgram* shader) {
 	//set the texture id and shader program for the vertex batch
@@ -150,13 +157,13 @@ void PXL_Batch::add_vertices(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src
 	}
 
 	//set vertex pos, uvs and colours
-	set_vertex_pos(num_added, texture, rect, rotation, origin, flip);
-	set_vertex_uvs(num_added, texture, src_rect);
-	set_vertex_colours(num_added, r, g, b, a);
+	set_quad_pos(texture, rect, rotation, origin, flip);
+	set_quad_uvs(texture, src_rect);
+	set_quad_colours(r, g, b, a);
 }
 
-void PXL_Batch::set_vertex_pos(int index, PXL_Texture* texture, PXL_Rect* rect, float rotation, PXL_Vec2* origin, PXL_Flip flip) {
-	PXL_VertexPoint* v = &vertex_batches[index].vertices[0];
+void PXL_Batch::set_quad_pos(PXL_Texture* texture, PXL_Rect* rect, float rotation, PXL_Vec2* origin, PXL_Flip flip) {
+	PXL_VertexPoint* v = &vertex_batches[num_added].vertices[0];
 
 	//set origin
 	float origin_x = 0; float origin_y = 0;
@@ -203,8 +210,8 @@ void PXL_Batch::set_vertex_pos(int index, PXL_Texture* texture, PXL_Rect* rect, 
 	}
 }
 
-void PXL_Batch::set_vertex_uvs(int index, PXL_Texture* texture, PXL_Rect* src_rect) {
-	PXL_VertexPoint* v = &vertex_batches[index].vertices[0];
+void PXL_Batch::set_quad_uvs(PXL_Texture* texture, PXL_Rect* src_rect) {
+	PXL_VertexPoint* v = &vertex_batches[num_added].vertices[0];
 
 	//default un-normalised uv coords
 	unsigned short uv_x = 0; unsigned short uv_y = 0; unsigned short uv_w = USHRT_MAX; unsigned short uv_h = USHRT_MAX;
@@ -221,8 +228,8 @@ void PXL_Batch::set_vertex_uvs(int index, PXL_Texture* texture, PXL_Rect* src_re
 	v[3].uv.x = uv_x;										v[3].uv.y = uv_y + uv_h;
 }
 
-void PXL_Batch::set_vertex_colours(int index, float r, float g, float b, float a) {
-	PXL_VertexPoint* v = &vertex_batches[index].vertices[0];
+void PXL_Batch::set_quad_colours(float r, float g, float b, float a) {
+	PXL_VertexPoint* v = &vertex_batches[num_added].vertices[0];
 
 	//set vertex colours
 	for (int n = 0; n < 4; ++n) {
