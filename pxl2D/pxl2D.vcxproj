@@ -32,6 +32,7 @@
     <ClCompile Include="src\system\PXL_Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\graphics\PXL_PrebuiltShaders.h" />
     <ClInclude Include="include\PXL.h" />
     <ClInclude Include="include\graphics\PXL_Batch.h" />
     <ClInclude Include="include\graphics\PXL_Bitmap.h" />

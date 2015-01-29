@@ -2,7 +2,7 @@
 #include <fstream>
 #include "PXL_Batch.h"
 #include "PXL_System.h"
-#include "PXL_Config.h"
+#include "PXL_PrebuiltShaders.h"
 
 //defines
 const char* start_v_header = "//[START_VERTEX]";
@@ -16,19 +16,21 @@ PXL_ShaderProgram* PXL_repeat_shader;
 PXL_ShaderProgram* PXL_grayscale_shader;
 PXL_ShaderProgram* PXL_blur_shader;
 PXL_ShaderProgram* PXL_outline_shader;
-PXL_ShaderProgram* PXL_outer_glow_shader;
+PXL_ShaderProgram* PXL_glow_shader;
 PXL_ShaderProgram* PXL_text_shader;
+PXL_ShaderProgram* PXL_point_light_shader;
 
 void PXL_shader_init() {
 	//setup premade pxl glsl shaders
-	PXL_default_shader = PXL_load_glsl_shader(PXL_append_char(PXL_PREBUILT_SHADER_PATH, "default.glsl"));
-	PXL_bloom_shader = PXL_load_glsl_shader(PXL_append_char(PXL_PREBUILT_SHADER_PATH, "bloom.glsl"));
-	PXL_repeat_shader = PXL_load_glsl_shader(PXL_append_char(PXL_PREBUILT_SHADER_PATH, "repeat.glsl"));
-	PXL_grayscale_shader = PXL_load_glsl_shader(PXL_append_char(PXL_PREBUILT_SHADER_PATH, "grayscale.glsl"));
-	PXL_blur_shader = PXL_load_glsl_shader(PXL_append_char(PXL_PREBUILT_SHADER_PATH, "blur.glsl"));
-	PXL_outline_shader = PXL_load_glsl_shader(PXL_append_char(PXL_PREBUILT_SHADER_PATH, "outline.glsl"));
-	PXL_outer_glow_shader = PXL_load_glsl_shader(PXL_append_char(PXL_PREBUILT_SHADER_PATH, "outer_glow.glsl"));
-	PXL_text_shader = PXL_load_glsl_shader(PXL_append_char(PXL_PREBUILT_SHADER_PATH, "text.glsl"));
+	PXL_default_shader = PXL_create_shader(PXL_basic_vertex_shader_str, PXL_default_shader_str, "default_vert", "default_frag");
+	PXL_bloom_shader = PXL_create_shader(PXL_basic_vertex_shader_str, PXL_bloom_shader_str, "bloom_vert", "bloom_frag");
+	PXL_repeat_shader = PXL_create_shader(PXL_basic_vertex_shader_str, PXL_repeat_shader_str, "repeat_vert", "repeat_frag");
+	PXL_grayscale_shader = PXL_create_shader(PXL_basic_vertex_shader_str, PXL_grayscale_shader_str, "grayscale_vert", "grayscale_frag");
+	PXL_blur_shader = PXL_create_shader(PXL_basic_vertex_shader_str, PXL_blur_shader_str, "blur_vert", "blur_frag");
+	PXL_outline_shader = PXL_create_shader(PXL_basic_vertex_shader_str, PXL_outline_shader_str, "outline_vert", "outline_frag");
+	PXL_glow_shader = PXL_create_shader(PXL_basic_vertex_shader_str, PXL_glow_shader_str, "glow_vert", "glow_frag");
+	PXL_text_shader = PXL_create_shader(PXL_basic_vertex_shader_str, PXL_text_shader_str, "text_vert", "text_frag");
+	PXL_point_light_shader = PXL_create_shader(PXL_basic_vertex_shader_str, PXL_point_light_shader_str, "point_light_vert", "point_light_frag");
 }
 
 void PXL_set_default_shader(PXL_Batch* batch) {
@@ -62,8 +64,8 @@ void PXL_set_outline_shader(PXL_Batch* batch, float thickness, float r, float g,
 	glUniform1f(glGetUniformLocation(PXL_outline_shader->get_program_id(), "outline_threshold"), threshold);
 }
 
-void PXL_set_outer_glow_shader(PXL_Batch* batch, float size, float r, float g, float b, float intensity, float threshold) {
-	glUseProgram(PXL_outer_glow_shader->get_program_id());
+void PXL_set_glow_shader(PXL_Batch* batch, float size, float r, float g, float b, float intensity, float threshold) {
+	glUseProgram(PXL_glow_shader->get_program_id());
 	glUniform1f(glGetUniformLocation(PXL_outline_shader->get_program_id(), "outline_size"), size);
 	glUniform3f(glGetUniformLocation(PXL_outline_shader->get_program_id(), "outline_colour"), r / 255.0f, g / 255.0f, b / 255.0f);
 	glUniform1f(glGetUniformLocation(PXL_outline_shader->get_program_id(), "outline_threshold"), threshold);
@@ -75,28 +77,39 @@ void PXL_set_text_shader(PXL_Batch* batch, float r, float g, float b, float a) {
 	glUniform3f(glGetUniformLocation(PXL_text_shader->get_program_id(), "text_colour"), r / 255.0f, g / 255.0f, b / 255.0f);
 }
 
-PXL_ShaderProgram* PXL_load_shader(std::string vertex_file, std::string fragment_file) {
+PXL_ShaderProgram* PXL_create_shader(std::string vertex_file, std::string fragment_file) {
 	return new PXL_ShaderProgram(PXL_load_file(vertex_file), PXL_load_file(fragment_file), vertex_file, fragment_file);
 }
 
-PXL_ShaderProgram* PXL_load_glsl_shader(std::string glsl_file) {
-	std::string s = PXL_load_file(glsl_file);
+PXL_ShaderProgram* PXL_create_shader(std::string vertex_string, std::string fragment_string, 
+								   std::string vertex_name, std::string fragment_name) {
+	return new PXL_ShaderProgram(vertex_string, fragment_string, vertex_name, fragment_name);
+}
 
-	int start_v = s.find(start_v_header);
-	int end_v = s.find(end_v_header);
-	int start_f = s.find(start_f_header);
-	int end_f = s.find(end_f_header);
+PXL_ShaderProgram* verify_and_create_program_shader(std::string program_str, std::string program_name) {
+	int start_v = program_str.find(start_v_header);
+	int end_v = program_str.find(end_v_header);
+	int start_f = program_str.find(start_f_header);
+	int end_f = program_str.find(end_f_header);
 
 	if (start_v != -1 && end_v != -1 && start_f != -1 && end_f != -1) {
-		std::string vertex_file = s.substr(start_v + strlen(start_v_header) + 1, end_v - (start_v + strlen(start_v_header) + 1));
-		std::string fragment_file = s.substr(start_f + strlen(start_f_header) + 1, end_f - (start_f + strlen(start_f_header) + 1));
-		return new PXL_ShaderProgram(vertex_file, fragment_file, glsl_file + " - vertex", glsl_file + " - fragment");
-	}else {
-		PXL_show_exception("Headers not found when loading (" + glsl_file + "). Custom PXL_glsl shaders use " + 
-							start_v_header + " at the beginning of a vertex shader and " + end_v_header + " at the end. Fragment " + 
-							"shaders use " + start_f_header + " and " + end_f_header, true, false);
+		std::string vertex_file = program_str.substr(start_v + strlen(start_v_header) + 1, end_v - (start_v + strlen(start_v_header) + 1));
+		std::string fragment_file = program_str.substr(start_f + strlen(start_f_header) + 1, end_f - (start_f + strlen(start_f_header) + 1));
+		return new PXL_ShaderProgram(vertex_file, fragment_file, program_name + " - vertex", program_name + " - fragment");
 	}
-	return NULL;
+	else {
+		PXL_show_exception("Headers not found when loading (" + program_name + "). Custom PXL_program shaders use " +
+			start_v_header + " at the beginning of a vertex shader and " + end_v_header + " at the end. Fragment " +
+			"shaders use " + start_f_header + " and " + end_f_header, true, false);
+	}
+}
+
+PXL_ShaderProgram* PXL_create_program_shader(std::string program_file) {
+	return verify_and_create_program_shader(PXL_load_file(program_file), program_file);
+}
+
+PXL_ShaderProgram* PXL_create_program_shader(std::string program_str, std::string program_name) {
+	return verify_and_create_program_shader(program_str, program_name);
 }
 
 std::string PXL_load_file(std::string file_name) {

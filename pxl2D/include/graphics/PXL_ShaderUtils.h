@@ -12,13 +12,18 @@ struct PXL_Batch;
 \*param [vertex_file]: the path to the vertex shader file
 \*param [fragment_file]: the path to the fragment shader file
 **/
-extern PXL_ShaderProgram* PXL_load_shader(std::string vertex_file, std::string fragment_file);
+extern PXL_ShaderProgram* PXL_create_shader(std::string vertex_file, std::string fragment_file);
+
+extern PXL_ShaderProgram* PXL_create_shader(std::string vertex_string, std::string fragment_string,
+										  std::string vertex_name, std::string fragment_name);
 
 /**
 \*brief: creates a shader program from the specified glsl custom shader path
 \*param [glsl_file]: the path to the glsl shader file
 **/
-extern PXL_ShaderProgram* PXL_load_glsl_shader(std::string glsl_file);
+extern PXL_ShaderProgram* PXL_create_program_shader(std::string program_file);
+
+extern PXL_ShaderProgram* PXL_create_program_shader(std::string program_str, std::string program_name);
 
 /**
 \*brief: reads the contents of a file
@@ -33,8 +38,9 @@ extern PXL_ShaderProgram* PXL_repeat_shader;
 extern PXL_ShaderProgram* PXL_grayscale_shader;
 extern PXL_ShaderProgram* PXL_blur_shader;
 extern PXL_ShaderProgram* PXL_outline_shader;
-extern PXL_ShaderProgram* PXL_outer_glow_shader;
+extern PXL_ShaderProgram* PXL_glow_shader;
 extern PXL_ShaderProgram* PXL_text_shader;
+extern PXL_ShaderProgram* PXL_point_light_shader;
 
 /**
 \*brief: initialises prebuilt shaders, note: this should only ever be called by PXL
@@ -100,7 +106,7 @@ extern void PXL_set_outline_shader(PXL_Batch* batch,
 \*param [intensity]: the intensity of the glow
 \*param [threshold]: the value from 0 to 1 which defines in what alpha will the outline be filled in
 **/
-extern void PXL_set_outer_glow_shader(PXL_Batch* batch, float size = 4, float r = 0, float g = 0, float b = 0,
+extern void PXL_set_glow_shader(PXL_Batch* batch, float size = 4, float r = 0, float g = 0, float b = 0,
 									  float intensity = 4, float threshold = .5f);
 
 /**

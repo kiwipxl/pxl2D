@@ -33,10 +33,10 @@ PXL_ShaderProgram::PXL_ShaderProgram(std::string vertex_shader, std::string frag
 		GLint linked;
 		glGetProgramiv(program_id, GL_LINK_STATUS, &linked);
 		if (linked) {
-			std::cout << "shader (" + v_shader_name + ") linked successfully\n";
+			std::cout << "shader (" << v_shader_name << ", " << f_shader_name << ") linked successfully\n";
 			matrix_loc = glGetUniformLocation(program_id, "matrix");
 		}else {
-			PXL_show_exception("shader (" + v_shader_name + ") link failed", true, false);
+			PXL_show_exception("shader (" + v_shader_name + ", " + f_shader_name + ") link failed", true, false);
 		}
 
 		//detach shaders whether or not linking was successful
