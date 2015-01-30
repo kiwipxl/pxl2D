@@ -18,12 +18,6 @@ struct PXL_VertexBatch {
 	PXL_ShaderProgram* shader = NULL;
 };
 
-struct PXL_TextureFreq {
-
-	int frequency = 0;
-	int batch_index = 0;
-};
-
 typedef int PXL_Flip;
 
 #define PXL_FLIP_NONE 0
@@ -156,6 +150,12 @@ class PXL_Batch {
 		int get_num_added() { return num_added; }
 
 	private:
+		struct SparseTextureId {
+
+			int frequency = 0;
+			int batch_index = 0;
+		};
+
 		//batch info
 		int max_quads_amount; /**> The max amount of quads this batch can add **/
 		int num_added; /**> The current number of added items in this batch **/
@@ -164,10 +164,10 @@ class PXL_Batch {
 		//vbo
 		bool vbo_created; /**> Defines whether or not the vertex buffer object has been created **/
 		GLuint vertex_buffer_id; /**> The id associated with the vertex buffer object **/
-		std::vector<PXL_VertexBatch> vertex_batches; /**> List that contains vertex batches used for rendering **/
-		std::vector<PXL_VertexPoint> vertex_data;
-		PXL_TextureFreq* current_freqs;
-		PXL_TextureFreq* prediction_freqs;
+		PXL_VertexBatch* vertex_batches; /**> List that contains vertex batches used for rendering **/
+		PXL_VertexPoint* vertex_data;
+		SparseTextureId* current_texture_ids;
+		SparseTextureId* next_texture_ids;
 		int vertex_batch_index;
 		int vertex_data_size;
 		int last_freq_index = 0;

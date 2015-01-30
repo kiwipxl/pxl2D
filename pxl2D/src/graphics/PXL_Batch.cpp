@@ -28,16 +28,10 @@ void PXL_Batch::create_batch(PXL_MaxQuads max_quads) {
 		glBufferData(GL_ARRAY_BUFFER, max_quads_amount * 4 * sizeof(PXL_VertexPoint), NULL, GL_STATIC_DRAW);
 		glBindBuffer(GL_ARRAY_BUFFER, NULL);
 
-		current_freqs = new PXL_TextureFreq[max_quads_amount];
-		prediction_freqs = new PXL_TextureFreq[max_quads_amount];
-		for (int n = 0; n < max_quads_amount; ++n) {
-			vertex_batches.push_back(PXL_VertexBatch());
-			current_freqs[n] = PXL_TextureFreq();
-			prediction_freqs[n] = PXL_TextureFreq();
-		}
-		for (int n = 0; n < max_quads_amount * 4; ++n) {
-			vertex_data.push_back(PXL_VertexPoint());
-		}
+		current_texture_ids = new SparseTextureId[max_quads_amount];
+		next_texture_ids = new SparseTextureId[max_quads_amount];
+		vertex_batches = new PXL_VertexBatch[max_quads_amount];
+		vertex_data = new PXL_VertexPoint[max_quads_amount * 4];
 		vbo_created = true;
 	}
 
@@ -91,19 +85,6 @@ void PXL_Batch::render_all(bool depth_test) {
 }
 
 void PXL_Batch::clear_all() {
-	if (num_added >= 1) {
-		int batch_index = 0;
-		for (int n = 0; n < 4; ++n) {
-			if (current_freqs[n].frequency >= 1) {
-				prediction_freqs[n].frequency = current_freqs[n].frequency;
-				prediction_freqs[n].batch_index = batch_index;
-				batch_index += current_freqs[n].frequency;
-				current_freqs[n].frequency = 0;
-				current_freqs[n].batch_index = 0;
-			}
-		}
-	}
-
 	num_added = 0;
 	vertex_data_size = 0;
 	vertex_batch_index = 0;
@@ -187,19 +168,19 @@ void PXL_Batch::add_quad(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rec
 	//set the texture id and shader program for the vertex batch
 	int index = last_freq_index;
 	GLuint texture_id = texture->get_id();
-	if (prediction_freqs[texture_id].frequency >= 1) {
-		index = prediction_freqs[texture_id].batch_index;
-		++prediction_freqs[texture_id].batch_index;
+	if (next_texture_ids[texture_id].frequency >= 1) {
+		index = next_texture_ids[texture_id].batch_index;
+		++next_texture_ids[texture_id].batch_index;
 	}else {
 		++last_freq_index;
 	}
-	v_batch = &vertex_batches[index];
+	PXL_VertexBatch* v_batch = vertex_batches + index;
 	v_batch->num_vertices = 4;
 	v_batch->texture_id = texture_id;
 	v_batch->shader = shader;
 
-	++current_freqs[texture_id].frequency;
-	if (current_freqs[texture_id].frequency == 1) { ++freq_counts; }
+	++current_texture_ids[texture_id].frequency;
+	if (current_texture_ids[texture_id].frequency == 1) { ++freq_counts; }
 
 	if (num_added >= max_quads_amount) {
 		PXL_show_exception("Hit max batch quad size at " + std::to_string(max_quads_amount) + " max quads.");
@@ -213,7 +194,7 @@ void PXL_Batch::add_quad(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rec
 }
 
 void PXL_Batch::set_quad_pos(PXL_Texture* texture, PXL_Rect* rect, float rotation, PXL_Vec2* origin, PXL_Flip flip) {
-	PXL_VertexPoint* v = &vertex_data[vertex_data_size];
+	PXL_VertexPoint* v = vertex_data + vertex_data_size;
 
 	//set origin
 	float origin_x = 0; float origin_y = 0;
@@ -261,7 +242,7 @@ void PXL_Batch::set_quad_pos(PXL_Texture* texture, PXL_Rect* rect, float rotatio
 }
 
 void PXL_Batch::set_quad_uvs(PXL_Texture* texture, PXL_Rect* src_rect) {
-	PXL_VertexPoint* v = &vertex_data[vertex_data_size];
+	PXL_VertexPoint* v = vertex_data + vertex_data_size;
 
 	//default un-normalised uv coords
 	unsigned short uv_x = 0; unsigned short uv_y = 0; unsigned short uv_w = USHRT_MAX; unsigned short uv_h = USHRT_MAX;
@@ -279,7 +260,7 @@ void PXL_Batch::set_quad_uvs(PXL_Texture* texture, PXL_Rect* src_rect) {
 }
 
 void PXL_Batch::set_quad_colours(float r, float g, float b, float a) {
-	PXL_VertexPoint* v = &vertex_data[vertex_data_size];
+	PXL_VertexPoint* v = vertex_data + vertex_data_size;
 
 	//set vertex colours
 	for (int n = 0; n < 4; ++n) {
@@ -311,20 +292,20 @@ void PXL_Batch::draw_vbo() {
 	int batch_index = 0;
 	last_freq_index = 0;
 	for (int n = 0; n < freq_counts + 2; ++n) {
-		if (current_freqs[n].frequency >= 1) {
+		if (current_texture_ids[n].frequency >= 1) {
 			glBindTexture(GL_TEXTURE_2D, n);
 
 			offset = batch_index * 4;
-			size = current_freqs[n].frequency * 4;
+			size = current_texture_ids[n].frequency * 4;
 
 			//draw vertex data from vertex data in buffer
 			glDrawArrays(GL_QUADS, offset, size);
 
-			prediction_freqs[n].frequency = current_freqs[n].frequency;
-			prediction_freqs[n].batch_index = batch_index;
-			batch_index += current_freqs[n].frequency;
-			current_freqs[n].frequency = 0;
-			current_freqs[n].batch_index = 0;
+			next_texture_ids[n].frequency = current_texture_ids[n].frequency;
+			next_texture_ids[n].batch_index = batch_index;
+			batch_index += current_texture_ids[n].frequency;
+			current_texture_ids[n].frequency = 0;
+			current_texture_ids[n].batch_index = 0;
 		}
 	}
 	last_freq_index = offset + size;
