@@ -4,6 +4,10 @@
 #include "PXL_Structs.h"
 #include "PXL_Texture.h"
 
+typedef int PXL_FrameBufferAction;
+#define PXL_GL_FRAMEBUFFER_READ GL_READ_FRAMEBUFFER
+#define PXL_GL_FRAMEBUFFER_WRITE GL_DRAW_FRAMEBUFFER
+
 /** The PXL_FrameBuffer class handles uploading of pixel data to the GPU to create a frame_buffer that can be
 used with a PXL_Batch to render images to the screen
 A frame_buffer can be created with a PXL_Bitmap, a PXL_PixelBuffer or a raw pixel array.
@@ -15,7 +19,7 @@ class PXL_FrameBuffer {
 		@param bitmap Holds all pixel information for an image
 		@param pixel_mode The pixel type of the pixel data (default is R, G, B, A)
 		**/
-		PXL_FrameBuffer();
+		PXL_FrameBuffer(int w, int h);
 		~PXL_FrameBuffer();
 
 		bool frame_buffer_created; /**< Defines whether the frame buffer has been created or not **/
@@ -24,9 +28,12 @@ class PXL_FrameBuffer {
 		@param bitmap Holds all pixel information for an image
 		@param pixel_mode The pixel type of the pixel data (default is R, G, B, A)
 		**/
-		void create_frame_buffer();
+		void create_frame_buffer(int w, int h);
 
 		void clear(float r, float g, float b, float a);
+		void blit(PXL_FrameBuffer* dest_frame_buffer, PXL_Rect* rect = NULL, PXL_Rect* src_rect = NULL, 
+				  PXL_TextureFilter filter = PXL_GL_NEAREST);
+		void bind(PXL_FrameBufferAction action = PXL_GL_FRAMEBUFFER_WRITE);
 
 		/** Deletes all frame_buffer information
 		**/
@@ -57,6 +64,10 @@ class PXL_FrameBuffer {
 		GLuint id; /**< The id associated with the frame_buffer **/
 		PXL_Texture* texture;
 		GLuint depth_id;
+
+	private:
+		PXL_Rect frame_rect;
+		PXL_Rect frame_src_rect;
 };
 
 /**
@@ -64,6 +75,6 @@ class PXL_FrameBuffer {
 @param bitmap Holds all pixel information for an image
 @param pixel_mode The pixel type of the pixel data (default is R, G, B, A)
 **/
-extern PXL_FrameBuffer* PXL_create_frame_buffer();
+extern PXL_FrameBuffer* PXL_create_frame_buffer(int w, int h);
 
 #endif

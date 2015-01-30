@@ -13,9 +13,15 @@
 
 struct PXL_VertexBatch {
 
+	GLuint texture_id;
 	int num_vertices;
-	unsigned int texture_id;
 	PXL_ShaderProgram* shader = NULL;
+};
+
+struct PXL_TextureFreq {
+
+	int frequency = 0;
+	int batch_index = 0;
 };
 
 typedef int PXL_Flip;
@@ -160,7 +166,13 @@ class PXL_Batch {
 		GLuint vertex_buffer_id; /**> The id associated with the vertex buffer object **/
 		std::vector<PXL_VertexBatch> vertex_batches; /**> List that contains vertex batches used for rendering **/
 		std::vector<PXL_VertexPoint> vertex_data;
+		PXL_TextureFreq* current_freqs;
+		PXL_TextureFreq* prediction_freqs;
+		int vertex_batch_index;
 		int vertex_data_size;
+		int last_freq_index = 0;
+		int freq_counts = 0;
+		PXL_VertexBatch* v_batch;
 
 		/** Starts using specified shader
 		@param shader A PXL_ShaderProgram shader object

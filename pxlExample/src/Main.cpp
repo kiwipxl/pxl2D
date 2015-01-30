@@ -64,12 +64,12 @@ int main(int argc, char* args[]) {
 			rand() / float(RAND_MAX), rand() / float(RAND_MAX), rand() / float(RAND_MAX)));
 	}
 
-	PXL_FrameBuffer frame_buffer = PXL_FrameBuffer();
+	PXL_FrameBuffer frame_buffer = PXL_FrameBuffer(PXL_window_width, PXL_window_height);
 
-	PXL_Batch batch = PXL_Batch(PXL_MEDIUM_BATCH);
+	PXL_Batch batch = PXL_Batch(PXL_LARGE_BATCH);
 	PXL_set_default_shader(&batch);
 
-	int amount = 4000;
+	int amount = 20000;
 	int* pos = new int[amount * 2];
 	for (int n = 0; n < amount * 2; n += 2) {
 		pos[n] = int((rand() / float(RAND_MAX)) * 800);
@@ -92,7 +92,6 @@ int main(int argc, char* args[]) {
 			DispatchMessage(&msg);
 		}
 
-		PXL_start_timer();
 		PXL_set_clear_colour(0, 0, 0, 1);
 		PXL_clear();
 		frame_buffer.clear(0, 1, 0, 1);
@@ -108,8 +107,9 @@ int main(int argc, char* args[]) {
 		origin.y = rect.h / 2;
 		t += .5f;
 
-		batch.set_target(&frame_buffer);
+		//batch.set_target(&frame_buffer);
 
+		PXL_start_timer();
 		for (int n = 0; n < amount * 2; n += 2) {
 			rect.x = pos[n] + origin.x;
 			rect.y = pos[n + 1] + origin.y;
@@ -119,6 +119,7 @@ int main(int argc, char* args[]) {
 				batch.add(cat_2, &rect, NULL, t, &origin);
 			}
 		}
+		average_time += PXL_stop_timer();
 
 		for (int n = 0; n < point_lights.size(); ++n) {
 			point_lights[n]->intensity = (sin(t / (10 + (n / 10))) + 1) / 8;
@@ -126,28 +127,24 @@ int main(int argc, char* args[]) {
 			point_lights[n]->intensity = PXL_clamp(point_lights[n]->intensity, 0, 99);
 		}
 
-		PXL_render_point_lights(&batch);
+		//PXL_render_point_lights(&batch);
 
 		text.set_text("timer: " + std::to_string(t) + "\nnewline testtext");
 		text.rotation += cos(t / 10);
 		text.set_colour(.5f, 0, 1, 1);
 		text.scale(sin(t / 10) / 50, sin(t / 10) / 50);
-		text.render(&batch);
+		//text.render(&batch);
 
 		batch.render_all();
 
 		//swaps back buffer to front buffer
-		batch.set_target(0);
+		//batch.set_target(0);
 		rect.x = 0; rect.y = 0; rect.w = PXL_window_width; rect.h = PXL_window_height;
 		//batch.add(frame_buffer.get_texture(), &rect);
 		//batch.render_all();
 
-		glBindFramebuffer(GL_READ_FRAMEBUFFER, 1);
-		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
-		glBlitFramebuffer(0, 0, PXL_window_width, PXL_window_height, 0, 0, PXL_window_width, PXL_window_height, GL_COLOR_BUFFER_BIT, GL_NEAREST);
+		//frame_buffer.blit(0, &rect);
 		PXL_swap_buffers();
-
-		average_time += PXL_stop_timer();
 
 		double ms = start_time.end() / 1000.0f;
 		if (ms >= 0 && ms < ms_per_frame) { Sleep(ms_per_frame - ms); }

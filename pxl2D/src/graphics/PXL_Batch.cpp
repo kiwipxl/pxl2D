@@ -28,8 +28,12 @@ void PXL_Batch::create_batch(PXL_MaxQuads max_quads) {
 		glBufferData(GL_ARRAY_BUFFER, max_quads_amount * 4 * sizeof(PXL_VertexPoint), NULL, GL_STATIC_DRAW);
 		glBindBuffer(GL_ARRAY_BUFFER, NULL);
 
+		current_freqs = new PXL_TextureFreq[max_quads_amount];
+		prediction_freqs = new PXL_TextureFreq[max_quads_amount];
 		for (int n = 0; n < max_quads_amount; ++n) {
 			vertex_batches.push_back(PXL_VertexBatch());
+			current_freqs[n] = PXL_TextureFreq();
+			prediction_freqs[n] = PXL_TextureFreq();
 		}
 		for (int n = 0; n < max_quads_amount * 4; ++n) {
 			vertex_data.push_back(PXL_VertexPoint());
@@ -68,7 +72,7 @@ void PXL_Batch::render_all(bool depth_test) {
 	if (num_added != 0) {
 		//if a framebuffer is specified, bind to it, if not bind to the default framebuffer
 		if (target_frame_buffer != NULL) {
-			glBindFramebuffer(GL_DRAW_FRAMEBUFFER, target_frame_buffer->get_id());
+			target_frame_buffer->bind(PXL_GL_FRAMEBUFFER_WRITE);
 		}else {
 			glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
 		}
@@ -87,8 +91,23 @@ void PXL_Batch::render_all(bool depth_test) {
 }
 
 void PXL_Batch::clear_all() {
+	if (num_added >= 1) {
+		int batch_index = 0;
+		for (int n = 0; n < 4; ++n) {
+			if (current_freqs[n].frequency >= 1) {
+				prediction_freqs[n].frequency = current_freqs[n].frequency;
+				prediction_freqs[n].batch_index = batch_index;
+				batch_index += current_freqs[n].frequency;
+				current_freqs[n].frequency = 0;
+				current_freqs[n].batch_index = 0;
+			}
+		}
+	}
+
 	num_added = 0;
 	vertex_data_size = 0;
+	vertex_batch_index = 0;
+	freq_counts = 0;
 }
 
 void PXL_Batch::set_shader(PXL_ShaderProgram* shader) {
@@ -163,23 +182,34 @@ bool PXL_Batch::verify_texture_add(PXL_Texture* texture, PXL_Rect* rect) {
 }
 
 void PXL_Batch::add_quad(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, 
-							 float rotation, PXL_Vec2* origin, PXL_Flip flip, 
-							 float r, float g, float b, float a, PXL_ShaderProgram* shader) {
+						 float rotation, PXL_Vec2* origin, PXL_Flip flip, 
+						 float r, float g, float b, float a, PXL_ShaderProgram* shader) {
 	//set the texture id and shader program for the vertex batch
-	vertex_batches[num_added].texture_id = texture->get_id();
-	vertex_batches[num_added].shader = shader;
-	vertex_batches[num_added].num_vertices = 4;
+	int index = last_freq_index;
+	GLuint texture_id = texture->get_id();
+	if (prediction_freqs[texture_id].frequency >= 1) {
+		index = prediction_freqs[texture_id].batch_index;
+		++prediction_freqs[texture_id].batch_index;
+	}else {
+		++last_freq_index;
+	}
+	v_batch = &vertex_batches[index];
+	v_batch->num_vertices = 4;
+	v_batch->texture_id = texture_id;
+	v_batch->shader = shader;
+
+	++current_freqs[texture_id].frequency;
+	if (current_freqs[texture_id].frequency == 1) { ++freq_counts; }
 
 	if (num_added >= max_quads_amount) {
 		PXL_show_exception("Hit max batch quad size at " + std::to_string(max_quads_amount) + " max quads.");
 	}
 
 	//set vertex pos, uvs and colours
+	vertex_data_size = index * 4;
 	set_quad_pos(texture, rect, rotation, origin, flip);
 	set_quad_uvs(texture, src_rect);
 	set_quad_colours(r, g, b, a);
-
-	vertex_data_size += 4;
 }
 
 void PXL_Batch::set_quad_pos(PXL_Texture* texture, PXL_Rect* rect, float rotation, PXL_Vec2* origin, PXL_Flip flip) {
@@ -271,33 +301,33 @@ void PXL_Batch::draw_vbo() {
 
 	//binds vertex buffer
 	glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_id);
-	glBufferSubData(GL_ARRAY_BUFFER, 0, vertex_data_size * sizeof(PXL_VertexPoint), &vertex_data[0]);
+	glBufferData(GL_ARRAY_BUFFER, num_added * 4 * sizeof(PXL_VertexPoint), &vertex_data[0], GL_DYNAMIC_DRAW);
 
 	//loops through each texture and draws the vertex data with that texture id
 	int size = 0;
 	int offset = 0;
 	int prev_id = vertex_batches[0].texture_id;
-	PXL_ShaderProgram* prev_shader = vertex_batches[0].shader;
-	set_shader(prev_shader);
-	for (int i = 0; i < num_added; ++i) {
-		if (i >= num_added - 1) { size += vertex_batches[i].num_vertices; }
-		if (vertex_batches[i].texture_id != prev_id || 
-			(vertex_batches[i].shader != NULL && vertex_batches[i].shader != prev_shader) || i >= num_added - 1) {
-			if (vertex_batches[i].shader != prev_shader || i >= num_added - 1) {
-				set_shader(prev_shader);
-			}
-			glBindTexture(GL_TEXTURE_2D, prev_id);
-			prev_id = vertex_batches[i].texture_id;
-			prev_shader = vertex_batches[i].shader;
+	set_shader();
+	int batch_index = 0;
+	last_freq_index = 0;
+	for (int n = 0; n < freq_counts + 2; ++n) {
+		if (current_freqs[n].frequency >= 1) {
+			glBindTexture(GL_TEXTURE_2D, n);
+
+			offset = batch_index * 4;
+			size = current_freqs[n].frequency * 4;
 
 			//draw vertex data from vertex data in buffer
 			glDrawArrays(GL_QUADS, offset, size);
 
-			offset += size;
-			size = 0;
+			prediction_freqs[n].frequency = current_freqs[n].frequency;
+			prediction_freqs[n].batch_index = batch_index;
+			batch_index += current_freqs[n].frequency;
+			current_freqs[n].frequency = 0;
+			current_freqs[n].batch_index = 0;
 		}
-		size += vertex_batches[i].num_vertices;
 	}
+	last_freq_index = offset + size;
 }
 
 void PXL_Batch::free() {
