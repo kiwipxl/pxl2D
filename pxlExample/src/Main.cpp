@@ -64,10 +64,12 @@ int main(int argc, char* args[]) {
 			rand() / float(RAND_MAX), rand() / float(RAND_MAX), rand() / float(RAND_MAX)));
 	}
 
-	PXL_Batch batch = PXL_Batch(PXL_LARGE_BATCH);
+	PXL_FrameBuffer frame_buffer = PXL_FrameBuffer();
+
+	PXL_Batch batch = PXL_Batch(PXL_MEDIUM_BATCH);
 	PXL_set_default_shader(&batch);
 
-	int amount = 20000;
+	int amount = 4000;
 	int* pos = new int[amount * 2];
 	for (int n = 0; n < amount * 2; n += 2) {
 		pos[n] = int((rand() / float(RAND_MAX)) * 800);
@@ -91,7 +93,9 @@ int main(int argc, char* args[]) {
 		}
 
 		PXL_start_timer();
+		PXL_set_clear_colour(0, 0, 0, 1);
 		PXL_clear();
+		frame_buffer.clear(0, 1, 0, 1);
 
 		//silly test code stuff
 		PXL_Rect rect;
@@ -103,6 +107,8 @@ int main(int argc, char* args[]) {
 		origin.x = rect.w / 2;
 		origin.y = rect.h / 2;
 		t += .5f;
+
+		batch.set_target(&frame_buffer);
 
 		for (int n = 0; n < amount * 2; n += 2) {
 			rect.x = pos[n] + origin.x;
@@ -131,8 +137,14 @@ int main(int argc, char* args[]) {
 		batch.render_all();
 
 		//swaps back buffer to front buffer
-		//glBindFramebuffer(GL_FRAMEBUFFER, 1);
-		//glBlitFramebuffer(0, 0, PXL_window_width, PXL_window_height, 0, 0, PXL_window_width, PXL_window_height, GL_COLOR_BUFFER_BIT, GL_NEAREST);
+		batch.set_target(0);
+		rect.x = 0; rect.y = 0; rect.w = PXL_window_width; rect.h = PXL_window_height;
+		//batch.add(frame_buffer.get_texture(), &rect);
+		//batch.render_all();
+
+		glBindFramebuffer(GL_READ_FRAMEBUFFER, 1);
+		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+		glBlitFramebuffer(0, 0, PXL_window_width, PXL_window_height, 0, 0, PXL_window_width, PXL_window_height, GL_COLOR_BUFFER_BIT, GL_NEAREST);
 		PXL_swap_buffers();
 
 		average_time += PXL_stop_timer();

@@ -2,16 +2,15 @@
 #include <fstream>
 #include <algorithm>
 #include "PXL_Batch.h"
-#include "PXL_FrameBuffer.h"
 #include "system/PXL_Exception.h"
 #include "system/PXL_Window.h"
 
 std::vector<PXL_PointLight*> PXL_point_lights;
 std::vector<GLfloat> point_lights_arr;
-PXL_FrameBuffer* frame_buffer;
+PXL_Texture screen_texture;
 
 void PXL_lights_init() {
-	frame_buffer = new PXL_FrameBuffer();
+	screen_texture = PXL_Texture(PXL_window_width, PXL_window_height);
 
 	glUseProgram(PXL_point_light_shader->get_program_id());
 	PXL_point_light_shader->add_uniform_location("points");
@@ -68,7 +67,7 @@ void PXL_render_point_lights(PXL_Batch* batch) {
 
 	PXL_Rect rect;
 	rect.x = 0; rect.y = 0; rect.w = PXL_window_width; rect.h = PXL_window_height;
-	batch->add(frame_buffer->get_texture(), &rect, NULL, PXL_FLIP_NONE, PXL_point_light_shader);
+	batch->add(&screen_texture, &rect, NULL, PXL_FLIP_NONE, PXL_point_light_shader);
 
 	batch->render_all();
 }

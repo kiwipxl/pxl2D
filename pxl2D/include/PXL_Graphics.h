@@ -8,6 +8,7 @@
 #include "graphics/PXL_FontUtils.h"
 #include "graphics/PXL_Text.h"
 #include "graphics/PXL_Lights.h"
+#include "graphics/PXL_FrameBuffer.h"
 #include <glew.h>
 
 /** Initialises PXL graphics

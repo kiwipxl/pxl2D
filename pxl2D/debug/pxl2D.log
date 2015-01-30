@@ -1,24 +1,58 @@
-﻿Build started 29/01/2015 11:54:26 PM.
+﻿Build started 30/01/2015 12:12:25 PM.
      1>Project "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\pxl2D.vcxproj" on node 2 (Build target(s)).
      1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(364,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt src\graphics\PXL_Batch.cpp
-         PXL_Batch.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(41): warning C4099: 'PXL_Batch' : type name first seen using 'struct' now seen using 'class'
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt src\PXL.cpp src\PXL_Graphics.cpp src\PXL_System.cpp src\graphics\PXL_Batch.cpp src\graphics\PXL_FontUtils.cpp src\graphics\PXL_ImageUtils.cpp src\graphics\PXL_Lights.cpp src\graphics\PXL_ShaderProgram.cpp src\graphics\PXL_ShaderUtils.cpp src\system\PXL_Exception.cpp
+         PXL_Exception.cpp
+         PXL_ShaderUtils.cpp
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(40): warning C4099: 'PXL_Batch' : type name first seen using 'struct' now seen using 'class'
                  c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_shaderutils.h(8) : see declaration of 'PXL_Batch'
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(184): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(193): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(198): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(204): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(205): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(207): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(217): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(231): warning C4244: '=' : conversion from 'float' to 'unsigned short', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(232): warning C4244: '=' : conversion from 'float' to 'unsigned short', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(247): warning C4244: '=' : conversion from 'float' to 'unsigned char', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(248): warning C4244: '=' : conversion from 'float' to 'unsigned char', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(249): warning C4244: '=' : conversion from 'float' to 'unsigned char', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(250): warning C4244: '=' : conversion from 'float' to 'unsigned char', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\system\pxl_timer.h(24): warning C4244: '=' : conversion from 'LONGLONG' to 'long', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_shaderutils.cpp(123): warning C4244: 'initializing' : conversion from 'std::streamsize' to 'unsigned int', possible loss of data
+         PXL_ShaderProgram.cpp
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_shaderprogram.cpp(70): warning C4800: 'GLint' : forcing value to bool 'true' or 'false' (performance warning)
+         PXL_Lights.cpp
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(40): warning C4099: 'PXL_Batch' : type name first seen using 'struct' now seen using 'class'
+                 c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_shaderutils.h(8) : see declaration of 'PXL_Batch'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_lights.cpp(24): warning C4018: '<' : signed/unsigned mismatch
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_lights.cpp(26): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_lights.cpp(69): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+         PXL_ImageUtils.cpp
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_imageutils.cpp(57): warning C4018: '<' : signed/unsigned mismatch
+         PXL_FontUtils.cpp
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_shaderutils.h(8): warning C4099: 'PXL_Batch' : type name first seen using 'class' now seen using 'struct'
+                 c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_fontutils.h(8) : see declaration of 'PXL_Batch'
+         PXL_Batch.cpp
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(40): warning C4099: 'PXL_Batch' : type name first seen using 'struct' now seen using 'class'
+                 c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_shaderutils.h(8) : see declaration of 'PXL_Batch'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(193): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(202): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(207): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(213): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(214): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(216): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(226): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(240): warning C4244: '=' : conversion from 'float' to 'unsigned short', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(241): warning C4244: '=' : conversion from 'float' to 'unsigned short', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(256): warning C4244: '=' : conversion from 'float' to 'unsigned char', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(257): warning C4244: '=' : conversion from 'float' to 'unsigned char', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(258): warning C4244: '=' : conversion from 'float' to 'unsigned char', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(259): warning C4244: '=' : conversion from 'float' to 'unsigned char', possible loss of data
+         PXL_System.cpp
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\system\pxl_timer.h(24): warning C4244: '=' : conversion from 'LONGLONG' to 'long', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_system.cpp(9): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(112) : see declaration of 'strcpy'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_system.cpp(10): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(118) : see declaration of 'strcat'
+         PXL_Graphics.cpp
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(40): warning C4099: 'PXL_Batch' : type name first seen using 'struct' now seen using 'class'
+                 c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_shaderutils.h(8) : see declaration of 'PXL_Batch'
+         PXL.cpp
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(40): warning C4099: 'PXL_Batch' : type name first seen using 'struct' now seen using 'class'
+                 c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_shaderutils.h(8) : see declaration of 'PXL_Batch'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\system\pxl_timer.h(24): warning C4244: '=' : conversion from 'LONGLONG' to 'long', possible loss of data
+         Generating Code...
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_shaderutils.cpp(105): warning C4715: 'verify_and_create_program_shader' : not all control paths return a value
        Lib:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxlExample\lib\pxl2D\pxl2D.lib" libpng.lib zlib.lib freetype.lib winmm.lib /NOLOGO Debug\PXL.obj
          Debug\PXL_Batch.obj
@@ -56,4 +90,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.19
+Time Elapsed 00:00:06.94

@@ -65,16 +65,24 @@ void PXL_Batch::create_batch(PXL_MaxQuads max_quads) {
 }
 
 void PXL_Batch::render_all(bool depth_test) {
-	//enable/disable depth testing depending on depth_test input
-	if (depth_test) {
-		glClear(GL_DEPTH_BUFFER_BIT);
-		glEnable(GL_DEPTH_TEST);
-	}else {
-		glDisable(GL_DEPTH_TEST);
-	}
+	if (num_added != 0) {
+		//if a framebuffer is specified, bind to it, if not bind to the default framebuffer
+		if (target_frame_buffer != NULL) {
+			glBindFramebuffer(GL_DRAW_FRAMEBUFFER, target_frame_buffer->get_id());
+		}else {
+			glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+		}
 
-	//draw vbo and clear all data
-	draw_vbo();
+		//enable/disable depth testing depending on depth_test input
+		if (depth_test) {
+			glClear(GL_DEPTH_BUFFER_BIT);
+			glEnable(GL_DEPTH_TEST);
+		}else {
+			glDisable(GL_DEPTH_TEST);
+		}
+
+		draw_vbo();
+	}
 	clear_all();
 }
 
@@ -160,6 +168,7 @@ void PXL_Batch::add_quad(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rec
 	//set the texture id and shader program for the vertex batch
 	vertex_batches[num_added].texture_id = texture->get_id();
 	vertex_batches[num_added].shader = shader;
+	vertex_batches[num_added].num_vertices = 4;
 
 	if (num_added >= max_quads_amount) {
 		PXL_show_exception("Hit max batch quad size at " + std::to_string(max_quads_amount) + " max quads.");
@@ -260,10 +269,6 @@ void PXL_Batch::draw_vbo() {
 	//if there are no textures to draw or no vertex data then return
 	if (num_added == 0) { return; }
 
-	//if a framebuffer is specified, bind to it, if not bind to the default framebuffer
-	if (target_frame_buffer != NULL) {
-		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, target_frame_buffer->get_id());
-	}
 	//binds vertex buffer
 	glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_id);
 	glBufferSubData(GL_ARRAY_BUFFER, 0, vertex_data_size * sizeof(PXL_VertexPoint), &vertex_data[0]);
@@ -275,7 +280,7 @@ void PXL_Batch::draw_vbo() {
 	PXL_ShaderProgram* prev_shader = vertex_batches[0].shader;
 	set_shader(prev_shader);
 	for (int i = 0; i < num_added; ++i) {
-		if (i >= num_added - 1) { size += 4; }
+		if (i >= num_added - 1) { size += vertex_batches[i].num_vertices; }
 		if (vertex_batches[i].texture_id != prev_id || 
 			(vertex_batches[i].shader != NULL && vertex_batches[i].shader != prev_shader) || i >= num_added - 1) {
 			if (vertex_batches[i].shader != prev_shader || i >= num_added - 1) {
@@ -291,11 +296,8 @@ void PXL_Batch::draw_vbo() {
 			offset += size;
 			size = 0;
 		}
-		size += 4;
+		size += vertex_batches[i].num_vertices;
 	}
-
-	//set back to default framebuffer
-	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
 }
 
 void PXL_Batch::free() {

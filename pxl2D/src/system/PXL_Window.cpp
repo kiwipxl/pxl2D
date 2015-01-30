@@ -96,7 +96,7 @@ void PXL_Window::create_window(int window_width, int window_height, std::string 
 	}
 
 	win_handle = CreateWindowEx(WS_EX_CLIENTEDGE, class_name, window_name, WS_OVERLAPPEDWINDOW, 
-							    CW_USEDEFAULT, CW_USEDEFAULT, (rect.right - rect.left) + 8, (rect.bottom - rect.top) + 8,  
+							    CW_USEDEFAULT, CW_USEDEFAULT, (rect.right - rect.left) + 4, (rect.bottom - rect.top) + 4,  
 								NULL, NULL, instance_handle, NULL);
 
 	if (win_handle == NULL) {

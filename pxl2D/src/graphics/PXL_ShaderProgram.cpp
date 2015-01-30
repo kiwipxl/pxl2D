@@ -36,7 +36,7 @@ PXL_ShaderProgram::PXL_ShaderProgram(std::string vertex_shader, std::string frag
 			std::cout << "shader (" << v_shader_name << ", " << f_shader_name << ") linked successfully\n";
 			matrix_loc = glGetUniformLocation(program_id, "matrix");
 		}else {
-			PXL_show_exception("shader (" + v_shader_name + ", " + f_shader_name + ") link failed", true, false);
+			PXL_show_exception("shader (" + v_shader_name + ", " + f_shader_name + ") link failed", PXL_EXCEPTION_CONSOLE, false);
 		}
 
 		//detach shaders whether or not linking was successful
@@ -56,13 +56,13 @@ bool PXL_ShaderProgram::compile(GLuint shader_id, int shader_type, std::string s
 	}else {
 		switch (shader_type) {
 			case GL_VERTEX_SHADER:
-				PXL_show_exception("Vertex shader(" + shader_name + ") failed to compile", true, false);
+				PXL_show_exception("Vertex shader(" + shader_name + ") failed to compile", PXL_EXCEPTION_CONSOLE, false);
 				break;
 			case GL_FRAGMENT_SHADER:
-				PXL_show_exception("Fragment shader (" + shader_name + ") failed to compile", true, false);
+				PXL_show_exception("Fragment shader (" + shader_name + ") failed to compile", PXL_EXCEPTION_CONSOLE, false);
 				break;
 			default:
-				PXL_show_exception("Unknown shader (" + shader_name + ") failed to compile", true, false);
+				PXL_show_exception("Unknown shader (" + shader_name + ") failed to compile", PXL_EXCEPTION_CONSOLE, false);
 				break;
 		}
 		log(shader_id);

@@ -13,7 +13,6 @@
 
 struct PXL_VertexBatch {
 
-	int vertex_index;
 	int num_vertices;
 	unsigned int texture_id;
 	PXL_ShaderProgram* shader = NULL;
