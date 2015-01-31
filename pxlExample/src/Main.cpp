@@ -127,13 +127,13 @@ int main(int argc, char* args[]) {
 			point_lights[n]->intensity = PXL_clamp(point_lights[n]->intensity, 0, 99);
 		}
 
-		//PXL_render_point_lights(&batch);
+		PXL_render_point_lights(&batch);
 
 		text.set_text("timer: " + std::to_string(t) + "\nnewline testtext");
-		text.rotation += cos(t / 10);
+		text.rotation += PXL_fast_cos(t / 10);
 		text.set_colour(.5f, 0, 1, 1);
-		text.scale(sin(t / 10) / 50, sin(t / 10) / 50);
-		//text.render(&batch);
+		text.scale(PXL_fast_sin(t / 10) / 50, PXL_fast_sin(t / 10) / 50);
+		text.render(&batch);
 
 		batch.render_all();
 

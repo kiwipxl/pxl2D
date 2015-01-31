@@ -127,6 +127,7 @@ void PXL_Text::render(PXL_Batch* batch) {
 		rect.x -= temp_origin.x; rect.y -= temp_origin.y;
 	}
 	batch->render_all();
+	batch->set_target_shader(PXL_default_shader);
 }
 
 void PXL_Text::free() {

@@ -70,6 +70,7 @@ void PXL_render_point_lights(PXL_Batch* batch) {
 	batch->add(&screen_texture, &rect, NULL, PXL_FLIP_NONE);
 
 	batch->render_all();
+	batch->set_target_shader(PXL_default_shader);
 }
 
 void PXL_remove_point_light(PXL_PointLight* light, bool delete_pointer) {
