@@ -6,6 +6,11 @@
 #define PXL_max(v, v2) v > v2 ? v : v2
 
 #define PXL_pi 3.14159265359f
-#define PXL_radian float(180 / PXL_pi)
+#define PXL_two_pi 6.28318530718f
+#define PXL_radian double(180 / PXL_pi)
+
+extern void PXL_math_init();
+extern double PXL_fast_cos(double degrees);
+extern double PXL_fast_sin(double degrees);
 
 #endif

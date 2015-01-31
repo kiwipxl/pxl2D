@@ -28,6 +28,7 @@
     <ClCompile Include="src\PXL_Graphics.cpp" />
     <ClCompile Include="src\PXL_System.cpp" />
     <ClCompile Include="src\system\PXL_Exception.cpp" />
+    <ClCompile Include="src\system\PXL_Math.cpp" />
     <ClCompile Include="src\system\PXL_Timer.cpp" />
     <ClCompile Include="src\system\PXL_Window.cpp" />
   </ItemGroup>

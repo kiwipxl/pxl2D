@@ -230,7 +230,7 @@ void PXL_Batch::set_quad_pos(PXL_Texture* texture, PXL_Rect* rect, float rotatio
 	if (rotation != 0) {
 		//set rotation to degrees rather than radians
 		rotation = rotation / PXL_radian;
-		float c = cos(rotation); float s = sin(rotation);
+		float c = PXL_fast_cos(rotation); float s = PXL_fast_sin(rotation);
 
 		//apply rotation transformation
 		for (int n = 0; n < 4; ++n) {

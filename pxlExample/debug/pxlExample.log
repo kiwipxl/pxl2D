@@ -1,4 +1,4 @@
-﻿Build started 31/01/2015 10:40:23 AM.
+﻿Build started 31/01/2015 11:49:35 AM.
      1>Project "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxlExample\pxlExample.vcxproj" on node 2 (Build target(s)).
      1>Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\Debug\pxlExample.exe" /INCREMENTAL /NOLOGO Vfw32.lib pxl2D.lib opengl32.lib glew32s.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /NODEFAULTLIB:MSVCRT /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\Debug\pxlExample.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\Debug\pxlExample.lib" /MACHINE:X86 Debug\Main.obj
@@ -14,10 +14,10 @@
      1>pxl2D.lib(PXL_Batch.obj) : warning LNK4049: locally defined symbol ___glewUseProgram imported
      1>pxl2D.lib(PXL_Lights.obj) : warning LNK4217: locally defined symbol ___glewUseProgram imported in function "public: void __thiscall std::_Wrap_alloc<class std::allocator<char> >::construct<char *,char * &>(char * *,char * &)" (??$construct@PADAAPAD@?$_Wrap_alloc@V?$allocator@D@std@@@std@@QAEXPAPADAAPAD@Z)
      1>pxl2D.lib(PXL_FrameBuffer.obj) : warning LNK4049: locally defined symbol ___glewBindBuffer imported
-     1>pxl2D.lib(PXL_Batch.obj) : warning LNK4217: locally defined symbol ___glewBindBuffer imported in function "public: virtual class std::error_condition __thiscall std::_System_error_category::default_error_condition(int)const " (?default_error_condition@_System_error_category@std@@UBE?AVerror_condition@2@H@Z)
+     1>pxl2D.lib(PXL_Batch.obj) : warning LNK4217: locally defined symbol ___glewBindBuffer imported in function "public: void __thiscall PXL_Batch::create_batch(int)" (?create_batch@PXL_Batch@@QAEXH@Z)
      1>pxl2D.lib(PXL_FrameBuffer.obj) : warning LNK4049: locally defined symbol ___glewFramebufferParameteri imported
      1>pxl2D.lib(PXL_FrameBuffer.obj) : warning LNK4049: locally defined symbol ___glewBindFramebuffer imported
-     1>pxl2D.lib(PXL_Batch.obj) : warning LNK4049: locally defined symbol ___glewBindFramebuffer imported
+     1>pxl2D.lib(PXL_Batch.obj) : warning LNK4217: locally defined symbol ___glewBindFramebuffer imported in function "public: void __thiscall PXL_Batch::render_all(bool)" (?render_all@PXL_Batch@@QAEX_N@Z)
      1>pxl2D.lib(PXL_FrameBuffer.obj) : warning LNK4049: locally defined symbol ___glewBindRenderbuffer imported
      1>pxl2D.lib(PXL_FrameBuffer.obj) : warning LNK4049: locally defined symbol ___glewBlitFramebuffer imported
      1>pxl2D.lib(PXL_FrameBuffer.obj) : warning LNK4049: locally defined symbol ___glewCheckFramebufferStatus imported
@@ -54,4 +54,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.40
+Time Elapsed 00:00:00.43
