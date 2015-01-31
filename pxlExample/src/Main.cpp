@@ -114,9 +114,9 @@ int main(int argc, char* args[]) {
 			rect.x = pos[n] + origin.x;
 			rect.y = pos[n + 1] + origin.y;
 			if (rect.x >= 512) {
-				//batch.add(cat, &rect, NULL, t, &origin, PXL_FLIP_NONE, PXL_grayscale_shader, .75f, .5f, 1, 1);
+				batch.add(cat, &rect, NULL, t, &origin, PXL_FLIP_NONE, .75f, .5f, 1, 1);
 			}else {
-				//batch.add(cat_2, &rect, NULL, t, &origin);
+				batch.add(cat_2, &rect, NULL, t, &origin);
 			}
 		}
 		average_time += PXL_stop_timer();
@@ -127,13 +127,13 @@ int main(int argc, char* args[]) {
 			point_lights[n]->intensity = PXL_clamp(point_lights[n]->intensity, 0, 99);
 		}
 
-		PXL_render_point_lights(&batch);
+		//PXL_render_point_lights(&batch);
 
 		text.set_text("timer: " + std::to_string(t) + "\nnewline testtext");
 		text.rotation += cos(t / 10);
 		text.set_colour(.5f, 0, 1, 1);
 		text.scale(sin(t / 10) / 50, sin(t / 10) / 50);
-		text.render(&batch);
+		//text.render(&batch);
 
 		batch.render_all();
 
