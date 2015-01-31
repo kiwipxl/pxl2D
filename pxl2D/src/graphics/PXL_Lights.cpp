@@ -64,10 +64,10 @@ void PXL_render_point_lights(PXL_Batch* batch) {
 
 	glUseProgram(PXL_point_light_shader->get_program_id());
 	glUniform1fv(PXL_point_light_shader->get_uniform_location(0), PXL_point_lights.size() * 7, &point_lights_arr[0]);
-
+	batch->set_target_shader(PXL_point_light_shader);
 	PXL_Rect rect;
 	rect.x = 0; rect.y = 0; rect.w = PXL_window_width; rect.h = PXL_window_height;
-	batch->add(&screen_texture, &rect, NULL, PXL_FLIP_NONE, PXL_point_light_shader);
+	batch->add(&screen_texture, &rect, NULL, PXL_FLIP_NONE);
 
 	batch->render_all();
 }

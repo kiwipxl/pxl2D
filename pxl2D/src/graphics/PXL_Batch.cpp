@@ -35,8 +35,6 @@ void PXL_Batch::create_batch(PXL_MaxQuads max_quads) {
 		vbo_created = true;
 	}
 
-	set_shader(PXL_default_shader);
-
 	//set perspective matrix to window coordinates and translate to 0,0 top left
 	view_mat.identity();
 	perspective_mat.identity();
@@ -88,19 +86,12 @@ void PXL_Batch::clear_all() {
 	num_added = 0;
 	vertex_data_size = 0;
 	vertex_batch_index = 0;
-	freq_counts = 0;
+	min_texture_id = UINT_MAX;
+	max_texture_id = 0;
 }
 
-void PXL_Batch::set_shader(PXL_ShaderProgram* shader) {
-	PXL_ShaderProgram* sh = shader;
-	if (sh == NULL) { sh = PXL_default_shader; }
-
-	//use specified program id
-	glUseProgram(sh->get_program_id());
-
-	//set matrix uniform in the vertex shader for the program
-	view_mat.identity();
-	glUniformMatrix4fv(sh->get_matrix_loc(), 1, true, (view_mat * perspective_mat).get_mat());
+void PXL_Batch::set_target_shader(PXL_ShaderProgram* shader) {
+	target_shader = shader;
 }
 
 void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect) {
@@ -110,40 +101,33 @@ void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect) {
 	}
 }
 
-void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, PXL_ShaderProgram* shader) {
-	if (verify_texture_add(texture, rect)) {
-		add_quad(texture, rect, src_rect, 0, NULL, 0, 1, 1, 1, 1, shader);
-		++num_added;
-	}
-}
-
 void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, float rotation, PXL_Vec2* origin) {
 	if (verify_texture_add(texture, rect)) {
-		add_quad(texture, rect, src_rect, rotation, origin, 0, 1, 1, 1, 1, NULL);
+		add_quad(texture, rect, src_rect, rotation, origin);
 		++num_added;
 	}
 }
 
 void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, float rotation, PXL_Vec2* origin, 
-					PXL_Flip flip, PXL_ShaderProgram* shader) {
+					PXL_Flip flip) {
 	if (verify_texture_add(texture, rect)) {
-		add_quad(texture, rect, src_rect, rotation, origin, flip, 1, 1, 1, 1, shader);
+		add_quad(texture, rect, src_rect, rotation, origin, flip);
 		++num_added;
 	}
 }
 
-void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, PXL_Flip flip, PXL_ShaderProgram* shader, 
+void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, PXL_Flip flip, 
 					float r, float g, float b, float a) {
 	if (verify_texture_add(texture, rect)) {
-		add_quad(texture, rect, src_rect, 0, NULL, flip, r, g, b, a, shader);
+		add_quad(texture, rect, src_rect, 0, NULL, flip, r, g, b, a);
 		++num_added;
 	}
 }
 
 void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, float rotation, PXL_Vec2* origin, 
-					PXL_Flip flip, PXL_ShaderProgram* shader, float r, float g, float b, float a) {
+					PXL_Flip flip, float r, float g, float b, float a) {
 	if (verify_texture_add(texture, rect)) {
-		add_quad(texture, rect, src_rect, rotation, origin, flip, r, g, b, a, shader);
+		add_quad(texture, rect, src_rect, rotation, origin, flip, r, g, b, a);
 		++num_added;
 	}
 }
@@ -164,7 +148,7 @@ bool PXL_Batch::verify_texture_add(PXL_Texture* texture, PXL_Rect* rect) {
 
 void PXL_Batch::add_quad(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, 
 						 float rotation, PXL_Vec2* origin, PXL_Flip flip, 
-						 float r, float g, float b, float a, PXL_ShaderProgram* shader) {
+						 float r, float g, float b, float a) {
 	//set the texture id and shader program for the vertex batch
 	int index = last_freq_index;
 	GLuint texture_id = texture->get_id();
@@ -176,11 +160,10 @@ void PXL_Batch::add_quad(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rec
 	}
 	PXL_VertexBatch* v_batch = vertex_batches + index;
 	v_batch->num_vertices = 4;
-	v_batch->texture_id = texture_id;
-	v_batch->shader = shader;
 
 	++current_texture_ids[texture_id].frequency;
-	if (current_texture_ids[texture_id].frequency == 1) { ++freq_counts; }
+	min_texture_id = PXL_min(min_texture_id, texture_id);
+	max_texture_id = PXL_max(max_texture_id, texture_id);
 
 	if (num_added >= max_quads_amount) {
 		PXL_show_exception("Hit max batch quad size at " + std::to_string(max_quads_amount) + " max quads.");
@@ -284,14 +267,20 @@ void PXL_Batch::draw_vbo() {
 	glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_id);
 	glBufferData(GL_ARRAY_BUFFER, num_added * 4 * sizeof(PXL_VertexPoint), &vertex_data[0], GL_DYNAMIC_DRAW);
 
+	if (target_shader == NULL) { target_shader = PXL_default_shader; }
+	//use specified program id
+	glUseProgram(target_shader->get_program_id());
+
+	//set matrix uniform in the vertex shader for the program
+	view_mat.identity();
+	glUniformMatrix4fv(target_shader->get_matrix_loc(), 1, true, (view_mat * perspective_mat).get_mat());
+
 	//loops through each texture and draws the vertex data with that texture id
 	int size = 0;
 	int offset = 0;
-	int prev_id = vertex_batches[0].texture_id;
-	set_shader();
 	int batch_index = 0;
 	last_freq_index = 0;
-	for (int n = 0; n < freq_counts + 2; ++n) {
+	for (int n = min_texture_id; n <= max_texture_id; ++n) {
 		if (current_texture_ids[n].frequency >= 1) {
 			glBindTexture(GL_TEXTURE_2D, n);
 
