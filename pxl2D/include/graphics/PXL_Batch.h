@@ -11,12 +11,6 @@
 #include "PXL_ShaderProgram.h"
 #include "PXL_FrameBuffer.h"
 
-struct PXL_VertexBatch {
-
-	int num_vertices;
-	GLuint colour = UINT_MAX;
-};
-
 typedef int PXL_Flip;
 
 #define PXL_FLIP_NONE 0
@@ -29,6 +23,20 @@ typedef int PXL_MaxQuads;
 #define PXL_SMALL_BATCH 2000
 #define PXL_MEDIUM_BATCH 10000
 #define PXL_LARGE_BATCH 50000
+
+struct PXL_VertexBatch {
+
+	//vertex values
+	int num_vertices;
+
+	//transform cache values
+	PXL_RGBA colour;
+	PXL_Rect rect;
+	PXL_Rect src_rect;
+	PXL_Vec2 origin;
+	float rotation;
+	PXL_Flip flip;
+};
 
 /** The PXL_Batch class handles batch rendering of textures, texture sheets and sprites with transformations.
 The batch works by sorting each texture to limit binding calls and by chunking data to speed up render times.\n
@@ -167,8 +175,8 @@ class PXL_Batch {
 		int last_freq_index = 0;
 		int data_offset = 0;
 		int data_size = 0;
-		unsigned int min_texture_id;
-		unsigned int max_texture_id;
+		unsigned int min_texture_id = 0;
+		unsigned int max_texture_id = 0;
 
 		/** Verifies whether the texture should be added to the batch and returns the result
 		@param rect Used to check the texture position on the screen

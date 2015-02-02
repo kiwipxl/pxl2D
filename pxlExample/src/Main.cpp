@@ -69,7 +69,7 @@ int main(int argc, char* args[]) {
 	PXL_Batch batch = PXL_Batch(PXL_LARGE_BATCH);
 	PXL_set_default_shader(&batch);
 
-	int amount = 40000;
+	int amount = 20000;
 	int* pos = new int[amount * 2];
 	for (int n = 0; n < amount * 2; n += 2) {
 		pos[n] = int((rand() / float(RAND_MAX)) * 800);
