@@ -40,6 +40,10 @@ PXL_PointLight* PXL_create_point_light(int x, int y, float radius, float intensi
 		glUniform1i(PXL_point_light_shader->get_uniform_location(1), PXL_point_lights.size() * 7);
 		glUseProgram(0);
 
+		int a = PXL_wrap(40, 0, 10);
+		int b = PXL_wrap(-20, 0, 100);
+		int c = PXL_wrap(40, 20, 25);
+
 		return light;
 	}else {
 		PXL_show_exception("Cannot create more than " + std::to_string(PXL_max_point_lights) + " lights");

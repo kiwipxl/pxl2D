@@ -14,6 +14,7 @@
 struct PXL_VertexBatch {
 
 	int num_vertices;
+	GLuint colour = UINT_MAX;
 };
 
 typedef int PXL_Flip;
@@ -161,9 +162,11 @@ class PXL_Batch {
 		PXL_VertexPoint* vertex_data;
 		SparseTextureId* current_texture_ids;
 		SparseTextureId* next_texture_ids;
+		PXL_VertexBatch* v_batch;
 		int vertex_batch_index;
-		int vertex_data_size;
 		int last_freq_index = 0;
+		int data_offset = 0;
+		int data_size = 0;
 		unsigned int min_texture_id;
 		unsigned int max_texture_id;
 
@@ -182,28 +185,8 @@ class PXL_Batch {
 		@param r, g, b, a Colour ranges from 0 to 1 which set the texture colour
 		**/
 		void add_quad(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect,
-						  float rotation = 0, PXL_Vec2* origin = NULL, PXL_Flip flip = PXL_FLIP_NONE, 
-						  float r = 1, float g = 1, float b = 1, float a = 1);
-
-		/** Calculates the vertex position for a quad based on the parameters
-		@param texture The texture to add to the batch
-		@param rect Specifies where on the screen the texture will be rendered to
-		@param rotation The rotation transformation of the texture
-		@param origin The origin point of which the texture rotates around. Use NULL to use the top-left (0, 0)
-		@param flip Defines the flip transformation for the texture
-		**/
-		void set_quad_pos(PXL_Texture* texture, PXL_Rect* rect, float rotation, PXL_Vec2* origin, PXL_Flip flip);
-
-		/** Calculates the vertex uvs for 4 different vertex points
-		@param texture The texture to add to the batch
-		@param src_rect Specifies which part of the texture to use, NULL to use the whole texture
-		**/
-		void set_quad_uvs(PXL_Texture* texture, PXL_Rect* src_rect);
-
-		/** Calculates the vertex colours for 4 different vertex points
-		@param r, g, b, a Colour ranges from 0 to 1 which set the texture colour
-		**/
-		void set_quad_colours(float r, float g, float b, float a);
+					  float rotation = 0, PXL_Vec2* origin = NULL, PXL_Flip flip = PXL_FLIP_NONE, 
+					  float r = 1, float g = 1, float b = 1, float a = 1);
 
 		/** Draws each item in the vertex batches list
 		**/

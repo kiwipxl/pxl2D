@@ -1,5 +1,6 @@
 #include "PXL_Window.h"
 #include <iostream>
+#include <glew.h>
 
 int PXL_window_width;
 int PXL_window_height;
@@ -54,10 +55,12 @@ PXL_Window* PXL_create_window(int window_width, int window_height, std::string t
 }
 
 void PXL_swap_buffers(PXL_Window* window) {
+	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
 	SwapBuffers(window->device_context_handle);
 }
 
 void PXL_swap_buffers(int window_index) {
+	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
 	SwapBuffers(PXL_windows[window_index]->device_context_handle);
 }
 

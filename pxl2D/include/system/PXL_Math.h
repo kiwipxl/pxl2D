@@ -4,6 +4,7 @@
 #define PXL_clamp(v, min, max) v < min ? min : v && v > max ? max : v
 #define PXL_min(v, v2) v < v2 ? v : v2
 #define PXL_max(v, v2) v > v2 ? v : v2
+#define PXL_wrap(v, min, max) int(((v + min) % max) + INT_MAX - (int(INT_MAX) % max)) % max
 
 #define PXL_pi 3.14159265359f
 #define PXL_two_pi 6.28318530718f

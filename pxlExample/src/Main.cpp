@@ -69,7 +69,7 @@ int main(int argc, char* args[]) {
 	PXL_Batch batch = PXL_Batch(PXL_LARGE_BATCH);
 	PXL_set_default_shader(&batch);
 
-	int amount = 30000;
+	int amount = 40000;
 	int* pos = new int[amount * 2];
 	for (int n = 0; n < amount * 2; n += 2) {
 		pos[n] = int((rand() / float(RAND_MAX)) * 800);
@@ -77,6 +77,8 @@ int main(int argc, char* args[]) {
 	}
 
 	PXL_set_clear_colour(0, 0, 0, 1);
+
+	bool no_add = true;
 
 	MSG msg;
 	start_second_time.start();
@@ -87,6 +89,16 @@ int main(int argc, char* args[]) {
 			if (msg.message == WM_QUIT) {
 				quit = true;
 				break;
+			}
+			if (msg.message == WM_KEYDOWN) {
+				std::cout << "test\n";
+				no_add = false;
+				batch.clear_all();
+				for (int n = 0; n < 100; ++n) {
+					PXL_Rect rect;
+					rect.x = 0; rect.y = 0; rect.w = 200; rect.h = 100;
+					batch.add(cute_cat, &rect, NULL);
+				}
 			}
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
@@ -109,17 +121,19 @@ int main(int argc, char* args[]) {
 
 		//batch.set_target(&frame_buffer);
 
-		PXL_start_timer();
-		for (int n = 0; n < amount * 2; n += 2) {
-			rect.x = pos[n] + origin.x;
-			rect.y = pos[n + 1] + origin.y;
-			if (rect.x >= 512) {
-				batch.add(cat, &rect, NULL, t, &origin, PXL_FLIP_NONE, .75f, .5f, 1, 1);
-			}else {
-				batch.add(cat_2, &rect, NULL, t, &origin);
+		if (no_add) {
+			PXL_start_timer();
+			for (int n = 0; n < amount * 2; n += 2) {
+				rect.x = pos[n] + origin.x;
+				rect.y = pos[n + 1] + origin.y;
+				if (rect.x >= 512) {
+					batch.add(cat, &rect, NULL, t, &origin, PXL_FLIP_NONE, .75f, .5f, 1, 1);
+				}else {
+					batch.add(cat_2, &rect, NULL, t, &origin);
+				}
 			}
+			average_time += PXL_stop_timer();
 		}
-		average_time += PXL_stop_timer();
 
 		for (int n = 0; n < point_lights.size(); ++n) {
 			point_lights[n]->intensity = (sin(t / (10 + (n / 10))) + 1) / 8;
@@ -127,13 +141,13 @@ int main(int argc, char* args[]) {
 			point_lights[n]->intensity = PXL_clamp(point_lights[n]->intensity, 0, 99);
 		}
 
-		PXL_render_point_lights(&batch);
+		//PXL_render_point_lights(&batch);
 
 		text.set_text("timer: " + std::to_string(t) + "\nnewline testtext");
 		text.rotation += PXL_fast_cos(t / 10);
 		text.set_colour(.5f, 0, 1, 1);
 		text.scale(PXL_fast_sin(t / 10) / 50, PXL_fast_sin(t / 10) / 50);
-		text.render(&batch);
+		//text.render(&batch);
 
 		batch.render_all();
 
