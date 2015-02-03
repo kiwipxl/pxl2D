@@ -66,10 +66,10 @@ int main(int argc, char* args[]) {
 
 	PXL_FrameBuffer frame_buffer = PXL_FrameBuffer(PXL_window_width, PXL_window_height);
 
-	PXL_Batch batch = PXL_Batch(PXL_BATCH_MEDIUM);
+	PXL_Batch batch = PXL_Batch(PXL_BATCH_LARGE);
 	PXL_set_default_shader(&batch);
 
-	int amount = 2000;
+	int amount = 2500;
 	int* pos = new int[amount * 2];
 	for (int n = 0; n < amount * 2; n += 2) {
 		pos[n] = int((rand() / float(RAND_MAX)) * 800);
@@ -129,7 +129,7 @@ int main(int argc, char* args[]) {
 				if (rect.x >= 512) {
 					batch.add(cute_cat, &rect, NULL, t, &origin, PXL_FLIP_NONE, .2f, 1, .75f, .5f);
 				}else {
-					batch.add(cat_2, &rect, NULL, t, &origin, PXL_FLIP_NONE, 1, 1, 1, .1f, 0, PXL_ALPHA_AUTO_NO_BLEND);
+					batch.add(cat_2, &rect, NULL, t, &origin, PXL_FLIP_NONE, 1, 1, 1, .1f);
 				}
 			}
 			average_time += PXL_stop_timer();

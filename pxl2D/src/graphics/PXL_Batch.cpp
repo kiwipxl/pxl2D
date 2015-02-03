@@ -169,14 +169,18 @@ void PXL_Batch::add_quad(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rec
 	v_batch->texture_id = texture_id;
 	v_batch->shader = shader;
 	if (blend_mode == PXL_ALPHA_AUTO_NO_BLEND || blend_mode == PXL_ALPHA_AUTO_BLEND) {
-		if (texture->has_transparency || a != 1) {
+		if (texture->has_transparency) {
 			if (blend_mode == PXL_ALPHA_AUTO_NO_BLEND) {
 				blend_mode = PXL_ALPHA_NO_BLEND;
 			}else if (blend_mode == PXL_ALPHA_AUTO_BLEND) {
 				blend_mode = PXL_ALPHA_BLEND;
 			}
 		}else {
-			blend_mode = PXL_ALPHA_NONE;
+			if (a != 1 && blend_mode == PXL_ALPHA_AUTO_BLEND) {
+				blend_mode = PXL_ALPHA_BLEND;
+			}else {
+				blend_mode = PXL_ALPHA_NONE;
+			}
 		}
 	}
 	v_batch->blend_mode = blend_mode;
