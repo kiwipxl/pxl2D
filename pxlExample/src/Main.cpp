@@ -129,7 +129,7 @@ int main(int argc, char* args[]) {
 				if (rect.x >= 512) {
 					batch.add(cute_cat, &rect, NULL, t, &origin, PXL_FLIP_NONE, .2f, 1, .75f, .5f);
 				}else {
-					batch.add(cat_2, &rect, NULL, t, &origin, PXL_FLIP_NONE, 1, 1, 1, .1f);
+					batch.add(cat_2, &rect, NULL, t, &origin, PXL_FLIP_NONE, 1, 1, 1, .1f, 0, PXL_ALPHA_AUTO_NO_BLEND);
 				}
 			}
 			average_time += PXL_stop_timer();

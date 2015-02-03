@@ -25,10 +25,12 @@ typedef int PXL_BatchSize;
 #define PXL_BATCH_LARGE 40000 /**> The max batch size of 40,000 vertices (10,000 max sprite/quad capacity) **/
 #define PXL_BATCH_MEGA_LARGE 200000 /**> The max batch size of 200,000 vertices (50,000 max sprite/quad capacity) **/
 
-enum PXL_AlphaBlendType {
+enum PXL_BlendMode {
+	PXL_ALPHA_AUTO_NO_BLEND, /**> Automatically chooses the fastest blend type without blending. For example, PXL_ALPHA_NONE for non-transparent textures **/
+	PXL_ALPHA_AUTO_BLEND, /**> Automatically chooses the fastest blend type while applying alpha blending **/
 	PXL_ALPHA_BLEND, /**> Supports blending when rendering **/
 	PXL_ALPHA_NO_BLEND, /**> Keeps image alpha but doesn't blend when rendering **/
-	PXL_ALPHA_NONE /**> Does not apply transparency for alpha images, but very fast. Not recommended on transparent images**/
+	PXL_ALPHA_NONE /**> Does not apply transparency for alpha images, but very fast. Not recommended on transparent textures **/
 };
 
 struct PXL_VertexBatch {
@@ -36,6 +38,7 @@ struct PXL_VertexBatch {
 	//vertex values
 	GLuint texture_id;
 	PXL_ShaderProgram* shader = NULL;
+	PXL_BlendMode blend_mode;
 	int num_vertices;
 
 	//transform cache values
@@ -85,7 +88,9 @@ class PXL_Batch {
 		/** Starts using specified shader
 		@param shader A PXL_ShaderProgram shader object
 		**/
-		void set_target_shader(PXL_ShaderProgram* shader = PXL_default_shader);
+		void use_shader(PXL_ShaderProgram* shader = PXL_default_shader);
+
+		void use_blend_mode(PXL_BlendMode blend_mode);
 
 		/** Sets the target framebuffer to render to. When render_all is called, everything will be 
 		rendered to the target. Specifying a target of NULL will render to the default buffer.
@@ -104,8 +109,9 @@ class PXL_Batch {
 		@param flip defines the flip transformation for the texture
 		@param shader The shader to use when rendering this texture. Use NULL to use the default shader
 		**/
-		void add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect = NULL, float rotation = 0, PXL_Vec2* origin = NULL, 
-			PXL_Flip flip = PXL_FLIP_NONE, float r = 1, float g = 1, float b = 1, float a = 1);
+		void add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect = NULL, float rotation = 0, PXL_Vec2* origin = NULL,
+				 PXL_Flip flip = PXL_FLIP_NONE, float r = 1, float g = 1, float b = 1, float a = 1,
+				 PXL_ShaderProgram* shader = NULL, PXL_BlendMode blend_mode = PXL_ALPHA_AUTO_BLEND);
 
 		/** Deletes everything made in this batch
 		**/
@@ -137,8 +143,8 @@ class PXL_Batch {
 		int max_quads_amount; /**> The max amount of quads this batch has the capacity for **/
 		int num_added; /**> The current number of added items in this batch **/
 		PXL_FrameBuffer* target_frame_buffer = NULL; /**> The target frame buffer object to use when rendering **/
-		PXL_ShaderProgram* target_shader = NULL;
-		PXL_AlphaBlendType target_blend_type = PXL_ALPHA_BLEND;
+		PXL_ShaderProgram* current_shader = NULL;
+		PXL_BlendMode current_blend_mode = PXL_ALPHA_BLEND;
 
 		//vbo
 		bool vbo_created; /**> Defines whether or not the vertex buffer object has been created **/
@@ -168,8 +174,8 @@ class PXL_Batch {
 		@param r, g, b, a Colour ranges from 0 to 1 which set the texture colour
 		**/
 		void add_quad(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect,
-					  float rotation = 0, PXL_Vec2* origin = NULL, PXL_Flip flip = PXL_FLIP_NONE, 
-					  float r = 1, float g = 1, float b = 1, float a = 1);
+					  float rotation, PXL_Vec2* origin, PXL_Flip flip, float r, float g, float b, float a, 
+					  PXL_ShaderProgram* shader, PXL_BlendMode blend_mode);
 
 		/** Draws each item in the vertex batches list
 		**/

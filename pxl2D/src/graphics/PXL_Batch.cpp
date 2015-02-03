@@ -96,14 +96,42 @@ void PXL_Batch::clear_all() {
 	max_texture_id = 0;
 }
 
-void PXL_Batch::set_target_shader(PXL_ShaderProgram* shader) {
-	target_shader = shader;
+void PXL_Batch::use_shader(PXL_ShaderProgram* shader) {
+	if (shader == NULL) { current_shader = PXL_default_shader; }
+
+	if (current_shader != shader) {
+		if (shader != NULL) { current_shader = shader; }
+
+		//use specified program id
+		glUseProgram(current_shader->get_program_id());
+
+		//set matrix uniform in the vertex shader for the program
+		view_mat.identity();
+		glUniformMatrix4fv(current_shader->get_matrix_loc(), 1, true, (view_mat * perspective_mat).get_mat());
+	}
+}
+
+void PXL_Batch::use_blend_mode(PXL_BlendMode blend_mode) {
+	if (current_blend_mode != blend_mode) {
+		current_blend_mode = blend_mode;
+		if (current_blend_mode == PXL_ALPHA_BLEND) {
+			glDisable(GL_DEPTH_TEST);
+			glDisable(GL_ALPHA_TEST);
+		}else if (current_blend_mode == PXL_ALPHA_NO_BLEND) {
+			glEnable(GL_DEPTH_TEST);
+			glAlphaFunc(GL_GREATER, .01f);
+			glEnable(GL_ALPHA_TEST);
+		}else if (current_blend_mode == PXL_ALPHA_NONE) {
+			glEnable(GL_DEPTH_TEST);
+			glDisable(GL_ALPHA_TEST);
+		}
+	}
 }
 
 void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, float rotation, PXL_Vec2* origin, 
-					PXL_Flip flip, float r, float g, float b, float a) {
+					PXL_Flip flip, float r, float g, float b, float a, PXL_ShaderProgram* shader, PXL_BlendMode blend_mode) {
 	if (verify_texture_add(texture, rect)) {
-		add_quad(texture, rect, src_rect, rotation, origin, flip, r, g, b, a);
+		add_quad(texture, rect, src_rect, rotation, origin, flip, r, g, b, a, shader, blend_mode);
 		++num_added;
 	}
 }
@@ -124,7 +152,7 @@ bool PXL_Batch::verify_texture_add(PXL_Texture* texture, PXL_Rect* rect) {
 
 void PXL_Batch::add_quad(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, 
 						 float rotation, PXL_Vec2* origin, PXL_Flip flip, 
-						 float r, float g, float b, float a) {
+						 float r, float g, float b, float a, PXL_ShaderProgram* shader, PXL_BlendMode blend_mode) {
 	//set the texture id and shader program for the vertex batch
 	int index = last_freq_index;
 	GLuint texture_id = texture->get_id();
@@ -139,6 +167,19 @@ void PXL_Batch::add_quad(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rec
 	v_batch = vertex_batches + index;
 	v_batch->num_vertices = 4;
 	v_batch->texture_id = texture_id;
+	v_batch->shader = shader;
+	if (blend_mode == PXL_ALPHA_AUTO_NO_BLEND || blend_mode == PXL_ALPHA_AUTO_BLEND) {
+		if (texture->has_transparency || a != 1) {
+			if (blend_mode == PXL_ALPHA_AUTO_NO_BLEND) {
+				blend_mode = PXL_ALPHA_NO_BLEND;
+			}else if (blend_mode == PXL_ALPHA_AUTO_BLEND) {
+				blend_mode = PXL_ALPHA_BLEND;
+			}
+		}else {
+			blend_mode = PXL_ALPHA_NONE;
+		}
+	}
+	v_batch->blend_mode = blend_mode;
 
 	current_texture_ids[texture_id].texture = texture;
 	++current_texture_ids[texture_id].frequency;
@@ -300,43 +341,38 @@ void PXL_Batch::draw_vbo() {
 	glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_id);
 	glBufferData(GL_ARRAY_BUFFER, num_added * 4 * sizeof(PXL_VertexPoint), &vertex_data[0], GL_DYNAMIC_DRAW);
 
-	if (target_shader == NULL) { target_shader = PXL_default_shader; }
-	//use specified program id
-	glUseProgram(target_shader->get_program_id());
-
-	//set matrix uniform in the vertex shader for the program
-	view_mat.identity();
-	glUniformMatrix4fv(target_shader->get_matrix_loc(), 1, true, (view_mat * perspective_mat).get_mat());
-
 	//loops through each texture and draws the vertex data with that texture id
-	if (target_blend_type == PXL_ALPHA_BLEND) {
-		glDisable(GL_DEPTH_TEST);
-		glDisable(GL_ALPHA_TEST);
-	}else if (target_blend_type == PXL_ALPHA_NO_BLEND) {
-		glEnable(GL_DEPTH_TEST);
-		glAlphaFunc(GL_GREATER, .01f);
-		glEnable(GL_ALPHA_TEST);
-	}else if (target_blend_type == PXL_ALPHA_NONE) {
-		glEnable(GL_DEPTH_TEST);
-		glDisable(GL_ALPHA_TEST);
-	}
 	int batch_index = 0;
-	int prev_id = vertex_batches[0].texture_id;
 	int offset = 0;
 	int size = 0;
+	bool changed;
+
+	int prev_id = vertex_batches[0].texture_id;
+	PXL_BlendMode prev_blend_mode = vertex_batches[0].blend_mode;
+	use_blend_mode(prev_blend_mode);
 	PXL_ShaderProgram* prev_shader = vertex_batches[0].shader;
-	set_target_shader(prev_shader);
+	use_shader(prev_shader);
 	for (int i = 0; i < num_added; ++i) {
 		if (i >= num_added - 1) { size += vertex_batches[i].num_vertices; }
-		if (vertex_batches[i].texture_id != prev_id ||
-			(vertex_batches[i].shader != NULL && vertex_batches[i].shader != prev_shader) || i >= num_added - 1) {
-			if (vertex_batches[i].shader != prev_shader || i >= num_added - 1) {
-				set_target_shader(prev_shader);
-			}
+		changed = false;
+
+		if (vertex_batches[i].texture_id != prev_id || i >= num_added - 1) {
 			glBindTexture(GL_TEXTURE_2D, prev_id);
 			prev_id = vertex_batches[i].texture_id;
+			changed = true;
+		}
+		if ((vertex_batches[i].shader != NULL && vertex_batches[i].shader != prev_shader) || i >= num_added - 1) {
+			use_shader(prev_shader);
 			prev_shader = vertex_batches[i].shader;
+			changed = true;
+		}
+		if (vertex_batches[i].blend_mode != prev_blend_mode || i >= num_added - 1) {
+			use_blend_mode(prev_blend_mode);
+			prev_blend_mode = vertex_batches[i].blend_mode;
+			changed = true;
+		}
 
+		if (changed) {
 			//draw vertex data from vertex data in buffer
 			glDrawArrays(GL_QUADS, offset, size);
 
