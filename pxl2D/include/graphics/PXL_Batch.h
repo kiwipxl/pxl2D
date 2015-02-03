@@ -34,6 +34,8 @@ enum PXL_AlphaBlendType {
 struct PXL_VertexBatch {
 
 	//vertex values
+	GLuint texture_id;
+	PXL_ShaderProgram* shader = NULL;
 	int num_vertices;
 
 	//transform cache values
@@ -148,8 +150,6 @@ class PXL_Batch {
 		PXL_VertexBatch* v_batch;
 		int vertex_batch_index;
 		int last_freq_index = 0;
-		int data_offset = 0;
-		int data_size = 0;
 		unsigned int min_texture_id = 0;
 		unsigned int max_texture_id = 0;
 
