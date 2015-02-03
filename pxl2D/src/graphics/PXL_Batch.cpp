@@ -67,10 +67,10 @@ void PXL_Batch::render_all() {
 		if (target_frame_buffer != NULL) {
 			target_frame_buffer->bind(PXL_GL_FRAMEBUFFER_WRITE);
 		}else {
-			glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+			glBindFramebuffer(PXL_GL_FRAMEBUFFER_WRITE, 0);
 		}
 
-		//enable/disable depth testing depending on depth_test input
+		//clear depth buffer bit
 		glClear(GL_DEPTH_BUFFER_BIT);
 
 		draw_vbo();
@@ -97,10 +97,10 @@ void PXL_Batch::clear_all() {
 }
 
 void PXL_Batch::use_shader(PXL_ShaderProgram* shader) {
-	if (shader == NULL) { current_shader = PXL_default_shader; }
+	if (shader == NULL) { shader = PXL_default_shader; }
 
 	if (current_shader != shader) {
-		if (shader != NULL) { current_shader = shader; }
+		current_shader = shader;
 
 		//use specified program id
 		glUseProgram(current_shader->get_program_id());
@@ -168,6 +168,7 @@ void PXL_Batch::add_quad(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rec
 	v_batch->num_vertices = 4;
 	v_batch->texture_id = texture_id;
 	v_batch->shader = shader;
+
 	if (blend_mode == PXL_ALPHA_AUTO_NO_BLEND || blend_mode == PXL_ALPHA_AUTO_BLEND) {
 		if (texture->has_transparency) {
 			if (blend_mode == PXL_ALPHA_AUTO_NO_BLEND) {
@@ -365,7 +366,7 @@ void PXL_Batch::draw_vbo() {
 			prev_id = vertex_batches[i].texture_id;
 			changed = true;
 		}
-		if ((vertex_batches[i].shader != NULL && vertex_batches[i].shader != prev_shader) || i >= num_added - 1) {
+		if (vertex_batches[i].shader != prev_shader || i >= num_added - 1) {
 			use_shader(prev_shader);
 			prev_shader = vertex_batches[i].shader;
 			changed = true;

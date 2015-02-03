@@ -27,7 +27,7 @@ class PXL_Texture {
 		@param pixel_mode The pixel type of the pixel data (default is R, G, B, A)
 		**/
 		PXL_Texture(PXL_Bitmap* bitmap, int pixel_mode = GL_RGBA);
-		PXL_Texture(int w, int h, void* pixels = NULL, int pixel_mode = GL_RGBA);
+		PXL_Texture(int w, int h, unsigned char* pixels = NULL, int pixel_mode = GL_RGBA);
 		~PXL_Texture();
 
 		bool texture_created; /**< Defines whether the texture has been created or not **/
@@ -55,22 +55,27 @@ class PXL_Texture {
 		\return The height of the texture
 		**/
 		const int get_height() { return height; }
-		/** Gets the id associated with this texture
+		/** Gets the unique id associated with this texture
 		\return The id
 		**/
 		const GLint get_id() { return id; }
+		/** Gets the opengl id associated with this texture
+		\return The id
+		**/
+		const GLint get_g_id() { return gl_id; }
 
 	protected:
 		int width; /**< The width of the texture **/
 		int height; /**< The height of the texture **/
-		GLuint id; /**< The id associated with the texture **/
+		GLuint id; /**< The unique id associated with the texture **/
+		GLuint gl_id; /**< The opengl id associated with the texture **/
 
 		/** Creates the texture from specified bitmap
 		@param bitmap Holds all pixel information for an image
 		@param pixel_mode The pixel type of the pixel data (default is R, G, B, A)
 		**/
 		void create_texture(PXL_Bitmap* bitmap, int pixel_mode = GL_RGBA);
-		void create_texture(int w, int h, void* pixels, int pixel_mode = GL_RGBA);
+		void create_texture(int w, int h, unsigned char* pixels, int pixel_mode = GL_RGBA);
 };
 
 /**

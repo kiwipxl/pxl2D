@@ -69,7 +69,7 @@ int main(int argc, char* args[]) {
 	PXL_Batch batch = PXL_Batch(PXL_BATCH_LARGE);
 	PXL_set_default_shader(&batch);
 
-	int amount = 2500;
+	int amount = 100;
 	int* pos = new int[amount * 2];
 	for (int n = 0; n < amount * 2; n += 2) {
 		pos[n] = int((rand() / float(RAND_MAX)) * 800);
@@ -115,7 +115,7 @@ int main(int argc, char* args[]) {
 				rect.x = pos[n] + origin.x;
 				rect.y = pos[n + 1] + origin.y;
 				if (rect.x >= 512) {
-					batch.add(cat, &rect, NULL, t, &origin, PXL_FLIP_NONE, .75f, .5f, 1, 1);
+					batch.add(cat, &rect, NULL, t, &origin, PXL_FLIP_NONE, .75f, .5f, 1, 1, PXL_grayscale_shader);
 				}else {
 					batch.add(cat_2, &rect, NULL, t, &origin);
 				}
@@ -141,7 +141,7 @@ int main(int argc, char* args[]) {
 			point_lights[n]->intensity = PXL_clamp(point_lights[n]->intensity, 0, 99);
 		}
 
-		//PXL_render_point_lights(&batch);
+		PXL_render_point_lights(&batch);
 
 		text.set_text("timer: " + std::to_string(t) + "\nnewline testtext");
 		text.rotation += PXL_fast_cos(t / 10);

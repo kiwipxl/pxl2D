@@ -52,6 +52,8 @@ PXL_PointLight* PXL_create_point_light(int x, int y, float radius, float intensi
 }
 
 void PXL_render_point_lights(PXL_Batch* batch) {
+	batch->render_all();
+
 	int index = 0;
 	for (PXL_PointLight* light : PXL_point_lights) {
 		point_lights_arr[index] = light->x;
@@ -69,6 +71,8 @@ void PXL_render_point_lights(PXL_Batch* batch) {
 	PXL_Rect rect;
 	rect.x = 0; rect.y = 0; rect.w = PXL_window_width; rect.h = PXL_window_height;
 	batch->add(&screen_texture, &rect, NULL, PXL_FLIP_NONE, 0, 0, 1, 1, 1, 1, PXL_point_light_shader);
+
+	batch->render_all();
 }
 
 void PXL_remove_point_light(PXL_PointLight* light, bool delete_pointer) {
