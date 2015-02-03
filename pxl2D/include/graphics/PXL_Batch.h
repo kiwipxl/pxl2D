@@ -17,12 +17,19 @@ typedef int PXL_Flip;
 #define PXL_FLIP_HORIZONTAL 1
 #define PXL_FLIP_VERTICAL 2
 
-typedef int PXL_MaxQuads;
+typedef int PXL_BatchSize;
 
-#define PXL_TINY_BATCH 100
-#define PXL_SMALL_BATCH 2000
-#define PXL_MEDIUM_BATCH 10000
-#define PXL_LARGE_BATCH 50000
+#define PXL_BATCH_TINY 400 /**> The max batch size of 400 vertices (100 max sprite/quad capacity) **/
+#define PXL_BATCH_SMALL 4000 /**> The max batch size of 4000 vertices (1000 max sprite/quad capacity) **/
+#define PXL_BATCH_MEDIUM 8000 /**> The max batch size of 8000 vertices (2000 max sprite/quad capacity) **/
+#define PXL_BATCH_LARGE 40000 /**> The max batch size of 40,000 vertices (10,000 max sprite/quad capacity) **/
+#define PXL_BATCH_MEGA_LARGE 200000 /**> The max batch size of 200,000 vertices (50,000 max sprite/quad capacity) **/
+
+enum PXL_AlphaBlendType {
+	PXL_ALPHA_BLEND, /**> Supports blending when rendering **/
+	PXL_ALPHA_NO_BLEND, /**> Keeps image alpha but doesn't blend when rendering **/
+	PXL_ALPHA_NONE /**> Does not apply transparency for alpha images, but very fast. Not recommended on transparent images**/
+};
 
 struct PXL_VertexBatch {
 
@@ -50,7 +57,7 @@ class PXL_Batch {
 		/** Creates a batch with a specified max render size
 		@param size the max amount of adds this batch can have
 		**/
-		PXL_Batch(PXL_MaxQuads max_quads = PXL_SMALL_BATCH);
+		PXL_Batch(PXL_BatchSize max_vertices = PXL_BATCH_SMALL);
 		~PXL_Batch();
 
 		//batch matrices
@@ -60,13 +67,13 @@ class PXL_Batch {
 		/** Creates the batch with the specified max render size
 		@param size the max amount of adds this batch can have and the size of the vbo uploaded
 		**/
-		void create_batch(PXL_MaxQuads max_quads = PXL_SMALL_BATCH);
+		void create_batch(PXL_BatchSize max_vertices = PXL_BATCH_SMALL);
 
 		/** Renders everything that was added to the batch and clears all data when finished. You
 		can set where the target will render to using set_target with a PXL_FrameBuffer.
 		@see clear_all(), add()
 		**/
-		void render_all(bool depth_test = true);
+		void render_all();
 
 		/** Clears everything in the render queue
 		@see render_all(), add()
@@ -85,45 +92,6 @@ class PXL_Batch {
 		**/
 		void set_target(PXL_FrameBuffer* buffer = NULL);
 
-		/** Adds the specified texture to the render queue
-		@param texture The texture to add to the batch
-		@param rect Specifies where on the screen the texture will be rendered to
-		@param src_rect Specifies which part of the texture to use, NULL to use the whole texture
-		**/
-		void add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect = NULL);
-
-		/** Adds the specified texture with it's transformations to the render queue
-		@param texture The texture to add to the batch
-		@param rect Specifies where on the screen the texture will be rendered to
-		@param src_rect Specifies which part of the texture to use, NULL to use the whole texture
-		@param rotation the rotation transformation of the texture
-		@param origin the origin point of which the texture rotates around, NULL to use top-left (0, 0)
-		@param flip defines the flip transformation for the texture
-		@param shader The shader to use when rendering this texture. Use NULL to use the default shader
-		**/
-		void add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, float rotation, PXL_Vec2* origin);
-
-		/** Adds the specified texture with it's transformations to the render queue
-		@param texture The texture to add to the batch
-		@param rect Specifies where on the screen the texture will be rendered to
-		@param src_rect Specifies which part of the texture to use, NULL to use the whole texture
-		@param rotation the rotation transformation of the texture
-		@param origin the origin point of which the texture rotates around, NULL to use top-left (0, 0)
-		@param flip defines the flip transformation for the texture
-		**/
-		void add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, float rotation, PXL_Vec2* origin,
-			PXL_Flip flip);
-
-		/** Adds the specified texture with a colour modification
-		@param texture The texture to add to the batch
-		@param rect Specifies where on the screen the texture will be rendered to
-		@param src_rect Specifies which part of the texture to use. Use NULL to use the whole texture
-		@param r, g, b, a colour ranges from 0 to 1 which set the texture colour
-		@param flip defines the flip transformation for the texture
-		**/
-		void add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, PXL_Flip flip, 
-				 float r = 1, float g = 1, float b = 1, float a = 1);
-
 		/** Adds the specified texture with a colour modification
 		@param texture The texture to add to the batch
 		@param rect Specifies where on the screen the texture will be rendered to
@@ -134,13 +102,17 @@ class PXL_Batch {
 		@param flip defines the flip transformation for the texture
 		@param shader The shader to use when rendering this texture. Use NULL to use the default shader
 		**/
-		void add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, float rotation, PXL_Vec2* origin,
-			PXL_Flip flip, float r = 1, float g = 1, float b = 1, float a = 1);
+		void add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect = NULL, float rotation = 0, PXL_Vec2* origin = NULL, 
+			PXL_Flip flip = PXL_FLIP_NONE, float r = 1, float g = 1, float b = 1, float a = 1);
 
 		/** Deletes everything made in this batch
 		**/
 		void free();
 
+		/** Gets the max amount of vertices this batch has the capacity for
+		\return Max vertices amount number
+		**/
+		int get_max_vertices() { return max_vertices_amount; }
 		/** Gets the max amount of quads this batch can add
 		\return Max quad amount number
 		**/
@@ -155,13 +127,16 @@ class PXL_Batch {
 
 			int frequency = 0;
 			int batch_index = 0;
+			PXL_Texture* texture;
 		};
 
 		//batch info
-		int max_quads_amount; /**> The max amount of quads this batch can add **/
+		int max_vertices_amount; /**> The max amount of vertices this batch has the capacity for **/
+		int max_quads_amount; /**> The max amount of quads this batch has the capacity for **/
 		int num_added; /**> The current number of added items in this batch **/
 		PXL_FrameBuffer* target_frame_buffer = NULL; /**> The target frame buffer object to use when rendering **/
 		PXL_ShaderProgram* target_shader = NULL;
+		PXL_AlphaBlendType target_blend_type = PXL_ALPHA_BLEND;
 
 		//vbo
 		bool vbo_created; /**> Defines whether or not the vertex buffer object has been created **/
@@ -204,6 +179,6 @@ class PXL_Batch {
 /** Creates a batch and returns it
 @param size the max amount of adds this batch can have
 **/
-extern PXL_Batch* PXL_create_batch(PXL_MaxQuads max_quads = PXL_SMALL_BATCH);
+extern PXL_Batch* PXL_create_batch(PXL_BatchSize max_vertices = PXL_BATCH_SMALL);
 
 #endif

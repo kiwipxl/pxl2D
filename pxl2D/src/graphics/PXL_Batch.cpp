@@ -4,17 +4,18 @@
 #include "PXL_Window.h"
 #include "system/PXL_Exception.h"
 
-PXL_Batch::PXL_Batch(PXL_MaxQuads max_quads) {
+PXL_Batch::PXL_Batch(PXL_BatchSize max_vertices) {
 	vbo_created = false;
-	create_batch(max_quads);
+	create_batch(max_vertices);
 }
 
-PXL_Batch* PXL_create_batch(PXL_MaxQuads max_quads) {
-	return new PXL_Batch(max_quads);
+PXL_Batch* PXL_create_batch(PXL_BatchSize max_vertices) {
+	return new PXL_Batch(max_vertices);
 }
 
-void PXL_Batch::create_batch(PXL_MaxQuads max_quads) {
-	max_quads_amount = max_quads;
+void PXL_Batch::create_batch(PXL_BatchSize max_vertices) {
+	max_vertices_amount = max_vertices;
+	max_quads_amount = max_vertices_amount / 4;
 
 	//if the batch is already created then delete the vbo
 	if (vbo_created) { free(); }
@@ -23,13 +24,13 @@ void PXL_Batch::create_batch(PXL_MaxQuads max_quads) {
 		//create the vbo
 		glGenBuffers(1, &vertex_buffer_id);
 		glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_id);
-		glBufferData(GL_ARRAY_BUFFER, max_quads_amount * 4 * sizeof(PXL_VertexPoint), NULL, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, max_vertices_amount * sizeof(PXL_VertexPoint), NULL, GL_STATIC_DRAW);
 		glBindBuffer(GL_ARRAY_BUFFER, NULL);
 
 		current_texture_ids = new SparseTextureId[max_quads_amount];
 		next_texture_ids = new SparseTextureId[max_quads_amount];
 		vertex_batches = new PXL_VertexBatch[max_quads_amount];
-		vertex_data = new PXL_VertexPoint[max_quads_amount * 4];
+		vertex_data = new PXL_VertexPoint[max_vertices_amount];
 		vbo_created = true;
 	}
 
@@ -60,7 +61,7 @@ void PXL_Batch::create_batch(PXL_MaxQuads max_quads) {
 	glVertexAttribPointer(2, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(PXL_VertexPoint), (void*)offsetof(PXL_VertexPoint, colour));
 }
 
-void PXL_Batch::render_all(bool depth_test) {
+void PXL_Batch::render_all() {
 	data_offset = 0;
 	data_size = 0;
 
@@ -73,12 +74,7 @@ void PXL_Batch::render_all(bool depth_test) {
 		}
 
 		//enable/disable depth testing depending on depth_test input
-		if (depth_test) {
-			glClear(GL_DEPTH_BUFFER_BIT);
-			glEnable(GL_DEPTH_TEST);
-		}else {
-			glDisable(GL_DEPTH_TEST);
-		}
+		glClear(GL_DEPTH_BUFFER_BIT);
 
 		draw_vbo();
 	}
@@ -105,36 +101,6 @@ void PXL_Batch::set_target_shader(PXL_ShaderProgram* shader) {
 	target_shader = shader;
 }
 
-void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect) {
-	if (verify_texture_add(texture, rect)) {
-		add_quad(texture, rect, src_rect);
-		++num_added;
-	}
-}
-
-void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, float rotation, PXL_Vec2* origin) {
-	if (verify_texture_add(texture, rect)) {
-		add_quad(texture, rect, src_rect, rotation, origin);
-		++num_added;
-	}
-}
-
-void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, float rotation, PXL_Vec2* origin, 
-					PXL_Flip flip) {
-	if (verify_texture_add(texture, rect)) {
-		add_quad(texture, rect, src_rect, rotation, origin, flip);
-		++num_added;
-	}
-}
-
-void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, PXL_Flip flip, 
-					float r, float g, float b, float a) {
-	if (verify_texture_add(texture, rect)) {
-		add_quad(texture, rect, src_rect, 0, NULL, flip, r, g, b, a);
-		++num_added;
-	}
-}
-
 void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, float rotation, PXL_Vec2* origin, 
 					PXL_Flip flip, float r, float g, float b, float a) {
 	if (verify_texture_add(texture, rect)) {
@@ -146,8 +112,8 @@ void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, fl
 bool PXL_Batch::verify_texture_add(PXL_Texture* texture, PXL_Rect* rect) {
 	if (texture->texture_created) {
 		if (rect->x + rect->w > 0 && rect->y + rect->h > 0 && rect->x < PXL_window_width && rect->y < PXL_window_height) {
-			if (num_added >= max_quads_amount) {
-				PXL_show_exception("Hit the max batch quad size");
+			if (num_added + 1 >= max_quads_amount) {
+				PXL_show_exception("Hit max batch size at " + std::to_string(max_quads_amount) + " max sprites/quads");
 				return false;
 			}
 
@@ -166,19 +132,18 @@ void PXL_Batch::add_quad(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rec
 	if (next_texture_ids[texture_id].frequency >= 1) {
 		index = next_texture_ids[texture_id].batch_index;
 		++next_texture_ids[texture_id].batch_index;
+		if (next_texture_ids[texture_id].batch_index >= max_quads_amount) { next_texture_ids[texture_id].batch_index = 0; index = 0; }
 	}else {
 		++last_freq_index;
+		if (last_freq_index >= max_quads_amount) { last_freq_index = 0; index = 0; }
 	}
 	v_batch = vertex_batches + index;
 	v_batch->num_vertices = 4;
 
+	current_texture_ids[texture_id].texture = texture;
 	++current_texture_ids[texture_id].frequency;
 	min_texture_id = PXL_min(min_texture_id, texture_id);
 	max_texture_id = PXL_max(max_texture_id, texture_id);
-
-	if (num_added >= max_quads_amount) {
-		PXL_show_exception("Hit max batch quad size at " + std::to_string(max_quads_amount) + " max quads.");
-	}
 
 	//set vertex pos, uvs and colours
 	PXL_VertexPoint* v = vertex_data + (index * 4);
@@ -192,35 +157,39 @@ void PXL_Batch::add_quad(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rec
 	float origin_x = 0; float origin_y = 0;
 	if (origin != NULL) { origin_x = origin->x; origin_y = origin->y; }
 
+	bool rect_changed = false;
 	if (v_batch->rect.x != rect->x || v_batch->rect.y != rect->y ||
-		v_batch->rect.w != rect->w || v_batch->rect.h != rect->h ||
-		v_batch->rotation != rotation || v_batch->flip != flip ||
+		v_batch->rect.w != rect->w || v_batch->rect.h != rect->h) {
+		rect_changed = true;
+	}
+	bool rotate_changed = false;
+	if (v_batch->rotation != rotation || v_batch->flip != flip ||
 		v_batch->origin.x != origin_x || v_batch->origin.y != origin_y) {
+		rotate_changed = true;
+	}
+	if (rect_changed || rotate_changed || v_batch->flip != flip) {
 		//get positions from rect
 		int x = rect->x; int y = rect->y;
 
 		//set scale
 		float scale_x = rect->w / texture->get_width(); float scale_y = rect->h / texture->get_height();
-		switch (flip) {
-			case PXL_FLIP_NONE:
-				break;
-			case PXL_FLIP_HORIZONTAL:
+		if (v_batch->rect.x != rect->x || v_batch->rect.y != rect->y ||
+			v_batch->rect.w != rect->w || v_batch->rect.h != rect->h) {
+			if (flip == PXL_FLIP_HORIZONTAL) {
 				scale_x = -scale_x;
 				x += rect->w;
 				origin_x -= rect->w;
-				break;
-			case PXL_FLIP_VERTICAL:
+			}else if (flip == PXL_FLIP_VERTICAL) {
 				scale_y = -scale_y;
 				y += rect->h;
 				origin_y -= rect->h;
-				break;
+			}
 		}
-
 		int scaled_width = texture->get_width() * scale_x;
 		int scaled_height = texture->get_height() * scale_y;
 
 		//apply rotation
-		if (v_batch->rotation != rotation) {
+		if (rotation != 0) {
 			//set rotation to degrees rather than radians
 			rotation = rotation / PXL_radian;
 			float c = PXL_fast_cos(rotation); float s = PXL_fast_sin(rotation);
@@ -301,7 +270,7 @@ void PXL_Batch::add_quad(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rec
 								Set vertex colours
 	==================================================================================
 	**/
-	int i_r = r * 255; int i_g = g * 255; int i_b = b * 255; int i_a = b * 255;
+	int i_r = r * 255; int i_g = g * 255; int i_b = b * 255; int i_a = a * 255;
 
 	if (v_batch->colour.r != i_r || v_batch->colour.g != i_g || v_batch->colour.b != i_b || v_batch->colour.a != i_a) {
 		//set vertex colours
@@ -342,6 +311,18 @@ void PXL_Batch::draw_vbo() {
 	//loops through each texture and draws the vertex data with that texture id
 	int batch_index = 0;
 	last_freq_index = 0;
+	target_blend_type = PXL_ALPHA_NONE;
+	if (target_blend_type == PXL_ALPHA_BLEND) {
+		glDisable(GL_DEPTH_TEST);
+		glDisable(GL_ALPHA_TEST);
+	}else if (target_blend_type == PXL_ALPHA_NO_BLEND) {
+		glEnable(GL_DEPTH_TEST);
+		glAlphaFunc(GL_GREATER, .01f);
+		glEnable(GL_ALPHA_TEST);
+	}else if (target_blend_type == PXL_ALPHA_NONE) {
+		glEnable(GL_DEPTH_TEST);
+		glDisable(GL_ALPHA_TEST);
+	}
 	for (int n = min_texture_id; n <= max_texture_id; ++n) {
 		if (current_texture_ids[n].frequency >= 1) {
 			glBindTexture(GL_TEXTURE_2D, n);

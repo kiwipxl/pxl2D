@@ -31,6 +31,7 @@ class PXL_Texture {
 		~PXL_Texture();
 
 		bool texture_created; /**< Defines whether the texture has been created or not **/
+		bool has_transparency = false;
 
 		/** Sets filter parameters for uploaded texture
 		@param min_filter The filter value for when the texture is scaled and is smaller than its original size

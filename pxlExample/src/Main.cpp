@@ -66,10 +66,10 @@ int main(int argc, char* args[]) {
 
 	PXL_FrameBuffer frame_buffer = PXL_FrameBuffer(PXL_window_width, PXL_window_height);
 
-	PXL_Batch batch = PXL_Batch(PXL_LARGE_BATCH);
+	PXL_Batch batch = PXL_Batch(PXL_BATCH_MEDIUM);
 	PXL_set_default_shader(&batch);
 
-	int amount = 20000;
+	int amount = 2000;
 	int* pos = new int[amount * 2];
 	for (int n = 0; n < amount * 2; n += 2) {
 		pos[n] = int((rand() / float(RAND_MAX)) * 800);
@@ -77,8 +77,6 @@ int main(int argc, char* args[]) {
 	}
 
 	PXL_set_clear_colour(0, 0, 0, 1);
-
-	bool no_add = true;
 
 	MSG msg;
 	start_second_time.start();
@@ -89,16 +87,6 @@ int main(int argc, char* args[]) {
 			if (msg.message == WM_QUIT) {
 				quit = true;
 				break;
-			}
-			if (msg.message == WM_KEYDOWN) {
-				std::cout << "test\n";
-				no_add = false;
-				batch.clear_all();
-				for (int n = 0; n < 100; ++n) {
-					PXL_Rect rect;
-					rect.x = 0; rect.y = 0; rect.w = 200; rect.h = 100;
-					batch.add(cute_cat, &rect, NULL);
-				}
 			}
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
@@ -121,7 +109,7 @@ int main(int argc, char* args[]) {
 
 		//batch.set_target(&frame_buffer);
 
-		if (no_add) {
+		if (t <= 40) {
 			PXL_start_timer();
 			for (int n = 0; n < amount * 2; n += 2) {
 				rect.x = pos[n] + origin.x;
@@ -130,6 +118,18 @@ int main(int argc, char* args[]) {
 					batch.add(cat, &rect, NULL, t, &origin, PXL_FLIP_NONE, .75f, .5f, 1, 1);
 				}else {
 					batch.add(cat_2, &rect, NULL, t, &origin);
+				}
+			}
+			average_time += PXL_stop_timer();
+		}else if (t >= 40) {
+			PXL_start_timer();
+			for (int n = 0; n < amount * 2; n += 2) {
+				rect.x = pos[n] + origin.x;
+				rect.y = pos[n + 1] + origin.y;
+				if (rect.x >= 512) {
+					batch.add(cute_cat, &rect, NULL, t, &origin, PXL_FLIP_NONE, .2f, 1, .75f, .5f);
+				}else {
+					batch.add(cat_2, &rect, NULL, t, &origin, PXL_FLIP_NONE, 1, 1, 1, .1f);
 				}
 			}
 			average_time += PXL_stop_timer();

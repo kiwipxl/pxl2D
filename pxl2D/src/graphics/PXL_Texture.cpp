@@ -35,6 +35,13 @@ void PXL_Texture::create_texture(PXL_Bitmap* bitmap, int pixel_mode) {
 		set_filters();
 		glBindTexture(GL_TEXTURE_2D, NULL);
 
+		for (int n = 0; n < bitmap->w * bitmap->h; n += 4) {
+			if (bitmap->pixels[n + 3] == 0) {
+				has_transparency = true;
+				break;
+			}
+		}
+
 		texture_created = true;
 	}
 }
