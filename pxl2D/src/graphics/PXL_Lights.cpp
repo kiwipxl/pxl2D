@@ -7,10 +7,10 @@
 
 std::vector<PXL_PointLight*> PXL_point_lights;
 std::vector<GLfloat> point_lights_arr;
-PXL_Texture screen_texture;
+PXL_Texture* screen_texture;
 
 void PXL_lights_init() {
-	screen_texture = PXL_Texture(PXL_window_width, PXL_window_height);
+	screen_texture = new PXL_Texture(PXL_window_width, PXL_window_height);
 
 	glUseProgram(PXL_point_light_shader->get_program_id());
 	PXL_point_light_shader->add_uniform_location("points");
@@ -66,9 +66,12 @@ void PXL_render_point_lights(PXL_Batch* batch) {
 
 	glUseProgram(PXL_point_light_shader->get_program_id());
 	glUniform1fv(PXL_point_light_shader->get_uniform_location(0), PXL_point_lights.size() * 7, &point_lights_arr[0]);
+
 	PXL_Rect rect;
 	rect.x = 0; rect.y = 0; rect.w = PXL_window_width; rect.h = PXL_window_height;
-	batch->add(&screen_texture, &rect, NULL, PXL_FLIP_NONE, 0, 0, 1, 1, 1, 1, PXL_point_light_shader);
+	PXL_Rect src_rect;
+	src_rect.x = 0; src_rect.y = 0; src_rect.w = PXL_window_width; src_rect.h = PXL_window_height;
+	batch->add(screen_texture, &rect, &src_rect, PXL_FLIP_NONE, 0, 0, 1, 1, 1, 1, PXL_point_light_shader);
 }
 
 void PXL_remove_point_light(PXL_PointLight* light, bool delete_pointer) {

@@ -155,7 +155,7 @@ void PXL_Batch::add_quad(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rec
 						 float r, float g, float b, float a, PXL_ShaderProgram* shader, PXL_BlendMode blend_mode) {
 	//set the texture id and shader program for the vertex batch
 	int index = last_freq_index;
-	GLuint texture_id = texture->get_unique_id();
+	GLuint texture_id = texture->get_gl_id();
 	if (next_texture_ids[texture_id].frequency >= 1) {
 		index = next_texture_ids[texture_id].batch_index;
 		++next_texture_ids[texture_id].batch_index;

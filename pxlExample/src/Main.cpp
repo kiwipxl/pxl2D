@@ -147,7 +147,7 @@ int main(int argc, char* args[]) {
 		text.rotation += PXL_fast_cos(t / 10);
 		text.set_colour(.5f, 0, 1, 1);
 		text.scale(PXL_fast_sin(t / 10) / 50, PXL_fast_sin(t / 10) / 50);
-		//text.render(&batch);
+		text.render(&batch);
 
 		batch.render_all();
 
