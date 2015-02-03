@@ -33,7 +33,7 @@ void PXL_FrameBuffer::create_frame_buffer(int w, int h) {
 	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, depth_id);
 
 	texture = new PXL_Texture(width, height);
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, get_texture_id(), 0);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, get_gl_texture_id(), 0);
 
 	clear(1, 1, 1, 0);
 
@@ -87,7 +87,7 @@ void PXL_FrameBuffer::bind(PXL_FrameBufferAction action) {
 
 unsigned char* PXL_FrameBuffer::get_pixels() {
 	if (frame_buffer_created) {
-		glBindBuffer(GL_TEXTURE_2D, get_texture_id());
+		glBindBuffer(GL_TEXTURE_2D, get_gl_texture_id());
 		unsigned char* pixels = new unsigned char[(width * height) * 4];
 		glGetTexImage(GL_FRAMEBUFFER, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
 		return pixels;

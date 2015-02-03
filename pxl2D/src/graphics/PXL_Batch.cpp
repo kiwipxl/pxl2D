@@ -155,7 +155,7 @@ void PXL_Batch::add_quad(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rec
 						 float r, float g, float b, float a, PXL_ShaderProgram* shader, PXL_BlendMode blend_mode) {
 	//set the texture id and shader program for the vertex batch
 	int index = last_freq_index;
-	GLuint texture_id = texture->get_id();
+	GLuint texture_id = texture->get_unique_id();
 	if (next_texture_ids[texture_id].frequency >= 1) {
 		index = next_texture_ids[texture_id].batch_index;
 		++next_texture_ids[texture_id].batch_index;
@@ -350,6 +350,7 @@ void PXL_Batch::draw_vbo() {
 	int batch_index = 0;
 	int offset = 0;
 	int size = 0;
+	bool texture_changed;
 	bool changed;
 
 	int prev_id = vertex_batches[0].texture_id;
@@ -359,19 +360,21 @@ void PXL_Batch::draw_vbo() {
 	use_shader(prev_shader);
 	for (int i = 0; i < num_added; ++i) {
 		if (i >= num_added - 1) { size += vertex_batches[i].num_vertices; }
+		texture_changed = false;
 		changed = false;
 
 		if (vertex_batches[i].texture_id != prev_id || i >= num_added - 1) {
 			glBindTexture(GL_TEXTURE_2D, prev_id);
 			prev_id = vertex_batches[i].texture_id;
+			texture_changed = true;
 			changed = true;
 		}
-		if (vertex_batches[i].shader != prev_shader || i >= num_added - 1) {
+		if (texture_changed || vertex_batches[i].shader != prev_shader || i >= num_added - 1) {
 			use_shader(prev_shader);
 			prev_shader = vertex_batches[i].shader;
 			changed = true;
 		}
-		if (vertex_batches[i].blend_mode != prev_blend_mode || i >= num_added - 1) {
+		if (texture_changed || vertex_batches[i].blend_mode != prev_blend_mode || i >= num_added - 1) {
 			use_blend_mode(prev_blend_mode);
 			prev_blend_mode = vertex_batches[i].blend_mode;
 			changed = true;

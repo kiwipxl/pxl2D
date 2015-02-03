@@ -56,7 +56,8 @@ class PXL_FrameBuffer {
 		**/
 		const GLint get_id() { return id; }
 		PXL_Texture* get_texture() { return texture; }
-		const GLint get_texture_id() { return texture->get_id(); }
+		const GLint get_unique_texture_id() { return texture->get_unique_id(); }
+		const GLint get_gl_texture_id() { return texture->get_gl_id(); }
 
 	protected:
 		int width; /**< The width of the frame_buffer **/

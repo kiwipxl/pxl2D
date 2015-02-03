@@ -12,7 +12,7 @@ PXL_TextureSheet::PXL_TextureSheet() {
 void PXL_TextureSheet::create() {
 	//if the texture is already created then delete the sheet texture
 	if (texture_created) {
-		glDeleteTextures(1, &id);
+		glDeleteTextures(1, &gl_id);
 		texture_created = false;
 	}
 
@@ -81,8 +81,8 @@ void PXL_TextureSheet::create() {
 	}
 
 	//create texture from resulting pixels
-	glGenTextures(1, &id);
-	glBindTexture(GL_TEXTURE_2D, id);
+	glGenTextures(1, &gl_id);
+	glBindTexture(GL_TEXTURE_2D, gl_id);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
 	glBindTexture(GL_TEXTURE_2D, NULL);
 
@@ -161,7 +161,7 @@ void PXL_TextureSheet::add(PXL_PixelBuffer* buffer, PXL_Rect* rect, PXL_Rect* sr
 
 void PXL_TextureSheet::free() {
 	if (texture_created) {
-		glDeleteTextures(1, &id);
+		glDeleteTextures(1, &gl_id);
 		texture_created = false;
 	}
 	pixel_data.clear();

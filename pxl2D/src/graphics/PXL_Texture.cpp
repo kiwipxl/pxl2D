@@ -43,7 +43,7 @@ void PXL_Texture::create_texture(int w, int h, unsigned char* pixels, int pixel_
 	set_filters();
 	glBindTexture(GL_TEXTURE_2D, NULL);
 
-	id = unique_texture_id;
+	unique_id = unique_texture_id;
 	++unique_texture_id;
 
 	if (pixels == NULL) {
