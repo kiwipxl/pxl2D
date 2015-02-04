@@ -3,8 +3,8 @@
 #include <glew.h>
 #include <wglew.h>
 #include <algorithm>
-#include "PXL_Exception.h"
 #include "PXL_Graphics.h"
+#include "PXL_System.h"
 
 int PXL_window_width;
 int PXL_window_height;
@@ -51,31 +51,12 @@ void PXL_swap_buffers(int window_index) {
 	SwapBuffers(PXL_windows[window_index]->device_context_handle);
 }
 
-//Returns the last Win32 error, in string format. Returns an empty string if there is no error.
-std::string GetLastErrorAsString() {
-	//Get the error message, if any.
-	DWORD errorMessageID = ::GetLastError();
-	if (errorMessageID == 0)
-		return "No error message has been recorded";
-
-	LPSTR messageBuffer = nullptr;
-	size_t size = FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
-		NULL, errorMessageID, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPSTR)&messageBuffer, 0, NULL);
-
-	std::string message(messageBuffer, size);
-
-	//Free the buffer.
-	LocalFree(messageBuffer);
-
-	return message;
-}
-
 void PXL_Window::create_window(int window_width, int window_height, std::string title) {
 	free();
 
 	instance_handle = GetModuleHandle(NULL);
-	std::string t = PXL_sha256(std::to_string(PXL_windows.size())).substr(0, 16);
-	class_name = t.c_str();
+	std::string hash = PXL_sha256(std::to_string(PXL_windows.size())).substr(0, 16);
+	class_name = hash.c_str();
 	window_name = title.c_str();
 
 	win_class.style = CS_DROPSHADOW | CS_OWNDC;
@@ -100,8 +81,7 @@ void PXL_Window::create_window(int window_width, int window_height, std::string 
 	PXL_center_window_y = PXL_window_height / 2;
 
 	if (!RegisterClass(&win_class)) {
-		std::string t = "Window registration failed. Error: " + GetLastErrorAsString();
-		PXL_force_show_exception("Window registration failed. Error: " + GetLastErrorAsString());
+		PXL_force_show_exception("Window registration failed. Error: " + PXL_get_os_error());
 	}
 
 	win_handle = CreateWindowEx(WS_EX_CLIENTEDGE, class_name, window_name, WS_OVERLAPPEDWINDOW,
@@ -109,10 +89,10 @@ void PXL_Window::create_window(int window_width, int window_height, std::string 
 								NULL, NULL, instance_handle, NULL);
 
 	if (win_handle == NULL) {
-		PXL_force_show_exception("Window creation failed! Error: " + GetLastErrorAsString());
+		PXL_force_show_exception("Window creation failed! Error: " + PXL_get_os_error());
 	}
 	if (!(device_context_handle = GetDC(win_handle))) {
-		PXL_force_show_exception("Couldn't create an openGL device context. Error: " + GetLastErrorAsString());
+		PXL_force_show_exception("Couldn't create an openGL device context. Error: " + PXL_get_os_error());
 	}
 
 	PIXELFORMATDESCRIPTOR pix_format_desc;
@@ -126,22 +106,22 @@ void PXL_Window::create_window(int window_width, int window_height, std::string 
 	pix_format_desc.iLayerType = PFD_MAIN_PLANE;
 
 	if (!(pixel_format = ChoosePixelFormat(device_context_handle, &pix_format_desc))) {
-		PXL_force_show_exception("Pixel format is invalid. Error: " + GetLastErrorAsString());
+		PXL_force_show_exception("Pixel format is invalid. Error: " + PXL_get_os_error());
 	}
 	if (!SetPixelFormat(device_context_handle, pixel_format, &pix_format_desc)) {
-		PXL_force_show_exception("Failed to set pixel format. Error: " + GetLastErrorAsString());
+		PXL_force_show_exception("Failed to set pixel format. Error: " + PXL_get_os_error());
 	}
 	if (WGLEW_ARB_create_context && WGLEW_ARB_pixel_format) {
 		if (!(gl_render_context_handle = wglCreateContextAttribsARB(device_context_handle, 0, context_attribs))) {
-			PXL_force_show_exception("Failed to create openGL2+ rendering context. Error: " + GetLastErrorAsString());
+			PXL_force_show_exception("Failed to create openGL2+ rendering context. Error: " + PXL_get_os_error());
 		}
 	}else {
 		if (!(gl_render_context_handle = wglCreateContext(device_context_handle))) {
-			PXL_force_show_exception("Failed to create an openGL rendering context. Error: " + GetLastErrorAsString());
+			PXL_force_show_exception("Failed to create an openGL rendering context. Error: " + PXL_get_os_error());
 		}
 	}
 	if (!wglMakeCurrent(device_context_handle, gl_render_context_handle)) {
-		PXL_force_show_exception("Failed to activate an openGL rendering context. Error: " + GetLastErrorAsString());
+		PXL_force_show_exception("Failed to activate an openGL rendering context. Error: " + PXL_get_os_error());
 	}
 
 	window_loaded = true;
