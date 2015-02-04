@@ -45,7 +45,7 @@ class PXL_Window {
 		HDC device_context_handle;
 		HGLRC gl_render_context_handle;
 		HINSTANCE instance_handle;
-		WNDCLASSEX win_class;
+		WNDCLASS win_class;
 		HWND win_handle;
 		MSG msg;
 		LPCSTR class_name;

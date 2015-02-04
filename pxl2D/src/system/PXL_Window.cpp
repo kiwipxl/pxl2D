@@ -1,41 +1,29 @@
 #include "PXL_Window.h"
 #include <iostream>
 #include <glew.h>
+#include <wglew.h>
+#include <algorithm>
+#include "PXL_Exception.h"
+#include "PXL_Graphics.h"
 
 int PXL_window_width;
 int PXL_window_height;
 int PXL_center_window_x;
 int PXL_center_window_y;
 std::vector<PXL_Window*> PXL_windows;
+bool init_dummy_window = true;
 
-PIXELFORMATDESCRIPTOR pix_format_desc =                  // pix_format_desc Tells Windows How We Want Things To Be
-{
-	sizeof(PIXELFORMATDESCRIPTOR),                  // Size Of This Pixel Format Descriptor
-	1,                              // Version Number
-	PFD_DRAW_TO_WINDOW |                        // Format Must Support Window
-	PFD_SUPPORT_OPENGL |                        // Format Must Support OpenGL
-	PFD_DOUBLEBUFFER,                       // Must Support Double Buffering
-	PFD_TYPE_RGBA,                          // Request An RGBA Format
-	32,                               // Select Our Color Depth
-	0, 0, 0, 0, 0, 0,                       // Color Bits Ignored
-	0,                              // No Alpha Buffer
-	0,                              // Shift Bit Ignored
-	0,                              // No Accumulation Buffer
-	0, 0, 0, 0,                         // Accumulation Bits Ignored
-	16,                             // 16Bit Z-Buffer (Depth Buffer)
-	0,                              // No Stencil Buffer
-	0,                              // No Auxiliary Buffer
-	PFD_MAIN_PLANE,                         // Main Drawing Layer
-	0,                              // Reserved
-	0, 0, 0                             // Layer Masks Ignored
+int context_attribs[] = {
+	WGL_CONTEXT_MAJOR_VERSION_ARB, 3, 
+	WGL_CONTEXT_MINOR_VERSION_ARB, 1, 
+	WGL_CONTEXT_FLAGS_ARB, 0, 
+	0 //end attribs list
 };
 
 LRESULT CALLBACK win_proc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 	switch (msg) {
 		case WM_CLOSE:
 			DestroyWindow(hwnd);
-			break;
-		case WM_DESTROY:
 			PostQuitMessage(0);
 			break;
 		default:
@@ -47,7 +35,6 @@ LRESULT CALLBACK win_proc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 PXL_Window::PXL_Window(int window_width, int window_height, std::string title) {
 	window_loaded = false;
 	create_window(window_width, window_height, title);
-	PXL_windows.push_back(this);
 }
 
 PXL_Window* PXL_create_window(int window_width, int window_height, std::string title) {
@@ -64,14 +51,32 @@ void PXL_swap_buffers(int window_index) {
 	SwapBuffers(PXL_windows[window_index]->device_context_handle);
 }
 
+//Returns the last Win32 error, in string format. Returns an empty string if there is no error.
+std::string GetLastErrorAsString() {
+	//Get the error message, if any.
+	DWORD errorMessageID = ::GetLastError();
+	if (errorMessageID == 0)
+		return "No error message has been recorded";
+
+	LPSTR messageBuffer = nullptr;
+	size_t size = FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+		NULL, errorMessageID, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPSTR)&messageBuffer, 0, NULL);
+
+	std::string message(messageBuffer, size);
+
+	//Free the buffer.
+	LocalFree(messageBuffer);
+
+	return message;
+}
+
 void PXL_Window::create_window(int window_width, int window_height, std::string title) {
 	free();
 
 	instance_handle = GetModuleHandle(NULL);
-	class_name = title.c_str();
+	class_name = "545432312122121";
 	window_name = title.c_str();
 
-	win_class.cbSize = sizeof(WNDCLASSEX);
 	win_class.style = CS_DROPSHADOW | CS_OWNDC;
 	win_class.lpfnWndProc = win_proc;
 	win_class.cbClsExtra = 0;
@@ -82,7 +87,6 @@ void PXL_Window::create_window(int window_width, int window_height, std::string 
 	win_class.hbrBackground = 0;
 	win_class.lpszMenuName = 0;
 	win_class.lpszClassName = class_name;
-	win_class.hIconSm = LoadIcon(NULL, IDI_INFORMATION);
 
 	//calculate adjusted window rect with border so the client rect is the same size as the specified width/height
 	tagRECT rect;
@@ -94,47 +98,83 @@ void PXL_Window::create_window(int window_width, int window_height, std::string 
 	PXL_center_window_x = PXL_window_width / 2;
 	PXL_center_window_y = PXL_window_height / 2;
 
-	if (!RegisterClassEx(&win_class)) {
-		MessageBox(NULL, "Window registration failed", "An error occurred!", MB_ICONEXCLAMATION | MB_OK);
+	if (!RegisterClass(&win_class)) {
+		std::string t = "Window registration failed. Error: " + GetLastErrorAsString();
+		PXL_force_show_exception("Window registration failed. Error: " + GetLastErrorAsString());
 	}
 
-	win_handle = CreateWindowEx(WS_EX_CLIENTEDGE, class_name, window_name, WS_OVERLAPPEDWINDOW, 
-							    CW_USEDEFAULT, CW_USEDEFAULT, (rect.right - rect.left) + 4, (rect.bottom - rect.top) + 4,  
+	win_handle = CreateWindowEx(WS_EX_CLIENTEDGE, class_name, window_name, WS_OVERLAPPEDWINDOW,
+								CW_USEDEFAULT, CW_USEDEFAULT, (rect.right - rect.left) + 4, (rect.bottom - rect.top) + 4,
 								NULL, NULL, instance_handle, NULL);
 
 	if (win_handle == NULL) {
-		MessageBox(NULL, "Window creation failed!", "An error occurred", MB_ICONEXCLAMATION | MB_OK);
+		PXL_force_show_exception("Window creation failed! Error: " + GetLastErrorAsString());
+	}
+	if (!(device_context_handle = GetDC(win_handle))) {
+		PXL_force_show_exception("Couldn't create an openGL device context. Error: " + GetLastErrorAsString());
 	}
 
-	if (!(device_context_handle = GetDC(win_handle))) {
-		MessageBox(NULL, "Couldn't create an openGL device context", "An error occurred", MB_ICONEXCLAMATION | MB_OK);
-	}
+	PIXELFORMATDESCRIPTOR pix_format_desc;
+	memset(&pix_format_desc, 0, sizeof(PIXELFORMATDESCRIPTOR));
+	pix_format_desc.nSize = sizeof(PIXELFORMATDESCRIPTOR);
+	pix_format_desc.nVersion = 1;
+	pix_format_desc.dwFlags = PFD_DOUBLEBUFFER | PFD_SUPPORT_OPENGL | PFD_DRAW_TO_WINDOW;
+	pix_format_desc.iPixelType = PFD_TYPE_RGBA;
+	pix_format_desc.cColorBits = 32;
+	pix_format_desc.cDepthBits = 32;
+	pix_format_desc.iLayerType = PFD_MAIN_PLANE;
 
 	if (!(pixel_format = ChoosePixelFormat(device_context_handle, &pix_format_desc))) {
-		MessageBox(NULL, "Pixel format is invalid", "An error occurred", MB_ICONEXCLAMATION | MB_OK);
+		PXL_force_show_exception("Pixel format is invalid. Error: " + GetLastErrorAsString());
 	}
-
 	if (!SetPixelFormat(device_context_handle, pixel_format, &pix_format_desc)) {
-		MessageBox(NULL, "Failed to set pixel format", "An error occurred", MB_ICONEXCLAMATION | MB_OK);
+		PXL_force_show_exception("Failed to set pixel format. Error: " + GetLastErrorAsString());
 	}
-
-	if (!(gl_render_context_handle = wglCreateContext(device_context_handle))) {
-		MessageBox(NULL, "Failed to create an openGL rendering context", "An error occurred", MB_ICONEXCLAMATION | MB_OK);
+	if (WGLEW_ARB_create_context && WGLEW_ARB_pixel_format) {
+		if (!(gl_render_context_handle = wglCreateContextAttribsARB(device_context_handle, 0, context_attribs))) {
+			PXL_force_show_exception("Failed to create openGL2+ rendering context. Error: " + GetLastErrorAsString());
+		}
+	}else {
+		if (!(gl_render_context_handle = wglCreateContext(device_context_handle))) {
+			PXL_force_show_exception("Failed to create an openGL rendering context. Error: " + GetLastErrorAsString());
+		}
 	}
-
 	if (!wglMakeCurrent(device_context_handle, gl_render_context_handle)) {
-		MessageBox(NULL, "Failed to activate an openGL rendering context", "An error occurred", MB_ICONEXCLAMATION | MB_OK);
+		PXL_force_show_exception("Failed to activate an openGL rendering context. Error: " + GetLastErrorAsString());
 	}
-
-	ShowWindow(win_handle, SW_SHOW);
-	UpdateWindow(win_handle);
 
 	window_loaded = true;
+
+	if (init_dummy_window) {
+		init_dummy_window = false;
+		PXL_glew_init();
+		free();
+		create_window(window_width, window_height, title);
+
+		int min;
+		glGetIntegerv(GL_MINOR_VERSION, &min);
+		int target;
+		glGetIntegerv(GL_MAJOR_VERSION, &target);
+		std::cout << "updated gl version: " << glGetString(GL_VERSION) << ", min: " << min << ", target: " << target << "\n";
+		std::cout << "updated glsl version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << "\n";
+		return;
+	}else {
+		ShowWindow(win_handle, SW_SHOW);
+		UpdateWindow(win_handle);
+	}
+
+	PXL_windows.push_back(this);
 }
 
 void PXL_Window::free() {
 	if (window_loaded) {
 		window_loaded = false;
+		wglMakeCurrent(NULL, NULL);
+		wglDeleteContext(gl_render_context_handle);
+		DestroyWindow(win_handle);
+		UnregisterClass(win_class.lpszClassName, win_class.hInstance);
+
+		PXL_windows.erase(std::remove(PXL_windows.begin(), PXL_windows.end(), this), PXL_windows.end());
 	}
 }
 
