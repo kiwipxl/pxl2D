@@ -25,7 +25,6 @@ int main(int argc, char* args[]) {
 	timeBeginPeriod(1);
 
 	PXL_create_window(1024, 768, "PXL Example Project");
-	PXL_create_window(1024, 768, "PXL Example Project");
 	PXL_init();
 
 	PXL_Texture* cat = load_texture("cat.png");

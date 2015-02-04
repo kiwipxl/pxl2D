@@ -74,7 +74,8 @@ void PXL_Window::create_window(int window_width, int window_height, std::string 
 	free();
 
 	instance_handle = GetModuleHandle(NULL);
-	class_name = "545432312122121";
+	std::string t = PXL_sha256(std::to_string(PXL_windows.size())).substr(0, 16);
+	class_name = t.c_str();
 	window_name = title.c_str();
 
 	win_class.style = CS_DROPSHADOW | CS_OWNDC;

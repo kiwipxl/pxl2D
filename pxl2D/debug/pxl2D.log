@@ -1,4 +1,4 @@
-﻿Build started 4/02/2015 10:20:33 PM.
+﻿Build started 4/02/2015 10:39:51 PM.
      1>Project "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\pxl2D.vcxproj" on node 2 (Build target(s)).
      1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(364,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
      1>ClCompile:
@@ -25,6 +25,7 @@
          Debug\PXL_System.obj
          Debug\PXL_Exception.obj
          Debug\PXL_Math.obj
+         Debug\PXL_SHA256.obj
          Debug\PXL_Timer.obj
          Debug\PXL_Window.obj
      1>zlib.lib(zlib1.dll) : warning LNK4006: _DllGetVersion already defined in libpng.lib(libpng12.dll); second definition ignored
@@ -44,4 +45,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:09.78
+Time Elapsed 00:00:01.17
