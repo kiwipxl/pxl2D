@@ -154,6 +154,14 @@ void PXL_Batch::add_quad(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rec
 	int index = last_freq_index;
 	GLuint texture_id = texture->get_gl_id();
 	z_depth += max_vertices_amount / 2;
+	if (z_depth < 0) {
+		PXL_show_exception("Z depth value cannot be below half of the max vertex amount (" + std::to_string(-max_vertices_amount / 2) + ")");
+		z_depth = 0;
+	}else if (z_depth >= max_vertices_amount + 1) {
+		PXL_show_exception("Z depth value cannot be above half of the max vertex amount (" + std::to_string(max_vertices_amount / 2) + ")");
+		z_depth = max_vertices_amount - 1;
+	}
+
 	if (next_depth_slots[z_depth].tally >= 1) {
 		index = next_depth_slots[z_depth].index;
 		++next_depth_slots[z_depth].index;
