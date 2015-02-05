@@ -115,9 +115,9 @@ int main(int argc, char* args[]) {
 				rect.x = pos[n] + origin.x;
 				rect.y = pos[n + 1] + origin.y;
 				if (rect.x >= 512) {
-					batch.add(cat, &rect, NULL, t, &origin, PXL_FLIP_NONE, .75f, .5f, 1, 1, PXL_grayscale_shader);
+					//batch.add(cat, &rect, NULL, t, &origin, PXL_FLIP_NONE, .75f, .5f, 1, 1, PXL_grayscale_shader);
 				}else {
-					batch.add(cat_2, &rect, NULL, t, &origin);
+					//batch.add(cat_2, &rect, NULL, t, &origin);
 				}
 			}
 			average_time += PXL_stop_timer();
@@ -127,13 +127,20 @@ int main(int argc, char* args[]) {
 				rect.x = pos[n] + origin.x;
 				rect.y = pos[n + 1] + origin.y;
 				if (rect.x >= 512) {
-					batch.add(cute_cat, &rect, NULL, t, &origin, PXL_FLIP_NONE, .2f, 1, .75f, .5f);
+					//batch.add(cute_cat, &rect, NULL, t, &origin, PXL_FLIP_NONE, .2f, 1, .75f, .5f);
 				}else {
-					batch.add(cat_2, &rect, NULL, t, &origin, PXL_FLIP_NONE, 1, 1, 1, .1f);
+					//batch.add(cat_2, &rect, NULL, t, &origin, PXL_FLIP_NONE, 1, 1, 1, .1f);
 				}
 			}
 			average_time += PXL_stop_timer();
 		}
+
+		rect.x = 0; rect.y = 0;
+		batch.add(cat_2, &rect, NULL, 0, 0, PXL_FLIP_NONE, 1, 1, 1, 1);
+		rect.x = 140; rect.y = 40;
+		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, .2f, 1, .75f, .4f);
+		rect.x = 10; rect.y = 80;
+		batch.add(cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, .2f, 1, .75f, .8f);
 
 		for (int n = 0; n < point_lights.size(); ++n) {
 			point_lights[n]->intensity = (sin(t / (10 + (n / 10))) + 1) / 8;
@@ -141,13 +148,13 @@ int main(int argc, char* args[]) {
 			point_lights[n]->intensity = PXL_clamp(point_lights[n]->intensity, 0, 99);
 		}
 
-		PXL_render_point_lights(&batch);
+		//PXL_render_point_lights(&batch);
 
 		text.set_text("timer: " + std::to_string(t) + "\nnewline testtext");
 		text.rotation += PXL_fast_cos(t / 10);
 		text.set_colour(.5f, 0, 1, 1);
 		text.scale(PXL_fast_sin(t / 10) / 50, PXL_fast_sin(t / 10) / 50);
-		text.render(&batch);
+		//text.render(&batch);
 
 		batch.render_all();
 

@@ -358,8 +358,7 @@ void PXL_Batch::draw_vbo() {
 	use_blend_mode(prev_blend_mode);
 	PXL_ShaderProgram* prev_shader = vertex_batches[0].shader;
 	use_shader(prev_shader);
-	for (int i = 0; i < num_added; ++i) {
-		if (i >= num_added - 1) { size += vertex_batches[i].num_vertices; }
+	for (int i = 0; i < num_added + 1; ++i) {
 		texture_changed = false;
 		changed = false;
 
@@ -369,12 +368,12 @@ void PXL_Batch::draw_vbo() {
 			texture_changed = true;
 			changed = true;
 		}
-		if (texture_changed || vertex_batches[i].shader != prev_shader || i >= num_added - 1) {
+		if (texture_changed || vertex_batches[i].shader != prev_shader) {
 			use_shader(prev_shader);
 			prev_shader = vertex_batches[i].shader;
 			changed = true;
 		}
-		if (texture_changed || vertex_batches[i].blend_mode != prev_blend_mode || i >= num_added - 1) {
+		if (texture_changed || vertex_batches[i].blend_mode != prev_blend_mode) {
 			use_blend_mode(prev_blend_mode);
 			prev_blend_mode = vertex_batches[i].blend_mode;
 			changed = true;
