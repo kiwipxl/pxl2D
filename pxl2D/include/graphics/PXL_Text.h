@@ -39,6 +39,7 @@ class PXL_Text {
 		bool scale_max_size = true;
 		bool clamp_max_size = true;
 		float rotation = 0;
+		int z_depth = 0;
 		PXL_RGBA colour;
 		PXL_TextOrigin origin_type = PXL_TOP_LEFT_ORIGIN;
 

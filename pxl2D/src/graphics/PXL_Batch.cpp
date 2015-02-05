@@ -99,16 +99,13 @@ void PXL_Batch::clear_all() {
 void PXL_Batch::use_shader(PXL_ShaderProgram* shader) {
 	if (shader == NULL) { shader = PXL_default_shader; }
 
-	if (current_shader != shader) {
-		current_shader = shader;
+	current_shader = shader;
+	//use specified program id
+	glUseProgram(current_shader->get_program_id());
 
-		//use specified program id
-		glUseProgram(current_shader->get_program_id());
-
-		//set matrix uniform in the vertex shader for the program
-		view_mat.identity();
-		glUniformMatrix4fv(current_shader->get_matrix_loc(), 1, true, (view_mat * perspective_mat).get_mat());
-	}
+	//set matrix uniform in the vertex shader for the program
+	view_mat.identity();
+	glUniformMatrix4fv(current_shader->get_matrix_loc(), 1, true, (view_mat * perspective_mat).get_mat());
 }
 
 void PXL_Batch::use_blend_mode(PXL_BlendMode blend_mode) {
@@ -340,7 +337,6 @@ void PXL_Batch::draw_vbo() {
 	int batch_index = 0;
 	int offset = 0;
 	int size = 0;
-	bool texture_changed;
 	bool changed;
 
 	int prev_id = vertex_batches[0].texture_id;
@@ -348,22 +344,21 @@ void PXL_Batch::draw_vbo() {
 	use_blend_mode(prev_blend_mode);
 	PXL_ShaderProgram* prev_shader = vertex_batches[0].shader;
 	use_shader(prev_shader);
-	for (int i = 0; i < num_added + 1; ++i) {
-		texture_changed = false;
+	size += vertex_batches[0].num_vertices;
+	for (int i = 1; i < num_added + 1; ++i) {
 		changed = false;
 
-		if (vertex_batches[i].texture_id != prev_id || i >= num_added - 1) {
+		if (vertex_batches[i].texture_id != prev_id) {
 			glBindTexture(GL_TEXTURE_2D, prev_id);
 			prev_id = vertex_batches[i].texture_id;
-			texture_changed = true;
 			changed = true;
 		}
-		if (texture_changed || vertex_batches[i].shader != prev_shader) {
+		if (vertex_batches[i].shader != prev_shader) {
 			use_shader(prev_shader);
 			prev_shader = vertex_batches[i].shader;
 			changed = true;
 		}
-		if (texture_changed || vertex_batches[i].blend_mode != prev_blend_mode) {
+		if (vertex_batches[i].blend_mode != prev_blend_mode) {
 			use_blend_mode(prev_blend_mode);
 			prev_blend_mode = vertex_batches[i].blend_mode;
 			changed = true;

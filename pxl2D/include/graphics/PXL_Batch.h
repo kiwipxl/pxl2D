@@ -140,6 +140,14 @@ class PXL_Batch {
 		@return The number of added items
 		**/
 		int get_num_added() { return num_added; }
+		/** Gets the highest z depth available for this batch
+		@return The max z depth value
+		**/
+		int get_min_z_depth() { return -max_vertices_amount / 2; }
+		/** Gets the highest z depth available for this batch
+		@return The max z depth value
+		**/
+		int get_max_z_depth() { return max_vertices_amount / 2; }
 
 	private:
 		struct DepthSlot {
