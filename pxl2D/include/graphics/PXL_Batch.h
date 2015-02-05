@@ -33,12 +33,27 @@ enum PXL_BlendMode {
 	PXL_ALPHA_NONE /**> Does not apply transparency for alpha images, but very fast. Not recommended on transparent textures **/
 };
 
+struct PXL_VertexPoint {
+
+	struct PXL_Vertex_Vec2 {
+		float x = 0, y = 0;
+	} pos;
+	struct PXL_Vertex_UVCoord {
+		unsigned short x = 0, y = 0;
+	} uv;
+	struct PXL_Vertex_RGBA {
+		unsigned char r = 255, g = 255, b = 255, a = 255;
+	} colour;
+	float z_depth = 0;
+};
+
 struct PXL_VertexBatch {
 
 	//vertex values
 	GLuint texture_id;
 	PXL_ShaderProgram* shader = NULL;
 	PXL_BlendMode blend_mode;
+	float z_depth = 0;
 	int num_vertices;
 
 	//transform cache values
@@ -111,7 +126,7 @@ class PXL_Batch {
 		**/
 		void add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect = NULL, float rotation = 0, PXL_Vec2* origin = NULL,
 				 PXL_Flip flip = PXL_FLIP_NONE, float r = 1, float g = 1, float b = 1, float a = 1,
-				 PXL_ShaderProgram* shader = NULL, PXL_BlendMode blend_mode = PXL_ALPHA_AUTO_BLEND);
+				 PXL_ShaderProgram* shader = NULL, PXL_BlendMode blend_mode = PXL_ALPHA_AUTO_BLEND, float z_depth = 0);
 
 		/** Deletes everything made in this batch
 		**/
@@ -175,7 +190,7 @@ class PXL_Batch {
 		**/
 		void add_quad(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect,
 					  float rotation, PXL_Vec2* origin, PXL_Flip flip, float r, float g, float b, float a, 
-					  PXL_ShaderProgram* shader, PXL_BlendMode blend_mode);
+					  PXL_ShaderProgram* shader, PXL_BlendMode blend_mode, float z_depth);
 
 		/** Draws each item in the vertex batches list
 		**/

@@ -69,7 +69,7 @@ int main(int argc, char* args[]) {
 	PXL_Batch batch = PXL_Batch(PXL_BATCH_LARGE);
 	PXL_set_default_shader(&batch);
 
-	int amount = 100;
+	int amount = 4000;
 	int* pos = new int[amount * 2];
 	for (int n = 0; n < amount * 2; n += 2) {
 		pos[n] = int((rand() / float(RAND_MAX)) * 800);
@@ -110,37 +110,43 @@ int main(int argc, char* args[]) {
 		//batch.set_target(&frame_buffer);
 
 		if (t <= 40) {
-			PXL_start_timer();
 			for (int n = 0; n < amount * 2; n += 2) {
 				rect.x = pos[n] + origin.x;
 				rect.y = pos[n + 1] + origin.y;
 				if (rect.x >= 512) {
-					//batch.add(cat, &rect, NULL, t, &origin, PXL_FLIP_NONE, .75f, .5f, 1, 1, PXL_grayscale_shader);
+					batch.add(cat, &rect, NULL, t, &origin, PXL_FLIP_NONE, .75f, .5f, 1, 1, PXL_grayscale_shader, PXL_ALPHA_AUTO_BLEND, 10);
 				}else {
-					//batch.add(cat_2, &rect, NULL, t, &origin);
+					batch.add(cat_2, &rect, NULL, t, &origin);
 				}
 			}
-			average_time += PXL_stop_timer();
 		}else if (t >= 40) {
-			PXL_start_timer();
 			for (int n = 0; n < amount * 2; n += 2) {
 				rect.x = pos[n] + origin.x;
 				rect.y = pos[n + 1] + origin.y;
 				if (rect.x >= 512) {
-					//batch.add(cute_cat, &rect, NULL, t, &origin, PXL_FLIP_NONE, .2f, 1, .75f, .5f);
+					batch.add(cute_cat, &rect, NULL, t, &origin, PXL_FLIP_NONE, .2f, 1, .75f, .5f);
 				}else {
-					//batch.add(cat_2, &rect, NULL, t, &origin, PXL_FLIP_NONE, 1, 1, 1, .1f);
+					batch.add(cat_2, &rect, NULL, t, &origin, PXL_FLIP_NONE, 1, 1, 1, .1f);
 				}
 			}
-			average_time += PXL_stop_timer();
 		}
 
-		rect.x = 0; rect.y = 0;
-		batch.add(cat_2, &rect, NULL, 0, 0, PXL_FLIP_NONE, 1, 1, 1, 1);
-		rect.x = 140; rect.y = 40;
-		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, .2f, 1, .75f, .4f);
-		rect.x = 10; rect.y = 80;
-		batch.add(cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, .2f, 1, .75f, .8f);
+		rect.x = 0; rect.y = 0; rect.w = 180; rect.h = 200;
+		batch.add(cat_2, &rect, NULL, 0, 0, PXL_FLIP_NONE, 1, 1, 1, 1, 0, PXL_ALPHA_AUTO_BLEND, 10);
+		rect.x = 120;
+		batch.add(cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, .2f, 1, .75f, 1, 0, PXL_ALPHA_AUTO_BLEND, 1);
+		rect.x = 240;
+		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, .2f, 1, .75f, 1, 0, PXL_ALPHA_AUTO_BLEND, 4);
+		rect.x = 360;
+		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, .2f, 1, .75f, 1, 0, PXL_ALPHA_AUTO_BLEND, 10);
+		rect.x = 480;
+		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, .2f, 1, .75f, 1, 0, PXL_ALPHA_AUTO_BLEND, -2);
+		rect.x = 600;
+		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, .2f, 1, .75f, 1, 0, PXL_ALPHA_AUTO_BLEND, 1);
+		rect.x = 720;
+		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, .2f, 1, .75f, 1, 0, PXL_ALPHA_AUTO_BLEND, 1);
+		rect.x = 840;
+		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, .2f, 1, .75f, 1, 0, PXL_ALPHA_AUTO_BLEND, -10);
 
 		for (int n = 0; n < point_lights.size(); ++n) {
 			point_lights[n]->intensity = (sin(t / (10 + (n / 10))) + 1) / 8;
@@ -156,7 +162,9 @@ int main(int argc, char* args[]) {
 		text.scale(PXL_fast_sin(t / 10) / 50, PXL_fast_sin(t / 10) / 50);
 		//text.render(&batch);
 
+		PXL_start_timer();
 		batch.render_all();
+		average_time += PXL_stop_timer();
 
 		//swaps back buffer to front buffer
 		//batch.set_target(0);
