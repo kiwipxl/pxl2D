@@ -27,8 +27,8 @@ void PXL_Batch::create_batch(PXL_BatchSize max_vertices) {
 		glBufferData(GL_ARRAY_BUFFER, max_vertices_amount * sizeof(PXL_VertexPoint), NULL, GL_STATIC_DRAW);
 		glBindBuffer(GL_ARRAY_BUFFER, NULL);
 
-		current_texture_ids = new SparseTextureId[max_quads_amount];
-		next_texture_ids = new SparseTextureId[max_quads_amount];
+		current_depth_slots = new DepthSlot[max_vertices_amount];
+		next_depth_slots = new DepthSlot[max_vertices_amount];
 		vertex_batches = new PXL_VertexBatch[max_quads_amount];
 		vertex_data = new PXL_VertexPoint[max_vertices_amount];
 		vbo_created = true;
@@ -81,12 +81,12 @@ void PXL_Batch::render_all() {
 void PXL_Batch::clear_all() {
 	last_freq_index = 0;
 	for (int n = min_texture_id; n <= max_texture_id; ++n) {
-		if (current_texture_ids[n].frequency >= 1) {
-			next_texture_ids[n].frequency = current_texture_ids[n].frequency;
-			next_texture_ids[n].batch_index = last_freq_index;
-			last_freq_index += current_texture_ids[n].frequency;
-			current_texture_ids[n].frequency = 0;
-			current_texture_ids[n].batch_index = 0;
+		if (current_depth_slots[n].tally >= 1) {
+			next_depth_slots[n].tally = current_depth_slots[n].tally;
+			next_depth_slots[n].index = last_freq_index;
+			last_freq_index += current_depth_slots[n].tally;
+			current_depth_slots[n].tally = 0;
+			current_depth_slots[n].index = 0;
 		}
 	}
 
@@ -114,24 +114,21 @@ void PXL_Batch::use_shader(PXL_ShaderProgram* shader) {
 void PXL_Batch::use_blend_mode(PXL_BlendMode blend_mode) {
 	if (current_blend_mode != blend_mode) {
 		current_blend_mode = blend_mode;
-		if (current_blend_mode == PXL_ALPHA_BLEND) {
+		if (current_blend_mode == PXL_BLEND) {
 			glDisable(GL_DEPTH_TEST);
 			glDisable(GL_ALPHA_TEST);
-		}else if (current_blend_mode == PXL_ALPHA_NO_BLEND) {
+		}else if (current_blend_mode == PXL_NO_BLEND) {
 			glEnable(GL_DEPTH_TEST);
 			glAlphaFunc(GL_GREATER, .01f);
 			glEnable(GL_ALPHA_TEST);
-		}else if (current_blend_mode == PXL_ALPHA_NONE) {
-			glEnable(GL_DEPTH_TEST);
-			glDisable(GL_ALPHA_TEST);
 		}
 	}
 }
 
 void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, float rotation, PXL_Vec2* origin, 
-					PXL_Flip flip, float r, float g, float b, float a, PXL_ShaderProgram* shader, PXL_BlendMode blend_mode, float z_depth) {
+					PXL_Flip flip, int z_depth, float r, float g, float b, float a, PXL_ShaderProgram* shader, PXL_BlendMode blend_mode) {
 	if (verify_texture_add(texture, rect)) {
-		add_quad(texture, rect, src_rect, rotation, origin, flip, r, g, b, a, shader, blend_mode, z_depth);
+		add_quad(texture, rect, src_rect, rotation, origin, flip, z_depth, r, g, b, a, shader, blend_mode);
 		++num_added;
 	}
 }
@@ -151,15 +148,16 @@ bool PXL_Batch::verify_texture_add(PXL_Texture* texture, PXL_Rect* rect) {
 }
 
 void PXL_Batch::add_quad(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, 
-						 float rotation, PXL_Vec2* origin, PXL_Flip flip, 
-						 float r, float g, float b, float a, PXL_ShaderProgram* shader, PXL_BlendMode blend_mode, float z_depth) {
+						 float rotation, PXL_Vec2* origin, PXL_Flip flip, int z_depth,  
+						 float r, float g, float b, float a, PXL_ShaderProgram* shader, PXL_BlendMode blend_mode) {
 	//set the texture id and shader program for the vertex batch
 	int index = last_freq_index;
 	GLuint texture_id = texture->get_gl_id();
-	if (next_texture_ids[texture_id].frequency >= 1) {
-		index = next_texture_ids[texture_id].batch_index;
-		++next_texture_ids[texture_id].batch_index;
-		if (next_texture_ids[texture_id].batch_index >= max_quads_amount) { next_texture_ids[texture_id].batch_index = 0; index = 0; }
+	z_depth += max_vertices_amount / 2;
+	if (next_depth_slots[z_depth].tally >= 1) {
+		index = next_depth_slots[z_depth].index;
+		++next_depth_slots[z_depth].index;
+		if (next_depth_slots[z_depth].index >= max_quads_amount) { next_depth_slots[z_depth].index = 0; index = 0; }
 	}else {
 		++last_freq_index;
 		if (last_freq_index >= max_quads_amount) { last_freq_index = 0; index = 0; }
@@ -169,36 +167,14 @@ void PXL_Batch::add_quad(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rec
 	v_batch->texture_id = texture_id;
 	v_batch->shader = shader;
 	v_batch->z_depth = z_depth;
-
-	if (blend_mode == PXL_ALPHA_AUTO_NO_BLEND || blend_mode == PXL_ALPHA_AUTO_BLEND) {
-		if (texture->has_transparency) {
-			if (blend_mode == PXL_ALPHA_AUTO_NO_BLEND) {
-				blend_mode = PXL_ALPHA_NO_BLEND;
-			}else if (blend_mode == PXL_ALPHA_AUTO_BLEND) {
-				blend_mode = PXL_ALPHA_BLEND;
-			}
-		}else {
-			if (a != 1 && blend_mode == PXL_ALPHA_AUTO_BLEND) {
-				blend_mode = PXL_ALPHA_BLEND;
-			}else {
-				blend_mode = PXL_ALPHA_NONE;
-			}
-		}
-	}
 	v_batch->blend_mode = blend_mode;
 
-	current_texture_ids[texture_id].texture = texture;
-	++current_texture_ids[texture_id].frequency;
-	min_texture_id = PXL_min(min_texture_id, texture_id);
-	max_texture_id = PXL_max(max_texture_id, texture_id);
+	++current_depth_slots[z_depth].tally;
+	min_texture_id = PXL_min(min_texture_id, z_depth);
+	max_texture_id = PXL_max(max_texture_id, z_depth);
 
 	//set vertex pos, uvs and colours
 	PXL_VertexPoint* v = vertex_data + (index * 4);
-
-	v[0].z_depth = z_depth;
-	v[1].z_depth = z_depth;
-	v[2].z_depth = z_depth;
-	v[3].z_depth = z_depth;
 
 	/**
 	==================================================================================
@@ -348,17 +324,9 @@ void PXL_Batch::draw_vbo() {
 	//if there are no textures to draw or no vertex data then return
 	if (num_added == 0) { return; }
 
-	std::stable_sort(vertex_data, vertex_data + (num_added * 4), [](PXL_VertexPoint a, PXL_VertexPoint b) {
-		return a.z_depth < b.z_depth;
-	});
-
 	//binds vertex buffer
 	glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_id);
 	glBufferData(GL_ARRAY_BUFFER, num_added * 4 * sizeof(PXL_VertexPoint), &vertex_data[0], GL_DYNAMIC_DRAW);
-
-	std::stable_sort(vertex_batches, vertex_batches + num_added, [](PXL_VertexBatch a, PXL_VertexBatch b) {
-		return a.z_depth < b.z_depth;
-	});
 
 	//loops through each texture and draws the vertex data with that texture id
 	int batch_index = 0;
@@ -369,8 +337,7 @@ void PXL_Batch::draw_vbo() {
 
 	int prev_id = vertex_batches[0].texture_id;
 	PXL_BlendMode prev_blend_mode = vertex_batches[0].blend_mode;
-	//use_blend_mode(prev_blend_mode);
-	use_blend_mode(PXL_ALPHA_BLEND);
+	use_blend_mode(prev_blend_mode);
 	PXL_ShaderProgram* prev_shader = vertex_batches[0].shader;
 	use_shader(prev_shader);
 	for (int i = 0; i < num_added + 1; ++i) {
@@ -389,8 +356,7 @@ void PXL_Batch::draw_vbo() {
 			changed = true;
 		}
 		if (texture_changed || vertex_batches[i].blend_mode != prev_blend_mode) {
-			//use_blend_mode(prev_blend_mode);
-			use_blend_mode(PXL_ALPHA_BLEND);
+			use_blend_mode(prev_blend_mode);
 			prev_blend_mode = vertex_batches[i].blend_mode;
 			changed = true;
 		}

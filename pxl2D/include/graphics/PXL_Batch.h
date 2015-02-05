@@ -26,11 +26,8 @@ typedef int PXL_BatchSize;
 #define PXL_BATCH_MEGA_LARGE 200000 /**> The max batch size of 200,000 vertices (50,000 max sprite/quad capacity) **/
 
 enum PXL_BlendMode {
-	PXL_ALPHA_AUTO_NO_BLEND, /**> Automatically chooses the fastest blend type without blending. For example, PXL_ALPHA_NONE for non-transparent textures **/
-	PXL_ALPHA_AUTO_BLEND, /**> Automatically chooses the fastest blend type while applying alpha blending **/
-	PXL_ALPHA_BLEND, /**> Supports blending when rendering **/
-	PXL_ALPHA_NO_BLEND, /**> Keeps image alpha but doesn't blend when rendering **/
-	PXL_ALPHA_NONE /**> Does not apply transparency for alpha images, but very fast. Not recommended on transparent textures **/
+	PXL_BLEND, /**> Applies blending when rendering **/
+	PXL_NO_BLEND, /**> Doesn't blend when rendering **/
 };
 
 struct PXL_VertexPoint {
@@ -44,16 +41,15 @@ struct PXL_VertexPoint {
 	struct PXL_Vertex_RGBA {
 		unsigned char r = 255, g = 255, b = 255, a = 255;
 	} colour;
-	float z_depth = 0;
 };
 
 struct PXL_VertexBatch {
 
 	//vertex values
 	GLuint texture_id;
+	int z_depth = 0;
 	PXL_ShaderProgram* shader = NULL;
 	PXL_BlendMode blend_mode;
-	float z_depth = 0;
 	int num_vertices;
 
 	//transform cache values
@@ -125,8 +121,8 @@ class PXL_Batch {
 		@param shader The shader to use when rendering this texture. Use NULL to use the default shader
 		**/
 		void add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect = NULL, float rotation = 0, PXL_Vec2* origin = NULL,
-				 PXL_Flip flip = PXL_FLIP_NONE, float r = 1, float g = 1, float b = 1, float a = 1,
-				 PXL_ShaderProgram* shader = NULL, PXL_BlendMode blend_mode = PXL_ALPHA_AUTO_BLEND, float z_depth = 0);
+				 PXL_Flip flip = PXL_FLIP_NONE, int z_depth = 0, float r = 1, float g = 1, float b = 1, float a = 1,
+				 PXL_ShaderProgram* shader = NULL, PXL_BlendMode blend_mode = PXL_BLEND);
 
 		/** Deletes everything made in this batch
 		**/
@@ -146,11 +142,10 @@ class PXL_Batch {
 		int get_num_added() { return num_added; }
 
 	private:
-		struct SparseTextureId {
+		struct DepthSlot {
 
-			int frequency = 0;
-			int batch_index = 0;
-			PXL_Texture* texture;
+			int tally = 0;
+			int index = 0;
 		};
 
 		//batch info
@@ -159,15 +154,15 @@ class PXL_Batch {
 		int num_added; /**> The current number of added items in this batch **/
 		PXL_FrameBuffer* target_frame_buffer = NULL; /**> The target frame buffer object to use when rendering **/
 		PXL_ShaderProgram* current_shader = NULL;
-		PXL_BlendMode current_blend_mode = PXL_ALPHA_BLEND;
+		PXL_BlendMode current_blend_mode;
 
 		//vbo
 		bool vbo_created; /**> Defines whether or not the vertex buffer object has been created **/
 		GLuint vertex_buffer_id; /**> The id associated with the vertex buffer object **/
 		PXL_VertexBatch* vertex_batches; /**> List that contains vertex batches used for rendering **/
 		PXL_VertexPoint* vertex_data;
-		SparseTextureId* current_texture_ids;
-		SparseTextureId* next_texture_ids;
+		DepthSlot* current_depth_slots;
+		DepthSlot* next_depth_slots;
 		PXL_VertexBatch* v_batch;
 		int vertex_batch_index;
 		int last_freq_index = 0;
@@ -189,8 +184,8 @@ class PXL_Batch {
 		@param r, g, b, a Colour ranges from 0 to 1 which set the texture colour
 		**/
 		void add_quad(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect,
-					  float rotation, PXL_Vec2* origin, PXL_Flip flip, float r, float g, float b, float a, 
-					  PXL_ShaderProgram* shader, PXL_BlendMode blend_mode, float z_depth);
+					  float rotation, PXL_Vec2* origin, PXL_Flip flip, int z_depth, float r, float g, float b, float a, 
+					  PXL_ShaderProgram* shader, PXL_BlendMode blend_mode);
 
 		/** Draws each item in the vertex batches list
 		**/

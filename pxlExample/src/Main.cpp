@@ -114,9 +114,9 @@ int main(int argc, char* args[]) {
 				rect.x = pos[n] + origin.x;
 				rect.y = pos[n + 1] + origin.y;
 				if (rect.x >= 512) {
-					batch.add(cat, &rect, NULL, t, &origin, PXL_FLIP_NONE, .75f, .5f, 1, 1, PXL_grayscale_shader, PXL_ALPHA_AUTO_BLEND, 10);
+					//batch.add(cat, &rect, NULL, t, &origin, PXL_FLIP_NONE, 10, .75f, .5f, 1, 1, PXL_grayscale_shader, PXL_NO_BLEND);
 				}else {
-					batch.add(cat_2, &rect, NULL, t, &origin);
+					//batch.add(cat_2, &rect, NULL, t, &origin);
 				}
 			}
 		}else if (t >= 40) {
@@ -124,29 +124,29 @@ int main(int argc, char* args[]) {
 				rect.x = pos[n] + origin.x;
 				rect.y = pos[n + 1] + origin.y;
 				if (rect.x >= 512) {
-					batch.add(cute_cat, &rect, NULL, t, &origin, PXL_FLIP_NONE, .2f, 1, .75f, .5f);
+					//batch.add(cute_cat, &rect, NULL, t, &origin, PXL_FLIP_NONE, 0, .2f, 1, .75f, .5f);
 				}else {
-					batch.add(cat_2, &rect, NULL, t, &origin, PXL_FLIP_NONE, 1, 1, 1, .1f);
+					//batch.add(cat_2, &rect, NULL, t, &origin, PXL_FLIP_NONE, 0, 1, 1, 1, .1f);
 				}
 			}
 		}
 
 		rect.x = 0; rect.y = 0; rect.w = 180; rect.h = 200;
-		batch.add(cat_2, &rect, NULL, 0, 0, PXL_FLIP_NONE, 1, 1, 1, 1, 0, PXL_ALPHA_AUTO_BLEND, 10);
+		batch.add(cat_2, &rect, NULL, 0, 0, PXL_FLIP_NONE, -4, 1, 1, 1, 1);
 		rect.x = 120;
-		batch.add(cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, .2f, 1, .75f, 1, 0, PXL_ALPHA_AUTO_BLEND, 1);
+		batch.add(cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, 4, .2f, 1, .75f, 1);
 		rect.x = 240;
-		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, .2f, 1, .75f, 1, 0, PXL_ALPHA_AUTO_BLEND, 4);
+		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, 3, .2f, 1, .75f, 1);
 		rect.x = 360;
-		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, .2f, 1, .75f, 1, 0, PXL_ALPHA_AUTO_BLEND, 10);
+		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, -7, .2f, 1, .75f, 1);
 		rect.x = 480;
-		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, .2f, 1, .75f, 1, 0, PXL_ALPHA_AUTO_BLEND, -2);
+		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, -4, .2f, 1, .75f, 1);
 		rect.x = 600;
-		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, .2f, 1, .75f, 1, 0, PXL_ALPHA_AUTO_BLEND, 1);
+		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, 7, .2f, 1, .75f, 1);
 		rect.x = 720;
-		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, .2f, 1, .75f, 1, 0, PXL_ALPHA_AUTO_BLEND, 1);
+		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, 8, .2f, 1, .75, 1);
 		rect.x = 840;
-		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, .2f, 1, .75f, 1, 0, PXL_ALPHA_AUTO_BLEND, -10);
+		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, -2, .2f, 1, .75f, 1);
 
 		for (int n = 0; n < point_lights.size(); ++n) {
 			point_lights[n]->intensity = (sin(t / (10 + (n / 10))) + 1) / 8;
