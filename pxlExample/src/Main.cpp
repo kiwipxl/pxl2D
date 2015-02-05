@@ -63,6 +63,7 @@ int main(int argc, char* args[]) {
 			int((rand() / float(RAND_MAX)) * PXL_window_height), radius, .15f, 
 			rand() / float(RAND_MAX), rand() / float(RAND_MAX), rand() / float(RAND_MAX)));
 	}
+	PXL_set_point_light_config(.95f);
 
 	PXL_FrameBuffer frame_buffer = PXL_FrameBuffer(PXL_window_width, PXL_window_height);
 
@@ -154,7 +155,7 @@ int main(int argc, char* args[]) {
 			point_lights[n]->intensity = PXL_clamp(point_lights[n]->intensity, 0, 99);
 		}
 
-		PXL_render_point_lights(&batch, batch.get_max_z_depth() - 1);
+		PXL_render_point_lights(&batch, batch.get_min_z_depth());
 
 		text.set_text("timer: " + std::to_string(t) + "\nnewline testtext");
 		text.rotation += PXL_fast_cos(t / 10);

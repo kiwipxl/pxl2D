@@ -192,7 +192,7 @@ const char* PXL_grayscale_shader_str = GLSL(
 	void main() {
 		pixel = texture(t0, tex_coord);
 		float g = dot(pixel.rgb, vec3(0.299, 0.587, 0.114));
-		pixel.rgb = vec3(g, g, g);
+		pixel = vec4(g, g, g, v_colour.a * pixel.a);
 	}
 
 	//[END_FRAGMENT]

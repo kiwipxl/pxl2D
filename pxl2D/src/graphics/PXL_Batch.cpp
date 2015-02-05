@@ -100,25 +100,27 @@ void PXL_Batch::clear_all() {
 void PXL_Batch::use_shader(PXL_ShaderProgram* shader) {
 	if (shader == NULL) { shader = PXL_default_shader; }
 
-	current_shader = shader;
+	if (current_shader != shader) {
+		current_shader = shader;
 
-	//use specified program id
-	glUseProgram(current_shader->get_program_id());
+		//use specified program id
+		glUseProgram(current_shader->get_program_id());
 
-	//set matrix uniform in the vertex shader for the program
-	view_mat.identity();
-	glUniformMatrix4fv(current_shader->get_matrix_loc(), 1, true, (view_mat * perspective_mat).get_mat());
+		//set matrix uniform in the vertex shader for the program
+		view_mat.identity();
+		glUniformMatrix4fv(current_shader->get_matrix_loc(), 1, true, (view_mat * perspective_mat).get_mat());
+	}
 }
 
 void PXL_Batch::use_blend_mode(PXL_BlendMode blend_mode) {
-	//if (current_blend_mode != blend_mode) {
+	if (current_blend_mode != blend_mode) {
 		current_blend_mode = blend_mode;
 		if (current_blend_mode == PXL_BLEND) {
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		}else if (current_blend_mode == PXL_NO_BLEND) {
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_CONSTANT_COLOR);
 		}
-	//}
+	}
 }
 
 void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, float rotation, PXL_Vec2* origin, 
