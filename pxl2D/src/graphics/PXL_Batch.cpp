@@ -70,8 +70,9 @@ void PXL_Batch::render_all() {
 			glBindFramebuffer(PXL_GL_FRAMEBUFFER_WRITE, 0);
 		}
 
-		//clear depth buffer bit
-		glClear(GL_DEPTH_BUFFER_BIT);
+		glDisable(GL_DEPTH_TEST);
+		glDisable(GL_ALPHA_TEST);
+		glEnable(GL_BLEND);
 
 		draw_vbo();
 	}
@@ -100,6 +101,7 @@ void PXL_Batch::use_shader(PXL_ShaderProgram* shader) {
 	if (shader == NULL) { shader = PXL_default_shader; }
 
 	current_shader = shader;
+
 	//use specified program id
 	glUseProgram(current_shader->get_program_id());
 
@@ -109,17 +111,14 @@ void PXL_Batch::use_shader(PXL_ShaderProgram* shader) {
 }
 
 void PXL_Batch::use_blend_mode(PXL_BlendMode blend_mode) {
-	if (current_blend_mode != blend_mode) {
+	//if (current_blend_mode != blend_mode) {
 		current_blend_mode = blend_mode;
 		if (current_blend_mode == PXL_BLEND) {
-			glDisable(GL_DEPTH_TEST);
-			glDisable(GL_ALPHA_TEST);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		}else if (current_blend_mode == PXL_NO_BLEND) {
-			glEnable(GL_DEPTH_TEST);
-			glAlphaFunc(GL_GREATER, .01f);
-			glEnable(GL_ALPHA_TEST);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_CONSTANT_COLOR);
 		}
-	}
+	//}
 }
 
 void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, float rotation, PXL_Vec2* origin, 
@@ -337,29 +336,35 @@ void PXL_Batch::draw_vbo() {
 	int batch_index = 0;
 	int offset = 0;
 	int size = 0;
-	bool changed;
+	bool changed = false;
 
 	int prev_id = vertex_batches[0].texture_id;
+	glBindTexture(GL_TEXTURE_2D, prev_id);
 	PXL_BlendMode prev_blend_mode = vertex_batches[0].blend_mode;
 	use_blend_mode(prev_blend_mode);
 	PXL_ShaderProgram* prev_shader = vertex_batches[0].shader;
 	use_shader(prev_shader);
-	size += vertex_batches[0].num_vertices;
-	for (int i = 1; i < num_added + 1; ++i) {
-		changed = false;
+	for (int i = 0; i < num_added + 1; ++i) {
+		if (i >= num_added) {
+			use_shader(vertex_batches[i].shader);
+			use_blend_mode(vertex_batches[i].blend_mode);
+			changed = true;
+		}
 
+		glBindTexture(GL_TEXTURE_2D, prev_id);
 		if (vertex_batches[i].texture_id != prev_id) {
-			glBindTexture(GL_TEXTURE_2D, prev_id);
 			prev_id = vertex_batches[i].texture_id;
 			changed = true;
 		}
+
+		use_shader(prev_shader);
 		if (vertex_batches[i].shader != prev_shader) {
-			use_shader(prev_shader);
 			prev_shader = vertex_batches[i].shader;
 			changed = true;
 		}
+
+		use_blend_mode(prev_blend_mode);
 		if (vertex_batches[i].blend_mode != prev_blend_mode) {
-			use_blend_mode(prev_blend_mode);
 			prev_blend_mode = vertex_batches[i].blend_mode;
 			changed = true;
 		}
@@ -370,6 +375,8 @@ void PXL_Batch::draw_vbo() {
 
 			offset += size;
 			size = 0;
+
+			changed = false;
 		}
 		size += vertex_batches[i].num_vertices;
 	}
