@@ -70,6 +70,7 @@ void PXL_Batch::render_all() {
 			glBindFramebuffer(PXL_GL_FRAMEBUFFER_WRITE, 0);
 		}
 
+		glClear(GL_DEPTH_BUFFER_BIT);
 		glDisable(GL_DEPTH_TEST);
 		glDisable(GL_ALPHA_TEST);
 		glEnable(GL_BLEND);
@@ -118,7 +119,7 @@ void PXL_Batch::use_blend_mode(PXL_BlendMode blend_mode) {
 		if (current_blend_mode == PXL_BLEND) {
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		}else if (current_blend_mode == PXL_NO_BLEND) {
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_CONSTANT_COLOR);
+			//glBlendFunc(GL_SRC_ALPHA_SATURATE, GL_ONE);
 		}
 	}
 }

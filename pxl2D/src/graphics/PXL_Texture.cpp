@@ -35,6 +35,20 @@ void PXL_Texture::create_texture(int w, int h, unsigned char* pixels, int pixel_
 		texture_created = false;
 	}
 
+	if (pixels == NULL) {
+		has_transparency = true;
+	}else {
+		for (int n = 0; n < (w * h) * 4; n += 4) {
+			if (pixels[n + 3] == 0) {
+				pixels[n] = 255;
+				pixels[n + 1] = 255;
+				pixels[n + 2] = 255;
+				pixels[n + 3] = 0;
+				has_transparency = true;
+			}
+		}
+	}
+
 	width = w;
 	height = h;
 	glGenTextures(1, &gl_id);
@@ -45,17 +59,6 @@ void PXL_Texture::create_texture(int w, int h, unsigned char* pixels, int pixel_
 
 	unique_id = unique_texture_id;
 	++unique_texture_id;
-
-	if (pixels == NULL) {
-		has_transparency = true;
-	}else {
-		for (int n = 0; n < w * h; n += 4) {
-			if (pixels[n + 3] == 0) {
-				has_transparency = true;
-				break;
-			}
-		}
-	}
 
 	texture_created = true;
 }

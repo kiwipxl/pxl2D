@@ -115,9 +115,9 @@ int main(int argc, char* args[]) {
 				rect.x = pos[n] + origin.x;
 				rect.y = pos[n + 1] + origin.y;
 				if (rect.x >= 512) {
-					batch.add(cat, &rect, NULL, t, &origin, PXL_FLIP_NONE, 10, .75f, .5f, 1, .5f, PXL_grayscale_shader, PXL_NO_BLEND);
+					//batch.add(cat, &rect, NULL, t, &origin, PXL_FLIP_NONE, 10, .75f, .5f, 1, .5f, PXL_grayscale_shader, PXL_NO_BLEND);
 				}else {
-					batch.add(cat_2, &rect, NULL, t, &origin);
+					//batch.add(cat_2, &rect, NULL, t, &origin);
 				}
 			}
 		}else if (t >= 100) {
@@ -125,29 +125,29 @@ int main(int argc, char* args[]) {
 				rect.x = pos[n] + origin.x;
 				rect.y = pos[n + 1] + origin.y;
 				if (rect.x >= 512) {
-					batch.add(cute_cat, &rect, NULL, t, &origin, PXL_FLIP_NONE, batch.get_max_z_depth() - 10, .2f, 1, .75f, .5f);
+					//batch.add(cute_cat, &rect, NULL, t, &origin, PXL_FLIP_NONE, batch.get_max_z_depth() - 10, .2f, 1, .75f, .5f);
 				}else {
-					batch.add(cat_2, &rect, NULL, t, &origin, PXL_FLIP_NONE, 0, 1, 1, 1, .1f);
+					//batch.add(cat_2, &rect, NULL, t, &origin, PXL_FLIP_NONE, 0, 1, 1, 1, .1f);
 				}
 			}
 		}
 
 		rect.x = 0; rect.y = 0; rect.w = 180; rect.h = 200;
-		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, 10, 1, 1, 1, 1, PXL_grayscale_shader, PXL_NO_BLEND);
+		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, 10, 1, 1, 1, .9f, 0, PXL_NO_BLEND);
 		rect.x = 120;
-		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, 4, .2f, .75f, .5f, 1);
+		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, 4, .2f, .75f, .5f, .8f);
 		rect.x = 240;
-		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, 3, .2f, .2f, .2f, 1);
+		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, 3, .2f, .2f, .2f, .75f);
 		rect.x = 360;
-		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, batch.get_min_z_depth(), .2f, 1, .5f, 1, PXL_grayscale_shader, PXL_NO_BLEND);
+		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, batch.get_min_z_depth(), .2f, 1, .5f, .5f, 0, PXL_NO_BLEND);
 		rect.x = 480;
-		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, 4, .2f, 1, 1, 1);
+		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, 4, .2f, 1, 1, .8f);
 		rect.x = 600;
-		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, 7, 1, 1, .75f, 1);
+		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, 7, 1, 1, .75f, .4f);
 		rect.x = 720;
-		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, batch.get_max_z_depth() - 1, .2f, .5f, .5f, 1, PXL_grayscale_shader, PXL_NO_BLEND);
+		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, batch.get_max_z_depth() - 1, .2f, .5f, .5f, .7f, 0, PXL_NO_BLEND);
 		rect.x = 840;
-		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, -2, 1, .5f, .75f, 1);
+		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, -2, 1, .5f, .75f, .55f);
 
 		for (int n = 0; n < point_lights.size(); ++n) {
 			point_lights[n]->intensity = (sin(t / (10 + (n / 10))) + 1) / 8;
@@ -155,7 +155,7 @@ int main(int argc, char* args[]) {
 			point_lights[n]->intensity = PXL_clamp(point_lights[n]->intensity, 0, 99);
 		}
 
-		PXL_render_point_lights(&batch, batch.get_min_z_depth());
+		//PXL_render_point_lights(&batch, batch.get_min_z_depth());
 
 		text.set_text("timer: " + std::to_string(t) + "\nnewline testtext");
 		text.rotation += PXL_fast_cos(t / 10);

@@ -32,7 +32,7 @@ enum PXL_BlendMode {
 
 struct PXL_VertexPoint {
 
-	struct PXL_Vertex_Vec2 {
+	struct PXL_VertexPos {
 		float x = 0, y = 0;
 	} pos;
 	struct PXL_Vertex_UVCoord {

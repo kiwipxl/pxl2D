@@ -3,7 +3,7 @@
 
 #include <string>
 #include <vector>
-#define NOMINMAX
+#define NOMINMAX //macro to not have the windows header define min/max so it doesn't interfere
 #include <Windows.h>
 
 class PXL_Window;

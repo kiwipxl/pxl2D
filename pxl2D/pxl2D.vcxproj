@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\physics\PXL_Collision.cpp" />
     <ClCompile Include="src\PXL.cpp" />
     <ClCompile Include="src\graphics\PXL_Batch.cpp" />
     <ClCompile Include="src\graphics\PXL_Bitmap.cpp" />
@@ -26,6 +27,7 @@
     <ClCompile Include="src\graphics\PXL_ShaderProgram.cpp" />
     <ClCompile Include="src\graphics\PXL_TextureSheet.cpp" />
     <ClCompile Include="src\PXL_Graphics.cpp" />
+    <ClCompile Include="src\PXL_Physics.cpp" />
     <ClCompile Include="src\PXL_System.cpp" />
     <ClCompile Include="src\system\PXL_Exception.cpp" />
     <ClCompile Include="src\system\PXL_Math.cpp" />
@@ -35,6 +37,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\graphics\PXL_PrebuiltShaders.h" />
+    <ClInclude Include="include\physics\PXL_Collision.h" />
     <ClInclude Include="include\PXL.h" />
     <ClInclude Include="include\graphics\PXL_Batch.h" />
     <ClInclude Include="include\graphics\PXL_Bitmap.h" />
@@ -51,6 +54,7 @@
     <ClInclude Include="include\graphics\PXL_ShaderProgram.h" />
     <ClInclude Include="include\graphics\PXL_TextureSheet.h" />
     <ClInclude Include="include\PXL_Graphics.h" />
+    <ClInclude Include="include\PXL_Physics.h" />
     <ClInclude Include="include\PXL_System.h" />
     <ClInclude Include="include\system\PXL_Config.h" />
     <ClInclude Include="include\system\PXL_Exception.h" />
@@ -89,17 +93,17 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)lib\glew-1.11.0\include;$(ProjectDir)lib\libpng-1.2.37\include;$(ProjectDir)lib\zlib-1.2.3\include;$(ProjectDir)lib\freetype-2.3.5\include;$(ProjectDir)lib\freetype-2.3.5\include\freetype2;$(ProjectDir)include;$(ProjectDir)include\graphics;$(ProjectDir)include\system</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)lib\glew-1.11.0\include;$(ProjectDir)lib\libpng-1.2.37\include;$(ProjectDir)lib\zlib-1.2.3\include;$(ProjectDir)lib\freetype-2.3.5\include;$(ProjectDir)lib\freetype-2.3.5\include\freetype2;$(ProjectDir)include;$(ProjectDir)include\graphics;$(ProjectDir)include\system;$(ProjectDir)include\physics;</IncludePath>
     <OutDir>$(SolutionDir)pxlExample\lib\pxl2D</OutDir>
     <TargetName>pxl2D</TargetName>
     <IntDir>$(Configuration)\</IntDir>
-    <SourcePath>$(ProjectDir)src;$(ProjectDir)src\graphics;$(ProjectDir)src\system;$(SourcePath)</SourcePath>
+    <SourcePath>$(ProjectDir)src;$(ProjectDir)src\graphics;$(ProjectDir)src\system;$(ProjectDir)src\physics;$(SourcePath)</SourcePath>
     <LibraryPath>$(ProjectDir)lib\libpng-1.2.37\lib;$(ProjectDir)lib\zlib-1.2.3\lib;$(ProjectDir)lib\freetype-2.3.5\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)lib\glew-1.11.0\include;$(ProjectDir)lib\libpng-1.2.37\include;$(ProjectDir)lib\zlib-1.2.3\include;$(ProjectDir)lib\freetype-2.3.5\include;$(ProjectDir)lib\freetype-2.3.5\include\freetype2;$(ProjectDir)include;$(ProjectDir)include\graphics;$(ProjectDir)include\system;$(ProjectDir)sparsehash\google\sparsehash</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)lib\glew-1.11.0\include;$(ProjectDir)lib\libpng-1.2.37\include;$(ProjectDir)lib\zlib-1.2.3\include;$(ProjectDir)lib\freetype-2.3.5\include;$(ProjectDir)lib\freetype-2.3.5\include\freetype2;$(ProjectDir)include;$(ProjectDir)include\graphics;$(ProjectDir)include\system;$(ProjectDir)include\physics;$(ProjectDir)include\physics</IncludePath>
     <LibraryPath>$(ProjectDir)lib\libpng-1.2.37\lib;$(ProjectDir)lib\zlib-1.2.3\lib;$(ProjectDir)lib\freetype-2.3.5\lib;$(LibraryPath)</LibraryPath>
-    <SourcePath>$(ProjectDir)src;$(ProjectDir)src\graphics;$(ProjectDir)src\system;$(ProjectDir)sparsehash\google\sparsehash;$(SourcePath)</SourcePath>
+    <SourcePath>$(ProjectDir)src;$(ProjectDir)src\graphics;$(ProjectDir)src\system;$(ProjectDir)src\physics;$(ProjectDir)src\physics;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
