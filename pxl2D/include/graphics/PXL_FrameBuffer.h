@@ -1,5 +1,5 @@
-#ifndef FRAME_BUFFER_H
-#define FRAME_BUFFER_H
+#ifndef _PXL_FRAME_BUFFER_H
+#define _PXL_FRAME_BUFFER_H
 
 #include "PXL_Structs.h"
 #include "PXL_Texture.h"

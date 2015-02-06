@@ -1,5 +1,5 @@
-#ifndef BITMAP_H
-#define BITMAP_H
+#ifndef _PXL_BITMAP_H
+#define _PXL_BITMAP_H
 
 #include <string>
 #include "PXL_ImageUtils.h"

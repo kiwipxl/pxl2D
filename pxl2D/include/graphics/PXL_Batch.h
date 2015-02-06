@@ -1,5 +1,5 @@
-#ifndef BATCH_H
-#define BATCH_H
+#ifndef _PXL_BATCH_H
+#define _PXL_BATCH_H
 
 #include <vector>
 #include "PXL_Bitmap.h"

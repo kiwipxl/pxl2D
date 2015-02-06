@@ -1,5 +1,5 @@
-#ifndef TEXTURE_SHEET_H
-#define TEXTURE_SHEET_H
+#ifndef _PXL_TEXTURE_SHEET_H
+#define _PXL_TEXTURE_SHEET_H
 
 #include <glew.h>
 #include <vector>

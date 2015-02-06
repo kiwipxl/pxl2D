@@ -1,5 +1,5 @@
-#ifndef LIGHTS_H
-#define LIGHTS_H
+#ifndef _PXL_LIGHTS_H
+#define _PXL_LIGHTS_H
 
 #include <iostream>
 #include <vector>

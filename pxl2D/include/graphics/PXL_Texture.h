@@ -1,5 +1,5 @@
-#ifndef TEXTURE_H
-#define TEXTURE_H
+#ifndef _PXL_TEXTURE_H
+#define _PXL_TEXTURE_H
 
 #include <glew.h>
 #include "PXL_Structs.h"

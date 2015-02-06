@@ -1,5 +1,5 @@
-#ifndef PXL_H
-#define PXL_H
+#ifndef _PXL_H
+#define _PXL_H
 
 #include "PXL_Graphics.h"
 #include "PXL_System.h"

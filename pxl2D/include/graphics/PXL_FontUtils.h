@@ -1,5 +1,5 @@
-#ifndef FONT_UTILS_H
-#define FONT_UTILS_H
+#ifndef _PXL_FONT_UTILS_H
+#define _PXL_FONT_UTILS_H
 
 #include <string>
 #include "PXL_Structs.h"

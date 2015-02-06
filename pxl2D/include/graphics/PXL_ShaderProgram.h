@@ -1,5 +1,5 @@
-#ifndef SHADER_PROGRAM_H
-#define SHADER_PROGRAM_H
+#ifndef _PXL_SHADER_PROGRAM_H
+#define _PXL_SHADER_PROGRAM_H
 
 #include <glew.h>
 #include <string>

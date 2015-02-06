@@ -1,5 +1,5 @@
-#ifndef TEXT_H
-#define TEXT_H
+#ifndef _PXL_TEXT_H
+#define _PXL_TEXT_H
 
 #include <string>
 #include "PXL_FontUtils.h"

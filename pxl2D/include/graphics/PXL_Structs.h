@@ -1,5 +1,5 @@
-#ifndef STRUCTS_H
-#define STRUCTS_H
+#ifndef _PXL_STRUCTS_H
+#define _PXL_STRUCTS_H
 
 struct PXL_Rect {
 

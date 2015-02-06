@@ -1,5 +1,5 @@
-#ifndef MATRIX_4_H
-#define MATRIX_4_H
+#ifndef _PXL_MATRIX_4_H
+#define _PXL_MATRIX_4_H
 
 #include <glew.h>
 #include "PXL_Structs.h"

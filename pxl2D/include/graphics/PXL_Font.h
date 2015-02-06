@@ -1,5 +1,5 @@
-#ifndef FONT_H
-#define FONT_H
+#ifndef _PXL_FONT_H
+#define _PXL_FONT_H
 
 #include "PXL_FontUtils.h"
 #include "PXL_TextureSheet.h"
