@@ -35,15 +35,6 @@ int main(int argc, char* args[]) {
 	PXL_Text text(font, "", 150, 450, 42);
 	text.set_origin(PXL_CENTER_ORIGIN);
 
-	std::vector<PXL_PointLight*> point_lights;
-	for (int n = 0; n < 72 * 7; n += 7) {
-		float radius = 200 + ((rand() / float(RAND_MAX)) * 400);
-		point_lights.push_back(PXL_create_point_light(int((rand() / float(RAND_MAX)) * PXL_window_width),
-			int((rand() / float(RAND_MAX)) * PXL_window_height), radius, .15f, 
-			rand() / float(RAND_MAX), rand() / float(RAND_MAX), rand() / float(RAND_MAX)));
-	}
-	PXL_set_point_light_config(.95f);
-
 	PXL_Rect sheet_rect;
 	PXL_Rect sheet_src;
 	PXL_Vec2 sheet_origin;
@@ -64,6 +55,15 @@ int main(int argc, char* args[]) {
 	sheet_origin.x = sheet_rect.w / 2; sheet_origin.y = sheet_rect.h / 2;
 
 	sheet.create();
+
+	std::vector<PXL_PointLight*> point_lights;
+	for (int n = 0; n < 72 * 7; n += 7) {
+		float radius = 200 + ((rand() / float(RAND_MAX)) * 400);
+		point_lights.push_back(PXL_create_point_light(int((rand() / float(RAND_MAX)) * PXL_window_width),
+			int((rand() / float(RAND_MAX)) * PXL_window_height), radius, .15f, 
+			rand() / float(RAND_MAX), rand() / float(RAND_MAX), rand() / float(RAND_MAX)));
+	}
+	PXL_set_point_light_config(.95f);
 
 	//PXL_FrameBuffer frame_buffer = PXL_FrameBuffer(PXL_window_width, PXL_window_height);
 
@@ -133,9 +133,9 @@ int main(int argc, char* args[]) {
 
 		sheet_rect.x = 0; sheet_rect.y = 0;
 		sheet_rect.w = PXL_window_width; sheet_rect.h = PXL_window_height;
-		batch.add(&sheet, &sheet_rect, NULL, 0, 0, PXL_FLIP_NONE);
+		batch.add(&sheet, &sheet_rect, NULL, 0, 0, PXL_FLIP_NONE, batch.get_min_z_depth());
 
-		/*rect.x = 0; rect.y = 0; rect.w = 180; rect.h = 200;
+		rect.x = 0; rect.y = 0; rect.w = 180; rect.h = 200;
 		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, 10, 1, 1, 1, .9f, 0, PXL_NO_BLEND);
 		rect.x = 120;
 		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, 4, .2f, .75f, .5f, .8f);
@@ -150,7 +150,7 @@ int main(int argc, char* args[]) {
 		rect.x = 720;
 		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, batch.get_max_z_depth() - 1, .2f, .5f, .5f, .7f, 0, PXL_NO_BLEND);
 		rect.x = 840;
-		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, -2, 1, .5f, .75f, .55f);*/
+		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, -2, 1, .5f, .75f, .55f);
 
 		for (int n = 0; n < point_lights.size(); ++n) {
 			point_lights[n]->intensity = (sin(t / (10 + (n / 10))) + 1) / 8;
@@ -158,14 +158,14 @@ int main(int argc, char* args[]) {
 			point_lights[n]->intensity = PXL_clamp(point_lights[n]->intensity, 0, 99);
 		}
 
-		//PXL_render_point_lights(&batch, batch.get_min_z_depth());
+		PXL_render_point_lights(&batch, batch.get_min_z_depth() + 1);
 
 		text.set_text("timer: " + std::to_string(t) + "\nnewline testtext");
 		text.rotation += PXL_fast_cos(t / 10);
 		text.set_colour(.5f, 0, 1, 1);
 		text.scale(PXL_fast_sin(t / 10) / 50, PXL_fast_sin(t / 10) / 50);
 		text.z_depth = batch.get_max_z_depth();
-		//text.render(&batch);
+		text.render(&batch);
 
 		PXL_start_timer();
 		batch.render_all();

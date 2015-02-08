@@ -14,7 +14,6 @@ PXL_TextureSheet::PXL_TextureSheet() {
 	width = 0;
 	height = 0;
 	bg_colour.r = bg_colour.g = bg_colour.b = bg_colour.a = 0;
-	bg_colour.b = bg_colour.a = 1;
 
 	batch = new PXL_Batch(PXL_BATCH_SMALL);
 }
@@ -76,6 +75,7 @@ void PXL_TextureSheet::create(bool dispose_all) {
 	//todo remove unique ids from textures
 	//todo texture's hold pixel blocks on multiple getpixel calls
 	//todo texture bitmap information (buffer size, channels, ect), optional: texture's inherit bitmaps and protected methods
+	//todo min x, y positions using glviewport
 
 	texture_created = true;
 }

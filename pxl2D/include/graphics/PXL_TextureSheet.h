@@ -20,7 +20,6 @@ class PXL_TextureSheet : public PXL_Texture {
 		~PXL_TextureSheet();
 
 		//sheet info
-		bool alpha_blending = true;
 		PXL_RGBA bg_colour;
 
 		/**
