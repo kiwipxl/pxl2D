@@ -2,16 +2,16 @@
 #include <iostream>
 #include "PXL_Window.h"
 
-PXL_FrameBuffer::PXL_FrameBuffer(int w, int h) {
+PXL_FrameBuffer::PXL_FrameBuffer(int w, int h, bool create_depth_buffer) {
 	frame_buffer_created = false;
-	create_frame_buffer(w, h);
+	create_frame_buffer(w, h, create_depth_buffer);
 }
 
-PXL_FrameBuffer* PXL_create_frame_buffer(int w, int h) {
-	return new PXL_FrameBuffer(w, h);
+PXL_FrameBuffer* PXL_create_frame_buffer(int w, int h, bool create_depth_buffer) {
+	return new PXL_FrameBuffer(w, h, create_depth_buffer);
 }
 
-void PXL_FrameBuffer::create_frame_buffer(int w, int h) {
+void PXL_FrameBuffer::create_frame_buffer(int w, int h, bool create_depth_buffer) {
 	//if the frame_buffer is already created then delete the frame_buffer but not the buffer
 	if (frame_buffer_created) {
 		free();
@@ -27,13 +27,17 @@ void PXL_FrameBuffer::create_frame_buffer(int w, int h) {
 	glFramebufferParameteri(GL_DRAW_FRAMEBUFFER, GL_FRAMEBUFFER_DEFAULT_HEIGHT, height);
 	glFramebufferParameteri(GL_DRAW_FRAMEBUFFER, GL_FRAMEBUFFER_DEFAULT_SAMPLES, 4);
 
-	glGenRenderbuffers(1, &depth_id);
-	glBindRenderbuffer(GL_RENDERBUFFER, depth_id);
-	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
-	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, depth_id);
+	if (create_depth_buffer) {
+		glGenRenderbuffers(1, &depth_id);
+		glBindRenderbuffer(GL_RENDERBUFFER, depth_id);
+		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
+		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, depth_id);
+	}else {
+		depth_id = -1;
+	}
 
 	texture = new PXL_Texture(width, height);
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, get_gl_texture_id(), 0);
+	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 , GL_TEXTURE_2D, get_gl_texture_id(), 0);
 
 	clear(1, 1, 1, 0);
 
@@ -50,8 +54,10 @@ void PXL_FrameBuffer::create_frame_buffer(int w, int h) {
 void PXL_FrameBuffer::clear(float r, float g, float b, float a) {
 	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, id);
 	glClearColor(r, g, b, a);
-	//glClearBufferiv(GL_DRAW_FRAMEBUFFER, get_texture_id(), 0);
 	glClear(GL_COLOR_BUFFER_BIT);
+	if (depth_id != -1) {
+		glClear(GL_DEPTH_BUFFER_BIT);
+	}
 }
 
 void PXL_FrameBuffer::blit(PXL_FrameBuffer* dest_frame_buffer, PXL_Rect* rect, PXL_Rect* src_rect, PXL_TextureFilter filter) {
@@ -86,19 +92,13 @@ void PXL_FrameBuffer::bind(PXL_FrameBufferAction action) {
 }
 
 unsigned char* PXL_FrameBuffer::get_pixels() {
-	if (frame_buffer_created) {
-		glBindBuffer(GL_TEXTURE_2D, get_gl_texture_id());
-		unsigned char* pixels = new unsigned char[(width * height) * 4];
-		glGetTexImage(GL_FRAMEBUFFER, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
-		return pixels;
-	}
-	return NULL;
+	return texture->get_pixels();
 }
 
 void PXL_FrameBuffer::free() {
 	if (frame_buffer_created) {
 		glDeleteFramebuffers(1, &id);
-		glDeleteRenderbuffers(1, &depth_id);
+		if (depth_id != -1) { glDeleteRenderbuffers(1, &depth_id); }
 		delete texture;
 		frame_buffer_created = false;
 	}

@@ -7,7 +7,6 @@
 #include "PXL_Matrix4.h"
 #include "PXL_Structs.h"
 #include "PXL_ShaderUtils.h"
-#include "PXL_TextureSheet.h"
 #include "PXL_ShaderProgram.h"
 #include "PXL_FrameBuffer.h"
 
@@ -110,7 +109,7 @@ class PXL_Batch {
 		**/
 		void set_target(PXL_FrameBuffer* buffer = NULL);
 
-		/** Adds the specified texture with a colour modification
+		/** Adds the specified texture to the batch render queue and transforms it with all specified parameters
 		@param texture The texture to add to the batch
 		@param rect Specifies where on the screen the texture will be rendered to
 		@param src_rect Specifies which part of the texture to use. Use NULL to use the whole texture

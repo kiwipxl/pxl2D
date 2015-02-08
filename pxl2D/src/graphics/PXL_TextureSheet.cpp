@@ -1,5 +1,12 @@
 #include "PXL_TextureSheet.h"
 #include <iostream>
+#include <system/PXL_Window.h>
+
+PXL_FrameBuffer* sheet_frame_buffer;
+
+void PXL_TextureSheet::init() {
+	sheet_frame_buffer = new PXL_FrameBuffer(1, 1);
+}
 
 PXL_TextureSheet::PXL_TextureSheet() {
 	//initiate sheet
@@ -7,156 +14,78 @@ PXL_TextureSheet::PXL_TextureSheet() {
 	width = 0;
 	height = 0;
 	bg_colour.r = bg_colour.g = bg_colour.b = bg_colour.a = 0;
+	bg_colour.b = bg_colour.a = 1;
+
+	batch = new PXL_Batch(PXL_BATCH_SMALL);
 }
 
-void PXL_TextureSheet::create() {
+void PXL_TextureSheet::create(bool dispose_all) {
+	if (width == 0 || height == 0) { return; }
+
 	//if the texture is already created then delete the sheet texture
 	if (texture_created) {
 		glDeleteTextures(1, &gl_id);
 		texture_created = false;
 	}
 
-	//initialise pixel array for sheet based on sheet width/height multiplied by 4 (r, g, b, a)
-	int arr_size = (width * height) * 4;
-	unsigned char* pixels = new unsigned char[arr_size];
-	//set each pixel to the background colour
-	for (int n = 0; n < arr_size; n += 4) {
-		pixels[n] = (char)bg_colour.r;
-		pixels[n + 1] = (char)bg_colour.g;
-		pixels[n + 2] = (char)bg_colour.b;
-		pixels[n + 3] = (char)bg_colour.a;
-	}
-
-	//loops through all pixel data and copy it into the pixel array
-	for (PXL_PixelBuffer* buffer : pixel_data) {
-		//start index based in pixels based on buffer x and y position
-		int index = (buffer->x * 4) + (buffer->y * (width * 4));
-		int channels = buffer->channels;
-		int r_channel = 4 - channels;
-		//calculate scale x and y
-		float scale_x = buffer->max_width / float(buffer->width);
-		float src_scale_x = float(buffer->src_rect.w) / buffer->max_width;
-		float scale_y = buffer->max_height / float(buffer->height);
-		float src_scale_y = float(buffer->src_rect.h) / buffer->max_height;
-		float offset_y = 0;
-		float src_offset_y = 0;
-		//loop through the height of the image
-		for (int i = 0; i < buffer->height; ++i) {
-			float offset_x = 0;
-			float src_offset_x = 0;
-			offset_y += scale_y - 1;
-			src_offset_y += (src_scale_y - 1) * scale_y;
-			//loop through the width of the image multiplied by 4 (r, g, b, a) values
-			for (int n = r_channel; n < buffer->width * 4; n += r_channel + 1) {
-				//calculate buffer index in one dimensional buffer array that scales width/height
-				int buffer_index;
-				//calculate y position
-				buffer_index = ((buffer->max_width * (i + int(offset_y + (src_offset_y + buffer->src_rect.y)))) * channels);
-				//calculate x position
-				buffer_index += (n / (r_channel + 1)) + (int((offset_x + src_offset_x) / 4) * 4);
-				buffer_index += buffer->src_rect.x * channels;
-				if (buffer_index >= buffer->buffer_size) { break; }
-
-				unsigned char value = buffer->buffer[buffer_index];
-
-				//checks whether the current pixel value is red
-				if (n % channels == 0) {
-					//calculate pixel offset x based on scale x
-					offset_x += (scale_x - 1) * 4;
-					src_offset_x += (src_scale_x - 1) * (4 * scale_x);
-					//if alpha blending is on, check whether the alpha value for the current pixel 
-					//is greater than 0 and skip the current pixel as a previous pixel has already been placed
-					if (channels == 4 && alpha_blending && buffer->buffer[buffer_index + 3] <= 250) {
-						n += 3;
-						continue;
-					}
-				}
-
-				//set pixel value
-				pixels[index + n] = value;
-			}
-			//move to a new line at the beginning of the image
-			index += width * 4;
-		}
-	}
+	width += 400;
+	batch->perspective_mat.identity();
+	batch->perspective_mat.scale(1.0f / PXL_center_window_x, -1.0f / PXL_center_window_y);
+	batch->perspective_mat.translate(-1.0f, (height / 2.0f) / PXL_window_height);
 
 	//create texture from resulting pixels
 	glGenTextures(1, &gl_id);
 	glBindTexture(GL_TEXTURE_2D, gl_id);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
-	glBindTexture(GL_TEXTURE_2D, NULL);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
 
 	set_filters();
 
-	texture_created = true;
-	delete[] pixels;
-}
+	sheet_frame_buffer->get_texture()->create(width, height, 0);
 
-void PXL_TextureSheet::delete_pixel_vec() {
-	int size = pixel_data.size();
-	for (int n = 0; n < size; ++n) {
-		delete pixel_data[n];
+	sheet_frame_buffer->clear(bg_colour.r, bg_colour.g, bg_colour.b, bg_colour.a);
+	batch->set_target(sheet_frame_buffer);
+	batch->render_all();
+
+	batch->set_target();
+	unsigned char* temp = sheet_frame_buffer->get_pixels();
+	unsigned char* pixels = new unsigned char[(width * height) * 4];
+	int row_size = width * 4;
+	for (int n = 0; n < height; ++n) {
+		memcpy(pixels + (n * row_size), temp + ((height - 1 - n) * row_size), row_size);
 	}
-	pixel_data.clear();
+	sheet_frame_buffer->bind(PXL_GL_FRAMEBUFFER_READ);
+	glReadBuffer(GL_COLOR_ATTACHMENT0);
+	std::cout << "before error: " << glGetError() << ", width: " << width << ", height: " << height << "\n";
+	glBindTexture(GL_TEXTURE_2D, gl_id);
+	//glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+	glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0, width, height);
+	std::cout << "after error: " << glGetError() << "\n";
+
+	glViewport(0, 0, PXL_window_width, PXL_window_height);
+	batch->perspective_mat.identity();
+	batch->perspective_mat.scale(1.0f / PXL_center_window_x, -1.0f / PXL_center_window_y);
+	batch->perspective_mat.translate(-1.0f, 1.0f);
+
+	//todo dispose all from batch list
+	//todo bind frame buffer texture
+	//todo bitmap pixel modes
+	//todo use texsubimagestorage for textures (can specify to turn off though)
+	//todo create texture only once and use a texture object
+	//todo remove unique ids from textures
+	//todo texture's hold pixel blocks on multiple getpixel calls
+	//todo texture bitmap information (buffer size, channels, ect), optional: texture's inherit bitmaps and protected methods
+
+	texture_created = true;
 }
 
-/**
-\*brief: adds bitmap pixels to the texture sheet
-\*param [bitmap]: the bitmap to be added to the sheet
-\*param [rect]: where in the sheet the rect will be placed
-\*param [src_rect]: the region of the bitmap which will be used
-**/
-void PXL_TextureSheet::add(PXL_Bitmap* bitmap, PXL_Rect* rect, PXL_Rect* src_rect) {
-	add(new PXL_PixelBuffer(rect->x, rect->y, rect->w, rect->h, bitmap->w, bitmap->h, 
-							&bitmap->pixels[0], (bitmap->w * bitmap->h) * 4, 4), rect);
-}
-
-/**
-\*brief: adds bitmap pixels to the texture sheet
-\*param [texture]: the texture to be added to the sheet
-\*param [rect]: where in the sheet the rect will be placed
-\*param [src_rect]: the region of the texture which will be used
-**/
-void PXL_TextureSheet::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect) {
-	add(new PXL_PixelBuffer(rect->x, rect->y, rect->w, rect->h, texture->get_width(), texture->get_height(), 
-							texture->get_pixels(), (texture->get_width() * texture->get_height()) * 4, 4), rect, src_rect);
-}
-
-/**
-\*brief: adds a pixel buffer to the texture sheet
-\*param [buffer]: holds all pixel information for an image
-\*param [rect]: where in the sheet the rect will be placed
-\*param [src_rect]: the region of the texture which will be used
-**/
-void PXL_TextureSheet::add(PXL_PixelBuffer* buffer, PXL_Rect* rect, PXL_Rect* src_rect) {
+void PXL_TextureSheet::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, float rotation, PXL_Vec2* origin, 
+						   PXL_Flip flip, int z_depth, float r, float g, float b, float a, 
+						   PXL_ShaderProgram* shader, PXL_BlendMode blend_mode) {
+	batch->add(texture, rect, src_rect, rotation, origin, flip, z_depth, r, g, b, a, shader, blend_mode);
 	int w = rect->x + rect->w;
 	int h = rect->y + rect->h;
 	if (w > width) { width = w; }
 	if (h > height) { height = h; }
-	buffer->x = rect->x;
-	buffer->y = rect->y;
-	buffer->width = rect->w;
-	buffer->height = rect->h;
-
-	if (src_rect == NULL) {
-		buffer->src_rect.w = buffer->max_width;
-		buffer->src_rect.h = buffer->max_height;
-	}else {
-		buffer->src_rect.x = src_rect->x;
-		buffer->src_rect.y = src_rect->y;
-		buffer->src_rect.w = src_rect->w;
-		buffer->src_rect.h = src_rect->h;
-		if (buffer->src_rect.x < 0) { buffer->src_rect.x = 0; }
-		if (buffer->src_rect.y < 0) { buffer->src_rect.y = 0; }
-		if (buffer->src_rect.x + buffer->src_rect.w >= buffer->max_width) {
-			buffer->src_rect.w = buffer->max_width - buffer->src_rect.x;
-		}
-		if (buffer->src_rect.y + buffer->src_rect.h >= buffer->max_height) {
-			buffer->src_rect.h = buffer->max_height - buffer->src_rect.y;
-		}
-	}
-
-	pixel_data.push_back(buffer);
 }
 
 void PXL_TextureSheet::free() {
@@ -164,7 +93,6 @@ void PXL_TextureSheet::free() {
 		glDeleteTextures(1, &gl_id);
 		texture_created = false;
 	}
-	pixel_data.clear();
 }
 
 PXL_TextureSheet::~PXL_TextureSheet() {

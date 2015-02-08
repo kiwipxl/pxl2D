@@ -21,33 +21,30 @@ PXL_Font::PXL_Font(std::string path, int c_max_font_size) {
 		f->style_flags = FT_STYLE_FLAG_BOLD;
 		for (int n = 0; n < f->num_glyphs; ++n) {
 			FT_Load_Glyph(f, n, FT_LOAD_RENDER);
-			PXL_PixelBuffer* pix_buf = new PXL_PixelBuffer();
-			pix_buf->width = f->glyph->bitmap.width;
-			pix_buf->height = f->glyph->bitmap.rows;
-			pix_buf->max_width = pix_buf->width;
-			pix_buf->max_height = pix_buf->height;
+			PXL_Bitmap* bitmap = new PXL_Bitmap();
+			bitmap->width = f->glyph->bitmap.width;
+			bitmap->height = f->glyph->bitmap.rows;
 
-			max_char_width = PXL_max(max_char_width, pix_buf->max_width);
-			max_char_height = PXL_max(max_char_height, pix_buf->max_height);
+			max_char_width = PXL_max(max_char_width, bitmap->width);
+			max_char_height = PXL_max(max_char_height, bitmap->height);
 
-			pix_buf->channels = 1;
-			pix_buf->buffer_size = pix_buf->width * pix_buf->height;
-			pix_buf->buffer = new unsigned char[pix_buf->buffer_size];
-			memcpy(pix_buf->buffer, f->glyph->bitmap.buffer, pix_buf->buffer_size);
+			bitmap->num_channels = 1;
+			bitmap->size = bitmap->width * bitmap->height;
+			bitmap->pixels = new unsigned char[bitmap->size];
+			memcpy(bitmap->pixels, f->glyph->bitmap.buffer, bitmap->size);
 
-			rect.w = pix_buf->width;
-			rect.h = pix_buf->height;
-			glyph_sheet->add(pix_buf, &rect);
+			rect.w = bitmap->width;
+			rect.h = bitmap->height;
+			//glyph_sheet->add(&PXL_Texture(bitmap, GL_COMPRESSED_ALPHA), &rect);
 			glyph_rects[n] = rect;
 
-			rect.x += pix_buf->width;
+			rect.x += bitmap->width;
 			if (rect.x >= 1024) {
 				rect.x = 0;
 				rect.y = glyph_sheet->get_height();
 			}
 		}
-		glyph_sheet->create();
-		glyph_sheet->delete_pixel_vec();
+		//glyph_sheet->create(true);
 	}
 }
 

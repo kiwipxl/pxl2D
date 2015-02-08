@@ -2,7 +2,6 @@
 #define _PXL_BITMAP_H
 
 #include <string>
-#include "PXL_ImageUtils.h"
 
 class PXL_Bitmap {
 
@@ -17,21 +16,24 @@ class PXL_Bitmap {
 		**/
 		PXL_Bitmap(std::string path);
 		/**
-		\*brief: creates the bitmap with specified values
+		\*brief: constructs the bitmap with specified values
 		\*param [width]: the width of the image
 		\*param [height]: the height of the image
 		\*param [buffer]: an array of pixels for the image
 		**/
-		PXL_Bitmap(int width, int height, unsigned char* buffer);
+		PXL_Bitmap(int width, int height, unsigned char* pixel_buffer);
 		/**
 		\*brief: bitmap deconstructor
 		**/
 		~PXL_Bitmap();
 
 		//bitmap data
-		int w;
-		int h;
+		int width;
+		int height;
 		unsigned char* pixels;
+		unsigned int size;
+		int num_channels;
+		int bit_depth;
 
 		/**
 		\*brief: loads a bitmap from the specified path

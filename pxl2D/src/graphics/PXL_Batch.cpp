@@ -70,12 +70,14 @@ void PXL_Batch::render_all() {
 			glBindFramebuffer(PXL_GL_FRAMEBUFFER_WRITE, 0);
 		}
 
-		glClear(GL_DEPTH_BUFFER_BIT);
+		//glClear(GL_DEPTH_BUFFER_BIT);
 		glDisable(GL_DEPTH_TEST);
 		glDisable(GL_ALPHA_TEST);
 		glEnable(GL_BLEND);
 
 		draw_vbo();
+
+		glBindFramebuffer(PXL_GL_FRAMEBUFFER_WRITE, 0);
 	}
 	clear_all();
 }

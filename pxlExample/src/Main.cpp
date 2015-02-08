@@ -42,7 +42,7 @@ int main(int argc, char* args[]) {
 
 	sheet_src.x = 128; sheet_src.y = 64; sheet_src.w = 320; sheet_src.h = 200;
 	sheet_rect.x = 0; sheet_rect.y = 0; sheet_rect.w = 1024; sheet_rect.h = 512;
-	sheet.add(cat, &sheet_rect, &sheet_src);
+	sheet.add(cat, &sheet_rect);
 
 	sheet_rect.x = 700; sheet_rect.y = 0; sheet_rect.w = 512; sheet_rect.h = 256;
 	sheet.add(cute_cat, &sheet_rect);
@@ -51,8 +51,8 @@ int main(int argc, char* args[]) {
 	sheet.add(cat_2, &sheet_rect);
 
 	sheet_rect.x = 0; sheet_rect.y = 0;
-	sheet_rect.w = PXL_window_width; sheet_rect.h = PXL_window_height;
-	//sheet_origin.x = sheet_rect.w / 2; sheet_origin.y = sheet_rect.h / 2;
+	sheet_rect.w = sheet.get_width(); sheet_rect.h = sheet.get_height();
+	sheet_origin.x = sheet_rect.w / 2; sheet_origin.y = sheet_rect.h / 2;
 
 	sheet.create();
 
@@ -132,7 +132,9 @@ int main(int argc, char* args[]) {
 			}
 		}
 
-		rect.x = 0; rect.y = 0; rect.w = 180; rect.h = 200;
+		batch.add(&sheet, &sheet_rect, NULL, 0, 0, PXL_FLIP_NONE);
+
+		/*rect.x = 0; rect.y = 0; rect.w = 180; rect.h = 200;
 		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, 10, 1, 1, 1, .9f, 0, PXL_NO_BLEND);
 		rect.x = 120;
 		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, 4, .2f, .75f, .5f, .8f);
@@ -147,7 +149,7 @@ int main(int argc, char* args[]) {
 		rect.x = 720;
 		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, batch.get_max_z_depth() - 1, .2f, .5f, .5f, .7f, 0, PXL_NO_BLEND);
 		rect.x = 840;
-		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, -2, 1, .5f, .75f, .55f);
+		batch.add(cute_cat, &rect, NULL, 0, 0, PXL_FLIP_NONE, -2, 1, .5f, .75f, .55f);*/
 
 		for (int n = 0; n < point_lights.size(); ++n) {
 			point_lights[n]->intensity = (sin(t / (10 + (n / 10))) + 1) / 8;
@@ -162,7 +164,7 @@ int main(int argc, char* args[]) {
 		text.set_colour(.5f, 0, 1, 1);
 		text.scale(PXL_fast_sin(t / 10) / 50, PXL_fast_sin(t / 10) / 50);
 		text.z_depth = batch.get_max_z_depth();
-		text.render(&batch);
+		//text.render(&batch);
 
 		PXL_start_timer();
 		batch.render_all();

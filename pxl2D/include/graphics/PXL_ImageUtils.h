@@ -3,44 +3,15 @@
 
 #include <string>
 #include <iostream>
-#include "PXL_Structs.h"
-
-struct PXL_PixelBuffer {
-
-	PXL_PixelBuffer() { }
-	PXL_PixelBuffer(int pos_x, int pos_y, 
-					unsigned int w, unsigned int h, 
-					unsigned int max_w, unsigned int max_h, 
-					unsigned char* pixels, unsigned int size, 
-					unsigned int channel_size) :
-					x(pos_x), y(pos_y), 
-					width(w), height(h), 
-					max_width(max_w), max_height(max_h), 
-					buffer(pixels), buffer_size(size), 
-					channels(channel_size) { }
-	~PXL_PixelBuffer() { free(); }
-
-	unsigned char* buffer;
-	unsigned int buffer_size;
-	unsigned int channels = 4;
-	int x = 0;
-	int y = 0;
-	unsigned int width;
-	unsigned int height;
-	unsigned int max_width;
-	unsigned int max_height;
-	PXL_Rect src_rect;
-
-	void free() {
-		delete[] buffer;
-		buffer = NULL;
-	}
-};
+#include "PXL_Bitmap.h"
 
 /**
-\*brief: loads the contents of a png image into a PXL_PixelBuffer
+\*brief: loads the contents of a png image into a PXL_Bitmap
 \*param [file_name]: the path and file name of the png to load
+\*param [bitmap]: The bitmap object to load the png data into. If this value is NULL, a new bitmap will be created with the new values
+\*return Returns a newly created bitmap if the bitmap parameter is NULL, otherwise the specified bitmap will be returned. However, 
+if an error occurs NULL will be returned.
 **/
-extern PXL_PixelBuffer* PXL_load_png(std::string file_name);
+extern PXL_Bitmap* PXL_load_png(std::string file_name, PXL_Bitmap* bitmap = NULL);
 
 #endif
