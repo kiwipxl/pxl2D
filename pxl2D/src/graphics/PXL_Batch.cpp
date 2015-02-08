@@ -70,7 +70,6 @@ void PXL_Batch::render_all() {
 			glBindFramebuffer(PXL_GL_FRAMEBUFFER_WRITE, 0);
 		}
 
-		//glClear(GL_DEPTH_BUFFER_BIT);
 		glDisable(GL_DEPTH_TEST);
 		glDisable(GL_ALPHA_TEST);
 		glEnable(GL_BLEND);
@@ -135,6 +134,7 @@ void PXL_Batch::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, fl
 }
 
 bool PXL_Batch::verify_texture_add(PXL_Texture* texture, PXL_Rect* rect) {
+	return true;
 	if (texture->texture_created) {
 		if (rect->x + rect->w > 0 && rect->y + rect->h > 0 && rect->x < PXL_window_width && rect->y < PXL_window_height) {
 			if (num_added + 1 >= max_quads_amount) {

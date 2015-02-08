@@ -28,10 +28,10 @@ void PXL_TextureSheet::create(bool dispose_all) {
 		texture_created = false;
 	}
 
-	width += 400;
+	glViewport(0, 0, width, height);
 	batch->perspective_mat.identity();
-	batch->perspective_mat.scale(1.0f / PXL_center_window_x, -1.0f / PXL_center_window_y);
-	batch->perspective_mat.translate(-1.0f, (height / 2.0f) / PXL_window_height);
+	batch->perspective_mat.scale(1.0f / (width / 2), -1.0f / (height / 2));
+	batch->perspective_mat.translate(-1.0f, 1.0f);
 
 	//create texture from resulting pixels
 	glGenTextures(1, &gl_id);
@@ -47,24 +47,26 @@ void PXL_TextureSheet::create(bool dispose_all) {
 	batch->render_all();
 
 	batch->set_target();
+
+	//copytexsubimage copy method
+	sheet_frame_buffer->bind(PXL_GL_FRAMEBUFFER_READ);
+	//glBindTexture(GL_TEXTURE_2D, gl_id);
+	//glReadBuffer(GL_COLOR_ATTACHMENT0);
+	//glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0, width, height);
+
 	unsigned char* temp = sheet_frame_buffer->get_pixels();
 	unsigned char* pixels = new unsigned char[(width * height) * 4];
 	int row_size = width * 4;
 	for (int n = 0; n < height; ++n) {
 		memcpy(pixels + (n * row_size), temp + ((height - 1 - n) * row_size), row_size);
 	}
-	sheet_frame_buffer->bind(PXL_GL_FRAMEBUFFER_READ);
-	glReadBuffer(GL_COLOR_ATTACHMENT0);
-	std::cout << "before error: " << glGetError() << ", width: " << width << ", height: " << height << "\n";
+
 	glBindTexture(GL_TEXTURE_2D, gl_id);
-	//glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
-	glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0, width, height);
-	std::cout << "after error: " << glGetError() << "\n";
+	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
 
 	glViewport(0, 0, PXL_window_width, PXL_window_height);
-	batch->perspective_mat.identity();
-	batch->perspective_mat.scale(1.0f / PXL_center_window_x, -1.0f / PXL_center_window_y);
-	batch->perspective_mat.translate(-1.0f, 1.0f);
+	glReadBuffer(GL_BACK);
+	glBindFramebuffer(PXL_GL_FRAMEBUFFER_READ, 0);
 
 	//todo dispose all from batch list
 	//todo bind frame buffer texture

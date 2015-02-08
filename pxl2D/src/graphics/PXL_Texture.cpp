@@ -72,7 +72,6 @@ void PXL_Texture::set_filters(PXL_TextureFilter min_filter, PXL_TextureFilter ma
 	glBindTexture(GL_TEXTURE_2D, gl_id);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, min_filter);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, max_filter);
-	glBindTexture(GL_TEXTURE_2D, NULL);
 }
 
 void PXL_Texture::free() {

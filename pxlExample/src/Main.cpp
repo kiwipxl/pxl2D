@@ -35,6 +35,15 @@ int main(int argc, char* args[]) {
 	PXL_Text text(font, "", 150, 450, 42);
 	text.set_origin(PXL_CENTER_ORIGIN);
 
+	std::vector<PXL_PointLight*> point_lights;
+	for (int n = 0; n < 72 * 7; n += 7) {
+		float radius = 200 + ((rand() / float(RAND_MAX)) * 400);
+		point_lights.push_back(PXL_create_point_light(int((rand() / float(RAND_MAX)) * PXL_window_width),
+			int((rand() / float(RAND_MAX)) * PXL_window_height), radius, .15f, 
+			rand() / float(RAND_MAX), rand() / float(RAND_MAX), rand() / float(RAND_MAX)));
+	}
+	PXL_set_point_light_config(.95f);
+
 	PXL_Rect sheet_rect;
 	PXL_Rect sheet_src;
 	PXL_Vec2 sheet_origin;
@@ -51,21 +60,12 @@ int main(int argc, char* args[]) {
 	sheet.add(cat_2, &sheet_rect);
 
 	sheet_rect.x = 0; sheet_rect.y = 0;
-	sheet_rect.w = sheet.get_width(); sheet_rect.h = sheet.get_height();
+	sheet_rect.w = PXL_window_width; sheet_rect.h = PXL_window_height;
 	sheet_origin.x = sheet_rect.w / 2; sheet_origin.y = sheet_rect.h / 2;
 
 	sheet.create();
 
-	std::vector<PXL_PointLight*> point_lights;
-	for (int n = 0; n < 72 * 7; n += 7) {
-		float radius = 200 + ((rand() / float(RAND_MAX)) * 400);
-		point_lights.push_back(PXL_create_point_light(int((rand() / float(RAND_MAX)) * PXL_window_width),
-			int((rand() / float(RAND_MAX)) * PXL_window_height), radius, .15f, 
-			rand() / float(RAND_MAX), rand() / float(RAND_MAX), rand() / float(RAND_MAX)));
-	}
-	PXL_set_point_light_config(.95f);
-
-	PXL_FrameBuffer frame_buffer = PXL_FrameBuffer(PXL_window_width, PXL_window_height);
+	//PXL_FrameBuffer frame_buffer = PXL_FrameBuffer(PXL_window_width, PXL_window_height);
 
 	PXL_Batch batch = PXL_Batch(PXL_BATCH_TINY);
 	PXL_set_default_shader(&batch);
@@ -76,6 +76,8 @@ int main(int argc, char* args[]) {
 		pos[n] = int((rand() / float(RAND_MAX)) * 800);
 		pos[n + 1] = int((rand() / float(RAND_MAX)) * 700);
 	}
+
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	PXL_set_clear_colour(0, 0, 0, 1);
 
@@ -95,7 +97,6 @@ int main(int argc, char* args[]) {
 
 		PXL_set_clear_colour(0, 0, 0, 1);
 		PXL_clear();
-		frame_buffer.clear(0, 1, 0, 1);
 
 		//silly test code stuff
 		PXL_Rect rect;
@@ -107,8 +108,6 @@ int main(int argc, char* args[]) {
 		origin.x = rect.w / 2;
 		origin.y = rect.h / 2;
 		t += .5f;
-
-		//batch.set_target(&frame_buffer);
 
 		if (t <= 100) {
 			for (int n = 0; n < amount * 2; n += 2) {
@@ -132,6 +131,8 @@ int main(int argc, char* args[]) {
 			}
 		}
 
+		sheet_rect.x = 0; sheet_rect.y = 0;
+		sheet_rect.w = PXL_window_width; sheet_rect.h = PXL_window_height;
 		batch.add(&sheet, &sheet_rect, NULL, 0, 0, PXL_FLIP_NONE);
 
 		/*rect.x = 0; rect.y = 0; rect.w = 180; rect.h = 200;
@@ -171,12 +172,6 @@ int main(int argc, char* args[]) {
 		average_time += PXL_stop_timer();
 
 		//swaps back buffer to front buffer
-		//batch.set_target(0);
-		rect.x = 0; rect.y = 0; rect.w = PXL_window_width; rect.h = PXL_window_height;
-		//batch.add(frame_buffer.get_texture(), &rect);
-		//batch.render_all();
-
-		//frame_buffer.blit(0, &rect);
 		PXL_swap_buffers();
 
 		double ms = start_time.end() / 1000.0f;
