@@ -2,11 +2,7 @@
 #include <iostream>
 #include <system/PXL_Window.h>
 
-PXL_FrameBuffer* sheet_frame_buffer;
-
-void PXL_TextureSheet::init() {
-	sheet_frame_buffer = new PXL_FrameBuffer(1, 1);
-}
+PXL_FrameBuffer* sheet_frame_buffer = NULL;
 
 PXL_TextureSheet::PXL_TextureSheet() {
 	//initiate sheet
@@ -16,6 +12,10 @@ PXL_TextureSheet::PXL_TextureSheet() {
 	bg_colour.r = bg_colour.g = bg_colour.b = bg_colour.a = 0;
 
 	batch = new PXL_Batch(PXL_BATCH_SMALL);
+
+	if (sheet_frame_buffer == NULL) {
+		sheet_frame_buffer = new PXL_FrameBuffer(1, 1);
+	}
 }
 
 void PXL_TextureSheet::create_sheet(bool dispose_all) {
@@ -49,14 +49,14 @@ void PXL_TextureSheet::create_sheet(bool dispose_all) {
 	glReadBuffer(GL_BACK);
 
 	//todo dispose all from batch list
-	//todo bind frame buffer texture
 	//todo bitmap pixel modes
 	//todo use texsubimagestorage for textures (can specify to turn off though)
-	//todo create texture only once and use a texture object
-	//todo remove unique ids from textures
 	//todo texture's hold pixel blocks on multiple getpixel calls
 	//todo texture bitmap information (buffer size, channels, ect), optional: texture's inherit bitmaps and protected methods
 	//todo min x, y positions using glviewport
+	//todo bitmap fill function
+	//todo can initiate bitmap constructor with a fill
+	//todo can initiate texture object with a fill
 
 	texture_created = true;
 }

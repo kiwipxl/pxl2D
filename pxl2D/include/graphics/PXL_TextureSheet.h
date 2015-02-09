@@ -8,8 +8,6 @@
 class PXL_TextureSheet : public PXL_Texture {
 
 	public:
-		static void init();
-
 		/**
 		\*brief: default constructor
 		**/
