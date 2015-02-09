@@ -34,6 +34,7 @@ class PXL_FrameBuffer {
 		void clear(float r, float g, float b, float a);
 		void blit(PXL_FrameBuffer* dest_frame_buffer, PXL_Rect* rect = NULL, PXL_Rect* src_rect = NULL, 
 				  PXL_TextureFilter filter = PXL_GL_NEAREST);
+		void blit(PXL_Texture* dest_texture, PXL_Rect* rect);
 		void bind(PXL_FrameBufferAction action = PXL_GL_FRAMEBUFFER_WRITE);
 		void bind_texture();
 

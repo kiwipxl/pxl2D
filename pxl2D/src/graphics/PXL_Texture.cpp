@@ -7,26 +7,26 @@ PXL_Texture::PXL_Texture() {
 
 PXL_Texture::PXL_Texture(PXL_Bitmap* bitmap, int pixel_mode) {
 	texture_created = false;
-	create(bitmap, pixel_mode);
+	create_texture(bitmap, pixel_mode);
 }
 
 PXL_Texture::PXL_Texture(int w, int h, unsigned char* pixels, int pixel_mode) {
 	texture_created = false;
-	create(w, h, pixels, pixel_mode);
+	create_texture(w, h, pixels, pixel_mode);
 }
 
 PXL_Texture* PXL_create_texture(PXL_Bitmap* bitmap, int pixel_mode) {
 	return new PXL_Texture(bitmap, pixel_mode);
 }
 
-void PXL_Texture::create(PXL_Bitmap* bitmap, int pixel_mode) {
+void PXL_Texture::create_texture(PXL_Bitmap* bitmap, int pixel_mode) {
 	if (bitmap != NULL) {
-		create(bitmap->width, bitmap->height, bitmap->pixels, pixel_mode);
+		create_texture(bitmap->width, bitmap->height, bitmap->pixels, pixel_mode);
 		texture_created = true;
 	}
 }
 
-void PXL_Texture::create(int w, int h, unsigned char* pixels, int pixel_mode) {
+void PXL_Texture::create_texture(int w, int h, unsigned char* pixels, int pixel_mode) {
 	if (pixels == NULL) {
 		has_transparency = true;
 	}else {

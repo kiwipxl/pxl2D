@@ -18,7 +18,7 @@ PXL_TextureSheet::PXL_TextureSheet() {
 	batch = new PXL_Batch(PXL_BATCH_SMALL);
 }
 
-void PXL_TextureSheet::create(bool dispose_all) {
+void PXL_TextureSheet::create_sheet(bool dispose_all) {
 	if (width == 0 || height == 0) { return; }
 
 	//if the texture is already created then delete the sheet texture
@@ -29,17 +29,11 @@ void PXL_TextureSheet::create(bool dispose_all) {
 
 	glViewport(0, 0, width, height);
 	batch->perspective_mat.identity();
-	batch->perspective_mat.scale(1.0f / (width / 2), -1.0f / (height / 2));
-	batch->perspective_mat.translate(-1.0f, 1.0f);
+	batch->perspective_mat.scale(1.0f / (width / 2), 1.0f / (height / 2));
+	batch->perspective_mat.translate(-1.0f, -1.0f);
 
-	//create texture from resulting pixels
-	glGenTextures(1, &id);
-	glBindTexture(GL_TEXTURE_2D, id);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
-
-	set_filters();
-
-	sheet_frame_buffer->get_texture()->create(width, height, 0);
+	create_texture(width, height, NULL);
+	sheet_frame_buffer->get_texture()->create_texture(width, height, 0);
 
 	sheet_frame_buffer->clear(bg_colour.r, bg_colour.g, bg_colour.b, bg_colour.a);
 	batch->set_target(sheet_frame_buffer);
@@ -47,22 +41,9 @@ void PXL_TextureSheet::create(bool dispose_all) {
 
 	batch->set_target();
 
-	//copytexsubimage copy method
-	sheet_frame_buffer->bind(PXL_GL_FRAMEBUFFER_READ);
-	//glBindTexture(GL_TEXTURE_2D, id);
-	//glReadBuffer(GL_COLOR_ATTACHMENT0);
-	//glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0, width, height);
-
-	unsigned char* temp = sheet_frame_buffer->get_pixels();
-	unsigned char* pixels = new unsigned char[(width * height) * 4];
-
-	int row_size = width * 4;
-	for (int y = 0; y < height; ++y) {
-		memcpy(pixels + (y * row_size), temp + ((height - 1 - y) * row_size), row_size);
-	}
-
-	glBindTexture(GL_TEXTURE_2D, id);
-	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+	PXL_Rect rect;
+	rect.x = 0; rect.y = 0; rect.w = width; rect.h = height;
+	sheet_frame_buffer->blit(this, &rect);
 
 	glViewport(0, 0, PXL_window_width, PXL_window_height);
 	glReadBuffer(GL_BACK);

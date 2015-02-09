@@ -45,7 +45,7 @@ PXL_Font::PXL_Font(std::string path, int c_max_font_size) {
 				rect.y = glyph_sheet->get_height();
 			}
 		}
-		glyph_sheet->create(true);
+		glyph_sheet->create_sheet(true);
 	}
 }
 

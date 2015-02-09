@@ -87,6 +87,13 @@ void PXL_FrameBuffer::blit(PXL_FrameBuffer* dest_frame_buffer, PXL_Rect* rect, P
 					  GL_COLOR_BUFFER_BIT, filter);
 }
 
+void PXL_FrameBuffer::blit(PXL_Texture* dest_texture, PXL_Rect* rect) {
+	bind(PXL_GL_FRAMEBUFFER_READ);
+	glBindTexture(GL_TEXTURE_2D, dest_texture->get_id());
+	glReadBuffer(GL_COLOR_ATTACHMENT0);
+	glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, -rect->x, -rect->y, rect->w, rect->h);
+}
+
 void PXL_FrameBuffer::bind(PXL_FrameBufferAction action) {
 	glBindFramebuffer(action, id);
 }

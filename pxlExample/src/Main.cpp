@@ -54,7 +54,7 @@ int main(int argc, char* args[]) {
 	sheet_rect.w = PXL_window_width; sheet_rect.h = PXL_window_height;
 	sheet_origin.x = sheet_rect.w / 2; sheet_origin.y = sheet_rect.h / 2;
 
-	sheet.create();
+	sheet.create_sheet();
 
 	std::vector<PXL_PointLight*> point_lights;
 	for (int n = 0; n < 72 * 7; n += 7) {

@@ -37,8 +37,8 @@ class PXL_Texture {
 		@param bitmap Holds all pixel information for an image
 		@param pixel_mode The pixel type of the pixel data (default is R, G, B, A)
 		**/
-		void create(PXL_Bitmap* bitmap, int pixel_mode = GL_RGBA);
-		void create(int w, int h, unsigned char* pixels, int pixel_mode = GL_RGBA);
+		void create_texture(PXL_Bitmap* bitmap, int pixel_mode = GL_RGBA);
+		void create_texture(int w, int h, unsigned char* pixels, int pixel_mode = GL_RGBA);
 
 		void bind();
 

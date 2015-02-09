@@ -25,7 +25,7 @@ class PXL_TextureSheet : public PXL_Texture {
 		/**
 		\*brief: creates the texture sheet from all added bitmaps and textures
 		**/
-		void create(bool dispose_all = false);
+		void create_sheet(bool dispose_all = false);
 
 		/**
 		\*brief: deletes all pixel buffers added to this sheet
