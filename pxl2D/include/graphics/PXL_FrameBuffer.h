@@ -5,6 +5,7 @@
 #include "PXL_Texture.h"
 
 typedef int PXL_FrameBufferAction;
+#define PXL_GL_FRAMEBUFFER GL_FRAMEBUFFER
 #define PXL_GL_FRAMEBUFFER_READ GL_READ_FRAMEBUFFER
 #define PXL_GL_FRAMEBUFFER_WRITE GL_DRAW_FRAMEBUFFER
 
@@ -34,6 +35,7 @@ class PXL_FrameBuffer {
 		void blit(PXL_FrameBuffer* dest_frame_buffer, PXL_Rect* rect = NULL, PXL_Rect* src_rect = NULL, 
 				  PXL_TextureFilter filter = PXL_GL_NEAREST);
 		void bind(PXL_FrameBufferAction action = PXL_GL_FRAMEBUFFER_WRITE);
+		void bind_texture();
 
 		/** Deletes all frame_buffer information
 		**/

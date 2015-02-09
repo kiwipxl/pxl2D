@@ -40,6 +40,8 @@ class PXL_Texture {
 		void create(PXL_Bitmap* bitmap, int pixel_mode = GL_RGBA);
 		void create(int w, int h, unsigned char* pixels, int pixel_mode = GL_RGBA);
 
+		void bind();
+
 		/** Sets filter parameters for uploaded texture
 		@param min_filter The filter value for when the texture is scaled and is smaller than its original size
 		@param max_filter The filter value for when the texture is scaled and is larger than its original size

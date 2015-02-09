@@ -55,9 +55,10 @@ void PXL_TextureSheet::create(bool dispose_all) {
 
 	unsigned char* temp = sheet_frame_buffer->get_pixels();
 	unsigned char* pixels = new unsigned char[(width * height) * 4];
+
 	int row_size = width * 4;
-	for (int n = 0; n < height; ++n) {
-		memcpy(pixels + (n * row_size), temp + ((height - 1 - n) * row_size), row_size);
+	for (int y = 0; y < height; ++y) {
+		memcpy(pixels + (y * row_size), temp + ((height - 1 - y) * row_size), row_size);
 	}
 
 	glBindTexture(GL_TEXTURE_2D, gl_id);
@@ -65,7 +66,6 @@ void PXL_TextureSheet::create(bool dispose_all) {
 
 	glViewport(0, 0, PXL_window_width, PXL_window_height);
 	glReadBuffer(GL_BACK);
-	glBindFramebuffer(PXL_GL_FRAMEBUFFER_READ, 0);
 
 	//todo dispose all from batch list
 	//todo bind frame buffer texture

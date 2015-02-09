@@ -22,33 +22,33 @@ void PXL_FrameBuffer::create_frame_buffer(int w, int h, bool create_depth_buffer
 
 	//creates the frame buffer container object
 	glGenFramebuffers(1, &id);
-	glBindFramebuffer(GL_FRAMEBUFFER, id);
-	glFramebufferParameteri(GL_DRAW_FRAMEBUFFER, GL_FRAMEBUFFER_DEFAULT_WIDTH, width);
-	glFramebufferParameteri(GL_DRAW_FRAMEBUFFER, GL_FRAMEBUFFER_DEFAULT_HEIGHT, height);
-	glFramebufferParameteri(GL_DRAW_FRAMEBUFFER, GL_FRAMEBUFFER_DEFAULT_SAMPLES, 4);
+	bind();
+	glFramebufferParameteri(PXL_GL_FRAMEBUFFER_WRITE, GL_FRAMEBUFFER_DEFAULT_WIDTH, width);
+	glFramebufferParameteri(PXL_GL_FRAMEBUFFER_WRITE, GL_FRAMEBUFFER_DEFAULT_HEIGHT, height);
+	glFramebufferParameteri(PXL_GL_FRAMEBUFFER_WRITE, GL_FRAMEBUFFER_DEFAULT_SAMPLES, 4);
 
 	if (create_depth_buffer) {
 		glGenRenderbuffers(1, &depth_id);
-		glBindRenderbuffer(GL_RENDERBUFFER, depth_id);
-		glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8, width, height);
-		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, depth_id);
+		glBindRenderbuffer(PXL_GL_FRAMEBUFFER, depth_id);
+		glRenderbufferStorage(PXL_GL_FRAMEBUFFER, GL_DEPTH24_STENCIL8, width, height);
+		glFramebufferRenderbuffer(PXL_GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, depth_id);
 	}else {
 		depth_id = -1;
 	}
 
 	texture = new PXL_Texture(width, height);
-	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, get_gl_texture_id(), 0);
+	glFramebufferTexture2D(PXL_GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, get_gl_texture_id(), 0);
 
 	clear(1, 1, 1, 0);
 
-	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
+	if (glCheckFramebufferStatus(PXL_GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
 		std::cout << "an error occurred when creating a frame buffer\n";
 	}
 
 	frame_buffer_created = true;
 
 	//bind to default frame buffer
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
+	glBindFramebuffer(PXL_GL_FRAMEBUFFER, 0);
 }
 
 void PXL_FrameBuffer::clear(float r, float g, float b, float a) {
@@ -89,6 +89,10 @@ void PXL_FrameBuffer::blit(PXL_FrameBuffer* dest_frame_buffer, PXL_Rect* rect, P
 
 void PXL_FrameBuffer::bind(PXL_FrameBufferAction action) {
 	glBindFramebuffer(action, id);
+}
+
+void PXL_FrameBuffer::bind_texture() {
+	texture->bind();
 }
 
 unsigned char* PXL_FrameBuffer::get_pixels() {

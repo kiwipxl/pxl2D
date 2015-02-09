@@ -45,12 +45,12 @@ void PXL_Texture::create(int w, int h, unsigned char* pixels, int pixel_mode) {
 
 	width = w;
 	height = h;
-	if (!texture_created) {
-		glGenTextures(1, &gl_id);
-	}
-	glBindTexture(GL_TEXTURE_2D, gl_id);
+	if (!texture_created) { glGenTextures(1, &gl_id); }
+
+	bind();
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, pixel_mode, GL_UNSIGNED_BYTE, pixels);
-	set_filters();
+
+	if (!texture_created) { set_filters(); }
 
 	unique_id = unique_texture_id;
 	++unique_texture_id;
@@ -58,9 +58,13 @@ void PXL_Texture::create(int w, int h, unsigned char* pixels, int pixel_mode) {
 	texture_created = true;
 }
 
+void PXL_Texture::bind() {
+	glBindTexture(GL_TEXTURE_2D, gl_id);
+}
+
 unsigned char* PXL_Texture::get_pixels() {
 	if (texture_created) {
-		glBindTexture(GL_TEXTURE_2D, gl_id);
+		bind();
 		unsigned char* pixels = new unsigned char[(width * height) * 4];
 		glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
 		return pixels;
@@ -69,7 +73,7 @@ unsigned char* PXL_Texture::get_pixels() {
 }
 
 void PXL_Texture::set_filters(PXL_TextureFilter min_filter, PXL_TextureFilter max_filter) {
-	glBindTexture(GL_TEXTURE_2D, gl_id);
+	bind();
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, min_filter);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, max_filter);
 }
