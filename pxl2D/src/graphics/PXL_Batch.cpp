@@ -153,7 +153,7 @@ void PXL_Batch::add_quad(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rec
 						 float r, float g, float b, float a, PXL_ShaderProgram* shader, PXL_BlendMode blend_mode) {
 	//set the texture id and shader program for the vertex batch
 	int index = last_freq_index;
-	GLuint texture_id = texture->get_gl_id();
+	GLuint texture_id = texture->get_id();
 	z_depth += max_vertices_amount / 2;
 	if (z_depth < 0) {
 		PXL_show_exception("Z depth value cannot be below half of the max vertex amount (" + std::to_string(-max_vertices_amount / 2) + ")");

@@ -1,8 +1,6 @@
 #include "PXL_Texture.h"
 #include <iostream>
 
-unsigned int unique_texture_id = 0;
-
 PXL_Texture::PXL_Texture() {
 	texture_created = false;
 }
@@ -45,21 +43,18 @@ void PXL_Texture::create(int w, int h, unsigned char* pixels, int pixel_mode) {
 
 	width = w;
 	height = h;
-	if (!texture_created) { glGenTextures(1, &gl_id); }
+	if (!texture_created) { glGenTextures(1, &id); }
 
 	bind();
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, pixel_mode, GL_UNSIGNED_BYTE, pixels);
 
 	if (!texture_created) { set_filters(); }
 
-	unique_id = unique_texture_id;
-	++unique_texture_id;
-
 	texture_created = true;
 }
 
 void PXL_Texture::bind() {
-	glBindTexture(GL_TEXTURE_2D, gl_id);
+	glBindTexture(GL_TEXTURE_2D, id);
 }
 
 unsigned char* PXL_Texture::get_pixels() {
@@ -80,7 +75,7 @@ void PXL_Texture::set_filters(PXL_TextureFilter min_filter, PXL_TextureFilter ma
 
 void PXL_Texture::free() {
 	if (texture_created) {
-		glDeleteTextures(1, &gl_id);
+		glDeleteTextures(1, &id);
 		texture_created = false;
 	}
 }

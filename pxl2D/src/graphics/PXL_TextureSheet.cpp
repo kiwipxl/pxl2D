@@ -23,7 +23,7 @@ void PXL_TextureSheet::create(bool dispose_all) {
 
 	//if the texture is already created then delete the sheet texture
 	if (texture_created) {
-		glDeleteTextures(1, &gl_id);
+		glDeleteTextures(1, &id);
 		texture_created = false;
 	}
 
@@ -33,8 +33,8 @@ void PXL_TextureSheet::create(bool dispose_all) {
 	batch->perspective_mat.translate(-1.0f, 1.0f);
 
 	//create texture from resulting pixels
-	glGenTextures(1, &gl_id);
-	glBindTexture(GL_TEXTURE_2D, gl_id);
+	glGenTextures(1, &id);
+	glBindTexture(GL_TEXTURE_2D, id);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
 
 	set_filters();
@@ -49,7 +49,7 @@ void PXL_TextureSheet::create(bool dispose_all) {
 
 	//copytexsubimage copy method
 	sheet_frame_buffer->bind(PXL_GL_FRAMEBUFFER_READ);
-	//glBindTexture(GL_TEXTURE_2D, gl_id);
+	//glBindTexture(GL_TEXTURE_2D, id);
 	//glReadBuffer(GL_COLOR_ATTACHMENT0);
 	//glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0, width, height);
 
@@ -61,7 +61,7 @@ void PXL_TextureSheet::create(bool dispose_all) {
 		memcpy(pixels + (y * row_size), temp + ((height - 1 - y) * row_size), row_size);
 	}
 
-	glBindTexture(GL_TEXTURE_2D, gl_id);
+	glBindTexture(GL_TEXTURE_2D, id);
 	glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
 
 	glViewport(0, 0, PXL_window_width, PXL_window_height);
@@ -92,7 +92,7 @@ void PXL_TextureSheet::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_r
 
 void PXL_TextureSheet::free() {
 	if (texture_created) {
-		glDeleteTextures(1, &gl_id);
+		glDeleteTextures(1, &id);
 		texture_created = false;
 	}
 }

@@ -64,20 +64,15 @@ class PXL_Texture {
 		\return The height of the texture
 		**/
 		const int get_height() { return height; }
-		/** Gets the unique id associated with this texture
-		\return The id
-		**/
-		const GLint get_unique_id() { return unique_id; }
 		/** Gets the opengl id associated with this texture
 		\return The id
 		**/
-		const GLint get_gl_id() { return gl_id; }
+		const GLint get_id() { return id; }
 
 	protected:
 		int width; /**< The width of the texture **/
 		int height; /**< The height of the texture **/
-		GLuint unique_id; /**< The unique id associated with the texture **/
-		GLuint gl_id; /**< The opengl id associated with the texture **/
+		GLuint id; /**< The opengl id associated with the texture **/
 };
 
 /**

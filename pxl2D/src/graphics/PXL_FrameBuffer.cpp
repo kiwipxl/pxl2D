@@ -37,7 +37,7 @@ void PXL_FrameBuffer::create_frame_buffer(int w, int h, bool create_depth_buffer
 	}
 
 	texture = new PXL_Texture(width, height);
-	glFramebufferTexture2D(PXL_GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, get_gl_texture_id(), 0);
+	glFramebufferTexture2D(PXL_GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, get_texture_id(), 0);
 
 	clear(1, 1, 1, 0);
 

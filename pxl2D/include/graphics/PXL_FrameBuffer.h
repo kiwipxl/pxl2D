@@ -64,11 +64,7 @@ class PXL_FrameBuffer {
 		/** Gets the id associated with this frame_buffer
 		\return The id
 		**/
-		const GLint get_unique_texture_id() { return texture->get_unique_id(); }
-		/** Gets the id associated with this frame_buffer
-		\return The id
-		**/
-		const GLint get_gl_texture_id() { return texture->get_gl_id(); }
+		const GLint get_texture_id() { return texture->get_id(); }
 		/** Gets the depth id associated with this frame buffer. The depth id represents the depth buffer created when initialising the frame buffer
 		\return -1 if the depth buffer was not created, if it was then returns the depth id
 		**/
