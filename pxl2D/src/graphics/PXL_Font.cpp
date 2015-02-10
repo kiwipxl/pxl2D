@@ -21,9 +21,7 @@ PXL_Font::PXL_Font(std::string path, int c_max_font_size) {
 		f->style_flags = FT_STYLE_FLAG_BOLD;
 		for (int n = 0; n < f->num_glyphs; ++n) {
 			FT_Load_Glyph(f, n, FT_LOAD_RENDER);
-			PXL_Bitmap* bitmap = new PXL_Bitmap();
-			bitmap->width = f->glyph->bitmap.width;
-			bitmap->height = f->glyph->bitmap.rows;
+			PXL_Bitmap* bitmap = new PXL_Bitmap(f->glyph->bitmap.width, f->glyph->bitmap.rows, 0);
 
 			max_char_width = PXL_max(max_char_width, bitmap->width);
 			max_char_height = PXL_max(max_char_height, bitmap->height);

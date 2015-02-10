@@ -46,7 +46,7 @@ PXL_Bitmap* PXL_load_png(std::string file_name, PXL_Bitmap* bitmap) {
 	png_uint_32 colour_type = png_get_color_type(png_pointer, info_pointer);
 
 	if (bitmap == NULL) {
-		bitmap = new PXL_Bitmap();
+		bitmap = new PXL_Bitmap(png_width, png_height, 0);
 	}
 	bitmap->width = png_width;
 	bitmap->height = png_height;

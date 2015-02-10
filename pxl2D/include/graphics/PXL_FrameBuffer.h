@@ -20,7 +20,7 @@ class PXL_FrameBuffer {
 		@param bitmap Holds all pixel information for an image
 		@param pixel_mode The pixel type of the pixel data (default is R, G, B, A)
 		**/
-		PXL_FrameBuffer(int w, int h, bool create_depth_buffer = false);
+		PXL_FrameBuffer(int width, int height, bool create_depth_buffer = false);
 		~PXL_FrameBuffer();
 
 		bool frame_buffer_created; /**< Defines whether the frame buffer has been created or not **/
