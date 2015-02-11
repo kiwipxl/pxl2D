@@ -2,7 +2,7 @@
 #define _PXL_BITMAP_H
 
 #include <string>
-#include "PXL_Structs.h"
+#include "PXL_Colour.h"
 
 class PXL_Bitmap {
 

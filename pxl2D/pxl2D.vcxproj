@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\graphics\PXL_Colour.cpp" />
     <ClCompile Include="src\physics\PXL_Collision.cpp" />
     <ClCompile Include="src\PXL.cpp" />
     <ClCompile Include="src\graphics\PXL_Batch.cpp" />
@@ -36,6 +37,7 @@
     <ClCompile Include="src\system\PXL_Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\graphics\PXL_Colour.h" />
     <ClInclude Include="include\graphics\PXL_PrebuiltShaders.h" />
     <ClInclude Include="include\physics\PXL_Collision.h" />
     <ClInclude Include="include\PXL.h" />
