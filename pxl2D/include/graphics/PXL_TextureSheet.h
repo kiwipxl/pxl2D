@@ -18,7 +18,7 @@ class PXL_TextureSheet : public PXL_Texture {
 		~PXL_TextureSheet();
 
 		//sheet info
-		PXL_RGBA bg_colour;
+		PXL_Colour bg_colour;
 
 		/**
 		\*brief: creates the texture sheet from all added bitmaps and textures

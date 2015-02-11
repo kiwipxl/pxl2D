@@ -1,13 +1,10 @@
 #ifndef _PXL_FONT_UTILS_H
 #define _PXL_FONT_UTILS_H
 
-#include <string>
-#include "PXL_Structs.h"
 #include "PXL_Font.h"
 
-class PXL_Batch;
+//define FT_Library struct
 typedef struct FT_LibraryRec_* FT_Library;
-
 extern FT_Library PXL_FT_lib;
 
 /**

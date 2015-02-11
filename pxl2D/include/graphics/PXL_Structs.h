@@ -21,9 +21,9 @@ struct PXL_Vec4 {
 	float x = 0, y = 0, z = 0, w = 0;
 };
 
-struct PXL_RGBA {
-
-	float r = 1, g = 1, b = 1, a = 1;
-};
+//struct PXL_RGBA {
+//
+//	float r = 1, g = 1, b = 1, a = 1;
+//};
 
 #endif

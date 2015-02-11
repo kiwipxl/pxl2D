@@ -52,7 +52,7 @@ struct PXL_VertexBatch {
 	int num_vertices;
 
 	//transform cache values
-	PXL_RGBA colour;
+	PXL_Colour colour;
 	PXL_Rect rect;
 	PXL_Rect src_rect;
 	PXL_Vec2 origin;
