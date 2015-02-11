@@ -22,6 +22,7 @@ class PXL_Texture {
 
 	public:
 		PXL_Texture();
+		PXL_Texture(std::string file_path);
 		/** Creates the texture from specified bitmap
 		@param bitmap Holds all pixel information for an image
 		@param pixel_mode The pixel type of the pixel data (default is R, G, B, A)
@@ -29,6 +30,8 @@ class PXL_Texture {
 		PXL_Texture(PXL_Bitmap* bitmap, int pixel_mode = GL_RGBA);
 		PXL_Texture(int w, int h, unsigned char* pixels = NULL, int pixel_mode = GL_RGBA);
 		~PXL_Texture();
+
+		//todo: file path texture constructor
 
 		bool texture_created; /**< Defines whether the texture has been created or not **/
 		bool has_transparency = false;

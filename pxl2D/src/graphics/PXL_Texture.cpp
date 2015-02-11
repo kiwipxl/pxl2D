@@ -5,6 +5,11 @@ PXL_Texture::PXL_Texture() {
 	texture_created = false;
 }
 
+PXL_Texture::PXL_Texture(std::string file_path) {
+	texture_created = false;
+	create_texture(&PXL_Bitmap(file_path));
+}
+
 PXL_Texture::PXL_Texture(PXL_Bitmap* bitmap, int pixel_mode) {
 	texture_created = false;
 	create_texture(bitmap, pixel_mode);

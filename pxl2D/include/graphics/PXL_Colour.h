@@ -11,23 +11,23 @@ struct PXL_Colour {
 
 	float r = 1, g = 1, b = 1, a = 1;
 
-	static const PXL_Colour WHITE; /**> Supports blending when rendering **/
-	static const PXL_Colour BLACK; /**> Supports blending when rendering **/
-	static const PXL_Colour RED; /**> Supports blending when rendering **/
-	static const PXL_Colour GREEN; /**> Supports blending when rendering **/
-	static const PXL_Colour BLUE; /**> Supports blending when rendering **/
-	static const PXL_Colour YELLOW; /**> Supports blending when rendering **/
-	static const PXL_Colour ORANGE; /**> Supports blending when rendering **/
-	static const PXL_Colour PINK; /**> Supports blending when rendering **/
-	static const PXL_Colour PURPLE; /**> Supports blending when rendering **/
-	static const PXL_Colour LIGHT_RED; /**> Supports blending when rendering **/
-	static const PXL_Colour LIGHT_GREEN; /**> Supports blending when rendering **/
-	static const PXL_Colour LIGHT_BLUE; /**> Supports blending when rendering **/
-	static const PXL_Colour DARK_RED; /**> Supports blending when rendering **/
-	static const PXL_Colour DARK_GREEN; /**> Supports blending when rendering **/
-	static const PXL_Colour DARK_BLUE; /**> Supports blending when rendering **/
-	static const PXL_Colour TRANSPARENT_WHITE; /**> Supports blending when rendering **/
-	static const PXL_Colour TRANSPARENT_BLACK; /**> Supports blending when rendering **/
+	static const PXL_Colour WHITE; /**> Pre-defined white colour **/
+	static const PXL_Colour BLACK; /**> Pre-defined black colour **/
+	static const PXL_Colour RED; /**> Pre-defined red colour **/
+	static const PXL_Colour GREEN; /**> Pre-defined green colour **/
+	static const PXL_Colour BLUE; /**> Pre-defined blue colour **/
+	static const PXL_Colour YELLOW; /**> Pre-defined yellow colour **/
+	static const PXL_Colour ORANGE; /**> Pre-defined orange colour **/
+	static const PXL_Colour PINK; /**> Pre-defined pink colour **/
+	static const PXL_Colour PURPLE; /**> Pre-defined purple colour **/
+	static const PXL_Colour LIGHT_RED; /**> Pre-defined light red colour **/
+	static const PXL_Colour LIGHT_GREEN; /**> Pre-defined light green colour **/
+	static const PXL_Colour LIGHT_BLUE; /**> Pre-defined light blue colour **/
+	static const PXL_Colour DARK_RED; /**> Pre-defined dark red colour **/
+	static const PXL_Colour DARK_GREEN; /**> Pre-defined dark green colour **/
+	static const PXL_Colour DARK_BLUE; /**> Pre-defined dark blue colour **/
+	static const PXL_Colour TRANSPARENT_WHITE; /**> Pre-defined fully transparent white colour **/
+	static const PXL_Colour TRANSPARENT_BLACK; /**> Pre-defined fully transparent black colour **/
 
 	void set_colour(float red, float green, float blue, float alpha = 1);
 	void set_colour(unsigned int colour);

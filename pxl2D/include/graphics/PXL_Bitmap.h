@@ -39,6 +39,8 @@ class PXL_Bitmap {
 		int num_channels;
 		int bit_depth;
 
+		//asap: implement various pxl pixel modes with the channel number associated with it
+
 		/**
 		\*brief: loads a bitmap from the specified path
 		\*param [path]: the path and file name for the bitmap to load
