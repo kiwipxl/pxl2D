@@ -7,11 +7,12 @@ PXL_Bitmap::PXL_Bitmap(std::string path) {
 	load_bitmap(path);
 }
 
-PXL_Bitmap::PXL_Bitmap(int bitmap_width, int bitmap_height, int fill_colour) {
+PXL_Bitmap::PXL_Bitmap(int bitmap_width, int bitmap_height, PXL_Colour fill_colour) {
 	buffer_loaded = true;
 	width = bitmap_width;
 	height = bitmap_height;
 	pixels = new unsigned char[(width * height) * 4];
+	size = (width * height) * 4;
 	fill(fill_colour);
 }
 
@@ -20,18 +21,18 @@ PXL_Bitmap::PXL_Bitmap(int bitmap_width, int bitmap_height, unsigned char* pixel
 	width = bitmap_width;
 	height = bitmap_height;
 	pixels = pixel_buffer;
+	size = (width * height) * 4;
 }
 
 PXL_Bitmap* PXL_create_bitmap(std::string path) {
 	return new PXL_Bitmap(path);
 }
 
-void PXL_Bitmap::fill(unsigned int colour) {
-	//mask r, g, b, a and move bits to the right to get value
-	unsigned int r = (colour & 0xff000000) >> 24;
-	unsigned int g = (colour & 0x00ff0000) >> 16;
-	unsigned int b = (colour & 0x0000ff00) >> 8;
-	unsigned int a = colour & 0x000000ff;
+void PXL_Bitmap::fill(PXL_Colour colour) {
+	unsigned char r = colour.r * 255;
+	unsigned char g = colour.g * 255;
+	unsigned char b = colour.b * 255;
+	unsigned char a = colour.a * 255;
 
 	int row_size = width * 4;
 	for (int y = 0; y < height; ++y) {

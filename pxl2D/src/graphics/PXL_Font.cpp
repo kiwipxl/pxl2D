@@ -31,6 +31,8 @@ PXL_Font::PXL_Font(std::string path, int c_max_font_size) {
 			bitmap->pixels = new unsigned char[bitmap->size];
 			memcpy(bitmap->pixels, f->glyph->bitmap.buffer, bitmap->size);
 
+			//bitmap->fill(PXL_colour_light_green);
+
 			rect.w = bitmap->width;
 			rect.h = bitmap->height;
 			glPixelStorei(GL_UNPACK_ALIGNMENT, 1);

@@ -5,7 +5,8 @@
 PXL_Texture* load_texture(char* path) {
 	std::string texture_path = "assets/";
 	texture_path += path;
-	PXL_Texture* texture = new PXL_Texture(&PXL_Bitmap(texture_path));
+	PXL_Bitmap bitmap(texture_path);
+	PXL_Texture* texture = new PXL_Texture(&bitmap);
 	return texture;
 }
 

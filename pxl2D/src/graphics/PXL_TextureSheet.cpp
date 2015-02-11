@@ -54,8 +54,6 @@ void PXL_TextureSheet::create_sheet(bool dispose_all) {
 	//todo texture's hold pixel blocks on multiple getpixel calls
 	//todo texture bitmap information (buffer size, channels, ect), optional: texture's inherit bitmaps and protected methods
 	//todo min x, y positions using glviewport
-	//todo bitmap fill function
-	//todo can initiate bitmap constructor with a fill
 	//todo can initiate texture object with a fill
 
 	texture_created = true;
