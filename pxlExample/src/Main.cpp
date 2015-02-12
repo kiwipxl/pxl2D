@@ -82,15 +82,20 @@ int main(int argc, char* args[]) {
 
 	PXL_set_clear_colour(0, 0, 0, 1);
 
-	MSG msg;
 	start_second_time.start();
 	while (!quit) {
 		start_time.start();
 
 		PXL_Event e;
 		while (PXL_poll_event(e)) {
-			std::cout << "msg: " << e.message << "\n";
-			if (e.message == WM_QUIT) {
+			if (e.type == PXL_EVENT_KEYDOWN) {
+				std::cout << e.key_code << "\n";
+				if (e.key_code == PXL_KEY_Q) {
+					std::cout << "key pressed\n";
+				}
+			}
+
+			if (e.type == PXL_EVENT_QUIT) {
 				quit = true;
 				break;
 			}

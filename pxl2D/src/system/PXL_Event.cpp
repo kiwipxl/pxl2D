@@ -5,7 +5,8 @@ MSG msg;
 
 extern bool PXL_poll_event(PXL_Event& e) {
 	if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE) > 0) {
-		e.message = msg.message;
+		e.key_code = msg.wParam;
+		e.type = msg.message;
 		e.time = msg.time;
 
 		TranslateMessage(&msg);
