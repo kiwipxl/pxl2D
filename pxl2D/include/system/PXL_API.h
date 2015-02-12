@@ -3,8 +3,14 @@
 
 #define PXL_byte char
 #define PXL_ubyte unsigned char
+
+#define PXL_short short
 #define PXL_ushort unsigned short
+
+#define PXL_int int
 #define PXL_uint unsigned int
+
+#define PXL_long long
 #define PXL_ulong unsigned long
 
 #endif

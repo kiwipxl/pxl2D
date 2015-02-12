@@ -66,22 +66,33 @@ PXL_byte* get_joystick_name(PXL_uint device_id, JOYCAPS joy_caps) {
 	return name;
 }
 
+PXL_uint num_joysticks = 0;
+
 void PXL_joystick_init() {
 	JOYINFO joy_info;
 	UINT num_devices, device_id;
 	BOOL device_attached;
-	BOOL device2_attached;
-	if ((num_devices = joyGetNumDevs()) == 0) {
+	num_devices = joyGetNumDevs();
 
+	for (int n = 0; n < num_devices; ++n) {
+		if (joyGetPos(n, &joy_info) == 0) {
+			device_id = n;
+
+			JOYCAPS joy_caps;
+			joyGetDevCaps(device_id, &joy_caps, sizeof(joy_caps));
+
+			PXL_byte* name = get_joystick_name(device_id, joy_caps);
+
+			++num_joysticks;
+		}
 	}
-	device_attached = joyGetPos(JOYSTICKID1, &joy_info) != JOYERR_UNPLUGGED;
-	device2_attached = num_devices == 2 && joyGetPos(JOYSTICKID2, &joy_info) != JOYERR_UNPLUGGED;
-	if (device_attached || device2_attached) {
-		device_id = device_attached ? JOYSTICKID1 : JOYSTICKID2;
-	}
+}
 
-	JOYCAPS joy_caps;
-	joyGetDevCaps(device_id, &joy_caps, sizeof(joy_caps));
+extern PXL_uint PXL_num_joysticks() {
+	return num_joysticks;
+}
 
-	PXL_byte* name = get_joystick_name(device_id, joy_caps);
+extern PXL_Joystick PXL_get_joystick(PXL_uint joystick_id) {
+	PXL_Joystick j;
+	return j;
 }
