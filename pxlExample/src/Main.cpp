@@ -88,7 +88,7 @@ int main(int argc, char* args[]) {
 		while (PXL_poll_event(e)) {
 			if (e.type == PXL_EVENT_KEYDOWN) {
 				std::cout << e.key_code << "\n";
-				if (e.key_code == PXL_KEY_Q) {
+				if (e.key_code == PXL_KEY_RETURN) {
 					std::cout << "key pressed\n";
 				}
 			}

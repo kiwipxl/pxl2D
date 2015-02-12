@@ -3,6 +3,8 @@
 
 #include "PXL_Graphics.h"
 #include "PXL_System.h"
+#include "PXL_Physics.h"
+#include "PXL_Input.h"
 
 /** Initialises all PXL sub components
 **/
