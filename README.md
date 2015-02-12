@@ -8,11 +8,16 @@ pxl2D is a cross-platform 2D game engine written in c++. The aim of pxl2D is to 
 	- TTF text rendering
 	- Various pre-built shaders
 	- Point lights
-
-##Features in development
 	- Frame buffers
-	- Animation handling
 	- Z ordering
+
+##Features planned/in development
+	- Joystick support
+	- Animation handling
+	- Sprite class
+	- Audio
+	- Pixel perfect collision
+	- Linux window creation
 
 pxl2D is it it's very early stages as of now, so features will slowly be added over time. Note: everything currently implemented is
 Windows only for the time being.

@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\graphics\PXL_Colour.cpp" />
+    <ClCompile Include="src\input\PXL_Joystick.cpp" />
     <ClCompile Include="src\input\PXL_Keyboard.cpp" />
     <ClCompile Include="src\physics\PXL_Collision.cpp" />
     <ClCompile Include="src\PXL.cpp" />
@@ -42,6 +43,7 @@
   <ItemGroup>
     <ClInclude Include="include\graphics\PXL_Colour.h" />
     <ClInclude Include="include\graphics\PXL_PrebuiltShaders.h" />
+    <ClInclude Include="include\input\PXL_Joystick.h" />
     <ClInclude Include="include\input\PXL_Keyboard.h" />
     <ClInclude Include="include\physics\PXL_Collision.h" />
     <ClInclude Include="include\PXL.h" />

@@ -2,6 +2,7 @@
 #define _PXL_INPUT_H
 
 #include "input/PXL_Keyboard.h"
+#include "input/PXL_Joystick.h"
 
 /** Initialises PXL input
 **/
