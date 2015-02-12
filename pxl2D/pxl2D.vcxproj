@@ -63,6 +63,7 @@
     <ClInclude Include="include\PXL_Input.h" />
     <ClInclude Include="include\PXL_Physics.h" />
     <ClInclude Include="include\PXL_System.h" />
+    <ClInclude Include="include\system\PXL_API.h" />
     <ClInclude Include="include\system\PXL_Config.h" />
     <ClInclude Include="include\system\PXL_Event.h" />
     <ClInclude Include="include\system\PXL_Exception.h" />

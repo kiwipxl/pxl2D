@@ -281,7 +281,7 @@ void PXL_Batch::add_quad(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rec
 
 	if (set_coords) {
 		//default un-normalised uv coords
-		unsigned short uv_x = 0; unsigned short uv_y = 0; unsigned short uv_w = USHRT_MAX; unsigned short uv_h = USHRT_MAX;
+		PXL_ushort uv_x = 0; PXL_ushort uv_y = 0; PXL_ushort uv_w = USHRT_MAX; PXL_ushort uv_h = USHRT_MAX;
 		if (src_rect != NULL) {
 			//calculate uv x, y, w, h by the src rect
 			uv_x = (src_rect->x / texture->get_width()) * USHRT_MAX; uv_y = (src_rect->y / texture->get_height()) * USHRT_MAX;

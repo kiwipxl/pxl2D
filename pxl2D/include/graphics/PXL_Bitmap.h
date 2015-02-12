@@ -3,6 +3,7 @@
 
 #include <string>
 #include "PXL_Colour.h"
+#include "system/PXL_API.h"
 
 class PXL_Bitmap {
 
@@ -25,7 +26,7 @@ class PXL_Bitmap {
 		\*param [height]: the height of the image
 		\*param [buffer]: an array of pixels for the image
 		**/
-		PXL_Bitmap(int width, int height, unsigned char* pixel_buffer);
+		PXL_Bitmap(int width, int height, PXL_ubyte* pixel_buffer);
 		/**
 		\*brief: bitmap deconstructor
 		**/
@@ -34,8 +35,8 @@ class PXL_Bitmap {
 		//bitmap data
 		int width;
 		int height;
-		unsigned char* pixels;
-		unsigned int size;
+		PXL_ubyte* pixels;
+		PXL_uint size;
 		int num_channels;
 		int bit_depth;
 

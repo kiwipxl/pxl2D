@@ -28,7 +28,7 @@ PXL_Font::PXL_Font(std::string path, int c_max_font_size) {
 
 			bitmap->num_channels = 1;
 			bitmap->size = bitmap->width * bitmap->height;
-			bitmap->pixels = new unsigned char[bitmap->size];
+			bitmap->pixels = new PXL_ubyte[bitmap->size];
 			memcpy(bitmap->pixels, f->glyph->bitmap.buffer, bitmap->size);
 
 			//bitmap->fill(PXL_colour_light_green);

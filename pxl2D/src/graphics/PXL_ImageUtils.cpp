@@ -51,9 +51,9 @@ PXL_Bitmap* PXL_load_png(std::string file_name, PXL_Bitmap* bitmap) {
 	bitmap->width = png_width;
 	bitmap->height = png_height;
 
-	const unsigned int row_length = bitmap->width * ((bit_depth * channels) / 8);
+	const PXL_uint row_length = bitmap->width * ((bit_depth * channels) / 8);
 	bitmap->size = row_length * bitmap->height;
-	bitmap->pixels = new unsigned char[bitmap->size];
+	bitmap->pixels = new PXL_ubyte[bitmap->size];
 
 	png_bytep* row_pointers = new png_bytep[bitmap->height];
 	for (int y = 0; y < bitmap->height; ++y) {

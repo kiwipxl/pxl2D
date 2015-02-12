@@ -4,6 +4,7 @@
 #include <string>
 #include "PXL_FontUtils.h"
 #include "PXL_Batch.h"
+#include "system/PXL_API.h"
 
 enum PXL_TextOrigin {
 	PXL_TOP_LEFT_ORIGIN,
@@ -112,7 +113,7 @@ class PXL_Text {
 		short spacing_kerning = 0; /*> The number that specifies the spacing between spaces*/
 		short vertical_kerning = 4; /*> The number that specifies the spacing for new lines*/
 
-		bool set_char_pos(char symbol, int start_x);
+		bool set_char_pos(PXL_byte symbol, int start_x);
 };
 
 /**

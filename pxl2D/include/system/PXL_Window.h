@@ -6,10 +6,6 @@
 #define NOMINMAX //macro to not have the windows header define min/max so it doesn't interfere
 #include <Windows.h>
 
-#define ushort unsigned short
-#define uint unsigned int
-#define ulong unsigned long
-
 class PXL_Window;
 
 extern int PXL_window_width;

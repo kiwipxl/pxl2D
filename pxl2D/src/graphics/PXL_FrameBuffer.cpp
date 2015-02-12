@@ -102,7 +102,7 @@ void PXL_FrameBuffer::bind_texture() {
 	texture->bind();
 }
 
-unsigned char* PXL_FrameBuffer::get_pixels() {
+PXL_ubyte* PXL_FrameBuffer::get_pixels() {
 	return texture->get_pixels();
 }
 

@@ -2,6 +2,12 @@
 #define _PXL_KEYBOARD_H
 
 #include <Windows.h>
+#include "system/PXL_API.h"
+
+typedef PXL_uint PXL_KeyCode;
+
+extern bool PXL_key_down(PXL_KeyCode key_code);
+extern bool PXL_key_up(PXL_KeyCode key_code);
 
 #define PXL_KEY_UNKNOWN					0x00	 /**< Unknown keyidentifier **/
 #define PXL_KEY_LBUTTON					0x01	 /**< Left mouse button **/

@@ -1,6 +1,7 @@
 #ifndef _PXL_MATH_H
 #define _PXL_MATH_H
 
+#include "PXL_API.h"
 #include "PXL_SHA256.h"
 
 #define PXL_clamp(v, min, max) v < min ? min : v && v > max ? max : v

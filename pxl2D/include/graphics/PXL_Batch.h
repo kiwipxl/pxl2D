@@ -9,6 +9,7 @@
 #include "PXL_ShaderUtils.h"
 #include "PXL_ShaderProgram.h"
 #include "PXL_FrameBuffer.h"
+#include "system/PXL_API.h"
 
 typedef int PXL_Flip;
 
@@ -35,10 +36,10 @@ struct PXL_VertexPoint {
 		float x = 0, y = 0;
 	} pos;
 	struct PXL_Vertex_UVCoord {
-		unsigned short x = 0, y = 0;
+		PXL_ushort x = 0, y = 0;
 	} uv;
 	struct PXL_Vertex_RGBA {
-		unsigned char r = 255, g = 255, b = 255, a = 255;
+		PXL_ubyte r = 255, g = 255, b = 255, a = 255;
 	} colour;
 };
 
@@ -173,8 +174,8 @@ class PXL_Batch {
 		PXL_VertexBatch* v_batch;
 		int vertex_batch_index;
 		int last_freq_index = 0;
-		unsigned int min_texture_id = 0;
-		unsigned int max_texture_id = 0;
+		PXL_uint min_texture_id = 0;
+		PXL_uint max_texture_id = 0;
 
 		/** Verifies whether the texture should be added to the batch and returns the result
 		@param rect Used to check the texture position on the screen

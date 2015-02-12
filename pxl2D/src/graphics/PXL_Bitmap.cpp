@@ -11,12 +11,12 @@ PXL_Bitmap::PXL_Bitmap(int bitmap_width, int bitmap_height, PXL_Colour fill_colo
 	buffer_loaded = true;
 	width = bitmap_width;
 	height = bitmap_height;
-	pixels = new unsigned char[(width * height) * 4];
+	pixels = new PXL_ubyte[(width * height) * 4];
 	size = (width * height) * 4;
 	fill(fill_colour);
 }
 
-PXL_Bitmap::PXL_Bitmap(int bitmap_width, int bitmap_height, unsigned char* pixel_buffer) {
+PXL_Bitmap::PXL_Bitmap(int bitmap_width, int bitmap_height, PXL_ubyte* pixel_buffer) {
 	buffer_loaded = true;
 	width = bitmap_width;
 	height = bitmap_height;
@@ -29,10 +29,10 @@ PXL_Bitmap* PXL_create_bitmap(std::string path) {
 }
 
 void PXL_Bitmap::fill(PXL_Colour colour) {
-	unsigned char r = colour.r * 255;
-	unsigned char g = colour.g * 255;
-	unsigned char b = colour.b * 255;
-	unsigned char a = colour.a * 255;
+	PXL_ubyte r = colour.r * 255;
+	PXL_ubyte g = colour.g * 255;
+	PXL_ubyte b = colour.b * 255;
+	PXL_ubyte a = colour.a * 255;
 
 	int row_size = width * 4;
 	for (int y = 0; y < height; ++y) {

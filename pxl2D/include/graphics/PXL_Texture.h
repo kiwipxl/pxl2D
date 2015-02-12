@@ -4,6 +4,7 @@
 #include <glew.h>
 #include "PXL_Structs.h"
 #include "PXL_Bitmap.h"
+#include "system/PXL_API.h"
 
 typedef int PXL_TextureFilter;
 
@@ -28,7 +29,7 @@ class PXL_Texture {
 		@param pixel_mode The pixel type of the pixel data (default is R, G, B, A)
 		**/
 		PXL_Texture(PXL_Bitmap* bitmap, int pixel_mode = GL_RGBA);
-		PXL_Texture(int w, int h, unsigned char* pixels = NULL, int pixel_mode = GL_RGBA);
+		PXL_Texture(int w, int h, PXL_ubyte* pixels = NULL, int pixel_mode = GL_RGBA);
 		~PXL_Texture();
 
 		bool texture_created; /**< Defines whether the texture has been created or not **/
@@ -39,7 +40,7 @@ class PXL_Texture {
 		@param pixel_mode The pixel type of the pixel data (default is R, G, B, A)
 		**/
 		void create_texture(PXL_Bitmap* bitmap, int pixel_mode = GL_RGBA);
-		void create_texture(int w, int h, unsigned char* pixels, int pixel_mode = GL_RGBA);
+		void create_texture(int w, int h, PXL_ubyte* pixels, int pixel_mode = GL_RGBA);
 
 		void bind();
 
@@ -56,7 +57,7 @@ class PXL_Texture {
 		/** Gets the raw pixel array contents stored in the GPU
 		\return A raw pixel byte array
 		**/
-		unsigned char* get_pixels();
+		PXL_ubyte* get_pixels();
 		/** Gets the texture width
 		\return The width of the texture
 		**/

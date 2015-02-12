@@ -17,7 +17,7 @@ PXL_Text* PXL_create_text(PXL_Font* f_font, std::string f_text, int f_pos_x, int
 	return new PXL_Text(f_font, f_text, f_pos_x, f_pos_y, f_size);
 }
 
-bool PXL_Text::set_char_pos(char symbol, int start_x) {
+bool PXL_Text::set_char_pos(PXL_byte symbol, int start_x) {
 	src_rect = font->get_glyph_rects()[font->get_glyph_index(symbol)];
 	rect.w = src_rect.w * font_scale.x;
 	rect.h = src_rect.h * font_scale.y;

@@ -15,7 +15,7 @@ PXL_Texture::PXL_Texture(PXL_Bitmap* bitmap, int pixel_mode) {
 	create_texture(bitmap, pixel_mode);
 }
 
-PXL_Texture::PXL_Texture(int w, int h, unsigned char* pixels, int pixel_mode) {
+PXL_Texture::PXL_Texture(int w, int h, PXL_ubyte* pixels, int pixel_mode) {
 	texture_created = false;
 	create_texture(w, h, pixels, pixel_mode);
 }
@@ -31,7 +31,7 @@ void PXL_Texture::create_texture(PXL_Bitmap* bitmap, int pixel_mode) {
 	}
 }
 
-void PXL_Texture::create_texture(int w, int h, unsigned char* pixels, int pixel_mode) {
+void PXL_Texture::create_texture(int w, int h, PXL_ubyte* pixels, int pixel_mode) {
 	if (pixels == NULL) {
 		has_transparency = true;
 	}else {
@@ -62,10 +62,10 @@ void PXL_Texture::bind() {
 	glBindTexture(GL_TEXTURE_2D, id);
 }
 
-unsigned char* PXL_Texture::get_pixels() {
+PXL_ubyte* PXL_Texture::get_pixels() {
 	if (texture_created) {
 		bind();
-		unsigned char* pixels = new unsigned char[(width * height) * 4];
+		PXL_ubyte* pixels = new PXL_ubyte[(width * height) * 4];
 		glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
 		return pixels;
 	}

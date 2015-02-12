@@ -3,6 +3,7 @@
 
 #include "PXL_Structs.h"
 #include "PXL_Texture.h"
+#include "system/PXL_API.h"
 
 typedef int PXL_FrameBufferAction;
 #define PXL_GL_FRAMEBUFFER GL_FRAMEBUFFER
@@ -45,7 +46,7 @@ class PXL_FrameBuffer {
 		/** Gets the raw pixel array contents stored in the GPU
 		\return A raw pixel byte array
 		**/
-		unsigned char* get_pixels();
+		PXL_ubyte* get_pixels();
 		/** Gets the frame_buffer width
 		\return The width of the frame_buffer
 		**/
