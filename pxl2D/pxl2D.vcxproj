@@ -30,6 +30,7 @@
     <ClCompile Include="src\PXL_Graphics.cpp" />
     <ClCompile Include="src\PXL_Physics.cpp" />
     <ClCompile Include="src\PXL_System.cpp" />
+    <ClCompile Include="src\system\PXL_Event.cpp" />
     <ClCompile Include="src\system\PXL_Exception.cpp" />
     <ClCompile Include="src\system\PXL_Math.cpp" />
     <ClCompile Include="src\system\PXL_SHA256.cpp" />
@@ -59,6 +60,7 @@
     <ClInclude Include="include\PXL_Physics.h" />
     <ClInclude Include="include\PXL_System.h" />
     <ClInclude Include="include\system\PXL_Config.h" />
+    <ClInclude Include="include\system\PXL_Event.h" />
     <ClInclude Include="include\system\PXL_Exception.h" />
     <ClInclude Include="include\system\PXL_Math.h" />
     <ClInclude Include="include\system\PXL_SHA256.h" />

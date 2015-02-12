@@ -48,14 +48,6 @@ void PXL_TextureSheet::create_sheet(bool dispose_all) {
 	glViewport(0, 0, PXL_window_width, PXL_window_height);
 	glReadBuffer(GL_BACK);
 
-	//todo: dispose all from batch list
-	//todo: bitmap pixel modes
-	//todo: use texsubimagestorage for textures (can specify to turn off though)
-	//todo: texture's hold pixel blocks on multiple getpixel calls
-	//todo: texture bitmap information (buffer size, channels, ect), optional: texture's inherit bitmaps and protected methods
-	//todo: min x, y positions using glviewport
-	//todo: can initiate texture object with a fill
-
 	texture_created = true;
 }
 

@@ -87,13 +87,13 @@ int main(int argc, char* args[]) {
 	while (!quit) {
 		start_time.start();
 
-		while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
-			if (msg.message == WM_QUIT) {
+		PXL_Event e;
+		while (PXL_poll_event(e)) {
+			std::cout << "msg: " << e.message << "\n";
+			if (e.message == WM_QUIT) {
 				quit = true;
 				break;
 			}
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
 		}
 
 		PXL_set_clear_colour(0, 0, 0, 1);

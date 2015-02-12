@@ -31,8 +31,6 @@ class PXL_Texture {
 		PXL_Texture(int w, int h, unsigned char* pixels = NULL, int pixel_mode = GL_RGBA);
 		~PXL_Texture();
 
-		//todo: file path texture constructor
-
 		bool texture_created; /**< Defines whether the texture has been created or not **/
 		bool has_transparency = false;
 
