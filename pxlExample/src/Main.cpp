@@ -78,8 +78,6 @@ int main(int argc, char* args[]) {
 		pos[n + 1] = int((rand() / float(RAND_MAX)) * 700);
 	}
 
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
 	PXL_set_clear_colour(0, 0, 0, 1);
 
 	start_second_time.start();
@@ -89,8 +87,8 @@ int main(int argc, char* args[]) {
 		PXL_Event e;
 		while (PXL_poll_event(e)) {
 			if (e.type == PXL_EVENT_KEYDOWN) {
-				std::cout << e.key_code << "\n";
-				if (e.key_code == PXL_KEY_Q) {
+				std::cout << e.key.code << "\n";
+				if (e.key.code == PXL_KEY_F2) {
 					std::cout << "key pressed\n";
 				}
 			}
