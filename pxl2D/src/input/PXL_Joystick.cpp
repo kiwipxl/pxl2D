@@ -66,33 +66,41 @@ PXL_byte* get_joystick_name(PXL_uint device_id, JOYCAPS joy_caps) {
 	return name;
 }
 
-PXL_uint num_joysticks = 0;
+std::vector<PXL_Joystick*> joysticks;
 
 void PXL_joystick_init() {
 	JOYINFO joy_info;
-	UINT num_devices, device_id;
-	BOOL device_attached;
-	num_devices = joyGetNumDevs();
+	JOYCAPS joy_caps;
+	PXL_uint num_devices = joyGetNumDevs();
+	PXL_uint device_id;
 
 	for (int n = 0; n < num_devices; ++n) {
 		if (joyGetPos(n, &joy_info) == 0) {
 			device_id = n;
 
-			JOYCAPS joy_caps;
 			joyGetDevCaps(device_id, &joy_caps, sizeof(joy_caps));
 
-			PXL_byte* name = get_joystick_name(device_id, joy_caps);
+			PXL_Joystick* joystick = new PXL_Joystick();
 
-			++num_joysticks;
+			joystick->name = get_joystick_name(device_id, joy_caps);
+			joystick->device_id = device_id;
+			joystick->num_buttons = joy_caps.wNumButtons;
+			joystick->num_axes = joy_caps.wNumAxes;
+
+			joysticks.push_back(joystick);
 		}
 	}
 }
 
 extern PXL_uint PXL_num_joysticks() {
-	return num_joysticks;
+	return joysticks.size();
 }
 
-extern PXL_Joystick PXL_get_joystick(PXL_uint joystick_id) {
-	PXL_Joystick j;
-	return j;
+extern PXL_Joystick* PXL_get_joystick(PXL_uint joystick_index) {
+	if (joystick_index >= joysticks.size()) {
+		PXL_show_exception("Joystick id specified is out of bounds of joysticks list");
+		return NULL;
+	}else {
+		return joysticks[joystick_index];
+	}
 }
