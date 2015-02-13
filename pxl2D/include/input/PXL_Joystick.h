@@ -11,6 +11,10 @@ struct PXL_Joystick {
 	std::string name;
 	PXL_uint num_buttons;
 	PXL_uint num_axes;
+	JOYINFO joy_info;
+
+	bool activate();
+	void deactivate();
 };
 
 extern void PXL_joystick_init();

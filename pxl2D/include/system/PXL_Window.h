@@ -13,6 +13,7 @@ extern int PXL_window_height;
 extern int PXL_center_window_x;
 extern int PXL_center_window_y;
 extern std::vector<PXL_Window*> PXL_windows;
+extern PXL_Window* PXL_primary_window;
 
 /**
 \*brief: loads and creates a window from the specified path

@@ -11,6 +11,7 @@ int PXL_window_height;
 int PXL_center_window_x;
 int PXL_center_window_y;
 std::vector<PXL_Window*> PXL_windows;
+PXL_Window* PXL_primary_window;
 bool init_dummy_window = true;
 
 int context_attribs[] = {
@@ -52,6 +53,8 @@ void PXL_swap_buffers(int window_index) {
 }
 
 void PXL_Window::create_window(int window_width, int window_height, std::string title) {
+	if (init_dummy_window) { PXL_primary_window = this; }
+
 	free();
 
 	instance_handle = GetModuleHandle(NULL);

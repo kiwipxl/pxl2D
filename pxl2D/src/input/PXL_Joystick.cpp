@@ -86,21 +86,30 @@ void PXL_joystick_init() {
 			joystick->device_id = device_id;
 			joystick->num_buttons = joy_caps.wNumButtons;
 			joystick->num_axes = joy_caps.wNumAxes;
+			joystick->joy_info = joy_info;
 
 			joysticks.push_back(joystick);
 		}
 	}
 }
 
-extern PXL_uint PXL_num_joysticks() {
+PXL_uint PXL_num_joysticks() {
 	return joysticks.size();
 }
 
-extern PXL_Joystick* PXL_get_joystick(PXL_uint joystick_index) {
+PXL_Joystick* PXL_get_joystick(PXL_uint joystick_index) {
 	if (joystick_index >= joysticks.size()) {
 		PXL_show_exception("Joystick id specified is out of bounds of joysticks list");
 		return NULL;
 	}else {
 		return joysticks[joystick_index];
 	}
+}
+
+bool PXL_Joystick::activate() {
+	return joySetCapture(PXL_primary_window->win_handle, device_id, NULL, TRUE) == 0;
+}
+
+void PXL_Joystick::deactivate() {
+	joyReleaseCapture(device_id);
 }

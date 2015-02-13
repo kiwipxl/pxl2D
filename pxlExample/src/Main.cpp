@@ -78,6 +78,11 @@ int main(int argc, char* args[]) {
 		pos[n + 1] = int((rand() / float(RAND_MAX)) * 700);
 	}
 
+	PXL_Joystick* j = PXL_get_joystick(0);
+	j->activate();
+
+	int num = PXL_num_joysticks();
+
 	PXL_set_clear_colour(0, 0, 0, 1);
 
 	start_second_time.start();
@@ -92,6 +97,11 @@ int main(int argc, char* args[]) {
 					std::cout << "key pressed\n";
 				}
 			}
+
+			//if (e.type == MM_JOY1BUTTONDOWN) {
+			joyGetPos(j->device_id, &j->joy_info);
+			std::cout << e.type << ", " << e.key_code << ", " << j->joy_info.wButtons << "\n";
+			//}
 
 			if (e.type == PXL_EVENT_QUIT) {
 				quit = true;
