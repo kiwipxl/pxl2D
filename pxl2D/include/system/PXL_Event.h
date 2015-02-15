@@ -3,6 +3,7 @@
 
 #include <Windows.h>
 #include "PXL_API.h"
+#include "input/PXL_Joystick.h"
 
 #define PXL_EVENT_NULL			WM_NULL
 #define PXL_EVENT_QUIT			WM_QUIT /**> Event message that occurs when a window sends a termination message **/
@@ -21,6 +22,10 @@ class PXL_Event {
 		PXL_Event() { }
 
 		HWND window_handle;
+		PXL_ulong jbuttons;
+		PXL_ulong jnum_buttons;
+		PXL_ulong mouse_x;
+		PXL_ulong mouse_y;
 		PXL_uint key_code;
 		PXL_uint type; /**> The message value **/
 		PXL_ulong time; /**> The time value for when this event was posted **/

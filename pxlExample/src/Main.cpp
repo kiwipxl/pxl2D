@@ -90,6 +90,7 @@ int main(int argc, char* args[]) {
 		start_time.start();
 
 		PXL_Event e;
+		std::cout << "------\n";
 		while (PXL_poll_event(e)) {
 			if (e.type == PXL_EVENT_KEYDOWN) {
 				std::cout << e.key_code << "\n";
@@ -98,9 +99,8 @@ int main(int argc, char* args[]) {
 				}
 			}
 
-			//if (e.type == MM_JOY1BUTTONDOWN) {
-			joyGetPos(j->device_id, &j->joy_info);
-			std::cout << e.type << ", " << e.key_code << ", " << j->joy_info.wButtons << "\n";
+			//if (e.type == JOY_BUTTON1) {
+				std::cout << e.type << ", " << e.key_code << ", " << e.jbuttons << "\n";
 			//}
 
 			if (e.type == PXL_EVENT_QUIT) {

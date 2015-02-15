@@ -22,6 +22,10 @@ int context_attribs[] = {
 };
 
 LRESULT CALLBACK win_proc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
+	if (msg == 4) {
+		int a = 5;
+	}
+
 	switch (msg) {
 		case WM_CLOSE:
 			DestroyWindow(hwnd);

@@ -69,13 +69,13 @@ PXL_byte* get_joystick_name(PXL_uint device_id, JOYCAPS joy_caps) {
 std::vector<PXL_Joystick*> joysticks;
 
 void PXL_joystick_init() {
-	JOYINFO joy_info;
+	JOYINFOEX joy_info;
 	JOYCAPS joy_caps;
 	PXL_uint num_devices = joyGetNumDevs();
 	PXL_uint device_id;
 
 	for (int n = 0; n < num_devices; ++n) {
-		if (joyGetPos(n, &joy_info) == 0) {
+		if (joyGetPosEx(n, &joy_info) == JOYERR_NOERROR) {
 			device_id = n;
 
 			joyGetDevCaps(device_id, &joy_caps, sizeof(joy_caps));
@@ -86,7 +86,6 @@ void PXL_joystick_init() {
 			joystick->device_id = device_id;
 			joystick->num_buttons = joy_caps.wNumButtons;
 			joystick->num_axes = joy_caps.wNumAxes;
-			joystick->joy_info = joy_info;
 
 			joysticks.push_back(joystick);
 		}
@@ -107,7 +106,7 @@ PXL_Joystick* PXL_get_joystick(PXL_uint joystick_index) {
 }
 
 bool PXL_Joystick::activate() {
-	return joySetCapture(PXL_primary_window->win_handle, device_id, NULL, TRUE) == 0;
+	return joySetCapture(PXL_primary_window->win_handle, device_id, 0, false) == 0;
 }
 
 void PXL_Joystick::deactivate() {
