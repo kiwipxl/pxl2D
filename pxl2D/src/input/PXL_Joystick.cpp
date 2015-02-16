@@ -106,7 +106,7 @@ PXL_Joystick* PXL_get_joystick(PXL_uint joystick_index) {
 }
 
 bool PXL_Joystick::activate() {
-	return joySetCapture(PXL_primary_window->win_handle, device_id, 0, false) == 0;
+	return joySetCapture(0, device_id, 0, false) == 0;
 }
 
 void PXL_Joystick::deactivate() {

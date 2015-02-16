@@ -5,6 +5,7 @@
 #include <vector>
 #define NOMINMAX //macro to not have the windows header define min/max so it doesn't interfere
 #include <Windows.h>
+#include "PXL_Event.h"
 
 class PXL_Window;
 
@@ -13,7 +14,7 @@ extern int PXL_window_height;
 extern int PXL_center_window_x;
 extern int PXL_center_window_y;
 extern std::vector<PXL_Window*> PXL_windows;
-extern PXL_Window* PXL_primary_window;
+//extern PXL_Window* PXL_primary_window;
 
 /**
 \*brief: loads and creates a window from the specified path
@@ -48,15 +49,16 @@ class PXL_Window {
 		HINSTANCE instance_handle;
 		WNDCLASS win_class;
 		HWND win_handle;
-		MSG msg;
-		LPCSTR class_name;
-		LPCSTR window_name;
+		std::string class_name;
+		std::string win_name;
 
 		/**
 		\*brief: loads a window from the specified path
 		\*param [path]: the path and file name for the window to load
 		**/
 		void create_window(int window_width, int window_height, std::string title);
+
+		bool poll_event(PXL_Event& e);
 
 		/**
 		\*brief: frees all data from the window
@@ -66,6 +68,11 @@ class PXL_Window {
 	private:
 		//window info
 		bool window_loaded;
+		MSG msg;
+
+		void register_class();
+		void unregister_class();
+		void create_context();
 };
 
 #endif

@@ -25,7 +25,7 @@ int main(int argc, char* args[]) {
 	int seconds_elapsed = 0;
 	timeBeginPeriod(1);
 
-	PXL_create_window(1024, 768, "PXL Example Project");
+	PXL_Window* window = PXL_create_window(1024, 768, "PXL Example Project");
 	PXL_init();
 
 	PXL_Texture* cat = load_texture("cat.png");
@@ -91,7 +91,7 @@ int main(int argc, char* args[]) {
 
 		PXL_Event e;
 		std::cout << "------\n";
-		while (PXL_poll_event(e)) {
+		while (window->poll_event(e)) {
 			if (e.type == PXL_EVENT_KEYDOWN) {
 				std::cout << e.key_code << "\n";
 				if (e.key_code == PXL_KEY_RETURN) {
@@ -104,8 +104,8 @@ int main(int argc, char* args[]) {
 			//}
 
 			if (e.type == PXL_EVENT_QUIT) {
-				quit = true;
-				break;
+				//quit = true;
+				//break;
 			}
 		}
 

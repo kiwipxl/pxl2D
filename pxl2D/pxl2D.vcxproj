@@ -36,7 +36,6 @@
     <ClCompile Include="src\system\PXL_Event.cpp" />
     <ClCompile Include="src\system\PXL_Exception.cpp" />
     <ClCompile Include="src\system\PXL_Math.cpp" />
-    <ClCompile Include="src\system\PXL_SHA256.cpp" />
     <ClCompile Include="src\system\PXL_Timer.cpp" />
     <ClCompile Include="src\system\PXL_Window.cpp" />
   </ItemGroup>
@@ -70,7 +69,6 @@
     <ClInclude Include="include\system\PXL_Event.h" />
     <ClInclude Include="include\system\PXL_Exception.h" />
     <ClInclude Include="include\system\PXL_Math.h" />
-    <ClInclude Include="include\system\PXL_SHA256.h" />
     <ClInclude Include="include\system\PXL_Timer.h" />
     <ClInclude Include="include\system\PXL_Window.h" />
   </ItemGroup>

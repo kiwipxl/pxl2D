@@ -31,6 +31,4 @@ class PXL_Event {
 		PXL_ulong time; /**> The time value for when this event was posted **/
 };
 
-extern bool PXL_poll_event(PXL_Event& e);
-
 #endif
