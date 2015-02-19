@@ -79,10 +79,11 @@ int main(int argc, char* args[]) {
 		pos[n + 1] = int((rand() / float(RAND_MAX)) * 700);
 	}
 
-	PXL_Joystick* j = PXL_get_joystick(0);
-	j->activate();
-
 	int num = PXL_num_joysticks();
+	if (num > 0) {
+		PXL_Joystick* j = PXL_get_joystick(0);
+		j->activate();
+	}
 
 	PXL_set_clear_colour(0, 0, 0, 1);
 
@@ -105,8 +106,8 @@ int main(int argc, char* args[]) {
 			//}
 
 			if (e.type == PXL_EVENT_QUIT) {
-				//quit = true;
-				//break;
+				quit = true;
+				break;
 			}
 		}
 

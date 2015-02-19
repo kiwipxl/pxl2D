@@ -224,7 +224,7 @@ void PXL_swap_buffers(PXL_Window* window) {
 }
 
 void PXL_swap_buffers(int window_index) {
-	if (window_index > 0) {
+	if (window_index >= 0) {
 		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
 		SwapBuffers(PXL_windows[window_index]->device_context_handle);
 	}else {

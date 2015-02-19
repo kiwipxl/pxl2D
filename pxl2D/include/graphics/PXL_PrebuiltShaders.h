@@ -59,8 +59,7 @@ const char* PXL_default_shader_str = GLSL(
 	uniform sampler2D t0;
 
 	void main() {
-		//pixel = v_colour * texture(t0, tex_coord);
-		pixel = vec4(1, 0, 0, 1);
+		pixel = v_colour * texture(t0, tex_coord);
 	}
 
 	//[END_FRAGMENT]

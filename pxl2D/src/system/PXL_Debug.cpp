@@ -17,17 +17,17 @@ std::string PXL_stack_trace(int num_traces) {
 	symbol->MaxNameLen = 192;
 	symbol->SizeOfStruct = sizeof(SYMBOL_INFO);
 
-	IMAGEHLP_LINE* line = new IMAGEHLP_LINE();
-	line->SizeOfStruct = sizeof(IMAGEHLP_LINE);
+	IMAGEHLP_LINE line;
+	DWORD disp;
 
 	std::string output = "";
 	char* char_output = new char[255];
 	for (i = 0; i < frames_captured; i++) {
-		SymFromAddr(process, stacks[i], 0, symbol);
-		DWORD disp;
-		SymGetLineFromAddr(process, stacks[i], &disp, line);
+		SymFromAddr(process, stacks[i], NULL, symbol);
+		SymGetLineFromAddr(process, stacks[i], &disp, &line);
 
-		std::string file_name = line->FileName;
+		//convert file name to string and remove everything in the string before src or include
+		std::string file_name = line.FileName;
 		int id;
 		if ((id = file_name.rfind("src")) != -1) {
 			file_name = file_name.substr(id + 4, file_name.length());
@@ -35,12 +35,13 @@ std::string PXL_stack_trace(int num_traces) {
 			file_name = file_name.substr(id, file_name.length());
 		}
 
-		sprintf(char_output, "%i: %s in (%s, line %i)\n", frames_captured - i - 1, symbol->Name, file_name.c_str(), line->LineNumber);
-		output += char_output;
+		if (id != -1) {
+			sprintf(char_output, "%i: %s (%s, line %i)\n", frames_captured - i - 1, symbol->Name, file_name.c_str(), line.LineNumber);
+			output += char_output;
+		}
 	}
 
 	delete symbol;
-	delete line;
 	delete[] stacks;
 
 	return output;

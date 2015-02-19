@@ -6,6 +6,6 @@
 #include <iostream>
 #include "PXL_API.h"
 
-extern std::string PXL_stack_trace(int num_traces = 5);
+extern std::string PXL_stack_trace(int num_traces = 8);
 
 #endif
