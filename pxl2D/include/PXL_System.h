@@ -6,6 +6,7 @@
 #include "system/PXL_Timer.h"
 #include "system/PXL_Exception.h"
 #include "system/PXL_Event.h"
+#include "system/PXL_Debug.h"
 
 /** Initialises PXL system
 **/

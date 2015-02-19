@@ -33,6 +33,7 @@
     <ClCompile Include="src\PXL_Input.cpp" />
     <ClCompile Include="src\PXL_Physics.cpp" />
     <ClCompile Include="src\PXL_System.cpp" />
+    <ClCompile Include="src\system\PXL_Debug.cpp" />
     <ClCompile Include="src\system\PXL_Event.cpp" />
     <ClCompile Include="src\system\PXL_Exception.cpp" />
     <ClCompile Include="src\system\PXL_Math.cpp" />
@@ -66,6 +67,7 @@
     <ClInclude Include="include\PXL_System.h" />
     <ClInclude Include="include\system\PXL_API.h" />
     <ClInclude Include="include\system\PXL_Config.h" />
+    <ClInclude Include="include\system\PXL_Debug.h" />
     <ClInclude Include="include\system\PXL_Event.h" />
     <ClInclude Include="include\system\PXL_Exception.h" />
     <ClInclude Include="include\system\PXL_Math.h" />
@@ -129,7 +131,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>libpng.lib;zlib.lib;freetype.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libpng.lib;zlib.lib;freetype.lib;winmm.lib;dbghelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

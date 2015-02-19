@@ -170,13 +170,9 @@ LRESULT CALLBACK win_proc(HWND handle, UINT msg, WPARAM w_param, LPARAM l_param)
 		int a = 5;
 	}
 
-	int a;
 	switch (msg) {
 		case WM_CLOSE:
 			PostQuitMessage(1);
-			break;
-		case WM_KEYDOWN:
-			a = 5;
 			break;
 		default:
 			return DefWindowProc(handle, msg, w_param, l_param);

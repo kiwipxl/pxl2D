@@ -2,6 +2,7 @@
 #include <iostream>
 #include <Windows.h>
 #include "PXL_Config.h"
+#include "PXL_Debug.h"
 
 extern bool PXL_show_exception(std::string exception_message, PXL_ErrorCode error_string, PXL_ExceptionType type, bool exit) {
 	#if (defined(_DEBUG) && PXL_SHOW_EXCEPTIONS_IN_DEBUG) || (!defined(_DEBUG) && PXL_SHOW_EXCEPTIONS_IN_RELEASE)
@@ -17,6 +18,8 @@ extern void PXL_force_show_exception(std::string exception_message, PXL_ErrorCod
 	if (error_string != "") {
 		msg += " - Error code: " + error_string;
 	}
+	msg += "\n\n-- Stack trace --\n" + PXL_stack_trace();
+	std::cout << msg << "\n";
 
 	if ((type & PXL_EXCEPTION_CONSOLE) != 0) {
 		std::cout << msg << "\n";
