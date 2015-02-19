@@ -25,11 +25,6 @@ class PXL_TextureSheet : public PXL_Texture {
 		**/
 		void create_sheet(bool dispose_all = false);
 
-		/**
-		\*brief: deletes all pixel buffers added to this sheet
-		**/
-		void delete_pixel_vec();
-
 		/** Adds the specified texture to the batch render queue and transforms it with all specified parameters
 		@param texture The texture to add to the batch
 		@param rect Specifies where on the screen the texture will be rendered to
@@ -51,6 +46,7 @@ class PXL_TextureSheet : public PXL_Texture {
 
 	private:
 		PXL_Batch* batch;
+		std::vector<PXL_Texture*> texture_list;
 };
 
 #endif

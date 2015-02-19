@@ -361,7 +361,7 @@ const char* PXL_point_light_shader_str = GLSL(
 				pixel.r += a * points[n + 4];
 				pixel.g += a * points[n + 5];
 				pixel.b += a * points[n + 6];
-				//pixel.a += a * pixel.rgb;
+				pixel.a += a * pixel.rgb;
 			}
 		}
 		pixel.a = clamp(pixel.a, 0, max_alpha);

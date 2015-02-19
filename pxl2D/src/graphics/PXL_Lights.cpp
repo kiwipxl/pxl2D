@@ -10,7 +10,7 @@ std::vector<GLfloat> point_lights_arr;
 PXL_Texture* screen_texture = new PXL_Texture();
 
 void PXL_lights_init() {
-	screen_texture->create_texture(PXL_window_width, PXL_window_height, 0);
+	screen_texture->create_texture(PXL_window_width, PXL_window_height, NULL, PXL_CHANNEL_RGBA);
 
 	glUseProgram(PXL_point_light_shader->get_program_id());
 	PXL_point_light_shader->add_uniform_location("points");

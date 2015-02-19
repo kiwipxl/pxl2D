@@ -32,8 +32,8 @@ void PXL_TextureSheet::create_sheet(bool dispose_all) {
 	batch->perspective_mat.scale(1.0f / (width / 2), 1.0f / (height / 2));
 	batch->perspective_mat.translate(-1.0f, -1.0f);
 
-	create_texture(width, height, NULL);
-	sheet_frame_buffer->get_texture()->create_texture(width, height, 0);
+	create_texture(width, height, NULL, PXL_CHANNEL_RGBA);
+	sheet_frame_buffer->get_texture()->create_texture(width, height, NULL, PXL_CHANNEL_RGBA);
 
 	sheet_frame_buffer->clear(bg_colour.r, bg_colour.g, bg_colour.b, bg_colour.a);
 	batch->set_target(sheet_frame_buffer);
@@ -49,6 +49,14 @@ void PXL_TextureSheet::create_sheet(bool dispose_all) {
 	glReadBuffer(GL_BACK);
 
 	texture_created = true;
+
+	if (dispose_all) {
+		for (int n = 0; n < texture_list.size(); ++n) {
+			delete texture_list[n];
+		}
+	}
+
+	texture_list.clear();
 }
 
 void PXL_TextureSheet::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, float rotation, PXL_Vec2* origin, 
@@ -59,6 +67,7 @@ void PXL_TextureSheet::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_r
 	int h = rect->y + rect->h;
 	if (w > width) { width = w; }
 	if (h > height) { height = h; }
+	texture_list.push_back(texture);
 }
 
 void PXL_TextureSheet::free() {

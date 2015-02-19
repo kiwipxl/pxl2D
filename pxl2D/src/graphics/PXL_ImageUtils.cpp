@@ -12,6 +12,8 @@ void read_png(png_structp read, png_bytep data, png_size_t length);
 std::ifstream file;
 
 PXL_Bitmap* PXL_load_png(std::string file_name, PXL_Bitmap* bitmap) {
+	if (bitmap == NULL) return NULL;
+
 	file.open(file_name, std::ios::binary);
 
 	if (!png_validate(file)) {
@@ -45,19 +47,19 @@ PXL_Bitmap* PXL_load_png(std::string file_name, PXL_Bitmap* bitmap) {
 	png_uint_32 channels = png_get_channels(png_pointer, info_pointer);
 	png_uint_32 colour_type = png_get_color_type(png_pointer, info_pointer);
 
-	if (bitmap == NULL) {
-		bitmap = new PXL_Bitmap(png_width, png_height, 0);
-	}
-	bitmap->width = png_width;
-	bitmap->height = png_height;
+	PXL_Channel channel;
+	channel.num_channels = channels;
+	if (channels == 1) channel.gl_pixel_mode = GL_ALPHA;
+	if (channels == 2) channel.gl_pixel_mode = GL_RG;
+	if (channels == 3) channel.gl_pixel_mode = GL_RGB;
+	if (channels == 4) channel.gl_pixel_mode = GL_RGBA;
 
-	const PXL_uint row_length = bitmap->width * ((bit_depth * channels) / 8);
-	bitmap->size = row_length * bitmap->height;
-	bitmap->pixels = new PXL_ubyte[bitmap->size];
+	bitmap->create_bitmap(png_width, png_height, PXL_COLOR_BLACK, channel);
 
-	png_bytep* row_pointers = new png_bytep[bitmap->height];
-	for (int y = 0; y < bitmap->height; ++y) {
-		row_pointers[y] = (png_bytep)(bitmap->pixels + (y * row_length));
+	const PXL_uint row_length = bitmap->get_width() * ((bit_depth * channels) / 8);
+	png_bytep* row_pointers = new png_bytep[bitmap->get_height()];
+	for (int y = 0; y < bitmap->get_height(); ++y) {
+		row_pointers[y] = (png_bytep)(bitmap->get_pixels() + (y * row_length));
 	}
 
 	png_read_image(png_pointer, row_pointers);

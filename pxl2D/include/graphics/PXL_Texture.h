@@ -34,8 +34,8 @@ class PXL_Texture {
 		@param bitmap Holds all pixel information for an image
 		@param pixel_mode The pixel type of the pixel data (default is R, G, B, A)
 		**/
-		bool create_texture(PXL_Bitmap* bitmap, int pixel_mode = GL_RGBA);
-		bool create_texture(int w, int h, PXL_ubyte* pixels, int pixel_mode = GL_RGBA);
+		bool create_texture(PXL_Bitmap* bitmap);
+		bool create_texture(int w, int h, PXL_ubyte* pixels, PXL_Channel pixel_channel);
 
 		void bind();
 
@@ -70,6 +70,7 @@ class PXL_Texture {
 		int width; /**< The width of the texture **/
 		int height; /**< The height of the texture **/
 		GLuint id; /**< The opengl id associated with the texture **/
+		PXL_Channel channel;
 };
 
 /**
@@ -77,6 +78,6 @@ class PXL_Texture {
 @param bitmap Holds all pixel information for an image
 @param pixel_mode The pixel type of the pixel data (default is R, G, B, A)
 **/
-extern PXL_Texture* PXL_create_texture(PXL_Bitmap* bitmap, int pixel_mode = GL_RGBA);
+extern PXL_Texture* PXL_create_texture(PXL_Bitmap* bitmap, PXL_Channel channel);
 
 #endif

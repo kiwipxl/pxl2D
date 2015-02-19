@@ -5,7 +5,6 @@
 PXL_Texture* load_texture(char* path) {
 	std::string texture_path = "assets/";
 	texture_path += path;
-	PXL_Bitmap bitmap(texture_path);
 	PXL_Texture* texture = new PXL_Texture();
 	texture->create_texture(texture_path);
 	return texture;
@@ -92,7 +91,6 @@ int main(int argc, char* args[]) {
 		start_time.start();
 
 		PXL_Event e;
-		std::cout << "------\n";
 		while (window->poll_event(e)) {
 			if (e.type == PXL_EVENT_KEYDOWN) {
 				std::cout << e.key_code << "\n";
@@ -102,7 +100,7 @@ int main(int argc, char* args[]) {
 			}
 
 			//if (e.type == JOY_BUTTON1) {
-				std::cout << e.type << ", " << e.key_code << ", " << e.jbuttons << "\n";
+				//std::cout << e.type << ", " << e.key_code << ", " << e.jbuttons << "\n";
 			//}
 
 			if (e.type == PXL_EVENT_QUIT) {

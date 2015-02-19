@@ -23,27 +23,23 @@ PXL_Font::PXL_Font(std::string path, int c_max_font_size) {
 			FT_Load_Glyph(f, n, FT_LOAD_RENDER);
 			if (f->glyph->bitmap.width == 0 || f->glyph->bitmap.rows == 0) { continue; }
 
-			PXL_Bitmap bitmap(f->glyph->bitmap.width, f->glyph->bitmap.rows, 0);
+			int size = f->glyph->bitmap.width * f->glyph->bitmap.rows;
+			PXL_ubyte* pixels = new PXL_ubyte[size];
+			memcpy(pixels, f->glyph->bitmap.buffer, size);
+			PXL_Bitmap bitmap;
+			bitmap.create_bitmap(f->glyph->bitmap.width, f->glyph->bitmap.rows, pixels, PXL_CHANNEL_ALPHA);
 
-			max_char_width = PXL_max(max_char_width, bitmap.width);
-			max_char_height = PXL_max(max_char_height, bitmap.height);
+			max_char_width = PXL_max(max_char_width, bitmap.get_width());
+			max_char_height = PXL_max(max_char_height, bitmap.get_height());
 
-			bitmap.num_channels = 1;
-			bitmap.size = bitmap.width * bitmap.height;
-			bitmap.pixels = new PXL_ubyte[bitmap.size];
-			memcpy(bitmap.pixels, f->glyph->bitmap.buffer, bitmap.size);
-
-			//bitmap.fill(PXL_COLOUR_LIGHT_GREEN);
-
-			rect.w = bitmap.width;
-			rect.h = bitmap.height;
-			glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-			PXL_Texture t;
-			t.create_texture(&bitmap, GL_ALPHA);
-			glyph_sheet->add(&t, &rect);
+			rect.w = bitmap.get_width();
+			rect.h = bitmap.get_height();
+			PXL_Texture* t = new PXL_Texture();
+			t->create_texture(&bitmap);
+			glyph_sheet->add(t, &rect);
 			glyph_rects[n] = rect;
 
-			rect.x += bitmap.width;
+			rect.x += bitmap.get_width();
 			if (rect.x >= 1024) {
 				rect.x = 0;
 				rect.y = glyph_sheet->get_height();
