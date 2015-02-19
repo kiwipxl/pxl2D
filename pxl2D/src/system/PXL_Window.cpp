@@ -186,12 +186,14 @@ LRESULT CALLBACK win_proc(HWND handle, UINT msg, WPARAM w_param, LPARAM l_param)
 
 bool PXL_Window::poll_event(PXL_Event& e) {
 	if (PeekMessage(&msg, win_handle, 0, 0, PM_REMOVE) > 0) {
-		PXL_get_joystick(0);
-		JOYINFOEX joy_info;
-		joy_info.dwFlags = JOY_RETURNALL;
-		joyGetPosEx(1, &joy_info);
-		e.jbuttons = joy_info.dwButtons;
-		e.jnum_buttons = joy_info.dwButtonNumber;
+		if (PXL_num_joysticks() > 0) {
+			PXL_get_joystick(0);
+			JOYINFOEX joy_info;
+			joy_info.dwFlags = JOY_RETURNALL;
+			joyGetPosEx(1, &joy_info);
+			e.jbuttons = joy_info.dwButtons;
+			e.jnum_buttons = joy_info.dwButtonNumber;
+		}
 
 		e.mouse_x = LOWORD(msg.lParam);
 		e.mouse_y = HIWORD(msg.lParam);
@@ -217,11 +219,19 @@ bool PXL_Window::poll_event(PXL_Event& e) {
 ----------------------------------------------------------------------------**/
 
 void PXL_swap_buffers(PXL_Window* window) {
-	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
-	SwapBuffers(window->device_context_handle);
+	if (window == NULL) {
+		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+		SwapBuffers(window->device_context_handle);
+	}else {
+		PXL_show_exception("PXL_swap_buffers window is NULL", PXL_ERROR_SWAP_BUFFERS_FAILED);
+	}
 }
 
 void PXL_swap_buffers(int window_index) {
-	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
-	SwapBuffers(PXL_windows[window_index]->device_context_handle);
+	if (window_index > 0) {
+		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+		SwapBuffers(PXL_windows[window_index]->device_context_handle);
+	}else {
+		PXL_show_exception("PXL_swap_buffers index is out of bounds", PXL_ERROR_SWAP_BUFFERS_FAILED);
+	}
 }

@@ -5,6 +5,7 @@
 PXL_Bitmap::PXL_Bitmap(std::string path) {
 	buffer_loaded = false;
 	load_bitmap(path);
+	has_transparency = check_has_transparency();
 }
 
 PXL_Bitmap::PXL_Bitmap(int bitmap_width, int bitmap_height, PXL_Colour fill_colour) {
@@ -14,6 +15,7 @@ PXL_Bitmap::PXL_Bitmap(int bitmap_width, int bitmap_height, PXL_Colour fill_colo
 	pixels = new PXL_ubyte[(width * height) * 4];
 	size = (width * height) * 4;
 	fill(fill_colour);
+	has_transparency = check_has_transparency();
 }
 
 PXL_Bitmap::PXL_Bitmap(int bitmap_width, int bitmap_height, PXL_ubyte* pixel_buffer) {
@@ -22,10 +24,7 @@ PXL_Bitmap::PXL_Bitmap(int bitmap_width, int bitmap_height, PXL_ubyte* pixel_buf
 	height = bitmap_height;
 	pixels = pixel_buffer;
 	size = (width * height) * 4;
-}
-
-PXL_Bitmap* PXL_create_bitmap(std::string path) {
-	return new PXL_Bitmap(path);
+	has_transparency = check_has_transparency();
 }
 
 void PXL_Bitmap::fill(PXL_Colour colour) {
@@ -42,6 +41,23 @@ void PXL_Bitmap::fill(PXL_Colour colour) {
 			pixels[x + 1 + row_y] = g;
 			pixels[x + 2 + row_y] = b;
 			pixels[x + 3 + row_y] = a;
+		}
+	}
+}
+
+bool PXL_Bitmap::check_has_transparency() {
+	//checks whether the specified pixels contain any transparency
+	if (pixels == NULL) {
+		return false;
+	}else {
+		for (int n = 0; n < (width * height) * 4; n += 4) {
+			/*if (pixels[n + 3] == 0) {
+				pixels[n] = 255;
+				pixels[n + 1] = 255;
+				pixels[n + 2] = 255;
+				pixels[n + 3] = 0;
+				has_transparency = true;
+			}*/
 		}
 	}
 }

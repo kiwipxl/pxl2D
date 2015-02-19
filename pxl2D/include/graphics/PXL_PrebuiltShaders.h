@@ -59,7 +59,8 @@ const char* PXL_default_shader_str = GLSL(
 	uniform sampler2D t0;
 
 	void main() {
-		pixel = v_colour * texture(t0, tex_coord);
+		//pixel = v_colour * texture(t0, tex_coord);
+		pixel = vec4(1, 0, 0, 1);
 	}
 
 	//[END_FRAGMENT]
@@ -361,7 +362,7 @@ const char* PXL_point_light_shader_str = GLSL(
 				pixel.r += a * points[n + 4];
 				pixel.g += a * points[n + 5];
 				pixel.b += a * points[n + 6];
-				pixel.a += a * pixel.rgb;
+				//pixel.a += a * pixel.rgb;
 			}
 		}
 		pixel.a = clamp(pixel.a, 0, max_alpha);

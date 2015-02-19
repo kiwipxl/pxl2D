@@ -22,33 +22,32 @@ void PXL_FrameBuffer::create_frame_buffer(int w, int h, bool create_depth_buffer
 
 	//creates the frame buffer container object
 	glGenFramebuffers(1, &id);
-	bind();
-	glFramebufferParameteri(PXL_GL_FRAMEBUFFER_WRITE, GL_FRAMEBUFFER_DEFAULT_WIDTH, width);
-	glFramebufferParameteri(PXL_GL_FRAMEBUFFER_WRITE, GL_FRAMEBUFFER_DEFAULT_HEIGHT, height);
-	glFramebufferParameteri(PXL_GL_FRAMEBUFFER_WRITE, GL_FRAMEBUFFER_DEFAULT_SAMPLES, 4);
+	bind(PXL_GL_FRAMEBUFFER_WRITE);
 
 	if (create_depth_buffer) {
 		glGenRenderbuffers(1, &depth_id);
-		glBindRenderbuffer(PXL_GL_FRAMEBUFFER, depth_id);
-		glRenderbufferStorage(PXL_GL_FRAMEBUFFER, GL_DEPTH24_STENCIL8, width, height);
-		glFramebufferRenderbuffer(PXL_GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, depth_id);
+		glBindRenderbuffer(PXL_GL_FRAMEBUFFER_WRITE, depth_id);
+		glRenderbufferStorage(PXL_GL_FRAMEBUFFER_WRITE, GL_DEPTH24_STENCIL8, width, height);
+		glFramebufferRenderbuffer(PXL_GL_FRAMEBUFFER_WRITE, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, depth_id);
 	}else {
 		depth_id = -1;
 	}
 
-	texture = new PXL_Texture(width, height);
-	glFramebufferTexture2D(PXL_GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, get_texture_id(), 0);
+	texture = new PXL_Texture();
+	texture->create_texture(width, height, 0);
+
+	glFramebufferTexture2D(PXL_GL_FRAMEBUFFER_WRITE, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, get_texture_id(), 0);
 
 	clear(1, 1, 1, 0);
 
-	if (glCheckFramebufferStatus(PXL_GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
+	if (glCheckFramebufferStatus(PXL_GL_FRAMEBUFFER_WRITE) != GL_FRAMEBUFFER_COMPLETE) {
 		std::cout << "an error occurred when creating a frame buffer\n";
 	}
 
 	frame_buffer_created = true;
 
 	//bind to default frame buffer
-	glBindFramebuffer(PXL_GL_FRAMEBUFFER, 0);
+	glBindFramebuffer(PXL_GL_FRAMEBUFFER_WRITE, 0);
 }
 
 void PXL_FrameBuffer::clear(float r, float g, float b, float a) {

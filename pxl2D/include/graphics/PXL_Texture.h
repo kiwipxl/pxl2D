@@ -5,6 +5,7 @@
 #include "PXL_Structs.h"
 #include "PXL_Bitmap.h"
 #include "system/PXL_API.h"
+#include "system/PXL_Exception.h"
 
 typedef int PXL_TextureFilter;
 
@@ -23,24 +24,18 @@ class PXL_Texture {
 
 	public:
 		PXL_Texture();
-		PXL_Texture(std::string file_path);
-		/** Creates the texture from specified bitmap
-		@param bitmap Holds all pixel information for an image
-		@param pixel_mode The pixel type of the pixel data (default is R, G, B, A)
-		**/
-		PXL_Texture(PXL_Bitmap* bitmap, int pixel_mode = GL_RGBA);
-		PXL_Texture(int w, int h, PXL_ubyte* pixels = NULL, int pixel_mode = GL_RGBA);
 		~PXL_Texture();
 
 		bool texture_created; /**< Defines whether the texture has been created or not **/
 		bool has_transparency = false;
 
+		bool create_texture(std::string file_path);
 		/** Creates the texture from specified bitmap
 		@param bitmap Holds all pixel information for an image
 		@param pixel_mode The pixel type of the pixel data (default is R, G, B, A)
 		**/
-		void create_texture(PXL_Bitmap* bitmap, int pixel_mode = GL_RGBA);
-		void create_texture(int w, int h, PXL_ubyte* pixels, int pixel_mode = GL_RGBA);
+		bool create_texture(PXL_Bitmap* bitmap, int pixel_mode = GL_RGBA);
+		bool create_texture(int w, int h, PXL_ubyte* pixels, int pixel_mode = GL_RGBA);
 
 		void bind();
 

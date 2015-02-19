@@ -96,11 +96,10 @@ PXL_ShaderProgram* verify_and_create_program_shader(std::string program_str, std
 		std::string vertex_file = program_str.substr(start_v + strlen(start_v_header) + 1, end_v - (start_v + strlen(start_v_header) + 1));
 		std::string fragment_file = program_str.substr(start_f + strlen(start_f_header) + 1, end_f - (start_f + strlen(start_f_header) + 1));
 		return new PXL_ShaderProgram(vertex_file, fragment_file, program_name + " - vertex", program_name + " - fragment");
-	}
-	else {
+	}else {
 		PXL_show_exception("Headers not found when loading (" + program_name + "). Custom PXL_program shaders use " +
 			start_v_header + " at the beginning of a vertex shader and " + end_v_header + " at the end. Fragment " +
-			"shaders use " + start_f_header + " and " + end_f_header, PXL_EXCEPTION_CONSOLE, false);
+			"shaders use " + start_f_header + " and " + end_f_header, PXL_ERROR_MISSING_SHADER_HEADERS, PXL_EXCEPTION_CONSOLE, false);
 	}
 }
 
@@ -128,14 +127,14 @@ std::string PXL_load_file(std::string file_name) {
 				buffer[size] = '\0';
 				return buffer;
 			}else {
-				PXL_show_exception("(" + file_name + ") could not be read successfully", PXL_EXCEPTION_CONSOLE, false);
+				PXL_show_exception("(" + file_name + ") could not be read successfully", PXL_ERROR_INVALID_FILE, PXL_EXCEPTION_CONSOLE, false);
 				delete[] buffer;
 			}
 		}else {
-			PXL_show_exception("(" + file_name + ") does not contain any content when read", PXL_EXCEPTION_CONSOLE, false);
+			PXL_show_exception("(" + file_name + ") does not contain any content when read", PXL_ERROR_EMPTY_FILE, PXL_EXCEPTION_CONSOLE, false);
 		}
 	}else {
-		PXL_show_exception("Couldn't load shader file (" + file_name + "). It may not exist", PXL_EXCEPTION_CONSOLE, false);
+		PXL_show_exception("Couldn't load file (" + file_name + "). It may not exist", PXL_ERROR_INVALID_FILE, PXL_EXCEPTION_CONSOLE, false);
 	}
 	return "";
 }

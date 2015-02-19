@@ -5,45 +5,25 @@ PXL_Texture::PXL_Texture() {
 	texture_created = false;
 }
 
-PXL_Texture::PXL_Texture(std::string file_path) {
+bool PXL_Texture::create_texture(std::string file_path) {
+	return create_texture(&PXL_Bitmap(file_path));
+}
+
+bool PXL_Texture::create_texture(PXL_Bitmap* bitmap, int pixel_mode) {
 	texture_created = false;
-	create_texture(&PXL_Bitmap(file_path));
-}
-
-PXL_Texture::PXL_Texture(PXL_Bitmap* bitmap, int pixel_mode) {
-	texture_created = false;
-	create_texture(bitmap, pixel_mode);
-}
-
-PXL_Texture::PXL_Texture(int w, int h, PXL_ubyte* pixels, int pixel_mode) {
-	texture_created = false;
-	create_texture(w, h, pixels, pixel_mode);
-}
-
-PXL_Texture* PXL_create_texture(PXL_Bitmap* bitmap, int pixel_mode) {
-	return new PXL_Texture(bitmap, pixel_mode);
-}
-
-void PXL_Texture::create_texture(PXL_Bitmap* bitmap, int pixel_mode) {
 	if (bitmap != NULL) {
 		create_texture(bitmap->width, bitmap->height, bitmap->pixels, pixel_mode);
 		texture_created = true;
+	}else {
+		PXL_show_exception("Could not create texture, specified bitmap is NULL", PXL_ERROR_TEXTURE_CREATION_FAILED);
 	}
+	return texture_created;
 }
 
-void PXL_Texture::create_texture(int w, int h, PXL_ubyte* pixels, int pixel_mode) {
-	if (pixels == NULL) {
-		has_transparency = true;
-	}else {
-		for (int n = 0; n < (w * h) * 4; n += 4) {
-			/*if (pixels[n + 3] == 0) {
-				pixels[n] = 255;
-				pixels[n + 1] = 255;
-				pixels[n + 2] = 255;
-				pixels[n + 3] = 0;
-				has_transparency = true;
-			}*/
-		}
+bool PXL_Texture::create_texture(int w, int h, PXL_ubyte* pixels, int pixel_mode) {
+	if (w <= 0 || h <= 0) {
+		PXL_show_exception("Could not create texture, width/height are less than 0", PXL_ERROR_TEXTURE_CREATION_FAILED);
+		return false;
 	}
 
 	width = w;
@@ -56,6 +36,8 @@ void PXL_Texture::create_texture(int w, int h, PXL_ubyte* pixels, int pixel_mode
 	if (!texture_created) { set_filters(); }
 
 	texture_created = true;
+
+	return true;
 }
 
 void PXL_Texture::bind() {

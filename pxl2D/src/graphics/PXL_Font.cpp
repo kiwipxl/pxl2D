@@ -36,7 +36,9 @@ PXL_Font::PXL_Font(std::string path, int c_max_font_size) {
 			rect.w = bitmap->width;
 			rect.h = bitmap->height;
 			glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-			glyph_sheet->add(new PXL_Texture(bitmap, GL_ALPHA), &rect);
+			PXL_Texture t;
+			t.create_texture(bitmap, GL_ALPHA);
+			glyph_sheet->add(&t, &rect);
 			glyph_rects[n] = rect;
 
 			rect.x += bitmap->width;

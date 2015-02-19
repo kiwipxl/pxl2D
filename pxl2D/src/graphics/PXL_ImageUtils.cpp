@@ -15,18 +15,18 @@ PXL_Bitmap* PXL_load_png(std::string file_name, PXL_Bitmap* bitmap) {
 	file.open(file_name, std::ios::binary);
 
 	if (!png_validate(file)) {
-		PXL_show_exception("(" + file_name + ") is not a valid png", PXL_EXCEPTION_CONSOLE, false);
+		PXL_show_exception("(" + file_name + ") is not a valid png", PXL_ERROR_INVALID_PNG, PXL_EXCEPTION_CONSOLE, false);
 		return NULL;
 	}
 
 	png_structp png_pointer = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
 	if (!png_pointer) {
-		PXL_show_exception("Could not initialise png read struct for (" + file_name + ")", PXL_EXCEPTION_CONSOLE, false);
+		PXL_show_exception("Could not initialise png read struct for (" + file_name + ")", PXL_ERROR_INVALID_PNG, PXL_EXCEPTION_CONSOLE, false);
 	}
 
 	png_infop info_pointer = png_create_info_struct(png_pointer);
 	if (!info_pointer) {
-		PXL_show_exception("Could not initialise png info struct for (" + file_name + ")", PXL_EXCEPTION_CONSOLE, false);
+		PXL_show_exception("Could not initialise png info struct for (" + file_name + ")", PXL_ERROR_INVALID_PNG, PXL_EXCEPTION_CONSOLE, false);
 		png_destroy_read_struct(&png_pointer, (png_infopp)0, (png_infopp)0);
 	}
 

@@ -39,8 +39,7 @@ class PXL_Bitmap {
 		PXL_uint size;
 		int num_channels;
 		int bit_depth;
-
-		//asap: implement various pxl pixel modes with the channel number associated with it
+		bool has_transparency = false;
 
 		/**
 		\*brief: loads a bitmap from the specified path
@@ -58,6 +57,8 @@ class PXL_Bitmap {
 	private:
 		//buffer info
 		bool buffer_loaded;
+
+		bool check_has_transparency();
 };
 
 /**
