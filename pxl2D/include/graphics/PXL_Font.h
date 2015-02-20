@@ -45,9 +45,9 @@ class PXL_Font {
 		bool font_loaded;
 		FT_Face f;
 		PXL_Rect* glyph_rects;
-		int max_font_size;
-		int max_char_width = 0;
-		int max_char_height = 0;
+		PXL_uint max_font_size;
+		PXL_uint max_char_width = 0;
+		PXL_uint max_char_height = 0;
 };
 
 /**

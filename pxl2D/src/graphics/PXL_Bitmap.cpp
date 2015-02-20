@@ -55,9 +55,9 @@ void PXL_Bitmap::fill(PXL_Colour colour) {
 	PXL_ubyte b = colour.b * 255;
 	PXL_ubyte a = colour.a * 255;
 
-	for (int y = 0; y < height; ++y) {
+	for (size_t y = 0; y < height; ++y) {
 		int row_y = y * row_size;
-		for (int x = 0; x < row_size; x += channel.num_channels) {
+		for (size_t x = 0; x < row_size; x += channel.num_channels) {
 			if (channel.channel_index.r != -1) pixels[x + row_y + channel.channel_index.r] = r;
 			if (channel.channel_index.g != -1) pixels[x + row_y + channel.channel_index.g] = g;
 			if (channel.channel_index.b != -1) pixels[x + row_y + channel.channel_index.b] = b;
@@ -71,7 +71,7 @@ bool PXL_Bitmap::check_has_transparency() {
 	if (pixels == NULL || channel.channel_index.a != -1) {
 		return false;
 	}else {
-		for (int n = 0; n < buffer_size; n += channel.num_channels) {
+		for (size_t n = 0; n < buffer_size; n += channel.num_channels) {
 			if (pixels[n + channel.channel_index.a] == 0) {
 				has_transparency = true;
 				return true;

@@ -1,82 +1,14 @@
-﻿Build started 21/02/2015 1:24:58 AM.
+﻿Build started 21/02/2015 1:42:53 AM.
      1>Project "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\pxl2D.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\\" /Fd"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt src\graphics\PXL_Colour.cpp src\input\PXL_Joystick.cpp src\input\PXL_Keyboard.cpp src\physics\PXL_Collision.cpp src\PXL.cpp src\graphics\PXL_Batch.cpp src\graphics\PXL_Bitmap.cpp src\graphics\PXL_Font.cpp src\graphics\PXL_FontUtils.cpp src\graphics\PXL_FrameBuffer.cpp src\graphics\PXL_ImageUtils.cpp src\graphics\PXL_Lights.cpp src\graphics\PXL_Matrix4.cpp src\graphics\PXL_Text.cpp src\graphics\PXL_Texture.cpp src\graphics\PXL_ShaderUtils.cpp src\graphics\PXL_ShaderProgram.cpp src\graphics\PXL_TextureSheet.cpp src\PXL_Graphics.cpp src\PXL_Input.cpp src\PXL_Physics.cpp src\PXL_System.cpp src\system\PXL_Debug.cpp src\system\PXL_Event.cpp src\system\PXL_Exception.cpp src\system\PXL_Math.cpp src\system\PXL_Timer.cpp src\system\PXL_Window.cpp
-         PXL_Window.cpp
-         PXL_Timer.cpp
-         PXL_Math.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\pxl_math.cpp(20): warning C4307: '+' : integral constant overflow
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\pxl_math.cpp(20): warning C4307: '-' : integral constant overflow
-         PXL_Exception.cpp
-         PXL_Event.cpp
-         PXL_Debug.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\pxl_debug.cpp(40): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(356) : see declaration of 'sprintf'
-         PXL_System.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_system.cpp(11): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(112) : see declaration of 'strcpy'
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_system.cpp(12): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(118) : see declaration of 'strcat'
-         PXL_Physics.cpp
-         PXL_Input.cpp
-         PXL_Graphics.cpp
-         PXL_TextureSheet.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_texturesheet.cpp(45): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_texturesheet.cpp(54): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_texturesheet.cpp(70): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_texturesheet.cpp(71): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
-         PXL_ShaderProgram.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_shaderprogram.cpp(70): warning C4800: 'GLint' : forcing value to bool 'true' or 'false' (performance warning)
-         PXL_ShaderUtils.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_shaderutils.cpp(123): warning C4244: 'initializing' : conversion from 'std::streamsize' to 'unsigned int', possible loss of data
-         PXL_Texture.cpp
-         PXL_Text.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_text.cpp(28): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_text.cpp(48): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_text.cpp(91): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_text.cpp(94): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_text.cpp(96): warning C4018: '<' : signed/unsigned mismatch
-         PXL_Matrix4.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_matrix4.cpp(69): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_matrix4.cpp(88): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_matrix4.cpp(107): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-         PXL_Lights.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_lights.cpp(24): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_lights.cpp(26): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_lights.cpp(45): warning C4307: '+' : integral constant overflow
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_lights.cpp(45): warning C4307: '-' : integral constant overflow
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_lights.cpp(71): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_lights.cpp(73): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-         PXL_ImageUtils.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_imageutils.cpp(61): warning C4018: '<' : signed/unsigned mismatch
-         PXL_FrameBuffer.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_framebuffer.cpp(66): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_framebuffer.cpp(71): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_framebuffer.cpp(77): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_framebuffer.cpp(85): warning C4244: 'argument' : conversion from 'float' to 'GLint', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_framebuffer.cpp(92): warning C4244: 'argument' : conversion from 'float' to 'GLsizei', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_framebuffer.cpp(92): warning C4244: 'argument' : conversion from 'float' to 'GLint', possible loss of data
-         PXL_FontUtils.cpp
-         Generating Code...
-         Compiling...
-         PXL_Font.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_font.cpp(30): warning C4018: '>' : signed/unsigned mismatch
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_font.cpp(31): warning C4018: '>' : signed/unsigned mismatch
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_font.cpp(33): warning C4244: '=' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_font.cpp(34): warning C4244: '=' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_font.cpp(43): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\\" /Fd"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt src\PXL.cpp src\PXL_Graphics.cpp src\graphics\PXL_Batch.cpp src\graphics\PXL_Bitmap.cpp src\graphics\PXL_Font.cpp src\graphics\PXL_FontUtils.cpp src\graphics\PXL_FrameBuffer.cpp src\graphics\PXL_ImageUtils.cpp src\graphics\PXL_Lights.cpp src\graphics\PXL_ShaderUtils.cpp src\graphics\PXL_Text.cpp src\graphics\PXL_Texture.cpp src\graphics\PXL_TextureSheet.cpp src\system\PXL_Window.cpp
          PXL_Bitmap.cpp
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_bitmap.cpp(12): warning C4800: 'PXL_Bitmap *' : forcing value to bool 'true' or 'false' (performance warning)
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_bitmap.cpp(53): warning C4244: 'initializing' : conversion from 'float' to 'unsigned char', possible loss of data
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_bitmap.cpp(54): warning C4244: 'initializing' : conversion from 'float' to 'unsigned char', possible loss of data
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_bitmap.cpp(55): warning C4244: 'initializing' : conversion from 'float' to 'unsigned char', possible loss of data
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_bitmap.cpp(56): warning C4244: 'initializing' : conversion from 'float' to 'unsigned char', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_bitmap.cpp(60): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_bitmap.cpp(74): warning C4018: '<' : signed/unsigned mismatch
          PXL_Batch.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(86): warning C4018: '<=' : signed/unsigned mismatch
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(182): warning C4018: '<' : signed/unsigned mismatch
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(183): warning C4018: '>' : signed/unsigned mismatch
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(209): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(217): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(221): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
@@ -97,20 +29,43 @@
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(321): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(322): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(323): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-         PXL.cpp
-         PXL_Collision.cpp
-         PXL_Keyboard.cpp
-         PXL_Joystick.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\input\pxl_joystick.cpp(18): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(356) : see declaration of 'sprintf'
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\input\pxl_joystick.cpp(34): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(356) : see declaration of 'sprintf'
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\input\pxl_joystick.cpp(45): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 12.0\vc\include\stdio.h(356) : see declaration of 'sprintf'
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\input\pxl_joystick.cpp(77): warning C4018: '<' : signed/unsigned mismatch
-         PXL_Colour.cpp
          Generating Code...
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_bitmap.cpp(81): warning C4715: 'PXL_Bitmap::check_has_transparency' : not all control paths return a value
+         Compiling...
+         PXL_Window.cpp
+         PXL_TextureSheet.cpp
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_texturesheet.cpp(45): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_texturesheet.cpp(70): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_texturesheet.cpp(71): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+         PXL_Texture.cpp
+         PXL_Text.cpp
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_text.cpp(28): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_text.cpp(91): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_text.cpp(94): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+         PXL_ShaderUtils.cpp
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_shaderutils.cpp(123): warning C4244: 'initializing' : conversion from 'std::streamsize' to 'unsigned int', possible loss of data
+         PXL_Lights.cpp
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_lights.cpp(26): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_lights.cpp(45): warning C4307: '+' : integral constant overflow
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_lights.cpp(45): warning C4307: '-' : integral constant overflow
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_lights.cpp(71): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_lights.cpp(73): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+         PXL_ImageUtils.cpp
+         PXL_FrameBuffer.cpp
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_framebuffer.cpp(66): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_framebuffer.cpp(71): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_framebuffer.cpp(77): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_framebuffer.cpp(85): warning C4244: 'argument' : conversion from 'float' to 'GLint', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_framebuffer.cpp(92): warning C4244: 'argument' : conversion from 'float' to 'GLsizei', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_framebuffer.cpp(92): warning C4244: 'argument' : conversion from 'float' to 'GLint', possible loss of data
+         PXL_FontUtils.cpp
+         PXL_Font.cpp
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_font.cpp(33): warning C4244: '=' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_font.cpp(34): warning C4244: '=' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_font.cpp(43): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+         PXL_Graphics.cpp
+         PXL.cpp
+         Generating Code...
        Lib:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\lib\pxl2D.lib" libpng.lib zlib.lib freetype.lib winmm.lib dbghelp.lib /NOLOGO "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Colour.obj"
          "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Joystick.obj"
@@ -160,4 +115,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:25.43
+Time Elapsed 00:00:12.88

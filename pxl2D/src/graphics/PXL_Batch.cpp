@@ -83,7 +83,7 @@ void PXL_Batch::render_all() {
 
 void PXL_Batch::clear_all() {
 	last_freq_index = 0;
-	for (int n = min_texture_id; n <= max_texture_id; ++n) {
+	for (size_t n = min_texture_id; n <= max_texture_id; ++n) {
 		if (current_depth_slots[n].tally >= 1) {
 			next_depth_slots[n].tally = current_depth_slots[n].tally;
 			next_depth_slots[n].index = last_freq_index;
@@ -179,8 +179,8 @@ void PXL_Batch::add_quad(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rec
 	v_batch->blend_mode = blend_mode;
 
 	++current_depth_slots[z_depth].tally;
-	min_texture_id = PXL_min(min_texture_id, z_depth);
-	max_texture_id = PXL_max(max_texture_id, z_depth);
+	min_texture_id = PXL_min(min_texture_id, (PXL_uint)z_depth);
+	max_texture_id = PXL_max(max_texture_id, (PXL_uint)z_depth);
 
 	//set vertex pos, uvs and colours
 	PXL_VertexPoint* v = vertex_data + (index * 4);

@@ -45,7 +45,7 @@ void PXL_Text::set_origin(const PXL_TextOrigin origin_point) {
 
 	rect.x = 0; rect.y = 0;
 	width = 0; height = 0;
-	for (int n = 0; n < text.length(); ++n) {
+	for (size_t n = 0; n < text.length(); ++n) {
 		bool special_symbol_found = set_char_pos(text[n], 0);
 		width = PXL_max(width, rect.x);
 		height = PXL_max(height, rect.y);
@@ -93,7 +93,7 @@ void PXL_Text::render(PXL_Batch* batch) {
 
 	rect.x = x; rect.y = y;
 	float pos_x = 0; float pos_y = 0;
-	for (int n = 0; n < text.length(); ++n) {
+	for (size_t n = 0; n < text.length(); ++n) {
 		if (set_char_pos(text[n], x)) { continue; }
 
 		float offset_x = rect.w + kerning;

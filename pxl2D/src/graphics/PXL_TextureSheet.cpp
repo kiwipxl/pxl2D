@@ -51,7 +51,7 @@ void PXL_TextureSheet::create_sheet(bool clear_list, bool dispose_all) {
 	texture_created = true;
 
 	if (dispose_all) {
-		for (int n = 0; n < texture_list.size(); ++n) {
+		for (size_t n = 0; n < texture_list.size(); ++n) {
 			delete texture_list[n];
 		}
 	}

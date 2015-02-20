@@ -78,13 +78,12 @@ class PXL_Bitmap {
 	private:
 		//buffer info
 		bool buffer_loaded;
-		int width;
-		int height;
+		PXL_uint width;
+		PXL_uint height;
 		PXL_ubyte* pixels;
 		PXL_uint buffer_size;
 		PXL_uint row_size;
 		PXL_Channel channel;
-		int bit_depth;
 
 		bool check_has_transparency();
 };

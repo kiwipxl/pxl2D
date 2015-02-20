@@ -74,7 +74,7 @@ void PXL_joystick_init() {
 	PXL_uint num_devices = joyGetNumDevs();
 	PXL_uint device_id;
 
-	for (int n = 0; n < num_devices; ++n) {
+	for (size_t n = 0; n < num_devices; ++n) {
 		if (joyGetPosEx(n, &joy_info) == JOYERR_NOERROR) {
 			device_id = n;
 

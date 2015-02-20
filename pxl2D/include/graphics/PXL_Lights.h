@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include "PXL_ShaderUtils.h"
+#include "system/PXL_API.h"
 
 const struct PXL_PointLight {
 
@@ -13,7 +14,7 @@ const struct PXL_PointLight {
 };
 
 extern std::vector<PXL_PointLight*> PXL_point_lights;
-static int PXL_max_point_lights = 72;
+static PXL_uint PXL_max_point_lights = 72;
 
 extern const void PXL_lights_init();
 extern PXL_PointLight* PXL_create_point_light(int x, int y, float radius, float intensity, float r, float g, float b);
