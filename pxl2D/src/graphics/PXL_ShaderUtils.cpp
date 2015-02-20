@@ -20,7 +20,7 @@ PXL_ShaderProgram* PXL_glow_shader;
 PXL_ShaderProgram* PXL_text_shader;
 PXL_ShaderProgram* PXL_point_light_shader;
 
-void PXL_shader_init() {
+const void PXL_shader_init() {
 	//setup premade pxl glsl shaders
 	PXL_default_shader = PXL_create_shader(PXL_basic_vertex_shader_str, PXL_default_shader_str, "default_vert", "default_frag");
 	PXL_bloom_shader = PXL_create_shader(PXL_basic_vertex_shader_str, PXL_bloom_shader_str, "bloom_vert", "bloom_frag");
@@ -33,38 +33,38 @@ void PXL_shader_init() {
 	PXL_point_light_shader = PXL_create_shader(PXL_basic_vertex_shader_str, PXL_point_light_shader_str, "point_light_vert", "point_light_frag");
 }
 
-void PXL_set_default_shader(PXL_Batch* batch) {
+const void PXL_set_default_shader(PXL_Batch* batch) {
 	glUseProgram(PXL_default_shader->get_program_id());
 }
 
-void PXL_set_bloom_shader(PXL_Batch* batch, float spread, float intensity) {
+const void PXL_set_bloom_shader(PXL_Batch* batch, float spread, float intensity) {
 	glUseProgram(PXL_bloom_shader->get_program_id());
 	glUniform1f(glGetUniformLocation(PXL_bloom_shader->get_program_id(), "outline_spread"), spread);
 	glUniform1f(glGetUniformLocation(PXL_bloom_shader->get_program_id(), "outline_intensity"), intensity);
 }
 
-void PXL_set_repeat_shader(PXL_Batch* batch, float repeat_x, float repeat_y) {
+const void PXL_set_repeat_shader(PXL_Batch* batch, float repeat_x, float repeat_y) {
 	glUseProgram(PXL_repeat_shader->get_program_id());
 	glUniform2f(glGetUniformLocation(PXL_repeat_shader->get_program_id(), "repeat"), repeat_x, repeat_y);
 }
 
-void PXL_set_grayscale_shader(PXL_Batch* batch) {
+const void PXL_set_grayscale_shader(PXL_Batch* batch) {
 	glUseProgram(PXL_grayscale_shader->get_program_id());
 }
 
-void PXL_set_blur_shader(PXL_Batch* batch, float spread_x, float spread_y) {
+const void PXL_set_blur_shader(PXL_Batch* batch, float spread_x, float spread_y) {
 	glUseProgram(PXL_blur_shader->get_program_id());
 	glUniform2f(glGetUniformLocation(PXL_blur_shader->get_program_id(), "outline_size"), spread_x, spread_y);
 }
 
-void PXL_set_outline_shader(PXL_Batch* batch, float thickness, float r, float g, float b, float a, float threshold) {
+const void PXL_set_outline_shader(PXL_Batch* batch, float thickness, float r, float g, float b, float a, float threshold) {
 	glUseProgram(PXL_outline_shader->get_program_id());
 	glUniform1f(glGetUniformLocation(PXL_outline_shader->get_program_id(), "outline_thickness"), thickness);
 	glUniform4f(glGetUniformLocation(PXL_outline_shader->get_program_id(), "outline_colour"), r / 255.0f, g / 255.0f, b / 255.0f, a / 255.0f);
 	glUniform1f(glGetUniformLocation(PXL_outline_shader->get_program_id(), "outline_threshold"), threshold);
 }
 
-void PXL_set_glow_shader(PXL_Batch* batch, float size, float r, float g, float b, float intensity, float threshold) {
+const void PXL_set_glow_shader(PXL_Batch* batch, float size, float r, float g, float b, float intensity, float threshold) {
 	glUseProgram(PXL_glow_shader->get_program_id());
 	glUniform1f(glGetUniformLocation(PXL_outline_shader->get_program_id(), "outline_size"), size);
 	glUniform3f(glGetUniformLocation(PXL_outline_shader->get_program_id(), "outline_colour"), r / 255.0f, g / 255.0f, b / 255.0f);
@@ -72,7 +72,7 @@ void PXL_set_glow_shader(PXL_Batch* batch, float size, float r, float g, float b
 	glUniform1f(glGetUniformLocation(PXL_outline_shader->get_program_id(), "outline_intensity"), intensity);
 }
 
-void PXL_set_text_shader(PXL_Batch* batch, float r, float g, float b, float a) {
+const void PXL_set_text_shader(PXL_Batch* batch, float r, float g, float b, float a) {
 	glUseProgram(PXL_text_shader->get_program_id());
 	glUniform3f(glGetUniformLocation(PXL_text_shader->get_program_id(), "text_colour"), r / 255.0f, g / 255.0f, b / 255.0f);
 }

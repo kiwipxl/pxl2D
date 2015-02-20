@@ -1,7 +1,7 @@
 #include "PXL_Debug.h"
 #include <string>
 
-std::string PXL_stack_trace(int num_traces) {
+const std::string PXL_stack_trace(int num_traces) {
 	PXL_uint i;
 	DWORD* stacks = new DWORD[num_traces];
 	PXL_ushort frames_captured;

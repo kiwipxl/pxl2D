@@ -4,21 +4,31 @@
 #include <glew.h>
 #include <string>
 #include "PXL_Colour.h"
+#include "PXL_Structs.h"
 #include "system/PXL_API.h"
 
-struct PXL_Channel {
+static const struct PXL_Channel {
 
 	PXL_uint num_channels;
 	PXL_uint gl_pixel_mode;
+
+	struct PXL_ChannelIndex {
+
+		PXL_ChannelIndex() { }
+		PXL_ChannelIndex(PXL_short c_r, PXL_short c_g, PXL_short c_b, PXL_short c_a) : r(c_r), g(c_g), b(c_b), a(c_a) { }
+
+		PXL_short r = 0, g = 0, b = 0, a = 0;
+
+	} channel_index;
 };
 
-static const PXL_Channel PXL_CHANNEL_RGB		{ 3, GL_RGB };
-static const PXL_Channel PXL_CHANNEL_RGBA		{ 4, GL_RGBA };
-static const PXL_Channel PXL_CHANNEL_BGRA		{ 4, GL_BGRA };
-static const PXL_Channel PXL_CHANNEL_RED		{ 1, GL_RED };
-static const PXL_Channel PXL_CHANNEL_GREEN		{ 1, GL_GREEN };
-static const PXL_Channel PXL_CHANNEL_BLUE		{ 1, GL_BLUE };
-static const PXL_Channel PXL_CHANNEL_ALPHA		{ 1, GL_ALPHA };
+static const PXL_Channel PXL_CHANNEL_RGB		{ 3, GL_RGB,	{ 0, 1, 2, -1 }		};
+static const PXL_Channel PXL_CHANNEL_RGBA		{ 4, GL_RGBA,	{ 0, 1, 2, 3 }		};
+static const PXL_Channel PXL_CHANNEL_BGRA		{ 4, GL_BGRA,	{ 2, 1, 0, 3 }		};
+static const PXL_Channel PXL_CHANNEL_RED		{ 1, GL_RED,	{ 0, -1, -1, -1 }	};
+static const PXL_Channel PXL_CHANNEL_GREEN		{ 1, GL_GREEN,	{ -1, 0, -1, -1 }	};
+static const PXL_Channel PXL_CHANNEL_BLUE		{ 1, GL_BLUE,	{ -1, -1, 0, -1 }	};
+static const PXL_Channel PXL_CHANNEL_ALPHA		{ 1, GL_ALPHA,	{ -1, -1, -1, 0 }	};
 
 class PXL_Bitmap {
 
