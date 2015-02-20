@@ -14,6 +14,10 @@ struct PXL_Channel {
 
 static const PXL_Channel PXL_CHANNEL_RGB		{ 3, GL_RGB };
 static const PXL_Channel PXL_CHANNEL_RGBA		{ 4, GL_RGBA };
+static const PXL_Channel PXL_CHANNEL_BGRA		{ 4, GL_BGRA };
+static const PXL_Channel PXL_CHANNEL_RED		{ 1, GL_RED };
+static const PXL_Channel PXL_CHANNEL_GREEN		{ 1, GL_GREEN };
+static const PXL_Channel PXL_CHANNEL_BLUE		{ 1, GL_BLUE };
 static const PXL_Channel PXL_CHANNEL_ALPHA		{ 1, GL_ALPHA };
 
 class PXL_Bitmap {

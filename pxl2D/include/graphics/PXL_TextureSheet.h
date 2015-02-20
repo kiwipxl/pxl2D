@@ -23,7 +23,9 @@ class PXL_TextureSheet : public PXL_Texture {
 		/**
 		\*brief: creates the texture sheet from all added bitmaps and textures
 		**/
-		void create_sheet(bool dispose_all = false);
+		void create_sheet(bool clear_list = true, bool dispose_all = false);
+
+		void clear();
 
 		/** Adds the specified texture to the batch render queue and transforms it with all specified parameters
 		@param texture The texture to add to the batch

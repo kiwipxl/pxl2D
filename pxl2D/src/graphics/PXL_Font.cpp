@@ -7,8 +7,6 @@ PXL_Font::PXL_Font(std::string path, int c_max_font_size) {
 	max_font_size = c_max_font_size;
 	if (!FT_New_Face(PXL_FT_lib, path.c_str(), 0, &f)) {
 		FT_Set_Pixel_Sizes(f, max_font_size, 0);
-		std::cout << "charmaps: " << f->num_charmaps << "\n";
-		std::cout << "num glyphs: " << f->num_glyphs << "\n";
 
 		name = f->family_name;
 		num_glyphs = f->num_glyphs;
@@ -45,7 +43,8 @@ PXL_Font::PXL_Font(std::string path, int c_max_font_size) {
 				rect.y = glyph_sheet->get_height();
 			}
 		}
-		glyph_sheet->create_sheet(true);
+		//create sheet from all textures added and then clear and dispose the textures
+		glyph_sheet->create_sheet(true, true);
 	}
 }
 
@@ -60,6 +59,8 @@ PXL_Font* PXL_create_font(std::string path, int c_max_font_size) {
 void PXL_Font::free() {
 	if (font_loaded) {
 		font_loaded = false;
+		delete[] glyph_rects;
+		delete glyph_sheet;
 	}
 }
 

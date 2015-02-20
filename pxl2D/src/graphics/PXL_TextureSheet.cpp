@@ -18,7 +18,7 @@ PXL_TextureSheet::PXL_TextureSheet() {
 	}
 }
 
-void PXL_TextureSheet::create_sheet(bool dispose_all) {
+void PXL_TextureSheet::create_sheet(bool clear_list, bool dispose_all) {
 	if (width == 0 || height == 0) { return; }
 
 	//if the texture is already created then delete the sheet texture
@@ -56,6 +56,10 @@ void PXL_TextureSheet::create_sheet(bool dispose_all) {
 		}
 	}
 
+	if (clear_list) clear();
+}
+
+void PXL_TextureSheet::clear() {
 	texture_list.clear();
 }
 

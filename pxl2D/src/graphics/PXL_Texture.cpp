@@ -37,7 +37,7 @@ bool PXL_Texture::create_texture(int w, int h, PXL_ubyte* pixels, PXL_Channel pi
 	if (!texture_created) { glGenTextures(1, &id); }
 
 	bind();
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, channel.gl_pixel_mode, GL_UNSIGNED_BYTE, pixels);
+	glTexImage2D(GL_TEXTURE_2D, 0, channel.gl_pixel_mode, width, height, 0, channel.gl_pixel_mode, GL_UNSIGNED_BYTE, pixels);
 
 	if (!texture_created) { set_filters(); }
 
@@ -54,7 +54,7 @@ PXL_ubyte* PXL_Texture::get_pixels() {
 	if (texture_created) {
 		bind();
 		PXL_ubyte* pixels = new PXL_ubyte[(width * height) * channel.num_channels];
-		glGetTexImage(GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
+		glGetTexImage(GL_TEXTURE_2D, 0, channel.gl_pixel_mode, GL_UNSIGNED_BYTE, pixels);
 		return pixels;
 	}
 	return NULL;
