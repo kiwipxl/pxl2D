@@ -5,7 +5,7 @@
 
 #define PXL_Color PXL_Colour
 
-static const struct PXL_Colour {
+const struct PXL_Colour {
 
 	PXL_Colour() { }
 	PXL_Colour(float red, float green, float blue, float alpha = 1);

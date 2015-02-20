@@ -21,7 +21,7 @@ struct PXL_Timer {
 			elapsed_ms.QuadPart = end_time.QuadPart - start_time.QuadPart;
 			elapsed_ms.QuadPart *= 1000000;
 			elapsed_ms.QuadPart /= freq.QuadPart;
-			elapsed = elapsed_ms.QuadPart;
+			elapsed = (long)elapsed_ms.QuadPart;
 			return elapsed;
 		}
 

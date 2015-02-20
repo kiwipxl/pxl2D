@@ -5,7 +5,7 @@
 #include <iostream>
 #include "PXL_ShaderProgram.h"
 
-struct PXL_Batch;
+class PXL_Batch;
 
 /**
 \*brief: creates a shader program from the specified vertex and fragment shader paths

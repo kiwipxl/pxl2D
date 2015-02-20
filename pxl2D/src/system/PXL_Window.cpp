@@ -166,10 +166,6 @@ PXL_Window::~PXL_Window() {
 ----------------------------------------------------------------------------**/
 
 LRESULT CALLBACK win_proc(HWND handle, UINT msg, WPARAM w_param, LPARAM l_param) {
-	if (msg == 4) {
-		int a = 5;
-	}
-
 	switch (msg) {
 		case WM_CLOSE:
 			PostQuitMessage(1);

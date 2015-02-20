@@ -5,7 +5,7 @@
 #include <Windows.h>
 #include "system/PXL_API.h"
 
-static const struct PXL_Joystick {
+const struct PXL_Joystick {
 
 	PXL_uint device_id;
 	std::string name;

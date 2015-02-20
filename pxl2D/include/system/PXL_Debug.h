@@ -2,7 +2,9 @@
 #define _PXL_DEBUG_H
 
 #include <Windows.h>
-#include <DbgHelp.h>
+#if defined(_DEBUG)
+	#include <DbgHelp.h>
+#endif
 #include <iostream>
 #include "PXL_API.h"
 

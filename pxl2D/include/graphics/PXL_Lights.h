@@ -5,7 +5,7 @@
 #include <vector>
 #include "PXL_ShaderUtils.h"
 
-static const struct PXL_PointLight {
+const struct PXL_PointLight {
 
 	float x, y;
 	float radius, intensity;

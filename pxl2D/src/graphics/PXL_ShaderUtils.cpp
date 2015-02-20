@@ -101,6 +101,7 @@ PXL_ShaderProgram* verify_and_create_program_shader(std::string program_str, std
 			start_v_header + " at the beginning of a vertex shader and " + end_v_header + " at the end. Fragment " +
 			"shaders use " + start_f_header + " and " + end_f_header, PXL_ERROR_MISSING_SHADER_HEADERS, PXL_EXCEPTION_CONSOLE, false);
 	}
+	return NULL;
 }
 
 PXL_ShaderProgram* PXL_create_program_shader(std::string program_file) {
