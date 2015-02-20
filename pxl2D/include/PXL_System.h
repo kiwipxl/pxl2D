@@ -14,6 +14,5 @@ extern void PXL_system_init();
 
 //template<typename... Args>
 extern char* PXL_append_char(char* c1, char* c2);
-extern std::string PXL_get_os_error();
 
 #endif

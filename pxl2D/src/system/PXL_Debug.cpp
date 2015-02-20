@@ -46,3 +46,24 @@ const std::string PXL_stack_trace(int num_traces) {
 
 	return output;
 }
+
+/**
+Returns the last error reported by the os in a string. Returns an empty string if there is no error
+**/
+std::string PXL_get_last_error() {
+	#if defined(WIN32)
+		//gets the last error message from windows
+		DWORD error_msg_id = GetLastError();
+		if (error_msg_id == 0) { return "No error message has been recorded"; }
+
+		LPSTR msg_buffer = nullptr;
+		size_t size = FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+			NULL, error_msg_id, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPSTR)&msg_buffer, 0, NULL);
+
+		std::string message = msg_buffer;
+		LocalFree(msg_buffer);
+
+		return message;
+	#endif
+	return "";
+}

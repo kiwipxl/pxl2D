@@ -49,7 +49,7 @@ void PXL_Window::register_class() {
 	win_class.lpszClassName = (LPCSTR)class_name.c_str();
 
 	if (!RegisterClass(&win_class)) {
-		PXL_force_show_exception("Window registration failed. Error: " + PXL_get_os_error());
+		PXL_force_show_exception("Window registration failed. Error: " + PXL_get_last_error());
 	}
 }
 
@@ -59,7 +59,7 @@ void PXL_Window::unregister_class() {
 
 void PXL_Window::create_context() {
 	if (!(device_context_handle = GetDC(win_handle))) {
-		PXL_force_show_exception("Couldn't create an openGL device context. Error: " + PXL_get_os_error());
+		PXL_force_show_exception("Couldn't create an openGL device context. Error: " + PXL_get_last_error());
 	}
 
 	PIXELFORMATDESCRIPTOR pix_format_desc;
@@ -73,22 +73,22 @@ void PXL_Window::create_context() {
 	pix_format_desc.iLayerType = PFD_MAIN_PLANE;
 
 	if (!(pixel_format = ChoosePixelFormat(device_context_handle, &pix_format_desc))) {
-		PXL_force_show_exception("Pixel format is invalid. Error: " + PXL_get_os_error());
+		PXL_force_show_exception("Pixel format is invalid. Error: " + PXL_get_last_error());
 	}
 	if (!SetPixelFormat(device_context_handle, pixel_format, &pix_format_desc)) {
-		PXL_force_show_exception("Failed to set pixel format. Error: " + PXL_get_os_error());
+		PXL_force_show_exception("Failed to set pixel format. Error: " + PXL_get_last_error());
 	}
 	if (WGLEW_ARB_create_context && WGLEW_ARB_pixel_format) {
 		if (!(gl_render_context_handle = wglCreateContextAttribsARB(device_context_handle, 0, context_attribs))) {
-			PXL_force_show_exception("Failed to create openGL2+ rendering context. Error: " + PXL_get_os_error());
+			PXL_force_show_exception("Failed to create openGL2+ rendering context. Error: " + PXL_get_last_error());
 		}
 	}else {
 		if (!(gl_render_context_handle = wglCreateContext(device_context_handle))) {
-			PXL_force_show_exception("Failed to create an openGL rendering context. Error: " + PXL_get_os_error());
+			PXL_force_show_exception("Failed to create an openGL rendering context. Error: " + PXL_get_last_error());
 		}
 	}
 	if (!wglMakeCurrent(device_context_handle, gl_render_context_handle)) {
-		PXL_force_show_exception("Failed to activate an openGL rendering context. Error: " + PXL_get_os_error());
+		PXL_force_show_exception("Failed to activate an openGL rendering context. Error: " + PXL_get_last_error());
 	}
 }
 
@@ -117,7 +117,7 @@ void PXL_Window::create_window(int window_width, int window_height, std::string 
 								NULL, NULL, instance_handle, NULL);
 
 	if (win_handle == NULL) {
-		PXL_force_show_exception("Window creation failed! Error: " + PXL_get_os_error());
+		PXL_force_show_exception("Window creation failed! Error: " + PXL_get_last_error());
 	}
 
 	create_context();
