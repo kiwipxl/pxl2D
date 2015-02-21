@@ -62,6 +62,7 @@ void PXL_Sprite::set_origin(const PXL_Origin origin_point) {
 
 void PXL_Sprite::render(PXL_Batch* batch) {
 	rect.x = x; rect.y = y;
+	rect.w = width; rect.h = height;
 	batch->add(*texture_source, &rect, &src_rect, rotation, &origin, PXL_FLIP_NONE,
 			   z_depth, colour.r, colour.g, colour.g, colour.a);
 }

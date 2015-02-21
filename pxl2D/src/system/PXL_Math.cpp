@@ -3,7 +3,7 @@
 
 double* cos_table;
 double* sin_table;
-const int table_size = 360;
+const int table_size = 5760;
 const double table_size_pi = table_size / PXL_two_pi;
 const int table_overflow = 127 + table_size;
 
@@ -16,8 +16,6 @@ void PXL_math_init() {
 	for (int s = 0; s < table_size; ++s) {
 		sin_table[s] = sin(s / table_size_pi);
 	}
-
-	int fixed = int(140 + INT_MAX - 487) % 360;
 }
 
 double PXL_fast_cos(double degrees) {

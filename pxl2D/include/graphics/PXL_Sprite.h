@@ -58,6 +58,7 @@ class PXL_Sprite {
 		float get_texture_width() { return texture_source->get_width(); }
 		float get_texture_height() { return texture_source->get_height(); }
 
+		PXL_Vec2 get_origin() { return origin; }
 		PXL_Origin get_origin_type() { return origin_type; }
 
 		/**

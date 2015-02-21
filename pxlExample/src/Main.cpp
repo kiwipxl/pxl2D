@@ -62,11 +62,15 @@ int main(int argc, char* args[]) {
 		PXL_clear();
 
 		cat_sprite.rotation += .25f;
-		//cat_sprite.render(&batch);
+		cat_sprite.width = 32;
+		cat_sprite.set_origin(cat_sprite.width / 2, cat_sprite.get_origin().y);
+		cat_sprite.x = 400;
+		cat_sprite.y = 300;
+		cat_sprite.render(&batch);
 		PXL_Rect rect(0, 0, 400, 300);
 		PXL_Vec2 origin(rect.w / 2, rect.h / 2);
-		t += .25f;
-		batch.add(cat, &rect, 0, t, &origin);
+		t += .5f;
+		//batch.add(cat, &rect, 0, t, &origin);
 
 		PXL_start_timer();
 		batch.render_all();

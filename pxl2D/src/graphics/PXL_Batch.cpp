@@ -208,6 +208,7 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 				rotation = rotation / PXL_radian;
 				float c = PXL_fast_cos(rotation); float s = PXL_fast_sin(rotation);
 
+				x += origin_x; y += origin_y;
 				scaled_width -= origin_x; scaled_height -= origin_y;
 
 				//set vertex position including scale and rotation
