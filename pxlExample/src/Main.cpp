@@ -2,14 +2,6 @@
 #include <ctime>
 #include <Windows.h>
 
-PXL_Texture* load_texture(char* path) {
-	std::string texture_path = "assets/";
-	texture_path += path;
-	PXL_Texture* texture = new PXL_Texture();
-	texture->create_texture(texture_path);
-	return texture;
-}
-
 int main(int argc, char* args[]) {
 	srand(time(NULL));
 
@@ -27,11 +19,14 @@ int main(int argc, char* args[]) {
 	PXL_Window* window = PXL_create_window(1024, 768, "PXL Example Project");
 	PXL_init();
 
-	PXL_Texture* cat = load_texture("cat.png");
-	PXL_Texture* cat_2 = load_texture("cat2.png");
-	PXL_Texture* cute_cat = load_texture("cutecat.png");
+	PXL_Texture cat; cat.create_texture("assets/cat.png");
+	PXL_Texture cat_2; cat_2.create_texture("assets/cat2.png");
+	PXL_Texture cute_cat; cute_cat.create_texture("assets/cutecat.png");
 
-	PXL_Font* font = new PXL_Font("assets/square.ttf");
+	PXL_Sprite cat_sprite(cat);
+	cat_sprite.set_origin(PXL_ORIGIN_CENTER);
+
+	PXL_Font font("assets/square.ttf");
 
 	PXL_Batch batch = PXL_Batch(PXL_BATCH_TINY);
 	PXL_set_default_shader(&batch);
@@ -65,6 +60,13 @@ int main(int argc, char* args[]) {
 
 		PXL_set_clear_colour(0, 0, 0, 1);
 		PXL_clear();
+
+		cat_sprite.rotation += .25f;
+		//cat_sprite.render(&batch);
+		PXL_Rect rect(0, 0, 400, 300);
+		PXL_Vec2 origin(rect.w / 2, rect.h / 2);
+		t += .25f;
+		batch.add(cat, &rect, 0, t, &origin);
 
 		PXL_start_timer();
 		batch.render_all();

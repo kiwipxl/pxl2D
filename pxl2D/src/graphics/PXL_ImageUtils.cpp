@@ -17,18 +17,18 @@ PXL_Bitmap* PXL_load_png(std::string file_name, PXL_Bitmap* bitmap) {
 	file.open(file_name, std::ios::binary);
 
 	if (!png_validate(file)) {
-		PXL_show_exception("(" + file_name + ") is not a valid png", PXL_ERROR_INVALID_PNG, PXL_EXCEPTION_CONSOLE, false);
+		PXL_show_exception("(" + file_name + ") is not a valid png (or it may not exist)", PXL_ERROR_INVALID_PNG);
 		return NULL;
 	}
 
 	png_structp png_pointer = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
 	if (!png_pointer) {
-		PXL_show_exception("Could not initialise png read struct for (" + file_name + ")", PXL_ERROR_INVALID_PNG, PXL_EXCEPTION_CONSOLE, false);
+		PXL_show_exception("Could not initialise png read struct for (" + file_name + ")", PXL_ERROR_INVALID_PNG);
 	}
 
 	png_infop info_pointer = png_create_info_struct(png_pointer);
 	if (!info_pointer) {
-		PXL_show_exception("Could not initialise png info struct for (" + file_name + ")", PXL_ERROR_INVALID_PNG, PXL_EXCEPTION_CONSOLE, false);
+		PXL_show_exception("Could not initialise png info struct for (" + file_name + ")", PXL_ERROR_INVALID_PNG);
 		png_destroy_read_struct(&png_pointer, (png_infopp)0, (png_infopp)0);
 	}
 
@@ -48,11 +48,10 @@ PXL_Bitmap* PXL_load_png(std::string file_name, PXL_Bitmap* bitmap) {
 	png_uint_32 colour_type = png_get_color_type(png_pointer, info_pointer);
 
 	PXL_Channel channel;
-	channel.num_channels = channels;
-	if (channels == 1) channel.gl_pixel_mode = GL_ALPHA;
-	if (channels == 2) channel.gl_pixel_mode = GL_RG;
-	if (channels == 3) channel.gl_pixel_mode = GL_RGB;
-	if (channels == 4) channel.gl_pixel_mode = GL_RGBA;
+	if (channels == 1) channel = PXL_CHANNEL_ALPHA;
+	if (channels == 2) channel = PXL_CHANNEL_RG;
+	if (channels == 3) channel = PXL_CHANNEL_RGB;
+	if (channels == 4) channel = PXL_CHANNEL_RGBA;
 
 	bitmap->create_bitmap(png_width, png_height, PXL_COLOR_BLACK, channel);
 

@@ -13,10 +13,6 @@ PXL_Text::PXL_Text(PXL_Font* f_font, std::string f_text, int f_pos_x, int f_pos_
 	set_scale(1, 1);
 }
 
-PXL_Text* PXL_create_text(PXL_Font* f_font, std::string f_text, int f_pos_x, int f_pos_y, short f_size) {
-	return new PXL_Text(f_font, f_text, f_pos_x, f_pos_y, f_size);
-}
-
 bool PXL_Text::set_char_pos(PXL_byte symbol, int start_x) {
 	src_rect = font->get_glyph_rects()[font->get_glyph_index(symbol)];
 	rect.w = src_rect.w * font_scale.x;
@@ -36,11 +32,11 @@ bool PXL_Text::set_char_pos(PXL_byte symbol, int start_x) {
 }
 
 void PXL_Text::set_origin(float x, float y) {
-	origin_type = PXL_CUSTOM_ORIGIN;
+	origin_type = PXL_ORIGIN_CUSTOM;
 	origin.x = x; origin.y = y;
 }
 
-void PXL_Text::set_origin(const PXL_TextOrigin origin_point) {
+void PXL_Text::set_origin(const PXL_Origin origin_point) {
 	origin_type = origin_point;
 
 	rect.x = 0; rect.y = 0;
@@ -57,31 +53,31 @@ void PXL_Text::set_origin(const PXL_TextOrigin origin_point) {
 	if (clamp_max_size) { width = PXL_min(width, max_width); height = PXL_min(height, max_height); }
 
 	switch (origin_point) {
-		case PXL_TOP_LEFT_ORIGIN:
+		case PXL_ORIGIN_TOP_LEFT:
 			origin.x = 0; origin.y = 0;
 			break;
-		case PXL_TOP_CENTER_ORIGIN:
+		case PXL_ORIGIN_TOP_CENTER:
 			origin.x = width / 2; origin.y = 0;
 			break;
-		case PXL_TOP_RIGHT_ORIGIN:
+		case PXL_ORIGIN_TOP_RIGHT:
 			origin.x = width; origin.y = 0;
 			break;
-		case PXL_MID_LEFT_ORIGIN:
+		case PXL_ORIGIN_MID_LEFT:
 			origin.x = 0; origin.y = height / 2;
 			break;
-		case PXL_CENTER_ORIGIN:
+		case PXL_ORIGIN_CENTER:
 			origin.x = width / 2; origin.y = height / 2;
 			break;
-		case PXL_MID_RIGHT_ORIGIN:
+		case PXL_ORIGIN_MID_RIGHT:
 			origin.x = width; origin.y = height / 2;
 			break;
-		case PXL_BOT_LEFT_ORIGIN:
+		case PXL_ORIGIN_BOT_LEFT:
 			origin.x = 0; origin.y = height;
 			break;
-		case PXL_BOT_CENTER_ORIGIN:
+		case PXL_ORIGIN_BOT_CENTER:
 			origin.x = width / 2; origin.y = height;
 			break;
-		case PXL_BOT_RIGHT_ORIGIN:
+		case PXL_ORIGIN_BOT_RIGHT:
 			origin.x = width; origin.y = height;
 			break;
 	}
@@ -119,7 +115,7 @@ void PXL_Text::render(PXL_Batch* batch) {
 
 		temp_origin.x = (x + origin.x) - rect.x; temp_origin.y = (y + origin.y) - rect.y;
 		rect.x += temp_origin.x; rect.y += temp_origin.y;
-		batch->add(font->glyph_sheet, &rect, &src_rect, rotation, &temp_origin, PXL_FLIP_NONE, 
+		batch->add(*font->glyph_sheet, &rect, &src_rect, rotation, &temp_origin, PXL_FLIP_NONE, 
 				   z_depth, colour.r, colour.g, colour.g, colour.a, PXL_text_shader);
 		rect.x += offset_x;
 		rect.x -= temp_origin.x; rect.y -= temp_origin.y;

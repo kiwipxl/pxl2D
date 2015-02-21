@@ -4,20 +4,8 @@
 #include <string>
 #include "PXL_FontUtils.h"
 #include "PXL_Batch.h"
+#include "PXL_Sprite.h"
 #include "system/PXL_API.h"
-
-enum PXL_TextOrigin {
-	PXL_TOP_LEFT_ORIGIN,
-	PXL_TOP_CENTER_ORIGIN,
-	PXL_TOP_RIGHT_ORIGIN,
-	PXL_MID_LEFT_ORIGIN,
-	PXL_CENTER_ORIGIN,
-	PXL_MID_RIGHT_ORIGIN,
-	PXL_BOT_LEFT_ORIGIN,
-	PXL_BOT_CENTER_ORIGIN,
-	PXL_BOT_RIGHT_ORIGIN, 
-	PXL_CUSTOM_ORIGIN
-};
 
 class PXL_Text {
 
@@ -42,7 +30,7 @@ class PXL_Text {
 		float rotation = 0;
 		int z_depth = 0;
 		PXL_Colour colour;
-		PXL_TextOrigin origin_type = PXL_TOP_LEFT_ORIGIN;
+		PXL_Origin origin_type = PXL_ORIGIN_TOP_LEFT;
 
 		void scale(float scale_x, float scale_y) {
 			text_scale.x += scale_x; text_scale.y += scale_y; set_origin(origin_type); set_font_scale();
@@ -66,7 +54,7 @@ class PXL_Text {
 		}
 
 		void set_origin(float x = 0, float y = 0);
-		void set_origin(const PXL_TextOrigin origin_point = PXL_TOP_LEFT_ORIGIN);
+		void set_origin(const PXL_Origin origin_point = PXL_ORIGIN_TOP_LEFT);
 
 		void set_text(std::string new_text = "") { text = new_text; set_origin(origin_type); }
 		std::string get_text() { return text; }
@@ -97,30 +85,23 @@ class PXL_Text {
 		void free();
 
 	private:
-		bool text_loaded; /*> Defines whether or not the text has been loaded or not*/
-		std::string text = ""; /*> The text to be rendered*/
-		short size; /*> The size of the text to be rendered*/
-		float width = 0; /*> The width boundaries of the text*/
-		float height = 0; /*> The height boundaries of the text*/
-		PXL_Rect rect; /*> The rendering boundaries*/
-		PXL_Rect src_rect; /*> The texture source rendering boundaries*/
-		PXL_Vec2 origin; /*> The origin point of the text to perform rotation and scaling transformations*/
-		PXL_Vec2 temp_origin; /*> The origin used to calculate when rendering*/
-		PXL_Vec2 font_scale; /*> The scale of the font texture*/
-		PXL_Vec2 text_scale; /*> The scale of the text*/
-		PXL_Vec2 scaled_max; /*> The max scale*/
-		short kerning = 4; /*> The number that specifies the spacing between each character*/
-		short spacing_kerning = 0; /*> The number that specifies the spacing between spaces*/
-		short vertical_kerning = 4; /*> The number that specifies the spacing for new lines*/
+		bool text_loaded;				/*> Defines whether or not the text has been loaded or not */
+		std::string text = "";			/*> The text to be rendered */
+		short size;						/*> The size of the text to be rendered */
+		float width = 0;				/*> The width boundaries of the text */
+		float height = 0;				/*> The height boundaries of the text */
+		PXL_Rect rect;					/*> The rendering boundaries */
+		PXL_Rect src_rect;				/*> The texture source rendering boundaries */
+		PXL_Vec2 origin;				/*> The origin point of the text to perform rotation and scaling transformations */
+		PXL_Vec2 temp_origin;			/*> The origin used to calculate when rendering */
+		PXL_Vec2 font_scale;			/*> The scale of the font texture */
+		PXL_Vec2 text_scale;			/*> The scale of the text */
+		PXL_Vec2 scaled_max;			/*> The max scale */
+		short kerning = 4;				/*> The number that specifies the spacing between each character */
+		short spacing_kerning = 0;		/*> The number that specifies the spacing between spaces */
+		short vertical_kerning = 4;		/*> The number that specifies the spacing for new lines */
 
 		bool set_char_pos(PXL_byte symbol, int start_x);
 };
-
-/**
-\*brief: loads and creates a text from the specified path
-\*param [path]: the path and file name for the text to load
-**/
-extern PXL_Text* PXL_create_text(PXL_Font* f_font, std::string c_text, 
-								 int f_pos_x = 0, int f_pos_y = 0, short f_size = 24, short f_kerning = 4);
 
 #endif
