@@ -11,7 +11,7 @@ class PXL_TextureSheet : public PXL_Texture {
 		/**
 		\*brief: default constructor
 		**/
-		PXL_TextureSheet();
+		PXL_TextureSheet(PXL_BatchSize max_vertices = PXL_BATCH_SMALL);
 		/**
 		\*brief: batch deconstructor
 		**/
@@ -23,7 +23,7 @@ class PXL_TextureSheet : public PXL_Texture {
 		/**
 		\*brief: creates the texture sheet from all added bitmaps and textures
 		**/
-		void create_sheet(bool clear_list = true, bool dispose_all = false, PXL_Channel sheet_channel = PXL_CHANNEL_RGBA);
+		void create_sheet(PXL_Channel sheet_channel = PXL_CHANNEL_RGBA, bool dispose_batch = true, bool dispose_list = false, bool clear_list = true);
 
 		void clear();
 

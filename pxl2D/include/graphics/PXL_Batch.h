@@ -73,6 +73,7 @@ class PXL_Batch {
 		/** Creates a batch with a specified max render size
 		@param size the max amount of adds this batch can have
 		**/
+		PXL_Batch() { }
 		PXL_Batch(PXL_BatchSize max_vertices = PXL_BATCH_SMALL);
 		~PXL_Batch();
 
@@ -143,11 +144,13 @@ class PXL_Batch {
 		/** Gets the highest z depth available for this batch
 		@return The max z depth value
 		**/
-		int get_min_z_depth() { return -max_vertices_amount / 2; }
+		int get_min_z_depth() { return (-max_vertices_amount / 2) + 1; }
 		/** Gets the highest z depth available for this batch
 		@return The max z depth value
 		**/
-		int get_max_z_depth() { return max_vertices_amount / 2; }
+		int get_max_z_depth() { return (max_vertices_amount / 2) - 1; }
+
+		bool is_created() { return batch_created; }
 
 	private:
 		struct DepthSlot {
@@ -165,7 +168,7 @@ class PXL_Batch {
 		PXL_BlendMode current_blend_mode;
 
 		//vbo
-		bool vbo_created; /**> Defines whether or not the vertex buffer object has been created **/
+		bool batch_created = false; /**> Defines whether or not the vertex buffer object has been created **/
 		GLuint vertex_buffer_id; /**> The id associated with the vertex buffer object **/
 		PXL_VertexBatch* vertex_batches; /**> List that contains vertex batches used for rendering **/
 		PXL_VertexPoint* vertex_data;

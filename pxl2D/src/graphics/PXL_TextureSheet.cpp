@@ -4,27 +4,30 @@
 
 PXL_FrameBuffer* sheet_frame_buffer = NULL;
 
-PXL_TextureSheet::PXL_TextureSheet() {
+PXL_TextureSheet::PXL_TextureSheet(PXL_BatchSize max_vertices) {
 	//initiate sheet
 	texture_created = false;
 	width = 0;
 	height = 0;
 	bg_colour = PXL_COLOUR_TRANSPARENT_BLACK;
 
-	batch = new PXL_Batch(PXL_BATCH_SMALL);
-
-	if (sheet_frame_buffer == NULL) {
-		sheet_frame_buffer = new PXL_FrameBuffer(1, 1);
-	}
+	batch = new PXL_Batch(max_vertices);
 }
 
-void PXL_TextureSheet::create_sheet(bool clear_list, bool dispose_all, PXL_Channel sheet_channel) {
-	if (width == 0 || height == 0) { return; }
+void PXL_TextureSheet::create_sheet(PXL_Channel sheet_channel, bool dispose_batch, bool dispose_list, bool clear_list) {
+	if (!batch->is_created()) {
+		PXL_show_exception("Could not create texture sheet, batch has been disposed", PXL_ERROR_TEXTURE_SHEET_CREATION_FAILED);
+		return;
+	}
 
-	//if the texture is already created then delete the sheet texture
-	if (texture_created) {
-		glDeleteTextures(1, &id);
-		texture_created = false;
+	if (width == 0 || height == 0) {
+		PXL_show_exception("Could not create texture sheet, width/height are less than 0", PXL_ERROR_TEXTURE_SHEET_CREATION_FAILED);
+		return;
+	}
+
+	//initiate frame buffer if it has never been created before
+	if (sheet_frame_buffer == NULL) {
+		sheet_frame_buffer = new PXL_FrameBuffer(1, 1);
 	}
 
 	glViewport(0, 0, width, height);
@@ -50,7 +53,11 @@ void PXL_TextureSheet::create_sheet(bool clear_list, bool dispose_all, PXL_Chann
 
 	texture_created = true;
 
-	if (dispose_all) {
+	if (dispose_batch) {
+		batch->free();
+	}
+
+	if (dispose_list) {
 		for (size_t n = 0; n < texture_list.size(); ++n) {
 			delete texture_list[n];
 		}
@@ -66,6 +73,11 @@ void PXL_TextureSheet::clear() {
 void PXL_TextureSheet::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, float rotation, PXL_Vec2* origin, 
 						   PXL_Flip flip, int z_depth, float r, float g, float b, float a, 
 						   PXL_ShaderProgram* shader, PXL_BlendMode blend_mode) {
+	if (!batch->is_created()) {
+		PXL_show_exception("Could not add texture to texture sheet as the batch has been disposed", PXL_ERROR_TEXTURE_SHEET_ADD_FAILED);
+		return;
+	}
+
 	batch->add(*texture, rect, src_rect, rotation, origin, flip, z_depth, r, g, b, a, shader, blend_mode);
 	int w = rect->x + rect->w;
 	int h = rect->y + rect->h;
@@ -77,6 +89,13 @@ void PXL_TextureSheet::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_r
 void PXL_TextureSheet::free() {
 	if (texture_created) {
 		glDeleteTextures(1, &id);
+		
+		batch->free();
+		for (size_t n = 0; n < texture_list.size(); ++n) {
+			delete texture_list[n];
+		}
+		clear();
+
 		texture_created = false;
 	}
 }

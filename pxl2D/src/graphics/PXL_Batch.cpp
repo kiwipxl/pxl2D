@@ -5,20 +5,15 @@
 #include "system/PXL_Exception.h"
 
 PXL_Batch::PXL_Batch(PXL_BatchSize max_vertices) {
-	vbo_created = false;
+	batch_created = false;
 	create_batch(max_vertices);
-}
-
-PXL_Batch* PXL_create_batch(PXL_BatchSize max_vertices) {
-	return new PXL_Batch(max_vertices);
 }
 
 void PXL_Batch::create_batch(PXL_BatchSize max_vertices) {
 	max_vertices_amount = max_vertices;
 	max_quads_amount = max_vertices_amount / 4;
 
-	//if the batch is already created then delete the vbo
-	if (vbo_created) { free(); }
+	free();
 
 	{
 		//create the vbo
@@ -31,7 +26,7 @@ void PXL_Batch::create_batch(PXL_BatchSize max_vertices) {
 		next_depth_slots = new DepthSlot[max_vertices_amount];
 		vertex_batches = new PXL_VertexBatch[max_quads_amount];
 		vertex_data = new PXL_VertexPoint[max_vertices_amount];
-		vbo_created = true;
+		batch_created = true;
 	}
 
 	clear_all();
@@ -83,7 +78,7 @@ void PXL_Batch::render_all() {
 
 void PXL_Batch::clear_all() {
 	last_freq_index = 0;
-	for (size_t n = min_texture_id; n <= max_texture_id; ++n) {
+	for (size_t n = min_texture_id; n < max_texture_id; ++n) {
 		if (current_depth_slots[n].tally >= 1) {
 			next_depth_slots[n].tally = current_depth_slots[n].tally;
 			next_depth_slots[n].index = last_freq_index;
@@ -133,10 +128,10 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 		GLuint texture_id = texture.get_id();
 		z_depth += max_vertices_amount / 2;
 		if (z_depth < 0) {
-			PXL_show_exception("Z depth value cannot be below half of the max vertex amount (" + std::to_string(-max_vertices_amount / 2) + ")");
+			PXL_show_exception("Z depth value cannot be below half of the max vertex amount (" + std::to_string(-max_vertices_amount / 2) + ")", PXL_ERROR_BATCH_ADD_FAILED);
 			z_depth = 0;
-		}else if (z_depth >= max_vertices_amount + 1) {
-			PXL_show_exception("Z depth value cannot be above half of the max vertex amount (" + std::to_string(max_vertices_amount / 2) + ")");
+		}else if (z_depth >= max_vertices_amount) {
+			PXL_show_exception("Z depth value cannot be greater than half ot the max vertex amount (" + std::to_string(max_vertices_amount / 2) + ")", PXL_ERROR_BATCH_ADD_FAILED);
 			z_depth = max_vertices_amount - 1;
 		}
 
@@ -382,8 +377,15 @@ void PXL_Batch::draw_vbo() {
 }
 
 void PXL_Batch::free() {
-	glDeleteBuffers(1, &vertex_buffer_id);
-	vbo_created = false;
+	if (batch_created) {
+		glDeleteBuffers(1, &vertex_buffer_id);
+		delete[] current_depth_slots;
+		delete[] next_depth_slots;
+		delete[] vertex_batches;
+		delete[] vertex_data;
+
+		batch_created = false;
+	}
 }
 
 PXL_Batch::~PXL_Batch() {

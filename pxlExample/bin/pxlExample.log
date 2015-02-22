@@ -1,10 +1,11 @@
-﻿Build started 22/02/2015 4:09:29 PM.
+﻿Build started 22/02/2015 5:10:16 PM.
      1>Project "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxlExample\pxlExample.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D GLEW_STATIC /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxlExample\bin\\" /Fd"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxlExample\bin\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt src\Main.cpp
          Main.cpp
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\pxl_graphics.h(4): warning C4005: 'GLEW_STATIC' : macro redefinition
                  command-line arguments :  see previous definition of 'GLEW_STATIC'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(191): warning C4520: 'PXL_Batch' : multiple default constructors specified
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(50): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(51): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxlexample\src\main.cpp(6): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
@@ -33,7 +34,7 @@
      1>pxl2D.lib(PXL_Batch.obj) : warning LNK4049: locally defined symbol ___glewVertexAttribPointer imported
      1>pxl2D.lib(PXL_Batch.obj) : warning LNK4049: locally defined symbol ___glewBindFramebuffer imported
      1>pxl2D.lib(PXL_Window.obj) : warning LNK4049: locally defined symbol ___glewBindFramebuffer imported
-     1>pxl2D.lib(PXL_FrameBuffer.obj) : warning LNK4217: locally defined symbol ___glewBindFramebuffer imported in function "public: virtual __thiscall std::_Generic_error_category::~_Generic_error_category(void)" (??1_Generic_error_category@std@@UAE@XZ)
+     1>pxl2D.lib(PXL_FrameBuffer.obj) : warning LNK4049: locally defined symbol ___glewBindFramebuffer imported
      1>pxl2D.lib(PXL_Window.obj) : warning LNK4049: locally defined symbol ___wglewCreateContextAttribsARB imported
      1>pxl2D.lib(PXL_Window.obj) : warning LNK4049: locally defined symbol ___WGLEW_ARB_create_context imported
      1>pxl2D.lib(PXL_Window.obj) : warning LNK4049: locally defined symbol ___WGLEW_ARB_pixel_format imported
@@ -65,4 +66,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:02.22
+Time Elapsed 00:00:02.06

@@ -44,7 +44,7 @@ PXL_Font::PXL_Font(std::string path, int c_max_font_size) {
 			}
 		}
 		//create sheet from all textures added and then clear and dispose the textures
-		glyph_sheet->create_sheet(true, true, PXL_CHANNEL_ALPHA);
+		glyph_sheet->create_sheet(PXL_CHANNEL_ALPHA, true, true, true);
 	}
 }
 

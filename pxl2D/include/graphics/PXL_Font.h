@@ -20,15 +20,14 @@ class PXL_Font {
 		**/
 		~PXL_Font();
 
-		PXL_TextureSheet* glyph_sheet; /**> Texture sheet containing all glyphs in this font **/
 		std::string name;
 		int num_glyphs;
 		int width;
 		int height;
 
-		const PXL_Rect* get_glyph_rects() {
-			return &glyph_rects[0];
-		}
+		PXL_Texture* get_glyph_sheet() { return glyph_sheet; }
+
+		const PXL_Rect* get_glyph_rects() { return &glyph_rects[0]; }
 
 		int get_glyph_index(int char_code);
 		int get_max_font_size() { return max_font_size; }
@@ -48,6 +47,8 @@ class PXL_Font {
 		PXL_uint max_font_size;
 		PXL_uint max_char_width = 0;
 		PXL_uint max_char_height = 0;
+
+		PXL_TextureSheet* glyph_sheet; /**> Texture sheet containing all glyphs in this font **/
 };
 
 /**
