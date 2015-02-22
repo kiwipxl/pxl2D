@@ -23,7 +23,7 @@ class PXL_TextureSheet : public PXL_Texture {
 		/**
 		\*brief: creates the texture sheet from all added bitmaps and textures
 		**/
-		void create_sheet(bool clear_list = true, bool dispose_all = false);
+		void create_sheet(bool clear_list = true, bool dispose_all = false, PXL_Channel sheet_channel = PXL_CHANNEL_RGBA);
 
 		void clear();
 
@@ -40,6 +40,9 @@ class PXL_TextureSheet : public PXL_Texture {
 		void add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect = NULL, float rotation = 0, PXL_Vec2* origin = NULL,
 				 PXL_Flip flip = PXL_FLIP_NONE, int z_depth = 0, float r = 1, float g = 1, float b = 1, float a = 1,
 				 PXL_ShaderProgram* shader = NULL, PXL_BlendMode blend_mode = PXL_BLEND);
+
+		void set_width(int new_width) { width = new_width; }
+		void set_height(int new_height) { height = new_height; }
 
 		/**
 		\*brief: deletes all texture sheet information

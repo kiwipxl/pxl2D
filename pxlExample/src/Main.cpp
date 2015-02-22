@@ -27,8 +27,9 @@ int main(int argc, char* args[]) {
 	PXL_Sprite cat_sprite(cat);
 	cat_sprite.set_origin(PXL_ORIGIN_CENTER);
 
-	PXL_Font font("assets/square.ttf");
-	PXL_Text text(&font, "", 150, 450, 42);
+	PXL_Font square("assets/square.ttf");
+	PXL_Font arcade("assets/arcade.ttf");
+	PXL_Text text(&arcade, "", 150, 450, 42);
 	text.set_origin(PXL_ORIGIN_CENTER);
 
 	PXL_Batch batch = PXL_Batch(PXL_BATCH_SMALL);
@@ -87,7 +88,7 @@ int main(int argc, char* args[]) {
 		text.set_text("timer: " + std::to_string(t) + "\nnewline testtext");
 		text.rotation += PXL_fast_cos(t / 10);
 		text.colour.set_colour(1, 1, 0, 1);
-		//text.scale(PXL_fast_sin(t / 10) / 50, PXL_fast_sin(t / 10) / 50);
+		text.scale(PXL_fast_sin(t / 10) / 50, PXL_fast_sin(t / 10) / 50);
 		text.z_depth = batch.get_max_z_depth();
 		text.render(&batch);
 

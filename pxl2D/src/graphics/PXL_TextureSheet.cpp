@@ -18,7 +18,7 @@ PXL_TextureSheet::PXL_TextureSheet() {
 	}
 }
 
-void PXL_TextureSheet::create_sheet(bool clear_list, bool dispose_all) {
+void PXL_TextureSheet::create_sheet(bool clear_list, bool dispose_all, PXL_Channel sheet_channel) {
 	if (width == 0 || height == 0) { return; }
 
 	//if the texture is already created then delete the sheet texture
@@ -32,8 +32,8 @@ void PXL_TextureSheet::create_sheet(bool clear_list, bool dispose_all) {
 	batch->perspective_mat.scale(1.0f / (width / 2), 1.0f / (height / 2));
 	batch->perspective_mat.translate(-1.0f, -1.0f);
 
-	create_texture(width, height, NULL, PXL_CHANNEL_RGBA);
-	sheet_frame_buffer->get_texture()->create_texture(width, height, NULL, PXL_CHANNEL_RGBA);
+	create_texture(width, height, NULL, sheet_channel);
+	sheet_frame_buffer->get_texture()->create_texture(width, height, NULL, sheet_channel);
 
 	sheet_frame_buffer->clear(bg_colour.r, bg_colour.g, bg_colour.b, bg_colour.a);
 	batch->set_target(sheet_frame_buffer);

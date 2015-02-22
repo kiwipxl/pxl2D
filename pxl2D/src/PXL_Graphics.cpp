@@ -9,7 +9,6 @@ void PXL_graphics_init() {
 
 	PXL_shader_init();
 	PXL_font_init();
-	PXL_lights_init();
 }
 
 void PXL_glew_init() {
