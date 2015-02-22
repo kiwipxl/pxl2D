@@ -7,7 +7,7 @@
 #include "PXL_Sprite.h"
 #include "system/PXL_API.h"
 
-class PXL_Text {
+class PXL_Text : public PXL_Sprite {
 
 	public:
 		/**
@@ -21,16 +21,10 @@ class PXL_Text {
 		~PXL_Text();
 
 		PXL_Font* font;
-		int x;
-		int y;
 		int max_width = INT_MAX;
 		int max_height = INT_MAX;
 		bool scale_max_size = true;
 		bool clamp_max_size = true;
-		float rotation = 0;
-		int z_depth = 0;
-		PXL_Colour colour;
-		PXL_Origin origin_type = PXL_ORIGIN_TOP_LEFT;
 
 		void scale(float scale_x, float scale_y) {
 			text_scale.x += scale_x; text_scale.y += scale_y; set_origin(origin_type); set_font_scale();
@@ -38,19 +32,8 @@ class PXL_Text {
 		void set_scale(float scale_x, float scale_y) {
 			text_scale.x = scale_x; text_scale.y = scale_y; set_origin(origin_type); set_font_scale();
 		}
-		void set_font_scale() {
-			font_scale.x = (size / float(font->get_max_font_size())) * text_scale.x;
-			font_scale.y = (size / float(font->get_max_font_size())) * text_scale.y;
-		}
 		PXL_Vec2 get_scale() {
 			return text_scale;
-		}
-
-		void set_colour(float r, float g, float b, float a) {
-			colour.r = r;
-			colour.g = g;
-			colour.b = b;
-			colour.a = a;
 		}
 
 		void set_origin(float x = 0, float y = 0);
@@ -77,12 +60,12 @@ class PXL_Text {
 		/**
 		\*brief: frees all data from the text
 		**/
-		void render(PXL_Batch* batch);
+		void render(PXL_Batch* batch) override;
 
 		/**
 		\*brief: frees all data from the text
 		**/
-		void free();
+		void free() override;
 
 	private:
 		bool text_loaded;				/*> Defines whether or not the text has been loaded or not */
@@ -102,6 +85,11 @@ class PXL_Text {
 		short vertical_kerning = 4;		/*> The number that specifies the spacing for new lines */
 
 		bool set_char_pos(PXL_byte symbol, int start_x);
+
+		void set_font_scale() {
+			font_scale.x = (size / float(font->get_max_font_size())) * text_scale.x;
+			font_scale.y = (size / float(font->get_max_font_size())) * text_scale.y;
+		}
 };
 
 #endif

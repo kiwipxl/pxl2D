@@ -2,7 +2,6 @@
 #include <iostream>
 
 PXL_Text::PXL_Text(PXL_Font* f_font, std::string f_text, int f_pos_x, int f_pos_y, short f_size) {
-	text_loaded = false;
 	font = f_font;
 	text = f_text;
 	size = f_size;
@@ -123,9 +122,7 @@ void PXL_Text::render(PXL_Batch* batch) {
 }
 
 void PXL_Text::free() {
-	if (text_loaded) {
-		text_loaded = false;
-	}
+
 }
 
 PXL_Text::~PXL_Text() {

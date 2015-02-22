@@ -44,15 +44,6 @@ class PXL_Sprite {
 		PXL_Colour colour;
 		PXL_Vec2 scale; /*> The scale of the sprite */
 
-		void set_texture(const PXL_Texture& source);
-
-		void set_colour(float r, float g, float b, float a) {
-			colour.r = r;
-			colour.g = g;
-			colour.b = b;
-			colour.a = a;
-		}
-
 		void set_origin(float x = 0, float y = 0);
 		void set_origin(const PXL_Origin origin_point = PXL_ORIGIN_TOP_LEFT);
 
@@ -65,19 +56,21 @@ class PXL_Sprite {
 		/**
 		\*brief: frees all data from the sprite
 		**/
-		void render(PXL_Batch* batch);
+		virtual void render(PXL_Batch* batch);
 
 		/**
 		\*brief: frees all data from the sprite
 		**/
-		void free();
+		virtual void free();
 
-	private:
+	protected:
 		bool texture_set = false; /*> Defines whether or not the sprite has been loaded or not */
 		const PXL_Texture* texture_source = NULL;
 		PXL_Rect rect; /*> The rendering boundaries */
 		PXL_Vec2 origin; /*> The origin point of the sprite to perform rotation and scaling transformations */
 		PXL_Origin origin_type = PXL_ORIGIN_TOP_LEFT;
+
+		void set_texture(const PXL_Texture& source);
 };
 
 #endif

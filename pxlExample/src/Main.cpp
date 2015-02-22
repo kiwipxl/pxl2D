@@ -86,8 +86,8 @@ int main(int argc, char* args[]) {
 
 		text.set_text("timer: " + std::to_string(t) + "\nnewline testtext");
 		text.rotation += PXL_fast_cos(t / 10);
-		text.set_colour(1, 1, 0, 1);
-		text.scale(PXL_fast_sin(t / 10) / 50, PXL_fast_sin(t / 10) / 50);
+		text.colour.set_colour(1, 1, 0, 1);
+		//text.scale(PXL_fast_sin(t / 10) / 50, PXL_fast_sin(t / 10) / 50);
 		text.z_depth = batch.get_max_z_depth();
 		text.render(&batch);
 
