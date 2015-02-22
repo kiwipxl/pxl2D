@@ -24,9 +24,6 @@ int main(int argc, char* args[]) {
 	PXL_Texture cute_cat;		cute_cat.create_texture("assets/cutecat.png");
 	PXL_Texture grid_hex;		grid_hex.create_texture("assets/grid_hex.png");
 
-	PXL_Sprite cat_sprite(cat);
-	cat_sprite.set_origin(PXL_ORIGIN_CENTER);
-
 	PXL_Font square("assets/square.ttf");
 	PXL_Font arcade("assets/arcade.ttf");
 	PXL_Text text(&arcade, "", 150, 450, 42);
@@ -46,7 +43,11 @@ int main(int argc, char* args[]) {
 	float grid_x = 0; float grid_y = 0;
 	PXL_Colour grid_colour;
 	float r_speed = 0; float g_speed = 0; float b_speed = 0;
-	int r_timer = 0; int g_timer = 0; int b_timer = 0;
+	int r_timer = 100; int g_timer = 100; int b_timer = 100;
+
+	PXL_FrameBuffer grid_buffer(PXL_window_width, PXL_window_height);
+	PXL_Texture screen_texture;
+	screen_texture.create_texture(PXL_window_width, PXL_window_height, 0);
 
 	start_second_time.start();
 	while (!quit) {
@@ -86,23 +87,48 @@ int main(int argc, char* args[]) {
 		PXL_Rect src_rect(0, 0, 64, 64);
 		int s_w = 10; float w = s_w;
 		int h = 25;
-		++r_timer; ++g_timer; ++b_timer;
-		if (r_timer >= 100) { r_speed = ((rand() / (float)RAND_MAX) - (rand() / (float)RAND_MAX)) / 10; r_timer = r_speed * 100; }
 
 		grid_colour.r += r_speed;
 		grid_colour.g += g_speed;
 		grid_colour.b += b_speed;
 
+		++r_timer;
+		if (r_timer >= 100 || grid_colour.r >= 1 || grid_colour.r <= 0) {
+			r_speed = ((rand() / (float)RAND_MAX) - (rand() / (float)RAND_MAX)) / 40; r_timer = r_speed * 100;
+
+			if (grid_colour.r <= 0) { grid_colour.r = 0; r_speed = abs(r_speed); }
+			if (grid_colour.r >= 1) { grid_colour.r = 1; r_speed = -abs(r_speed); }
+		}
+		
+		++g_timer;
+		if (g_timer >= 100 || grid_colour.g >= 1 || grid_colour.g <= 0) {
+			g_speed = ((rand() / (float)RAND_MAX) - (rand() / (float)RAND_MAX)) / 40; g_timer = g_speed * 100;
+
+			if (grid_colour.g <= 0) { grid_colour.g = 0; g_speed = abs(g_speed); }
+			if (grid_colour.g >= 1) { grid_colour.g = 1; g_speed = -abs(g_speed); }
+		}
+		
+		++b_timer;
+		if (b_timer >= 100 || grid_colour.b >= 1 || grid_colour.b <= 0) {
+			b_speed = ((rand() / (float)RAND_MAX) - (rand() / (float)RAND_MAX)) / 40; b_timer = b_speed * 100;
+
+			if (grid_colour.b <= 0) { grid_colour.b = 0; b_speed = abs(b_speed); }
+			if (grid_colour.b >= 1) { grid_colour.b = 1; b_speed = -abs(b_speed); }
+		}
+
+		batch.set_target(&grid_buffer);
+		grid_buffer.clear(0, 0, 0, 1);
 		for (int y = 0; y < h; ++y) {
 			for (int x = 0; x < int(w); ++x) {
-				rect.x += 68;
+				rect.x += 64;
+
 				batch.add(grid_hex, &rect, &src_rect, 0, 0, PXL_FLIP_NONE, 0, grid_colour);
 			}
-			rect.x = -36 * (w - s_w + 1) + grid_x;
-			rect.y += 52;
+			rect.x = -32 * (w - s_w + 1) + grid_x;
+			rect.y += 48;
 
 			if (y >= h / 2) {
-				rect.x += 68;
+				rect.x += 64;
 				--w;
 			}else {
 				++w;
@@ -113,12 +139,21 @@ int main(int argc, char* args[]) {
 		text.rotation += PXL_fast_cos(t / 10);
 		text.colour.set_colour(0, (cos(t / 10) + 1) / 2, 1, 1);
 		text.scale(PXL_fast_sin(t / 10) / 50, PXL_fast_sin(t / 10) / 50);
-		text.z_depth = 0;
+		text.z_depth = 1;
 		text.render(&batch);
 
 		PXL_start_timer();
 		batch.render_all();
 		average_time += PXL_stop_timer();
+
+		rect.x = 0; rect.y = 0; rect.w = PXL_window_width; rect.h = PXL_window_height;
+		grid_buffer.blit(screen_texture, &rect);
+
+		PXL_set_bloom_shader(&batch, 20, 2);
+
+		batch.set_target(0);
+		batch.add(screen_texture, &rect, 0, 0, 0, PXL_FLIP_VERTICAL, 0, PXL_COLOR_WHITE, PXL_bloom_shader);
+		batch.render_all();
 
 		//swaps back buffer to front buffer
 		PXL_swap_buffers();

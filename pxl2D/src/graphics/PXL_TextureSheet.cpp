@@ -46,7 +46,7 @@ void PXL_TextureSheet::create_sheet(PXL_Channel sheet_channel, bool dispose_batc
 
 	PXL_Rect rect;
 	rect.x = 0; rect.y = 0; rect.w = width; rect.h = height;
-	sheet_frame_buffer->blit(this, &rect);
+	sheet_frame_buffer->blit(*this, &rect);
 
 	glViewport(0, 0, PXL_window_width, PXL_window_height);
 	glReadBuffer(GL_BACK);
