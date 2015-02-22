@@ -305,11 +305,10 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 }
 
 bool PXL_Batch::verify_texture_add(const PXL_Texture& texture, PXL_Rect* rect) {
-	return true;
 	if (texture.texture_created) {
 		if (rect->x + rect->w > 0 && rect->y + rect->h > 0 && rect->x < PXL_window_width && rect->y < PXL_window_height) {
 			if (num_added + 1 >= max_quads_amount) {
-				PXL_show_exception("Hit max batch size at " + std::to_string(max_quads_amount) + " max sprites/quads");
+				PXL_show_exception("Hit max batch size at " + std::to_string(max_quads_amount) + " max sprites/quads", PXL_ERROR_BATCH_ADD_FAILED);
 				return false;
 			}
 

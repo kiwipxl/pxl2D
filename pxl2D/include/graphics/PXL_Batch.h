@@ -11,11 +11,11 @@
 #include "PXL_FrameBuffer.h"
 #include "system/PXL_API.h"
 
-typedef int PXL_Flip;
-
-#define PXL_FLIP_NONE 0
-#define PXL_FLIP_HORIZONTAL 1
-#define PXL_FLIP_VERTICAL 2
+enum PXL_Flip {
+	PXL_FLIP_NONE, 
+	PXL_FLIP_HORIZONTAL, 
+	PXL_FLIP_VERTICAL
+};
 
 typedef int PXL_BatchSize;
 

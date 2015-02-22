@@ -19,16 +19,19 @@ int main(int argc, char* args[]) {
 	PXL_Window* window = PXL_create_window(1024, 768, "PXL Example Project");
 	PXL_init();
 
-	PXL_Texture cat; cat.create_texture("assets/cat.png");
-	PXL_Texture cat_2; cat_2.create_texture("assets/cat2.png");
-	PXL_Texture cute_cat; cute_cat.create_texture("assets/cutecat.png");
+	PXL_Texture cat;			cat.create_texture("assets/cat.png");
+	PXL_Texture cat_2;			cat_2.create_texture("assets/cat2.png");
+	PXL_Texture cute_cat;		cute_cat.create_texture("assets/cutecat.png");
+	PXL_Texture grid_hex;		grid_hex.create_texture("assets/grid_hex.png");
 
 	PXL_Sprite cat_sprite(cat);
 	cat_sprite.set_origin(PXL_ORIGIN_CENTER);
 
 	PXL_Font font("assets/square.ttf");
+	PXL_Text text(&font, "", 150, 450, 42);
+	text.set_origin(PXL_ORIGIN_CENTER);
 
-	PXL_Batch batch = PXL_Batch(PXL_BATCH_TINY);
+	PXL_Batch batch = PXL_Batch(PXL_BATCH_SMALL);
 	PXL_set_default_shader(&batch);
 
 	int num = PXL_num_joysticks();
@@ -61,16 +64,32 @@ int main(int argc, char* args[]) {
 		PXL_set_clear_colour(0, 0, 0, 1);
 		PXL_clear();
 
-		cat_sprite.rotation += .25f;
-		cat_sprite.width = 32;
-		cat_sprite.set_origin(cat_sprite.width / 2, cat_sprite.get_origin().y);
-		cat_sprite.x = 400;
-		cat_sprite.y = 300;
-		cat_sprite.render(&batch);
-		PXL_Rect rect(0, 0, 400, 300);
-		PXL_Vec2 origin(rect.w / 2, rect.h / 2);
-		t += .5f;
-		//batch.add(cat, &rect, 0, t, &origin);
+		PXL_Rect rect(0, 0, 64, 64);
+		PXL_Rect src_rect(0, 0, 64, 64);
+		int s_w = 10; float w = s_w;
+		int h = 25;
+		for (int y = 0; y < h; ++y) {
+			for (int x = 0; x < int(w); ++x) {
+				rect.x += rect.w;
+				batch.add(grid_hex, &rect, &src_rect);
+			}
+			rect.x = -32 * (w - s_w + 1);
+			rect.y += 48;
+
+			if (y >= h / 2) {
+				rect.x += 64;
+				--w;
+			}else {
+				++w;
+			}
+		}
+
+		text.set_text("timer: " + std::to_string(t) + "\nnewline testtext");
+		text.rotation += PXL_fast_cos(t / 10);
+		text.set_colour(1, 1, 0, 1);
+		text.scale(PXL_fast_sin(t / 10) / 50, PXL_fast_sin(t / 10) / 50);
+		text.z_depth = batch.get_max_z_depth();
+		text.render(&batch);
 
 		PXL_start_timer();
 		batch.render_all();

@@ -22,14 +22,11 @@ const struct PXL_Channel {
 	} channel_index;
 };
 
-static const PXL_Channel PXL_CHANNEL_RGB		{ 3, GL_RGB,	{ 0, 1, 2, -1 }		};
-static const PXL_Channel PXL_CHANNEL_RGBA		{ 4, GL_RGBA,	{ 0, 1, 2, 3 }		};
-static const PXL_Channel PXL_CHANNEL_BGRA		{ 4, GL_BGRA,	{ 2, 1, 0, 3 }		};
-static const PXL_Channel PXL_CHANNEL_RG		{ 2, GL_RG,	{ 0, 1, -1, -1 }		};
-static const PXL_Channel PXL_CHANNEL_RED		{ 1, GL_RED,	{ 0, -1, -1, -1 }	};
-static const PXL_Channel PXL_CHANNEL_GREEN		{ 1, GL_GREEN,	{ -1, 0, -1, -1 }	};
-static const PXL_Channel PXL_CHANNEL_BLUE		{ 1, GL_BLUE,	{ -1, -1, 0, -1 }	};
-static const PXL_Channel PXL_CHANNEL_ALPHA		{ 1, GL_ALPHA,	{ -1, -1, -1, 0 }	};
+static const PXL_Channel PXL_CHANNEL_RGB			{ 3, GL_RGB,					{ 0, 1, 2, -1 }		};
+static const PXL_Channel PXL_CHANNEL_RGBA			{ 4, GL_RGBA,					{ 0, 1, 2, 3 }		};
+static const PXL_Channel PXL_CHANNEL_BGRA			{ 4, GL_BGRA,					{ 2, 1, 0, 3 }		};
+static const PXL_Channel PXL_CHANNEL_GRAY_ALPHA		{ 2, GL_LUMINANCE_ALPHA,		{ 0, 0, 0, 1 }		};
+static const PXL_Channel PXL_CHANNEL_ALPHA			{ 1, GL_ALPHA,					{ -1, -1, -1, 0 }	};
 
 class PXL_Bitmap {
 

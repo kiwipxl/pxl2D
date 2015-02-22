@@ -44,6 +44,7 @@
   <ItemGroup>
     <ClInclude Include="include\graphics\PXL_Colour.h" />
     <ClInclude Include="include\graphics\PXL_PrebuiltShaders.h" />
+    <ClInclude Include="include\graphics\PXL_ShaderProgram - Copy.h" />
     <ClInclude Include="include\graphics\PXL_Sprite.h" />
     <ClInclude Include="include\input\PXL_Joystick.h" />
     <ClInclude Include="include\input\PXL_Keyboard.h" />

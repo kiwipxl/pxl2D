@@ -48,10 +48,11 @@ PXL_Bitmap* PXL_load_png(std::string file_name, PXL_Bitmap* bitmap) {
 	png_uint_32 colour_type = png_get_color_type(png_pointer, info_pointer);
 
 	PXL_Channel channel;
-	if (channels == 1) channel = PXL_CHANNEL_ALPHA;
-	if (channels == 2) channel = PXL_CHANNEL_RG;
-	if (channels == 3) channel = PXL_CHANNEL_RGB;
-	if (channels == 4) channel = PXL_CHANNEL_RGBA;
+	if (colour_type == 0) channel = PXL_CHANNEL_ALPHA;
+	if (colour_type == 2) channel = PXL_CHANNEL_RGB;
+	if (colour_type == 3) PXL_show_exception("This colour type is not yet supported (palette index)", PXL_ERROR_INVALID_PNG);
+	if (colour_type == 4) channel = PXL_CHANNEL_GRAY_ALPHA;
+	if (colour_type == 6) channel = PXL_CHANNEL_RGBA;
 
 	bitmap->create_bitmap(png_width, png_height, PXL_COLOR_BLACK, channel);
 

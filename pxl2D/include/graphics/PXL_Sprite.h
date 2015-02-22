@@ -38,6 +38,7 @@ class PXL_Sprite {
 		int y = 0;
 		float width = 0; /*> The width boundaries of the sprite */
 		float height = 0; /*> The height boundaries of the sprite */
+		PXL_Rect src_rect; /*> The spriteure source rendering boundaries */
 		float rotation = 0;
 		int z_depth = 0;
 		PXL_Colour colour;
@@ -75,7 +76,6 @@ class PXL_Sprite {
 		bool texture_set = false; /*> Defines whether or not the sprite has been loaded or not */
 		const PXL_Texture* texture_source = NULL;
 		PXL_Rect rect; /*> The rendering boundaries */
-		PXL_Rect src_rect; /*> The spriteure source rendering boundaries */
 		PXL_Vec2 origin; /*> The origin point of the sprite to perform rotation and scaling transformations */
 		PXL_Origin origin_type = PXL_ORIGIN_TOP_LEFT;
 };
