@@ -43,6 +43,11 @@ int main(int argc, char* args[]) {
 
 	PXL_set_clear_colour(0, 0, 0, 1);
 
+	float grid_x = 0; float grid_y = 0;
+	PXL_Colour grid_colour;
+	float r_speed = 0; float g_speed = 0; float b_speed = 0;
+	int r_timer = 0; int g_timer = 0; int b_timer = 0;
+
 	start_second_time.start();
 	while (!quit) {
 		start_time.start();
@@ -65,20 +70,39 @@ int main(int argc, char* args[]) {
 		PXL_set_clear_colour(0, 0, 0, 1);
 		PXL_clear();
 
-		PXL_Rect rect(0, 0, 64, 64);
+		const int scroll_speed = 8;
+		if (PXL_key_down(PXL_KEY_A)) {
+			grid_x += scroll_speed;
+		}else if (PXL_key_down(PXL_KEY_D)) {
+			grid_x -= scroll_speed;
+		}
+		if (PXL_key_down(PXL_KEY_W)) {
+			grid_y += scroll_speed;
+		}else if (PXL_key_down(PXL_KEY_S)) {
+			grid_y -= scroll_speed;
+		}
+		t += .5f;
+		PXL_Rect rect(grid_x, grid_y, 64, 64);
 		PXL_Rect src_rect(0, 0, 64, 64);
 		int s_w = 10; float w = s_w;
 		int h = 25;
+		++r_timer; ++g_timer; ++b_timer;
+		if (r_timer >= 100) { r_speed = ((rand() / (float)RAND_MAX) - (rand() / (float)RAND_MAX)) / 10; r_timer = r_speed * 100; }
+
+		grid_colour.r += r_speed;
+		grid_colour.g += g_speed;
+		grid_colour.b += b_speed;
+
 		for (int y = 0; y < h; ++y) {
 			for (int x = 0; x < int(w); ++x) {
-				rect.x += rect.w;
-				batch.add(grid_hex, &rect, &src_rect);
+				rect.x += 68;
+				batch.add(grid_hex, &rect, &src_rect, 0, 0, PXL_FLIP_NONE, 0, grid_colour);
 			}
-			rect.x = -32 * (w - s_w + 1);
-			rect.y += 48;
+			rect.x = -36 * (w - s_w + 1) + grid_x;
+			rect.y += 52;
 
 			if (y >= h / 2) {
-				rect.x += 64;
+				rect.x += 68;
 				--w;
 			}else {
 				++w;
@@ -87,9 +111,9 @@ int main(int argc, char* args[]) {
 
 		text.set_text("timer: " + std::to_string(t) + "\nnewline testtext");
 		text.rotation += PXL_fast_cos(t / 10);
-		text.colour.set_colour(1, 1, 0, 1);
+		text.colour.set_colour(0, (cos(t / 10) + 1) / 2, 1, 1);
 		text.scale(PXL_fast_sin(t / 10) / 50, PXL_fast_sin(t / 10) / 50);
-		text.z_depth = batch.get_max_z_depth();
+		text.z_depth = 0;
 		text.render(&batch);
 
 		PXL_start_timer();

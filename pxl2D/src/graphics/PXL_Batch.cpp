@@ -121,7 +121,7 @@ void PXL_Batch::use_blend_mode(PXL_BlendMode blend_mode) {
 }
 
 void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_rect, float rotation, PXL_Vec2* origin, 
-					PXL_Flip flip, int z_depth, float r, float g, float b, float a, PXL_ShaderProgram* shader, PXL_BlendMode blend_mode) {
+					PXL_Flip flip, int z_depth, PXL_Colour colour, PXL_ShaderProgram* shader, PXL_BlendMode blend_mode) {
 	if (verify_texture_add(texture, rect)) {
 		//set the texture id and shader program for the vertex batch
 		int index = last_freq_index;
@@ -280,7 +280,7 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 									Set vertex colours
 		==================================================================================
 		**/
-		int i_r = r * 255; int i_g = g * 255; int i_b = b * 255; int i_a = a * 255;
+		int i_r = colour.r * 255; int i_g = colour.g * 255; int i_b = colour.b * 255; int i_a = colour.a * 255;
 
 		if (v_batch->colour.r != i_r || v_batch->colour.g != i_g || v_batch->colour.b != i_b || v_batch->colour.a != i_a) {
 			//set vertex colours

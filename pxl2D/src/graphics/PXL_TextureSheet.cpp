@@ -71,14 +71,14 @@ void PXL_TextureSheet::clear() {
 }
 
 void PXL_TextureSheet::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, float rotation, PXL_Vec2* origin, 
-						   PXL_Flip flip, int z_depth, float r, float g, float b, float a, 
+						   PXL_Flip flip, int z_depth, PXL_Colour colour, 
 						   PXL_ShaderProgram* shader, PXL_BlendMode blend_mode) {
 	if (!batch->is_created()) {
 		PXL_show_exception("Could not add texture to texture sheet as the batch has been disposed", PXL_ERROR_TEXTURE_SHEET_ADD_FAILED);
 		return;
 	}
 
-	batch->add(*texture, rect, src_rect, rotation, origin, flip, z_depth, r, g, b, a, shader, blend_mode);
+	batch->add(*texture, rect, src_rect, rotation, origin, flip, z_depth, colour, shader, blend_mode);
 	int w = rect->x + rect->w;
 	int h = rect->y + rect->h;
 	if (w > width) { width = w; }

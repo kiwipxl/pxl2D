@@ -4,6 +4,8 @@
 #include <Windows.h>
 #include "system/PXL_API.h"
 
+extern bool* PXL_keys;
+
 typedef PXL_uint PXL_KeyCode;
 
 extern bool PXL_key_down(PXL_KeyCode key_code);

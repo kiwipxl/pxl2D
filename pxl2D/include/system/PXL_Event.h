@@ -6,7 +6,8 @@
 #include "input/PXL_Joystick.h"
 
 #define PXL_EVENT_NULL			WM_NULL
-#define PXL_EVENT_QUIT			WM_QUIT /**> Event message that occurs when a window sends a termination message **/
+#define PXL_EVENT_CLOSE			WM_CLOSE /**> Event message that occurs when a window sends a termination message **/
+#define PXL_EVENT_QUIT			WM_QUIT
 
 #define PXL_EVENT_KEYDOWN		WM_KEYDOWN
 #define PXL_EVENT_KEYUP			WM_KEYUP

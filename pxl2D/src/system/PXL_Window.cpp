@@ -5,6 +5,7 @@
 #include <algorithm>
 #include "PXL_Graphics.h"
 #include "PXL_System.h"
+#include "input/PXL_Keyboard.h"
 
 int PXL_window_width;
 int PXL_window_height;
@@ -167,8 +168,18 @@ PXL_Window::~PXL_Window() {
 
 LRESULT CALLBACK win_proc(HWND handle, UINT msg, WPARAM w_param, LPARAM l_param) {
 	switch (msg) {
-		case WM_CLOSE:
+		case PXL_EVENT_CLOSE:
 			PostQuitMessage(1);
+			break;
+		case PXL_EVENT_KEYDOWN:
+			if (w_param < 255) {
+				PXL_keys[w_param] = true;
+			}
+			break;
+		case PXL_EVENT_KEYUP:
+			if (w_param < 255) {
+				PXL_keys[w_param] = false;
+			}
 			break;
 		default:
 			return DefWindowProc(handle, msg, w_param, l_param);

@@ -38,7 +38,7 @@ class PXL_TextureSheet : public PXL_Texture {
 		@param shader The shader to use when rendering this texture. Use NULL to use the default shader
 		**/
 		void add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect = NULL, float rotation = 0, PXL_Vec2* origin = NULL,
-				 PXL_Flip flip = PXL_FLIP_NONE, int z_depth = 0, float r = 1, float g = 1, float b = 1, float a = 1,
+				 PXL_Flip flip = PXL_FLIP_NONE, int z_depth = 0, PXL_Colour colour = PXL_COLOUR_WHITE, 
 				 PXL_ShaderProgram* shader = NULL, PXL_BlendMode blend_mode = PXL_BLEND);
 
 		void set_width(int new_width) { width = new_width; }
