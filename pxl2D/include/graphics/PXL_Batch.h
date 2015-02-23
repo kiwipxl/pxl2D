@@ -46,7 +46,7 @@ struct PXL_VertexPoint {
 struct PXL_VertexBatch {
 
 	//vertex values
-	GLuint texture_id;
+	GLuint texture_id = 0;
 	int z_depth = 0;
 	PXL_ShaderProgram* shader = NULL;
 	PXL_BlendMode blend_mode;

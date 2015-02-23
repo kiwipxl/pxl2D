@@ -30,7 +30,6 @@ int main(int argc, char* args[]) {
 	text.set_origin(PXL_ORIGIN_CENTER);
 
 	PXL_Batch batch = PXL_Batch(PXL_BATCH_SMALL);
-	PXL_set_default_shader(&batch);
 
 	int num = PXL_num_joysticks();
 	if (num > 0) {
@@ -135,15 +134,15 @@ int main(int argc, char* args[]) {
 			}
 		}
 
-		text.set_text("timer: " + std::to_string(t) + "\nnewline testtext");
+		text.set_text("timer: \nnewline testtext");
 		text.rotation += PXL_fast_cos(t / 10);
 		text.colour.set_colour(0, (cos(t / 10) + 1) / 2, 1, 1);
 		text.scale(PXL_fast_sin(t / 10) / 50, PXL_fast_sin(t / 10) / 50);
-		text.z_depth = batch.get_min_z_depth();
-		//text.render(&batch);
+		text.z_depth = -1;
+		text.render(&batch);
 
 		rect.x = grid_x; rect.y = grid_y; rect.w = 400; rect.h = 300;
-		batch.add(cat, &rect, 0, 0, 0, PXL_FLIP_NONE, 1);
+		batch.add(cat, &rect, 0, 0, 0, PXL_FLIP_NONE, -1);
 
 		PXL_start_timer();
 		batch.render_all();
