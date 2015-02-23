@@ -78,7 +78,7 @@ void PXL_Batch::render_all() {
 
 void PXL_Batch::clear_all() {
 	last_freq_index = 0;
-	for (size_t n = min_texture_id; n < max_texture_id; ++n) {
+	for (size_t n = min_depth_id; n <= max_depth_id; ++n) {
 		if (current_depth_slots[n].tally >= 1) {
 			next_depth_slots[n].tally = current_depth_slots[n].tally;
 			next_depth_slots[n].index = last_freq_index;
@@ -89,9 +89,12 @@ void PXL_Batch::clear_all() {
 	}
 
 	num_added = 0;
-	vertex_batch_index = 0;
-	min_texture_id = UINT_MAX;
-	max_texture_id = 0;
+	min_depth_id = UINT_MAX;
+	max_depth_id = 0;
+	min_index = max_quads_amount - 1;
+	max_index = 0;
+	total_vertices = 0;
+	min_vertices_count = 0;
 }
 
 void PXL_Batch::use_shader(PXL_ShaderProgram* shader) {
@@ -124,14 +127,16 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 					PXL_Flip flip, int z_depth, PXL_Colour colour, PXL_ShaderProgram* shader, PXL_BlendMode blend_mode) {
 	if (verify_texture_add(texture, rect)) {
 		//set the texture id and shader program for the vertex batch
-		int index = last_freq_index;
+		PXL_uint index = last_freq_index;
 		GLuint texture_id = texture.get_id();
-		z_depth += max_vertices_amount / 2;
+		z_depth += (max_vertices_amount - 1) / 2;
 		if (z_depth < 0) {
-			PXL_show_exception("Z depth value cannot be below half of the max vertex amount (" + std::to_string(-max_vertices_amount / 2) + ")", PXL_ERROR_BATCH_ADD_FAILED);
+			PXL_show_exception("Z depth value cannot be below half of the max vertex amount (" + std::to_string(-max_vertices_amount / 2) + ")", 
+				PXL_ERROR_BATCH_ADD_FAILED);
 			z_depth = 0;
 		}else if (z_depth >= max_vertices_amount) {
-			PXL_show_exception("Z depth value cannot be greater than half ot the max vertex amount (" + std::to_string(max_vertices_amount / 2) + ")", PXL_ERROR_BATCH_ADD_FAILED);
+			PXL_show_exception("Z depth value cannot be greater than half ot the max vertex amount (" + std::to_string(max_vertices_amount / 2) + ")", 
+				PXL_ERROR_BATCH_ADD_FAILED);
 			z_depth = max_vertices_amount - 1;
 		}
 
@@ -143,16 +148,21 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 			++last_freq_index;
 			if (last_freq_index >= max_quads_amount) { last_freq_index = 0; index = 0; }
 		}
-		v_batch = vertex_batches + index;
+		PXL_VertexBatch* v_batch = &vertex_batches[index];
 		v_batch->num_vertices = 4;
 		v_batch->texture_id = texture_id;
 		v_batch->shader = shader;
 		v_batch->z_depth = z_depth;
 		v_batch->blend_mode = blend_mode;
+		total_vertices += 4;
 
 		++current_depth_slots[z_depth].tally;
-		min_texture_id = PXL_min(min_texture_id, (PXL_uint)z_depth);
-		max_texture_id = PXL_max(max_texture_id, (PXL_uint)z_depth);
+		min_depth_id = PXL_min(min_depth_id, (PXL_uint)z_depth);
+		max_depth_id = PXL_max(max_depth_id, (PXL_uint)z_depth);
+		min_index = PXL_min(min_index, index);
+		max_index = PXL_max(max_index, index);
+
+		++num_added;
 
 		//set vertex pos, uvs and colours
 		PXL_VertexPoint* v = vertex_data + (index * 4);
@@ -295,7 +305,6 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 			v_batch->colour.b = i_b;
 			v_batch->colour.a = i_a;
 		}
-		++num_added;
 	}
 }
 
@@ -324,7 +333,7 @@ void PXL_Batch::draw_vbo() {
 
 	//binds vertex buffer
 	glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_id);
-	glBufferData(GL_ARRAY_BUFFER, num_added * 4 * sizeof(PXL_VertexPoint), &vertex_data[0], GL_DYNAMIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, total_vertices * sizeof(PXL_VertexPoint), &vertex_data[min_index * 4], GL_DYNAMIC_DRAW);
 
 	//loops through each texture and draws the vertex data with that texture id
 	int batch_index = 0;
@@ -332,18 +341,14 @@ void PXL_Batch::draw_vbo() {
 	int size = 0;
 	bool changed = false;
 
-	int prev_id = vertex_batches[0].texture_id;
+	int prev_id = vertex_batches[min_index].texture_id;
 	glBindTexture(GL_TEXTURE_2D, prev_id);
-	PXL_BlendMode prev_blend_mode = vertex_batches[0].blend_mode;
+	PXL_BlendMode prev_blend_mode = vertex_batches[min_index].blend_mode;
 	use_blend_mode(prev_blend_mode);
-	PXL_ShaderProgram* prev_shader = vertex_batches[0].shader;
+	PXL_ShaderProgram* prev_shader = vertex_batches[min_index].shader;
 	use_shader(prev_shader);
-	for (int i = 0; i < num_added + 1; ++i) {
-		if (i >= num_added) {
-			use_shader(vertex_batches[i].shader);
-			use_blend_mode(vertex_batches[i].blend_mode);
-			changed = true;
-		}
+	for (int i = min_index; i <= max_index + 1; ++i) {
+		if (i > max_index) changed = true;
 
 		glBindTexture(GL_TEXTURE_2D, prev_id);
 		if (vertex_batches[i].texture_id != prev_id) {

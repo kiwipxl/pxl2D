@@ -139,8 +139,11 @@ int main(int argc, char* args[]) {
 		text.rotation += PXL_fast_cos(t / 10);
 		text.colour.set_colour(0, (cos(t / 10) + 1) / 2, 1, 1);
 		text.scale(PXL_fast_sin(t / 10) / 50, PXL_fast_sin(t / 10) / 50);
-		text.z_depth = 1;
-		text.render(&batch);
+		text.z_depth = batch.get_min_z_depth();
+		//text.render(&batch);
+
+		rect.x = grid_x; rect.y = grid_y; rect.w = 400; rect.h = 300;
+		batch.add(cat, &rect, 0, 0, 0, PXL_FLIP_NONE, 1);
 
 		PXL_start_timer();
 		batch.render_all();
@@ -149,7 +152,7 @@ int main(int argc, char* args[]) {
 		rect.x = 0; rect.y = 0; rect.w = PXL_window_width; rect.h = PXL_window_height;
 		grid_buffer.blit(screen_texture, &rect);
 
-		PXL_set_bloom_shader(&batch, 20, 2);
+		PXL_set_bloom_shader(&batch, 10, 2);
 
 		batch.set_target(0);
 		batch.add(screen_texture, &rect, 0, 0, 0, PXL_FLIP_VERTICAL, 0, PXL_COLOR_WHITE, PXL_bloom_shader);

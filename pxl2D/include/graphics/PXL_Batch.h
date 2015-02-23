@@ -160,6 +160,7 @@ class PXL_Batch {
 		};
 
 		//batch info
+		bool batch_created = false; /**> Defines whether or not the vertex buffer object has been created **/
 		int max_vertices_amount; /**> The max amount of vertices this batch has the capacity for **/
 		int max_quads_amount; /**> The max amount of quads this batch has the capacity for **/
 		int num_added; /**> The current number of added items in this batch **/
@@ -167,18 +168,21 @@ class PXL_Batch {
 		PXL_ShaderProgram* current_shader = NULL;
 		PXL_BlendMode current_blend_mode;
 
-		//vbo
-		bool batch_created = false; /**> Defines whether or not the vertex buffer object has been created **/
+		//vertex data
 		GLuint vertex_buffer_id; /**> The id associated with the vertex buffer object **/
 		PXL_VertexBatch* vertex_batches; /**> List that contains vertex batches used for rendering **/
 		PXL_VertexPoint* vertex_data;
+		PXL_uint min_index = 0;
+		PXL_uint max_index = 0;
+		PXL_uint total_vertices = 0;
+		PXL_uint min_vertices_count;
+
+		//depth freq variables
 		DepthSlot* current_depth_slots;
 		DepthSlot* next_depth_slots;
-		PXL_VertexBatch* v_batch;
-		int vertex_batch_index;
 		int last_freq_index = 0;
-		PXL_uint min_texture_id = 0;
-		PXL_uint max_texture_id = 0;
+		PXL_uint min_depth_id = 0;
+		PXL_uint max_depth_id = 0;
 
 		/** Verifies whether the texture should be added to the batch and returns the result
 		@param rect Used to check the texture position on the screen
