@@ -54,13 +54,6 @@ int main(int argc, char* args[]) {
 
 		PXL_Event e;
 		while (window->poll_event(e)) {
-			if (e.type == PXL_EVENT_KEYDOWN) {
-				std::cout << e.key_code << "\n";
-				if (e.key_code == PXL_KEY_RETURN) {
-					std::cout << "key pressed\n";
-				}
-			}
-
 			if (e.type == PXL_EVENT_QUIT) {
 				quit = true;
 				break;
@@ -138,7 +131,7 @@ int main(int argc, char* args[]) {
 		text.rotation += PXL_fast_cos(t / 10);
 		text.colour.set_colour(0, (cos(t / 10) + 1) / 2, 1, 1);
 		text.scale(PXL_fast_sin(t / 10) / 50, PXL_fast_sin(t / 10) / 50);
-		text.z_depth = -1;
+		text.z_depth = batch.get_max_z_depth() - 1;
 		text.render(&batch);
 
 		rect.x = grid_x; rect.y = grid_y; rect.w = 400; rect.h = 300;

@@ -1,22 +1,22 @@
-﻿Build started 24/02/2015 3:13:50 AM.
+﻿Build started 24/02/2015 11:42:11 PM.
      1>Project "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxlExample\pxlExample.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D GLEW_STATIC /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxlExample\bin\\" /Fd"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxlExample\bin\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt src\Main.cpp
          Main.cpp
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\pxl_graphics.h(4): warning C4005: 'GLEW_STATIC' : macro redefinition
                  command-line arguments :  see previous definition of 'GLEW_STATIC'
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(195): warning C4520: 'PXL_Batch' : multiple default constructors specified
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(197): warning C4520: 'PXL_Batch' : multiple default constructors specified
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(50): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(51): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxlexample\src\main.cpp(6): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxlexample\src\main.cpp(87): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxlexample\src\main.cpp(96): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxlexample\src\main.cpp(104): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxlexample\src\main.cpp(112): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxlexample\src\main.cpp(138): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxlexample\src\main.cpp(140): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxlexample\src\main.cpp(151): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxlexample\src\main.cpp(164): warning C4244: 'argument' : conversion from 'double' to 'DWORD', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxlexample\src\main.cpp(80): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxlexample\src\main.cpp(89): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxlexample\src\main.cpp(97): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxlexample\src\main.cpp(105): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxlexample\src\main.cpp(131): warning C4244: '+=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxlexample\src\main.cpp(133): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxlexample\src\main.cpp(144): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxlexample\src\main.cpp(157): warning C4244: 'argument' : conversion from 'double' to 'DWORD', possible loss of data
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\bin\pxlExample.exe" /INCREMENTAL:NO /NOLOGO Vfw32.lib pxl2D.lib opengl32.lib glew32s.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\bin\pxlExample.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\bin\pxlExample.lib" /MACHINE:X86 "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxlExample\bin\Main.obj"
      1>Main.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/OPT:LBR' specification
@@ -28,7 +28,7 @@
      1>pxl2D.lib(PXL_ShaderUtils.obj) : warning LNK4049: locally defined symbol ___glewUniform3f imported
      1>pxl2D.lib(PXL_ShaderUtils.obj) : warning LNK4049: locally defined symbol ___glewUniform4f imported
      1>pxl2D.lib(PXL_ShaderUtils.obj) : warning LNK4049: locally defined symbol ___glewUseProgram imported
-     1>pxl2D.lib(PXL_Batch.obj) : warning LNK4049: locally defined symbol ___glewUseProgram imported
+     1>pxl2D.lib(PXL_Batch.obj) : warning LNK4217: locally defined symbol ___glewUseProgram imported in function "public: void __thiscall std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >::_Copy(unsigned int,unsigned int)" (?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QAEXII@Z)
      1>pxl2D.lib(PXL_FrameBuffer.obj) : warning LNK4049: locally defined symbol ___glewBindFramebuffer imported
      1>pxl2D.lib(PXL_Batch.obj) : warning LNK4049: locally defined symbol ___glewBindFramebuffer imported
      1>pxl2D.lib(PXL_Window.obj) : warning LNK4049: locally defined symbol ___glewBindFramebuffer imported
@@ -70,4 +70,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.90
+Time Elapsed 00:00:01.76

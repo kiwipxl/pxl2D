@@ -24,8 +24,19 @@ void PXL_Batch::create_batch(PXL_BatchSize max_vertices) {
 
 		current_depth_slots = new DepthSlot[max_vertices_amount];
 		next_depth_slots = new DepthSlot[max_vertices_amount];
-		vertex_batches = new PXL_VertexBatch[max_quads_amount];
-		vertex_data = new PXL_VertexPoint[max_vertices_amount];
+
+		vertex_batch_cache = new PXL_VertexBatch[max_vertices_amount];
+		vertex_batches = new std::vector<PXL_VertexBatch*>[max_vertices_amount];
+		for (int n = 0; n < max_vertices_amount; ++n) {
+			vertex_batches[n] = std::vector<PXL_VertexBatch*>();
+		}
+
+		vertex_data_cache = new PXL_VertexPoint[max_vertices_amount];
+		vertex_data = new std::vector<PXL_VertexPoint*>[max_vertices_amount];
+		for (int n = 0; n < max_vertices_amount; ++n) {
+			vertex_data[n] = std::vector<PXL_VertexPoint*>();
+		}
+
 		batch_created = true;
 	}
 
@@ -78,16 +89,6 @@ void PXL_Batch::render_all() {
 
 void PXL_Batch::clear_all() {
 	last_freq_index = 0;
-	for (size_t n = min_depth_id; n <= max_depth_id; ++n) {
-		if (current_depth_slots[n].tally >= 1) {
-			next_depth_slots[n].tally = current_depth_slots[n].tally;
-			next_depth_slots[n].index = last_freq_index;
-			last_freq_index += current_depth_slots[n].tally;
-			current_depth_slots[n].tally = 0;
-			current_depth_slots[n].index = 0;
-		}
-	}
-
 	num_added = 0;
 	min_depth_id = UINT_MAX;
 	max_depth_id = 0;
@@ -129,6 +130,7 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 		//set the texture id and shader program for the vertex batch
 		PXL_uint index = last_freq_index;
 		GLuint texture_id = texture.get_id();
+
 		z_depth += (max_vertices_amount - 1) / 2;
 		if (z_depth < 0) {
 			PXL_show_exception("Z depth value cannot be below half of the max vertex amount (" + std::to_string(-max_vertices_amount / 2) + ")", 
@@ -140,18 +142,9 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 			z_depth = max_vertices_amount - 1;
 		}
 
-		if (next_depth_slots[z_depth].tally >= 1) {
-			index = next_depth_slots[z_depth].index;
-			++next_depth_slots[z_depth].index;
-			if (next_depth_slots[z_depth].index >= max_quads_amount) { next_depth_slots[z_depth].index = 0; index = 0; }
-		}else {
-			++last_freq_index;
-			if (last_freq_index >= max_quads_amount) { last_freq_index = 0; index = 0; }
-		}
-		if (vertex_batches[index].texture_id != 0) {
-			//index = num_added;
-		}
-		PXL_VertexBatch* v_batch = &vertex_batches[index];
+		PXL_VertexBatch* v_batch = &vertex_batch_cache[last_freq_index / 4];
+		vertex_batches[z_depth].push_back(v_batch);
+
 		v_batch->num_vertices = 4;
 		v_batch->texture_id = texture_id;
 		v_batch->shader = shader;
@@ -159,22 +152,26 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 		v_batch->blend_mode = blend_mode;
 		total_vertices += 4;
 
-		++current_depth_slots[z_depth].tally;
 		min_depth_id = PXL_min(min_depth_id, (PXL_uint)z_depth);
 		max_depth_id = PXL_max(max_depth_id, (PXL_uint)z_depth);
-		min_index = PXL_min(min_index, index);
-		max_index = PXL_max(max_index, index);
 
 		++num_added;
 
-		//set vertex pos, uvs and colours
-		PXL_VertexPoint* v = vertex_data + (index * 4);
+		size_t v_size = vertex_data[z_depth].size();
+		vertex_data[z_depth].push_back(&vertex_data_cache[last_freq_index]);
+		vertex_data[z_depth].push_back(&vertex_data_cache[last_freq_index + 1]);
+		vertex_data[z_depth].push_back(&vertex_data_cache[last_freq_index + 2]);
+		vertex_data[z_depth].push_back(&vertex_data_cache[last_freq_index + 3]);
+		PXL_VertexPoint* v = vertex_data[z_depth][v_size];
+
+		last_freq_index += 4;
 
 		/**
 		==================================================================================
 									Set vertex positions
 		==================================================================================
 		**/
+		//set vertex pos, uvs and colours
 		//set origin
 		float origin_x = 0; float origin_y = 0;
 		if (origin != NULL) { origin_x = origin->x; origin_y = origin->y; }
@@ -336,65 +333,81 @@ void PXL_Batch::draw_vbo() {
 
 	//binds vertex buffer
 	glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_id);
-	glBufferData(GL_ARRAY_BUFFER, (((max_index - min_index) * 4) + 4) * sizeof(PXL_VertexPoint), &vertex_data[min_index * 4], GL_DYNAMIC_DRAW);
 
 	//loops through each texture and draws the vertex data with that texture id
-	int batch_index = 0;
 	int offset = 0;
 	int size = 0;
 	bool changed = false;
 
-	GLuint prev_id = vertex_batches[min_index].texture_id;
+	//render notes
+	//vertex batches vectors
+	//vertex data has it's own vectors like vertex batches
+	//upload buffer data for each z depth vector
+	//when uploading input vector as buffer data
+	//cache buffer data by not uploading if it hasn't changed
+	//maybe can render non-transparent images with depth buffer first and then disable it and render transparent images
+
+	GLuint prev_id = vertex_batches[min_depth_id][0]->texture_id;
 	glBindTexture(GL_TEXTURE_2D, prev_id);
-	PXL_BlendMode prev_blend_mode = vertex_batches[min_index].blend_mode;
+	PXL_BlendMode prev_blend_mode = vertex_batches[min_depth_id][0]->blend_mode;
 	use_blend_mode(prev_blend_mode);
-	PXL_ShaderProgram* prev_shader = vertex_batches[min_index].shader;
+	PXL_ShaderProgram* prev_shader = vertex_batches[min_depth_id][0]->shader;
 	use_shader(prev_shader);
-	std::cout << "-----------\n";
-	for (int i = min_index; i <= max_index + 1; ++i) {
-		GLuint last_id = prev_id;
+	//std::cout << "-----------\n";
+	for (int i = min_depth_id; i <= max_depth_id; ++i) {
+		size_t v_size = vertex_batches[i].size();
+		if (v_size == 0) continue;
 
-		if (i > max_index) {
-			changed = true;
-		}else if (prev_id == 0 && vertex_batches[i].texture_id == 0) {
-			offset += vertex_batches[i].num_vertices;
-			continue;
-		}
+		offset = 0;
+		size = 0;
 
-		glBindTexture(GL_TEXTURE_2D, prev_id);
-		if (vertex_batches[i].texture_id != prev_id) {
-			prev_id = vertex_batches[i].texture_id;
-			changed = true;
-		}
+		glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_id);
+		glBufferData(GL_ARRAY_BUFFER, vertex_data[i].size() * sizeof(PXL_VertexPoint), vertex_data[i][0], GL_DYNAMIC_DRAW);
 
-		use_shader(prev_shader);
-		if (vertex_batches[i].shader != prev_shader) {
-			prev_shader = vertex_batches[i].shader;
-			changed = true;
-		}
+		PXL_VertexBatch* v_batch;
+		for (int n = 0; n < v_size + 1; ++n) {
+			GLuint last_id = prev_id;
 
-		use_blend_mode(prev_blend_mode);
-		if (vertex_batches[i].blend_mode != prev_blend_mode) {
-			prev_blend_mode = vertex_batches[i].blend_mode;
-			changed = true;
-		}
+			if (n >= v_size) {
+				size += v_batch->num_vertices;
+				changed = true;
+			}else {
+				v_batch = vertex_batches[i][n];
+			}
 
-		if (changed) {
-			if (last_id != 0) {
+			glBindTexture(GL_TEXTURE_2D, prev_id);
+			if (v_batch->texture_id != prev_id) {
+				prev_id = v_batch->texture_id;
+				changed = true;
+			}
+
+			use_shader(prev_shader);
+			if (v_batch->shader != prev_shader) {
+				prev_shader = v_batch->shader;
+				changed = true;
+			}
+
+			use_blend_mode(prev_blend_mode);
+			if (v_batch->blend_mode != prev_blend_mode) {
+				prev_blend_mode = v_batch->blend_mode;
+				changed = true;
+			}
+
+			if (changed) {
 				std::cout << "rendered " << size / 4 << " of " << last_id << ", offset: " << offset / 4 << "\n";
 
 				//draw vertex data from vertex data in buffer
 				glDrawArrays(GL_QUADS, offset, size);
+
+				offset += size;
+				size = 0;
+
+				changed = false;
 			}
-
-			offset += size;
-			size = 0;
-
-			changed = false;
+			size += v_batch->num_vertices;
 		}
-		size += vertex_batches[i].num_vertices;
-
-		vertex_batches[i].texture_id = 0;
+		vertex_batches[i].clear();
+		vertex_data[i].clear();
 	}
 }
 
