@@ -60,6 +60,8 @@ int main(int argc, char* args[]) {
 			}
 		}
 
+		PXL_start_timer();
+
 		PXL_set_clear_colour(0, 0, 0, 1);
 		PXL_clear();
 
@@ -114,7 +116,7 @@ int main(int argc, char* args[]) {
 			for (int x = 0; x < int(w); ++x) {
 				rect.x += 64;
 
-				batch.add(grid_hex, &rect, &src_rect, 0, 0, PXL_FLIP_NONE, 0, grid_colour);
+				//batch.add(grid_hex, &rect, &src_rect, 0, 0, PXL_FLIP_NONE, 0, grid_colour);
 			}
 			rect.x = -32 * (w - s_w + 1) + grid_x;
 			rect.y += 48;
@@ -132,14 +134,12 @@ int main(int argc, char* args[]) {
 		text.colour.set_colour(0, (cos(t / 10) + 1) / 2, 1, 1);
 		text.scale(PXL_fast_sin(t / 10) / 50, PXL_fast_sin(t / 10) / 50);
 		text.z_depth = batch.get_max_z_depth() - 1;
-		text.render(&batch);
+		//text.render(&batch);
 
 		rect.x = grid_x; rect.y = grid_y; rect.w = 400; rect.h = 300;
 		batch.add(cat, &rect, 0, 0, 0, PXL_FLIP_NONE, -1);
 
-		PXL_start_timer();
 		batch.render_all();
-		average_time += PXL_stop_timer();
 
 		rect.x = 0; rect.y = 0; rect.w = PXL_window_width; rect.h = PXL_window_height;
 		grid_buffer.blit(screen_texture, &rect);
@@ -149,6 +149,8 @@ int main(int argc, char* args[]) {
 		batch.set_target(0);
 		batch.add(screen_texture, &rect, 0, 0, 0, PXL_FLIP_VERTICAL, 0, PXL_COLOR_WHITE, PXL_bloom_shader);
 		batch.render_all();
+
+		average_time += PXL_stop_timer();
 
 		//swaps back buffer to front buffer
 		PXL_swap_buffers();
