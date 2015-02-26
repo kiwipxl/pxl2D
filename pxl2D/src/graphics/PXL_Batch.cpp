@@ -27,8 +27,8 @@ void PXL_Batch::create_batch(PXL_BatchSize max_vertices) {
 
 		vertices = new VertexContainer[max_quads_amount];
 		for (int n = 0; n < max_quads_amount; ++n) {
-			vertices[n].vertex_batches = std::vector<PXL_VertexBatch>();
-			vertices[n].vertex_data = std::vector<PXL_VertexPoint>();
+			vertices[n].batches = std::vector<PXL_VertexBatch>();
+			vertices[n].data = std::vector<PXL_VertexPoint>();
 		}
 
 		batch_created = true;
@@ -46,6 +46,7 @@ void PXL_Batch::create_batch(PXL_BatchSize max_vertices) {
 	//enable alpha blending
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glDisable(GL_CULL_FACE);
 
 	//binds vertex buffer
 	glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_id);
@@ -132,8 +133,11 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 		
 		VertexContainer& c = vertices[z_depth];
 
-		c.vertex_batches.push_back(vertex_batch_cache[total_vertices / 4]);
-		PXL_VertexBatch& v_batch = c.vertex_batches[c.vertex_batches.size() - 1];
+		if (c.batch_index >= c.batches.size()) {
+			c.batches.push_back(vertex_batch_cache[total_vertices / 4]);
+			++c.batch_size;
+		}
+		PXL_VertexBatch& v_batch = c.batches[c.batch_index];
 
 		v_batch.num_vertices = 4;
 		v_batch.texture_id = texture.get_id();
@@ -146,14 +150,18 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 
 		++num_added;
 
-		const size_t v_size = c.vertex_data.size();
-		c.vertex_data.push_back(vertex_data_cache[total_vertices]);
-		c.vertex_data.push_back(vertex_data_cache[total_vertices + 1]);
-		c.vertex_data.push_back(vertex_data_cache[total_vertices + 2]);
-		c.vertex_data.push_back(vertex_data_cache[total_vertices + 3]);
-		PXL_VertexPoint* v = &c.vertex_data[v_size];
+		if (c.data_index >= c.data.size()) {
+			c.data.push_back(vertex_data_cache[total_vertices]);
+			c.data.push_back(vertex_data_cache[total_vertices + 1]);
+			c.data.push_back(vertex_data_cache[total_vertices + 2]);
+			c.data.push_back(vertex_data_cache[total_vertices + 3]);
+			c.data_size += 4;
+		}
+		PXL_VertexPoint* v = &c.data[c.data_index];
 
 		total_vertices += 4;
+		++c.batch_index;
+		c.data_index += 4;
 
 		/**
 		==================================================================================
@@ -165,33 +173,35 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 		float origin_x = 0; float origin_y = 0;
 		if (origin != NULL) { origin_x = origin->x; origin_y = origin->y; }
 
-		bool rect_changed = false;
+		bool modified = false;
 		if (v_batch.rect.x != rect->x || v_batch.rect.y != rect->y ||
 			v_batch.rect.w != rect->w || v_batch.rect.h != rect->h) {
-			rect_changed = true;
+			modified = true;
+
+			memcpy(&v_batch.rect, rect, sizeof(PXL_Rect));
 		}
-		bool rotate_changed = false;
 		if (v_batch.rotation != rotation || v_batch.flip != flip ||
 			v_batch.origin.x != origin_x || v_batch.origin.y != origin_y) {
-			rotate_changed = true;
+			modified = true;
+
+			v_batch.rotation = rotation;
+			v_batch.flip = flip;
+			v_batch.origin.x = origin_x; v_batch.origin.y = origin_y;
 		}
-		if (rect_changed || rotate_changed || v_batch.flip != flip) {
+		if (modified) {
 			//get positions from rect
 			int x = rect->x; int y = rect->y;
 
 			//set scale
 			float scale_x = rect->w / texture.get_width(); float scale_y = rect->h / texture.get_height();
-			if (v_batch.rect.x != rect->x || v_batch.rect.y != rect->y ||
-				v_batch.rect.w != rect->w || v_batch.rect.h != rect->h) {
-				if (flip == PXL_FLIP_HORIZONTAL) {
-					scale_x = -scale_x;
-					x += rect->w;
-					origin_x -= rect->w;
-				}else if (flip == PXL_FLIP_VERTICAL) {
-					scale_y = -scale_y;
-					y += rect->h;
-					origin_y -= rect->h;
-				}
+			if (flip == PXL_FLIP_HORIZONTAL) {
+				scale_x = -scale_x;
+				x += rect->w;
+				origin_x -= rect->w;
+			}else if (flip == PXL_FLIP_VERTICAL) {
+				scale_y = -scale_y;
+				y += rect->h;
+				origin_y -= rect->h;
 			}
 			int scaled_width = texture.get_width() * scale_x;
 			int scaled_height = texture.get_height() * scale_y;
@@ -227,10 +237,6 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 				v[3].pos.x = x;											v[3].pos.y = y + scaled_height;
 			}
 
-			memcpy(&v_batch.rect, rect, sizeof(PXL_Rect));
-			v_batch.origin.x = origin_x; v_batch.origin.y = origin_y;
-			v_batch.flip = flip;
-
 			c.updated = true;
 		}
 
@@ -240,20 +246,25 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 		==================================================================================
 		**/
 		//attempt to optimise by not setting uv values if they have the same value in the vertex batch as the new values
-		bool set_coords = false;
+		modified = false;
 		if (src_rect == NULL) {
-			if (v_batch.src_rect.x != 0 || v_batch.src_rect.y != 0 ||
+			if (v_batch.src_rect.x != 0					  || v_batch.src_rect.y != 0 ||
 				v_batch.src_rect.w != texture.get_width() || v_batch.src_rect.h != texture.get_height()) {
-				set_coords = true;
+				modified = true;
+
+				v_batch.src_rect.x = 0; v_batch.src_rect.y = 0;
+				v_batch.src_rect.w = texture.get_width(); v_batch.src_rect.h = texture.get_height();
 			}
 		}else {
 			if (v_batch.src_rect.x != src_rect->x || v_batch.src_rect.y != src_rect->y ||
 				v_batch.src_rect.w != src_rect->w || v_batch.src_rect.h != src_rect->h) {
-				set_coords = true;
+				modified = true;
+
+				memcpy(&v_batch.src_rect, src_rect, sizeof(PXL_Rect));
 			}
 		}
 
-		if (set_coords) {
+		if (modified) {
 			//default un-normalised uv coords
 			PXL_ushort uv_x = 0; PXL_ushort uv_y = 0; PXL_ushort uv_w = USHRT_MAX; PXL_ushort uv_h = USHRT_MAX;
 			if (src_rect != NULL) {
@@ -267,13 +278,6 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 			v[1].uv.x = uv_x + uv_w;								v[1].uv.y = uv_y;
 			v[2].uv.x = uv_x + uv_w;								v[2].uv.y = uv_y + uv_h;
 			v[3].uv.x = uv_x;										v[3].uv.y = uv_y + uv_h;
-
-			if (src_rect == NULL) {
-				v_batch.src_rect.x = 0; v_batch.src_rect.y = 0;
-				v_batch.src_rect.w = texture.get_width(); v_batch.src_rect.h = texture.get_height();
-			}else {
-				memcpy(&v_batch.src_rect, src_rect, sizeof(PXL_Rect));
-			}
 
 			c.updated = true;
 		}
@@ -330,7 +334,7 @@ void PXL_Batch::draw_vbo() {
 	glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_id);
 
 	//loops through each texture and draws the vertex data with that texture id
-	int offset = 0;
+	vbo_offset = 0;
 	int size = 0;
 	bool changed = false;
 
@@ -342,25 +346,25 @@ void PXL_Batch::draw_vbo() {
 	//cache buffer data by not uploading if it hasn't changed
 	//maybe can render non-transparent images with depth buffer first and then disable it and render transparent images
 
-	GLuint prev_id = vertices[min_vertex_index].vertex_batches[0].texture_id;
+	GLuint prev_id = vertices[min_vertex_index].batches[0].texture_id;
 	glBindTexture(GL_TEXTURE_2D, prev_id);
-	PXL_BlendMode prev_blend_mode = vertices[min_vertex_index].vertex_batches[0].blend_mode;
+	PXL_BlendMode prev_blend_mode = vertices[min_vertex_index].batches[0].blend_mode;
 	use_blend_mode(prev_blend_mode);
-	PXL_ShaderProgram* prev_shader = vertices[min_vertex_index].vertex_batches[0].shader;
+	PXL_ShaderProgram* prev_shader = vertices[min_vertex_index].batches[0].shader;
 	use_shader(prev_shader);
 
 	std::cout << "---------\n";
 	for (int i = min_vertex_index; i <= max_vertex_index; ++i) {
-		size_t v_size = vertices[i].vertex_batches.size();
+		size_t v_size = vertices[i].batch_index;
 		if (v_size == 0) continue;
 
-		offset = 0;
 		size = 0;
 
 		VertexContainer& c = vertices[i];
 
-		if (c.updated) {
-			glBufferData(GL_ARRAY_BUFFER, c.vertex_data.size() * sizeof(PXL_VertexPoint), &c.vertex_data[0], GL_DYNAMIC_DRAW);
+		if (c.updated || c.data_index == vbo_offset) {
+			if (vbo_offset + c.data_index >= max_vertices_amount) vbo_offset = 0;
+			glBufferSubData(GL_ARRAY_BUFFER, vbo_offset * sizeof(PXL_VertexPoint), c.data_index * sizeof(PXL_VertexPoint), &c.data[0]);
 		}else {
 			std::cout << "did not update batch " << i << "\n";
 		}
@@ -370,10 +374,9 @@ void PXL_Batch::draw_vbo() {
 			GLuint last_id = prev_id;
 
 			if (n >= v_size) {
-				size += v_batch->num_vertices;
 				changed = true;
 			}else {
-				v_batch = &c.vertex_batches[n];
+				v_batch = &c.batches[n];
 			}
 
 			glBindTexture(GL_TEXTURE_2D, prev_id);
@@ -396,17 +399,19 @@ void PXL_Batch::draw_vbo() {
 
 			if (changed) {
 				//draw vertex data from vertex data in buffer
-				glDrawArrays(GL_QUADS, offset, size);
+				glDrawArrays(GL_QUADS, vbo_offset, size);
 
-				offset += size;
+				vbo_offset += size;
 				size = 0;
 
 				changed = false;
 			}
 			size += v_batch->num_vertices;
 		}
-		c.vertex_batches.clear();
-		c.vertex_data.clear();
+		//c.batches.clear();
+		//c.data.clear();
+		c.batch_index = 0;
+		c.data_index = 0;
 		c.updated = false;
 	}
 }
@@ -416,10 +421,10 @@ void PXL_Batch::free() {
 		glDeleteBuffers(1, &vertex_buffer_id);
 
 		for (int n = 0; n < max_quads_amount; ++n) {
-			std::vector<PXL_VertexBatch>().swap(vertices[n].vertex_batches);
+			std::vector<PXL_VertexBatch>().swap(vertices[n].batches);
 		}
 		for (int n = 0; n < max_quads_amount; ++n) {
-			std::vector<PXL_VertexPoint>().swap(vertices[n].vertex_data);
+			std::vector<PXL_VertexPoint>().swap(vertices[n].data);
 		}
 		delete[] vertices;
 

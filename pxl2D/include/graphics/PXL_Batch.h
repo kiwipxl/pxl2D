@@ -170,11 +170,16 @@ class PXL_Batch {
 		PXL_uint min_vertices_count;
 
 		struct VertexContainer {
-			std::vector<PXL_VertexBatch> vertex_batches;
-			std::vector<PXL_VertexPoint> vertex_data;
+			PXL_uint batch_index = 0;
+			PXL_uint data_index = 0;
+			PXL_uint batch_size = 0;
+			PXL_uint data_size = 0;
+			std::vector<PXL_VertexBatch> batches;
+			std::vector<PXL_VertexPoint> data;
 			bool updated = true;
 		};
 		VertexContainer* vertices;
+		PXL_uint vbo_offset = 0;
 
 		PXL_VertexBatch* vertex_batch_cache;
 		PXL_VertexPoint* vertex_data_cache;
