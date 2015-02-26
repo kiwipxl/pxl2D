@@ -163,7 +163,8 @@ class PXL_Batch {
 		PXL_BlendMode current_blend_mode;
 
 		//vertex data
-		GLuint vertex_buffer_id; /**> The id associated with the vertex buffer object **/
+		GLuint vbo_id; /**> The id associated with the vertex buffer object **/
+		GLuint vao_id;
 		PXL_uint min_vertex_index = 0;
 		PXL_uint max_vertex_index = 0;
 		PXL_uint total_vertices = 0;
@@ -172,17 +173,11 @@ class PXL_Batch {
 		struct VertexContainer {
 			PXL_uint batch_index = 0;
 			PXL_uint data_index = 0;
-			PXL_uint batch_size = 0;
-			PXL_uint data_size = 0;
 			std::vector<PXL_VertexBatch> batches;
 			std::vector<PXL_VertexPoint> data;
-			bool updated = true;
 		};
 		VertexContainer* vertices;
 		PXL_uint vbo_offset = 0;
-
-		PXL_VertexBatch* vertex_batch_cache;
-		PXL_VertexPoint* vertex_data_cache;
 
 		/** Verifies whether the texture should be added to the batch and returns the result
 		@param rect Used to check the texture position on the screen

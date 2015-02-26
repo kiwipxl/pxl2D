@@ -17,19 +17,24 @@ void PXL_Batch::create_batch(PXL_BatchSize max_vertices) {
 
 	{
 		//create the vbo
-		glGenBuffers(1, &vertex_buffer_id);
-		glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_id);
+		glGenBuffers(1, &vbo_id);
+		glBindBuffer(GL_ARRAY_BUFFER, vbo_id);
 		glBufferData(GL_ARRAY_BUFFER, max_vertices_amount * sizeof(PXL_VertexPoint), NULL, GL_STATIC_DRAW);
-		glBindBuffer(GL_ARRAY_BUFFER, NULL);
 
-		vertex_batch_cache = new PXL_VertexBatch[max_quads_amount];
-		vertex_data_cache = new PXL_VertexPoint[max_vertices_amount];
+		glGenVertexArrays(1, &vao_id);
+		glBindVertexArray(vao_id);
+
+		//enable vertex attrib pointers when rendering
+		glEnableVertexAttribArray(0);
+		glEnableVertexAttribArray(1);
+		glEnableVertexAttribArray(2);
+
+		//set vertex shader attrib pointers
+		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(PXL_VertexPoint), (void*)offsetof(PXL_VertexPoint, pos));
+		glVertexAttribPointer(1, 2, GL_UNSIGNED_SHORT, GL_TRUE, sizeof(PXL_VertexPoint), (void*)offsetof(PXL_VertexPoint, uv));
+		glVertexAttribPointer(2, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(PXL_VertexPoint), (void*)offsetof(PXL_VertexPoint, colour));
 
 		vertices = new VertexContainer[max_quads_amount];
-		for (int n = 0; n < max_quads_amount; ++n) {
-			vertices[n].batches = std::vector<PXL_VertexBatch>();
-			vertices[n].data = std::vector<PXL_VertexPoint>();
-		}
 
 		batch_created = true;
 	}
@@ -47,19 +52,6 @@ void PXL_Batch::create_batch(PXL_BatchSize max_vertices) {
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glDisable(GL_CULL_FACE);
-
-	//binds vertex buffer
-	glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_id);
-
-	//enable vertex attrib pointers when rendering
-	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
-	glEnableVertexAttribArray(2);
-
-	//set vertex shader attrib pointers
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(PXL_VertexPoint), (void*)offsetof(PXL_VertexPoint, pos));
-	glVertexAttribPointer(1, 2, GL_UNSIGNED_SHORT, GL_TRUE, sizeof(PXL_VertexPoint), (void*)offsetof(PXL_VertexPoint, uv));
-	glVertexAttribPointer(2, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(PXL_VertexPoint), (void*)offsetof(PXL_VertexPoint, colour));
 }
 
 void PXL_Batch::render_all() {
@@ -134,8 +126,7 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 		VertexContainer& c = vertices[z_depth];
 
 		if (c.batch_index >= c.batches.size()) {
-			c.batches.push_back(vertex_batch_cache[total_vertices / 4]);
-			++c.batch_size;
+			c.batches.push_back(PXL_VertexBatch());
 		}
 		PXL_VertexBatch& v_batch = c.batches[c.batch_index];
 
@@ -151,11 +142,10 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 		++num_added;
 
 		if (c.data_index >= c.data.size()) {
-			c.data.push_back(vertex_data_cache[total_vertices]);
-			c.data.push_back(vertex_data_cache[total_vertices + 1]);
-			c.data.push_back(vertex_data_cache[total_vertices + 2]);
-			c.data.push_back(vertex_data_cache[total_vertices + 3]);
-			c.data_size += 4;
+			c.data.push_back(PXL_VertexPoint());
+			c.data.push_back(PXL_VertexPoint());
+			c.data.push_back(PXL_VertexPoint());
+			c.data.push_back(PXL_VertexPoint());
 		}
 		PXL_VertexPoint* v = &c.data[c.data_index];
 
@@ -236,8 +226,6 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 				v[2].pos.x = x + scaled_width;							v[2].pos.y = y + scaled_height;
 				v[3].pos.x = x;											v[3].pos.y = y + scaled_height;
 			}
-
-			c.updated = true;
 		}
 
 		/**
@@ -278,8 +266,6 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 			v[1].uv.x = uv_x + uv_w;								v[1].uv.y = uv_y;
 			v[2].uv.x = uv_x + uv_w;								v[2].uv.y = uv_y + uv_h;
 			v[3].uv.x = uv_x;										v[3].uv.y = uv_y + uv_h;
-
-			c.updated = true;
 		}
 
 		/**
@@ -301,8 +287,6 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 			v_batch.colour.g = i_g;
 			v_batch.colour.b = i_b;
 			v_batch.colour.a = i_a;
-
-			c.updated = true;
 		}
 	}
 }
@@ -331,11 +315,11 @@ void PXL_Batch::draw_vbo() {
 	if (num_added == 0) { return; }
 
 	//binds vertex buffer
-	glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_id);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo_id);
 
 	//loops through each texture and draws the vertex data with that texture id
 	vbo_offset = 0;
-	int size = 0;
+	int num_vertices = 0;
 	bool changed = false;
 
 	//render notes
@@ -353,31 +337,21 @@ void PXL_Batch::draw_vbo() {
 	PXL_ShaderProgram* prev_shader = vertices[min_vertex_index].batches[0].shader;
 	use_shader(prev_shader);
 
-	std::cout << "---------\n";
 	for (int i = min_vertex_index; i <= max_vertex_index; ++i) {
-		size_t v_size = vertices[i].batch_index;
-		if (v_size == 0) continue;
+		size_t num_batches = vertices[i].batch_index;
+		if (num_batches == 0) continue;
 
-		size = 0;
+		num_vertices = 0;
 
 		VertexContainer& c = vertices[i];
 
-		if (c.updated || c.data_index == vbo_offset) {
-			if (vbo_offset + c.data_index >= max_vertices_amount) vbo_offset = 0;
-			glBufferSubData(GL_ARRAY_BUFFER, vbo_offset * sizeof(PXL_VertexPoint), c.data_index * sizeof(PXL_VertexPoint), &c.data[0]);
-		}else {
-			std::cout << "did not update batch " << i << "\n";
-		}
+		if (vbo_offset + c.data_index >= max_vertices_amount) vbo_offset = 0;
+		glBufferSubData(GL_ARRAY_BUFFER, vbo_offset * sizeof(PXL_VertexPoint), c.data_index * sizeof(PXL_VertexPoint), &c.data[0]);
 
 		PXL_VertexBatch* v_batch;
-		for (int n = 0; n < v_size + 1; ++n) {
-			GLuint last_id = prev_id;
-
-			if (n >= v_size) {
-				changed = true;
-			}else {
-				v_batch = &c.batches[n];
-			}
+		for (int n = 0; n < num_batches + 1; ++n) {
+			if (n >= num_batches) changed = true;
+			else v_batch = &c.batches[n];
 
 			glBindTexture(GL_TEXTURE_2D, prev_id);
 			if (v_batch->texture_id != prev_id) {
@@ -399,32 +373,27 @@ void PXL_Batch::draw_vbo() {
 
 			if (changed) {
 				//draw vertex data from vertex data in buffer
-				glDrawArrays(GL_QUADS, vbo_offset, size);
+				glDrawArrays(GL_QUADS, vbo_offset, num_vertices);
 
-				vbo_offset += size;
-				size = 0;
+				vbo_offset += num_vertices;
+				num_vertices = 0;
 
 				changed = false;
 			}
-			size += v_batch->num_vertices;
+			num_vertices += v_batch->num_vertices;
 		}
-		//c.batches.clear();
-		//c.data.clear();
 		c.batch_index = 0;
 		c.data_index = 0;
-		c.updated = false;
 	}
 }
 
 void PXL_Batch::free() {
 	if (batch_created) {
-		glDeleteBuffers(1, &vertex_buffer_id);
+		glDeleteBuffers(1, &vbo_id);
 
 		for (int n = 0; n < max_quads_amount; ++n) {
-			std::vector<PXL_VertexBatch>().swap(vertices[n].batches);
-		}
-		for (int n = 0; n < max_quads_amount; ++n) {
-			std::vector<PXL_VertexPoint>().swap(vertices[n].data);
+			vertices[n].batches.clear();
+			vertices[n].data.clear();
 		}
 		delete[] vertices;
 

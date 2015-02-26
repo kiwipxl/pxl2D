@@ -1,4 +1,4 @@
-﻿Build started 26/02/2015 3:06:22 PM.
+﻿Build started 27/02/2015 9:48:21 AM.
      1>Project "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxlExample\pxlExample.vcxproj" on node 2 (Build target(s)).
      1>Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\bin\pxlExample.exe" /INCREMENTAL:NO /NOLOGO Vfw32.lib pxl2D.lib opengl32.lib glew32s.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\bin\pxlExample.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\bin\pxlExample.lib" /MACHINE:X86 "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxlExample\bin\Main.obj"
@@ -33,6 +33,8 @@
      1>pxl2D.lib(PXL_Batch.obj) : warning LNK4049: locally defined symbol ___glewEnableVertexAttribArray imported
      1>pxl2D.lib(PXL_Batch.obj) : warning LNK4049: locally defined symbol ___glewUniformMatrix4fv imported
      1>pxl2D.lib(PXL_Batch.obj) : warning LNK4049: locally defined symbol ___glewVertexAttribPointer imported
+     1>pxl2D.lib(PXL_Batch.obj) : warning LNK4049: locally defined symbol ___glewBindVertexArray imported
+     1>pxl2D.lib(PXL_Batch.obj) : warning LNK4049: locally defined symbol ___glewGenVertexArrays imported
      1>pxl2D.lib(PXL_Window.obj) : warning LNK4049: locally defined symbol ___wglewCreateContextAttribsARB imported
      1>pxl2D.lib(PXL_Window.obj) : warning LNK4049: locally defined symbol ___WGLEW_ARB_create_context imported
      1>pxl2D.lib(PXL_Window.obj) : warning LNK4049: locally defined symbol ___WGLEW_ARB_pixel_format imported
@@ -54,4 +56,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.67
+Time Elapsed 00:00:00.75
