@@ -3,6 +3,8 @@
 #include <algorithm>
 #include "PXL_Window.h"
 #include "system/PXL_Exception.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 PXL_Batch::PXL_Batch(PXL_BatchSize max_vertices) {
 	batch_created = false;
@@ -81,6 +83,7 @@ void PXL_Batch::clear_all() {
 	max_vertex_index = 0;
 	total_vertices = 0;
 	min_vertices_count = 0;
+	view_mat.identity();
 }
 
 void PXL_Batch::use_shader(PXL_ShaderProgram* shader) {
@@ -93,8 +96,7 @@ void PXL_Batch::use_shader(PXL_ShaderProgram* shader) {
 		glUseProgram(current_shader->get_program_id());
 
 		//set matrix uniform in the vertex shader for the program
-		view_mat.identity();
-		glUniformMatrix4fv(current_shader->get_matrix_loc(), 1, true, (view_mat * perspective_mat).get_mat());
+		glUniformMatrix4fv(current_shader->get_matrix_loc(), 1, true, view_mat.get_mat());
 	}
 }
 
@@ -254,11 +256,11 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 
 		if (modified) {
 			//default un-normalised uv coords
-			PXL_ushort uv_x = 0; PXL_ushort uv_y = 0; PXL_ushort uv_w = USHRT_MAX; PXL_ushort uv_h = USHRT_MAX;
+			PXL_ushort uv_x = 0; PXL_ushort uv_y = 0; PXL_ushort uv_w = PXL_USHRT_MAX; PXL_ushort uv_h = PXL_USHRT_MAX;
 			if (src_rect != NULL) {
 				//calculate uv x, y, w, h by the src rect
-				uv_x = (src_rect->x / texture.get_width()) * USHRT_MAX; uv_y = (src_rect->y / texture.get_height()) * USHRT_MAX;
-				uv_w = (src_rect->w / texture.get_width()) * USHRT_MAX; uv_h = (src_rect->h / texture.get_height()) * USHRT_MAX;
+				uv_x = (src_rect->x / texture.get_width()) * PXL_USHRT_MAX; uv_y = (src_rect->y / texture.get_height()) * PXL_USHRT_MAX;
+				uv_w = (src_rect->w / texture.get_width()) * PXL_USHRT_MAX; uv_h = (src_rect->h / texture.get_height()) * PXL_USHRT_MAX;
 			}
 
 			//set uv coordinates
@@ -294,7 +296,7 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 bool PXL_Batch::verify_texture_add(const PXL_Texture& texture, PXL_Rect* rect) {
 	if (texture.texture_created) {
 		if (rect->x + rect->w > 0 && rect->y + rect->h > 0 && rect->x < PXL_window_width && rect->y < PXL_window_height) {
-			if (num_added + 1 >= max_quads_amount) {
+			if (total_vertices >= max_vertices_amount) {
 				PXL_show_exception("Hit max batch size at " + std::to_string(max_quads_amount) + " max sprites/quads", PXL_ERROR_BATCH_ADD_FAILED);
 				return false;
 			}
@@ -313,6 +315,8 @@ void PXL_Batch::set_target(PXL_FrameBuffer* f) {
 void PXL_Batch::draw_vbo() {
 	//if there are no textures to draw or no vertex data then return
 	if (num_added == 0) { return; }
+
+	view_mat * perspective_mat;
 
 	//binds vertex buffer
 	glBindBuffer(GL_ARRAY_BUFFER, vbo_id);

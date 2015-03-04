@@ -129,7 +129,7 @@ const char* PXL_bloom_shader_str = GLSL(
 
 	------------------ use ------------------------
 
-		outline_size - blur spread amount
+		blur_size - blur spread amount
 
 **/
 const char* PXL_blur_shader_str = GLSL(
@@ -140,7 +140,7 @@ const char* PXL_blur_shader_str = GLSL(
 	out vec4 pixel;
 
 	uniform sampler2D t0;
-	uniform vec2 outline_size;
+	uniform vec2 blur_size;
 
 	void main() {
 		ivec2 size = textureSize(t0, 0);
@@ -149,22 +149,18 @@ const char* PXL_blur_shader_str = GLSL(
 		float uv_y = tex_coord.y * size.y;
 
 		vec4 sum = vec4(0.0);
-		for (int n = 0; n < 9; ++n) {
-			uv_y = (tex_coord.y * size.y) + (outline_size.y * float(n - 4.5));
-			vec4 h_sum = vec4(0.0);
-			h_sum += texelFetch(t0, ivec2(uv_x - (4.0 * outline_size.x), uv_y), 0);
-			h_sum += texelFetch(t0, ivec2(uv_x - (3.0 * outline_size.x), uv_y), 0);
-			h_sum += texelFetch(t0, ivec2(uv_x - (2.0 * outline_size.x), uv_y), 0);
-			h_sum += texelFetch(t0, ivec2(uv_x - outline_size.x, uv_y), 0);
-			h_sum += texelFetch(t0, ivec2(uv_x, uv_y), 0);
-			h_sum += texelFetch(t0, ivec2(uv_x + outline_size.x, uv_y), 0);
-			h_sum += texelFetch(t0, ivec2(uv_x + (2.0 * outline_size.x), uv_y), 0);
-			h_sum += texelFetch(t0, ivec2(uv_x + (3.0 * outline_size.x), uv_y), 0);
-			h_sum += texelFetch(t0, ivec2(uv_x + (4.0 * outline_size.x), uv_y), 0);
-			sum += h_sum / 9.0;
-		}
 
-		pixel = sum / 9.0;
+		sum += texelFetch(t0, ivec2(uv_x - (4.0 * blur_size.x), uv_y - (4.0 * blur_size.y)), 0);
+		sum += texelFetch(t0, ivec2(uv_x - (3.0 * blur_size.x), uv_y - (3.0 * blur_size.y)), 0);
+		sum += texelFetch(t0, ivec2(uv_x - (2.0 * blur_size.x), uv_y - (2.0 * blur_size.y)), 0);
+		sum += texelFetch(t0, ivec2(uv_x - blur_size.x, uv_y - blur_size.y), 0);
+		sum += texelFetch(t0, ivec2(uv_x, uv_y), 0);
+		sum += texelFetch(t0, ivec2(uv_x + blur_size.x, uv_y + blur_size.y), 0);
+		sum += texelFetch(t0, ivec2(uv_x + (2.0 * blur_size.x), uv_y + (2.0 * blur_size.y)), 0);
+		sum += texelFetch(t0, ivec2(uv_x + (3.0 * blur_size.x), uv_y + (3.0 * blur_size.y)), 0);
+		sum += texelFetch(t0, ivec2(uv_x + (4.0 * blur_size.x), uv_y + (4.0 * blur_size.y)), 0);
+
+		pixel = v_colour * (sum / 9.0);
 	}
 
 	//[END_FRAGMENT]

@@ -2,8 +2,9 @@
 #define _PXL_TIMER_H
 
 #include <vector>
+#include "PXL_API.h"
 
-#if defined(WIN32)
+#if defined(PXL_WINDOWS)
 #include <Windows.h>
 
 struct PXL_Timer {

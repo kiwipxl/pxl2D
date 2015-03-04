@@ -4,7 +4,12 @@
 #include <Windows.h>
 #include "system/PXL_API.h"
 
-extern bool* PXL_keys;
+struct KeyEvent {
+
+	bool key_down = false;
+};
+
+extern KeyEvent* PXL_keys;
 
 typedef PXL_uint PXL_KeyCode;
 

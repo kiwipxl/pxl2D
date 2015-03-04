@@ -1,5 +1,6 @@
 #include "PXL_Colour.h"
 #include <iostream>
+#include "system/PXL_Math.h"
 
 PXL_Colour::PXL_Colour(float red, float green, float blue, float alpha) {
 	set_colour(red, green, blue, alpha);
@@ -19,4 +20,11 @@ void PXL_Colour::set_colour(PXL_uint colour) {
 	g = ((colour & 0x00ff0000) >> 16) / 255.0f;
 	b = ((colour & 0x0000ff00) >> 8) / 255.0f;
 	a = (colour & 0x000000ff) / 255.0f;
+}
+
+void PXL_Colour::clamp(float min, float max, bool clamp_alpha) {
+	r = PXL_clamp(r, min, max);
+	g = PXL_clamp(g, min, max);
+	b = PXL_clamp(b, min, max);
+	if (clamp_alpha) a = PXL_clamp(a, min, max);
 }

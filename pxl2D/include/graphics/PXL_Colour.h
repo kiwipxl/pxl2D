@@ -15,6 +15,8 @@ const struct PXL_Colour {
 
 	void set_colour(float red, float green, float blue, float alpha = 1);
 	void set_colour(PXL_uint colour);
+
+	void clamp(float min = 0, float max = 1, bool clamp_alpha = true);
 };
 
 #define PXL_COLOR_WHITE					PXL_COLOUR_WHITE				/**> Pre-defined white colour **/

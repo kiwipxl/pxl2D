@@ -1,12 +1,20 @@
 #ifndef _PXL_CONFIG_H
 #define _PXL_CONFIG_H
 
-//exception config
-#define PXL_SHOW_EXCEPTIONS_IN_DEBUG 1 /**< Defines whether exceptions will show in debug mode or not **/
-#define PXL_SHOW_EXCEPTIONS_IN_RELEASE 0 /**< Defines whether exceptions will show in release mode or not **/
-#define PXL_EXCEPTION_TITLE "Error" /**< The error title used when logged **/
+/** -------------------------------------------------------
+					PXL config macros
+------------------------------------------------------- **/
 
-//error codes
+//exception config
+#define PXL_CONFIG_SHOW_EXCEPTIONS_IN_DEBUG			1			/**< Defines whether exceptions will show in debug mode or not **/
+#define PXL_CONFIG_SHOW_EXCEPTIONS_IN_RELEASE		0			/**< Defines whether exceptions will show in release mode or not **/
+#define PXL_CONFIG_EXCEPTION_TITLE					"Error"		/**< The error title used when logged **/
+#define PXL_CONFIG_SHOW_STACK_TRACE					1			/**< Defines whether or not to show stack traces on exception messages **/
+
+/** -------------------------------------------------------
+					PXL error codes
+	------------------------------------------------------- **/
+
 typedef std::string PXL_ErrorCode;
 
 #define PXL_ERROR_UNKNOWN "UNKNOWN"

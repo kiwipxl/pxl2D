@@ -173,12 +173,12 @@ LRESULT CALLBACK win_proc(HWND handle, UINT msg, WPARAM w_param, LPARAM l_param)
 			break;
 		case PXL_EVENT_KEYDOWN:
 			if (w_param < 255) {
-				PXL_keys[w_param] = true;
+				PXL_keys[w_param].key_down = true;
 			}
 			break;
 		case PXL_EVENT_KEYUP:
 			if (w_param < 255) {
-				PXL_keys[w_param] = false;
+				PXL_keys[w_param].key_down = false;
 			}
 			break;
 		default:

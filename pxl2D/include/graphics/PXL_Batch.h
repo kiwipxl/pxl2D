@@ -161,6 +161,7 @@ class PXL_Batch {
 		PXL_FrameBuffer* target_frame_buffer = NULL; /**> The target frame buffer object to use when rendering **/
 		PXL_ShaderProgram* current_shader = NULL;
 		PXL_BlendMode current_blend_mode;
+		PXL_Matrix4 proj_view_mat;
 
 		//vertex data
 		GLuint vbo_id; /**> The id associated with the vertex buffer object **/

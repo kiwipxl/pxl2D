@@ -38,6 +38,8 @@ bool PXL_Texture::create_texture(int w, int h, PXL_ubyte* pixels, PXL_Channel pi
 
 	bind();
 	glTexImage2D(GL_TEXTURE_2D, 0, channel.gl_pixel_mode, width, height, 0, channel.gl_pixel_mode, GL_UNSIGNED_BYTE, pixels);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
 	if (!texture_created) { set_filters(); }
 
@@ -62,8 +64,8 @@ PXL_ubyte* PXL_Texture::get_pixels() {
 
 void PXL_Texture::set_filters(PXL_TextureFilter min_filter, PXL_TextureFilter max_filter) {
 	bind();
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, min_filter);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, max_filter);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, min_filter);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, max_filter);
 }
 
 void PXL_Texture::free() {

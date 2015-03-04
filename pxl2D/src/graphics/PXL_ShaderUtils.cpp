@@ -54,7 +54,7 @@ const void PXL_set_grayscale_shader(PXL_Batch* batch) {
 
 const void PXL_set_blur_shader(PXL_Batch* batch, float spread_x, float spread_y) {
 	glUseProgram(PXL_blur_shader->get_program_id());
-	glUniform2f(glGetUniformLocation(PXL_blur_shader->get_program_id(), "outline_size"), spread_x, spread_y);
+	glUniform2f(glGetUniformLocation(PXL_blur_shader->get_program_id(), "blur_size"), spread_x, spread_y);
 }
 
 const void PXL_set_outline_shader(PXL_Batch* batch, float thickness, float r, float g, float b, float a, float threshold) {
