@@ -1,16 +1,17 @@
-﻿Build started 4/03/2015 11:31:38 PM.
+﻿Build started 5/03/2015 10:44:07 PM.
      1>Project "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\pxl2D.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\\" /Fd"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt src\PXL.cpp src\PXL_Graphics.cpp src\PXL_Input.cpp src\PXL_System.cpp src\graphics\PXL_Batch.cpp src\graphics\PXL_Bitmap.cpp src\graphics\PXL_Colour.cpp src\graphics\PXL_Font.cpp src\graphics\PXL_FontUtils.cpp src\graphics\PXL_FrameBuffer.cpp src\graphics\PXL_ImageUtils.cpp src\graphics\PXL_Lights.cpp src\graphics\PXL_Matrix4.cpp src\graphics\PXL_ShaderProgram.cpp src\graphics\PXL_ShaderUtils.cpp src\graphics\PXL_Sprite.cpp src\graphics\PXL_Text.cpp src\graphics\PXL_Texture.cpp src\graphics\PXL_TextureSheet.cpp src\input\PXL_Joystick.cpp src\input\PXL_Keyboard.cpp src\system\PXL_Debug.cpp src\system\PXL_Event.cpp src\system\PXL_Exception.cpp src\system\PXL_Math.cpp src\system\PXL_Timer.cpp src\system\PXL_Window.cpp
-         PXL_Exception.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\\" /Fd"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt src\PXL.cpp src\PXL_Graphics.cpp src\PXL_Input.cpp src\PXL_System.cpp src\graphics\PXL_Batch.cpp src\graphics\PXL_Bitmap.cpp src\graphics\PXL_Colour.cpp src\graphics\PXL_Font.cpp src\graphics\PXL_FontUtils.cpp src\graphics\PXL_FrameBuffer.cpp src\graphics\PXL_ImageUtils.cpp src\graphics\PXL_Lights.cpp src\graphics\PXL_Matrix4.cpp src\graphics\PXL_ShaderUtils.cpp src\graphics\PXL_Sprite.cpp src\graphics\PXL_Text.cpp src\graphics\PXL_Texture.cpp src\graphics\PXL_TextureSheet.cpp src\input\PXL_Joystick.cpp src\input\PXL_Keyboard.cpp src\system\PXL_Debug.cpp src\system\PXL_Event.cpp src\system\PXL_Exception.cpp src\system\PXL_Math.cpp src\system\PXL_Timer.cpp src\system\PXL_Window.cpp
+         PXL_Timer.cpp
+         PXL_Math.cpp
+         PXL_Colour.cpp
          Generating Code...
          Compiling...
          PXL_Window.cpp
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(191): warning C4520: 'PXL_Batch' : multiple default constructors specified
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(50): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(51): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
-         PXL_Timer.cpp
-         PXL_Math.cpp
+         PXL_Exception.cpp
          PXL_Event.cpp
          PXL_Debug.cpp
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\pxl_debug.cpp(40): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
@@ -44,8 +45,6 @@
          PXL_ShaderUtils.cpp
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(191): warning C4520: 'PXL_Batch' : multiple default constructors specified
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_shaderutils.cpp(123): warning C4244: 'initializing' : conversion from 'std::streamsize' to 'unsigned int', possible loss of data
-         PXL_ShaderProgram.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_shaderprogram.cpp(70): warning C4800: 'GLint' : forcing value to bool 'true' or 'false' (performance warning)
          PXL_Matrix4.cpp
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_matrix4.cpp(69): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_matrix4.cpp(88): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
@@ -72,9 +71,6 @@
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_font.cpp(33): warning C4244: '=' : conversion from 'unsigned int' to 'float', possible loss of data
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_font.cpp(34): warning C4244: '=' : conversion from 'unsigned int' to 'float', possible loss of data
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_font.cpp(43): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-         PXL_Colour.cpp
-         Generating Code...
-         Compiling...
          PXL_Bitmap.cpp
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_bitmap.cpp(12): warning C4800: 'PXL_Bitmap *' : forcing value to bool 'true' or 'false' (performance warning)
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_bitmap.cpp(53): warning C4244: 'initializing' : conversion from 'float' to 'unsigned char', possible loss of data
@@ -114,6 +110,9 @@
                  c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(112) : see declaration of 'strcpy'
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\pxl_system.cpp(12): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
                  c:\program files (x86)\microsoft visual studio 12.0\vc\include\string.h(118) : see declaration of 'strcat'
+         Generating Code...
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_bitmap.cpp(81): warning C4715: 'PXL_Bitmap::check_has_transparency' : not all control paths return a value
+         Compiling...
          PXL_Input.cpp
          PXL_Graphics.cpp
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(191): warning C4520: 'PXL_Batch' : multiple default constructors specified
@@ -124,7 +123,6 @@
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(50): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(51): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
          Generating Code...
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_bitmap.cpp(81): warning C4715: 'PXL_Bitmap::check_has_transparency' : not all control paths return a value
        Lib:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\lib\pxl2D.lib" libpng.lib zlib.lib freetype.lib winmm.lib dbghelp.lib /NOLOGO "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Colour.obj"
          "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Sprite.obj"
@@ -175,4 +173,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:17.39
+Time Elapsed 00:00:17.32

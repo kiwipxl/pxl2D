@@ -43,10 +43,14 @@
 	#error Platform not supported (OS macro could not be found (PXL_API.h))
 #endif
 
-#if defined (_DEBUG)
+#if defined(_DEBUG)
 	#define PXL_DEBUG
 #elif defined (_RELEASE)
 	#define PXL_RELEASE
+#endif
+
+#if !defined(NULL)
+	#define NULL 0
 #endif
 
 #endif

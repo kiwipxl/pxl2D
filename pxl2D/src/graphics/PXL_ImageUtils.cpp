@@ -14,7 +14,7 @@ std::ifstream file;
 PXL_Bitmap* PXL_load_png(std::string file_name, PXL_Bitmap* bitmap) {
 	if (bitmap == NULL) return NULL;
 
-	file.open(file_name, std::ios::binary);
+	file.open(file_name.c_str(), std::ios::binary);
 
 	if (!png_validate(file)) {
 		PXL_show_exception("(" + file_name + ") is not a valid png (or it may not exist)", PXL_ERROR_INVALID_PNG);
