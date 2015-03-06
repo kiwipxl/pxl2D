@@ -1,7 +1,8 @@
 #include "linux/PXL_LinuxWindow.h"
-#include "PXL_Graphics.h"
-#include "PXL_System.h"
+#include "graphics/PXL_GraphicsAPI.h"
 #include "input/PXL_Keyboard.h"
+#include "system/PXL_Exception.h"
+#include "system/PXL_Debug.h"
 
 /**----------------------------------------------------------------------------
 						Window class handling

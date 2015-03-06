@@ -18,16 +18,6 @@ class PXL_AndroidWindow : public PXL_WindowImpl {
 		**/
 		~PXL_AndroidWindow();
 
-		//window info
-		int pixel_format;
-		HDC device_context_handle;
-		HGLRC gl_render_context_handle;
-		HINSTANCE instance_handle;
-		WNDCLASS win_class;
-		HWND win_handle;
-		std::string class_name;
-		std::string win_name;
-
 		/**
 		\*brief: loads a window from the specified path
 		\*param [path]: the path and file name for the window to load
@@ -45,11 +35,6 @@ class PXL_AndroidWindow : public PXL_WindowImpl {
 
 	private:
 		//window info
-		MSG msg;
-
-		void register_class();
-		void unregister_class();
-		void create_context();
 };
 
 #endif
