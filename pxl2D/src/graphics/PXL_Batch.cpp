@@ -47,7 +47,8 @@ void PXL_Batch::create_batch(PXL_BatchSize max_vertices) {
 	view_mat.identity();
 	perspective_mat.identity();
 
-	perspective_mat.scale(1.0f / PXL_center_window_x, -1.0f / PXL_center_window_y);
+	//todo non magic variables for window width/height
+	perspective_mat.scale(1.0f / 512, -1.0f / 384);
 	perspective_mat.translate(-1.0f, 1.0f);
 
 	//enable alpha blending
@@ -295,7 +296,8 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 
 bool PXL_Batch::verify_texture_add(const PXL_Texture& texture, PXL_Rect* rect) {
 	if (texture.texture_created) {
-		if (rect->x + rect->w > 0 && rect->y + rect->h > 0 && rect->x < PXL_window_width && rect->y < PXL_window_height) {
+		//todo non magic variables
+		if (rect->x + rect->w > 0 && rect->y + rect->h > 0 && rect->x < 1024 && rect->y < 768) {
 			if (total_vertices >= max_vertices_amount) {
 				//PXL_show_exception("Hit max batch size at " + std::to_string(max_quads_amount) + " max sprites/quads", PXL_ERROR_BATCH_ADD_FAILED);
 				return false;

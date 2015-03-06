@@ -8,17 +8,11 @@
 class PXL_WindowImpl {
 
 	public:
-		PXL_WindowImpl();
-		/**
-		\*brief: window deconstructor
-		**/
-		~PXL_WindowImpl();
-
 		/**
 		\*brief: loads a window from the specified path
 		\*param [path]: the path and file name for the window to load
 		**/
-		virtual void create(int window_width, int window_height, std::string title) = 0;
+		virtual void create_window(int window_width, int window_height, std::string title) = 0;
 
 		virtual bool poll_event(PXL_Event& e) = 0;
 
@@ -35,7 +29,7 @@ class PXL_WindowImpl {
 
 	protected:
 		//window info
-		bool window_created;
+		bool window_created = false;
 		int width;
 		int height;
 		std::string title;

@@ -63,7 +63,8 @@ void PXL_FrameBuffer::blit(PXL_FrameBuffer* dest_frame_buffer, PXL_Rect* rect, P
 	if (dest_frame_buffer != NULL) {
 		draw_id = dest_frame_buffer->get_id();
 		if (rect == NULL) {
-			rect->x = 0; rect->y = 0; rect->w = PXL_window_width; rect->h = PXL_window_height;
+			//todo replace magic variables with window width/height somehow
+			rect->x = 0; rect->y = 0; rect->w = 1024; rect->h = 768;
 		}else {
 			frame_rect = *rect;
 		}

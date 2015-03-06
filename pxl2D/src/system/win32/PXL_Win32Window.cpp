@@ -1,11 +1,9 @@
-#include "system/win32/PXL_Win32Window.h"
-#include <iostream>
-#include <glew.h>
+#include "win32/PXL_Win32Window.h"
+#include "graphics/PXL_GraphicsAPI.h"
 #include <wglew.h>
-#include <algorithm>
-#include "PXL_Graphics.h"
-#include "PXL_System.h"
 #include "input/PXL_Keyboard.h"
+#include "system/PXL_Exception.h"
+#include "system/PXL_Debug.h"
 
 int context_attribs[] = {
 	WGL_CONTEXT_MAJOR_VERSION_ARB, 3,
@@ -22,11 +20,6 @@ PXL_uint class_id = 0;
 /**----------------------------------------------------------------------------
 						Window class handling
 ----------------------------------------------------------------------------**/
-
-PXL_Win32Window::PXL_Win32Window(int window_width, int window_height, std::string title) {
-	window_loaded = false;
-	create_window(window_width, window_height, title);
-}
 
 void PXL_Win32Window::register_class() {
 	win_class.style = CS_DROPSHADOW | CS_OWNDC;
@@ -109,7 +102,7 @@ void PXL_Win32Window::create_window(int window_width, int window_height, std::st
 
 	create_context();
 
-	window_loaded = true;
+	window_created = true;
 
 	if (init_dummy_window) {
 		init_dummy_window = false;
@@ -130,9 +123,22 @@ void PXL_Win32Window::create_window(int window_width, int window_height, std::st
 	}
 }
 
+void PXL_Win32Window::display() {
+	if (window_created) {
+		if (device_context_handle != NULL) {
+			glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+			SwapBuffers(device_context_handle);
+		}else {
+			PXL_show_exception("Window display failed - device context handle is NULL", PXL_ERROR_SWAP_BUFFERS_FAILED);
+		}
+	}else {
+		PXL_show_exception("Window display failed - window has not been created yet", PXL_ERROR_SWAP_BUFFERS_FAILED);
+	}
+}
+
 void PXL_Win32Window::free() {
-	if (window_loaded) {
-		window_loaded = false;
+	if (window_created) {
+		window_created = false;
 		wglMakeCurrent(NULL, NULL);
 		wglDeleteContext(gl_render_context_handle);
 		DestroyWindow(win_handle);

@@ -1,7 +1,6 @@
 #include "PXL_ShaderUtils.h"
 #include <fstream>
 #include "PXL_Batch.h"
-#include "PXL_System.h"
 #include "PXL_PrebuiltShaders.h"
 
 //defines

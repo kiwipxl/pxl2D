@@ -7,18 +7,12 @@
 #include <Windows.h>
 #include "PXL_Event.h"
 #include "system/PXL_WindowImpl.h"
+#include "system/PXL_API.h"
 
 class PXL_Win32Window : public PXL_WindowImpl {
 
 	public:
-		PXL_Win32Window();
-		/**
-		\*brief: creates the window with specified values
-		\*param [width]: the width of the image
-		\*param [height]: the height of the image
-		\*param [window]: an array of pixels for the image
-		**/
-		PXL_Win32Window(int window_width, int window_height, std::string title);
+		PXL_Win32Window() { }
 		/**
 		\*brief: window deconstructor
 		**/
@@ -38,7 +32,7 @@ class PXL_Win32Window : public PXL_WindowImpl {
 		\*brief: loads a window from the specified path
 		\*param [path]: the path and file name for the window to load
 		**/
-		virtual void create(int window_width, int window_height, std::string title);
+		virtual void create_window(int window_width, int window_height, std::string title);
 
 		virtual bool poll_event(PXL_Event& e);
 
@@ -46,6 +40,8 @@ class PXL_Win32Window : public PXL_WindowImpl {
 		\*brief: frees all data from the window
 		**/
 		virtual void free();
+
+		virtual void display();
 
 	private:
 		//window info

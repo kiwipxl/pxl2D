@@ -58,8 +58,7 @@ int main(int argc, char* args[]) {
 		text.z_depth = batch.get_max_z_depth() - 1;
 		text.render(&batch);
 
-		//swaps back buffer to front buffer
-		PXL_swap_buffers();
+		window.display();
 
 		double ms = start_time.end() / 1000.0f;
 		if (ms >= 0 && ms < ms_per_frame) { Sleep(ms_per_frame - ms); }

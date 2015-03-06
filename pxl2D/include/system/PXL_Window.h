@@ -21,18 +21,21 @@
 class PXL_Window : public WinImplClass {
 
 	public:
-		PXL_Window();
+		PXL_Window() { }
 		/**
 		\*brief: creates the window with specified values
 		\*param [width]: the width of the image
 		\*param [height]: the height of the image
 		\*param [window]: an array of pixels for the image
 		**/
-		PXL_Window(int window_width, int window_height, std::string title);
+		PXL_Window(int window_width, int window_height, std::string title) {
+			create_window(window_width, window_height, title);
+		}
+
 		/**
 		\*brief: window deconstructor
 		**/
-		~PXL_Window();
+		~PXL_Window() { free(); }
 };
 
 #endif

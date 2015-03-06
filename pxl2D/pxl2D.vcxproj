@@ -58,7 +58,6 @@
     <ClCompile Include="src\system\PXL_Exception.cpp" />
     <ClCompile Include="src\system\PXL_Math.cpp" />
     <ClCompile Include="src\system\PXL_Timer.cpp" />
-    <ClCompile Include="src\system\PXL_Window.cpp" />
     <ClCompile Include="src\system\win32\PXL_Win32Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -99,6 +98,7 @@
     <ClInclude Include="include\system\PXL_Math.h" />
     <ClInclude Include="include\system\PXL_Timer.h" />
     <ClInclude Include="include\system\PXL_Window.h" />
+    <ClInclude Include="include\system\PXL_WindowImpl.h" />
     <ClInclude Include="include\system\win32\PXL_Win32Window.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
