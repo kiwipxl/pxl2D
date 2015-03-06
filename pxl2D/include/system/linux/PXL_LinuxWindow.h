@@ -3,9 +3,7 @@
 
 #include <string>
 #include <vector>
-#define NOMINMAX //macro to not have the windows header define min/max so it doesn't interfere
-#include <Windows.h>
-#include "PXL_Event.h"
+#include "system/PXL_Event.h"
 #include "system/PXL_WindowImpl.h"
 
 class PXL_LinuxWindow : public PXL_WindowImpl {
