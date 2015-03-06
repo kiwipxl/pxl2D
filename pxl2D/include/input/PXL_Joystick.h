@@ -2,7 +2,6 @@
 #define _PXL_JOYSTICK_H
 
 #include <string>
-#include <Windows.h>
 #include "system/PXL_API.h"
 
 const struct PXL_Joystick {
