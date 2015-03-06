@@ -3,13 +3,13 @@
 
 #include "system/PXL_API.h"
 
-#if defined(PXL_SYSTEM_WINDOWS) || defined(PXL_SYSTEM_LINUX) || defined(PXL_SYSTEM_MAC_OS)
+#if defined(PXL_PLATFORM_WIN32) || defined(PXL_PLATFORM_LINUX) || defined(PXL_PLATFORM_MAC_OS)
 	#define GLEW_STATIC
 	#include <glew.h>
 
 	extern void PXL_glew_init();
 
-#elif defined(PXL_SYSTEM_ANDROID)
+#elif defined(PXL_PLATFORM_ANDROID)
 	#include <EGL/egl.h>
 
 	//#include <GLES/gl.h>

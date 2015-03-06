@@ -1,7 +1,7 @@
 #include "PXL_Debug.h"
 #include <string>
 
-#if defined(PXL_SYSTEM_WINDOWS)
+#if defined(PXL_PLATFORM_WIN32)
 	#include <Windows.h>
 	#if defined(_DEBUG)
 		#include <DbgHelp.h>
@@ -61,24 +61,21 @@
 	Returns the last error reported by the os in a string. Returns an empty string if there is no error
 	**/
 	std::string PXL_get_last_error() {
-		#if defined(PXL_SYSTEM_WINDOWS)
-			//gets the last error message from windows
-			DWORD error_msg_id = GetLastError();
-			if (error_msg_id == 0) { return "No error message has been recorded"; }
+		//gets the last error message from windows
+		DWORD error_msg_id = GetLastError();
+		if (error_msg_id == 0) { return "No error message has been recorded"; }
 
-			LPSTR msg_buffer = nullptr;
-			size_t size = FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
-				NULL, error_msg_id, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPSTR)&msg_buffer, 0, NULL);
+		LPSTR msg_buffer = nullptr;
+		size_t size = FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+			NULL, error_msg_id, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPSTR)&msg_buffer, 0, NULL);
 
-			std::string message = msg_buffer;
-			LocalFree(msg_buffer);
+		std::string message = msg_buffer;
+		LocalFree(msg_buffer);
 
-			return message;
-		#endif
-		return "";
+		return message;
 	}
 
-#elif defined(PXL_SYSTEM_ANDROID)
+#elif defined(PXL_PLATFORM_ANDROID)
 	
 	const std::string PXL_stack_trace(int num_traces) {
 		return "";
@@ -91,8 +88,8 @@
 		return "";
 	}
 
-#elif defined(PXL_SYSTEM_LINUX)
+#elif defined(PXL_PLATFORM_LINUX)
 
-#elif defined(PXL_SYSTEM_MAC_OS)
+#elif defined(PXL_PLATFORM_MAC_OS)
 
 #endif

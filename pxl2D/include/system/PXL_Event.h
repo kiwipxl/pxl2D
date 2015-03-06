@@ -4,7 +4,7 @@
 #include "PXL_API.h"
 #include "input/PXL_Joystick.h"
 
-#if defined(PXL_SYSTEM_WINDOWS)
+#if defined(PXL_PLATFORM_WIN32)
 	#include <Windows.h>
 	
 	#define PXL_EVENT_NULL			WM_NULL
@@ -19,7 +19,7 @@
 	#define PXL_EVENT_ACTIVATE		WM_ACTIVATE
 	#define PXL_EVENT_SETFOCUS		WM_SETFOCUS
 	
-#elif defined(PXL_SYSTEM_ANDROID)
+#elif defined(PXL_PLATFORM_ANDROID)
 	#define PXL_EVENT_NULL
 	#define PXL_EVENT_CLOSE
 	#define PXL_EVENT_QUIT
@@ -32,9 +32,9 @@
 	#define PXL_EVENT_ACTIVATE
 	#define PXL_EVENT_SETFOCUS
 	
-#elif defined(PXL_SYSTEM_LINUX)
+#elif defined(PXL_PLATFORM_LINUX)
 	
-#elif defined(PXL_SYSTEM_MAC_OS)
+#elif defined(PXL_PLATFORM_MAC_OS)
 	
 #endif
 

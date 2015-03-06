@@ -19,7 +19,7 @@ PXL_Joystick* PXL_get_joystick(PXL_uint joystick_index) {
 	}
 }
 
-#if defined(PXL_SYSTEM_WINDOWS)
+#if defined(PXL_PLATFORM_WIN32)
 	#include <Windows.h>
 	#include <RegStr.h>
 
@@ -117,7 +117,7 @@ PXL_Joystick* PXL_get_joystick(PXL_uint joystick_index) {
 		joyReleaseCapture(device_id);
 	}
 
-#elif defined(PXL_SYSTEM_ANDROID)
+#elif defined(PXL_PLATFORM_ANDROID)
 	void PXL_joystick_init() {
 
 	}
@@ -130,8 +130,8 @@ PXL_Joystick* PXL_get_joystick(PXL_uint joystick_index) {
 
 	}
 
-#elif defined(PXL_SYSTEM_LINUX)
+#elif defined(PXL_PLATFORM_LINUX)
 
-#elif defined(PXL_SYSTEM_MAC_OS)
+#elif defined(PXL_PLATFORM_MAC_OS)
 
 #endif
