@@ -1,11 +1,9 @@
-﻿Build started 6/03/2015 11:20:29 PM.
+﻿Build started 6/03/2015 11:38:03 PM.
      1>Project "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\pxl2D.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\\" /Fd"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt src\graphics\PXL_GraphicsAPI.cpp src\graphics\PXL_Sprite.cpp src\PXL.cpp src\graphics\PXL_Batch.cpp src\graphics\PXL_Bitmap.cpp src\graphics\PXL_Font.cpp src\graphics\PXL_FontUtils.cpp src\graphics\PXL_FrameBuffer.cpp src\graphics\PXL_ImageUtils.cpp src\graphics\PXL_Lights.cpp src\graphics\PXL_Text.cpp src\graphics\PXL_Texture.cpp src\graphics\PXL_ShaderUtils.cpp src\graphics\PXL_ShaderProgram.cpp src\graphics\PXL_TextureSheet.cpp src\PXL_Graphics.cpp src\system\PXL_Window.cpp
-         PXL_GraphicsAPI.cpp
-         Generating Code...
-         Compiling...
-         PXL_Window.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\\" /Fd"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt src\PXL.cpp src\PXL_Graphics.cpp src\graphics\PXL_Batch.cpp src\graphics\PXL_Bitmap.cpp src\graphics\PXL_Font.cpp src\graphics\PXL_FontUtils.cpp src\graphics\PXL_FrameBuffer.cpp src\graphics\PXL_GraphicsAPI.cpp src\graphics\PXL_ImageUtils.cpp src\graphics\PXL_Lights.cpp src\graphics\PXL_ShaderProgram.cpp src\graphics\PXL_ShaderUtils.cpp src\graphics\PXL_Sprite.cpp src\graphics\PXL_Text.cpp src\graphics\PXL_Texture.cpp src\graphics\PXL_TextureSheet.cpp src\system\PXL_Window.cpp src\system\android\PXL_AndroidWindow.cpp src\system\linux\PXL_LinuxWindow.cpp src\system\win32\PXL_Win32Window.cpp
+     1>cl : Command line warning D9028: minimal rebuild failure, reverting to normal build
+         PXL.cpp
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(191): warning C4520: 'PXL_Batch' : multiple default constructors specified
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(50): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(51): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
@@ -13,52 +11,6 @@
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(191): warning C4520: 'PXL_Batch' : multiple default constructors specified
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(50): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(51): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
-         PXL_TextureSheet.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(191): warning C4520: 'PXL_Batch' : multiple default constructors specified
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_texturesheet.cpp(48): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_texturesheet.cpp(82): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_texturesheet.cpp(83): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
-         PXL_ShaderProgram.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_shaderprogram.cpp(70): warning C4800: 'GLint' : forcing value to bool 'true' or 'false' (performance warning)
-         PXL_ShaderUtils.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(191): warning C4520: 'PXL_Batch' : multiple default constructors specified
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_shaderutils.cpp(123): warning C4244: 'initializing' : conversion from 'std::streamsize' to 'unsigned int', possible loss of data
-         PXL_Texture.cpp
-         PXL_Text.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(191): warning C4520: 'PXL_Batch' : multiple default constructors specified
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(50): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(51): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_text.cpp(23): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_text.cpp(86): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_text.cpp(89): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-         PXL_Lights.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(191): warning C4520: 'PXL_Batch' : multiple default constructors specified
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_lights.cpp(26): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_lights.cpp(45): warning C4307: '+' : integral constant overflow
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_lights.cpp(45): warning C4307: '-' : integral constant overflow
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_lights.cpp(71): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_lights.cpp(73): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-         PXL_ImageUtils.cpp
-         PXL_FrameBuffer.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_framebuffer.cpp(66): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_framebuffer.cpp(71): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_framebuffer.cpp(77): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_framebuffer.cpp(85): warning C4244: 'argument' : conversion from 'float' to 'GLint', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_framebuffer.cpp(92): warning C4244: 'argument' : conversion from 'float' to 'GLsizei', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_framebuffer.cpp(92): warning C4244: 'argument' : conversion from 'float' to 'GLint', possible loss of data
-         PXL_FontUtils.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(191): warning C4520: 'PXL_Batch' : multiple default constructors specified
-         PXL_Font.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(191): warning C4520: 'PXL_Batch' : multiple default constructors specified
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_font.cpp(33): warning C4244: '=' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_font.cpp(34): warning C4244: '=' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_font.cpp(43): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-         PXL_Bitmap.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_bitmap.cpp(12): warning C4800: 'PXL_Bitmap *' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_bitmap.cpp(53): warning C4244: 'initializing' : conversion from 'float' to 'unsigned char', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_bitmap.cpp(54): warning C4244: 'initializing' : conversion from 'float' to 'unsigned char', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_bitmap.cpp(55): warning C4244: 'initializing' : conversion from 'float' to 'unsigned char', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_bitmap.cpp(56): warning C4244: 'initializing' : conversion from 'float' to 'unsigned char', possible loss of data
          PXL_Batch.cpp
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(191): warning C4520: 'PXL_Batch' : multiple default constructors specified
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(185): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
@@ -87,15 +39,74 @@
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(352): warning C4018: '>=' : signed/unsigned mismatch
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(356): warning C4018: '<' : signed/unsigned mismatch
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(357): warning C4018: '>=' : signed/unsigned mismatch
-         PXL.cpp
+         PXL_Bitmap.cpp
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_bitmap.cpp(12): warning C4800: 'PXL_Bitmap *' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_bitmap.cpp(53): warning C4244: 'initializing' : conversion from 'float' to 'unsigned char', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_bitmap.cpp(54): warning C4244: 'initializing' : conversion from 'float' to 'unsigned char', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_bitmap.cpp(55): warning C4244: 'initializing' : conversion from 'float' to 'unsigned char', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_bitmap.cpp(56): warning C4244: 'initializing' : conversion from 'float' to 'unsigned char', possible loss of data
+         PXL_Font.cpp
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(191): warning C4520: 'PXL_Batch' : multiple default constructors specified
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(50): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(51): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_font.cpp(33): warning C4244: '=' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_font.cpp(34): warning C4244: '=' : conversion from 'unsigned int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_font.cpp(43): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+         PXL_FontUtils.cpp
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(191): warning C4520: 'PXL_Batch' : multiple default constructors specified
+         PXL_FrameBuffer.cpp
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_framebuffer.cpp(66): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_framebuffer.cpp(71): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_framebuffer.cpp(77): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_framebuffer.cpp(85): warning C4244: 'argument' : conversion from 'float' to 'GLint', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_framebuffer.cpp(92): warning C4244: 'argument' : conversion from 'float' to 'GLsizei', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_framebuffer.cpp(92): warning C4244: 'argument' : conversion from 'float' to 'GLint', possible loss of data
+         PXL_GraphicsAPI.cpp
+         PXL_ImageUtils.cpp
+         PXL_Lights.cpp
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(191): warning C4520: 'PXL_Batch' : multiple default constructors specified
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_lights.cpp(26): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_lights.cpp(45): warning C4307: '+' : integral constant overflow
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_lights.cpp(45): warning C4307: '-' : integral constant overflow
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_lights.cpp(71): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_lights.cpp(73): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+         PXL_ShaderProgram.cpp
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_shaderprogram.cpp(70): warning C4800: 'GLint' : forcing value to bool 'true' or 'false' (performance warning)
+         PXL_ShaderUtils.cpp
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(191): warning C4520: 'PXL_Batch' : multiple default constructors specified
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_shaderutils.cpp(123): warning C4244: 'initializing' : conversion from 'std::streamsize' to 'unsigned int', possible loss of data
          PXL_Sprite.cpp
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(191): warning C4520: 'PXL_Batch' : multiple default constructors specified
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(50): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(51): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_sprite.cpp(64): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+         PXL_Text.cpp
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(191): warning C4520: 'PXL_Batch' : multiple default constructors specified
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(50): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(51): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_text.cpp(23): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_text.cpp(86): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_text.cpp(89): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+         PXL_Texture.cpp
+         PXL_TextureSheet.cpp
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(191): warning C4520: 'PXL_Batch' : multiple default constructors specified
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_texturesheet.cpp(48): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_texturesheet.cpp(82): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_texturesheet.cpp(83): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+         PXL_Window.cpp
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(191): warning C4520: 'PXL_Batch' : multiple default constructors specified
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(50): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(51): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
+         PXL_AndroidWindow.cpp
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(191): warning C4520: 'PXL_Batch' : multiple default constructors specified
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(50): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(51): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
+         PXL_LinuxWindow.cpp
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(191): warning C4520: 'PXL_Batch' : multiple default constructors specified
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(50): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(51): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
+         PXL_Win32Window.cpp
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(191): warning C4520: 'PXL_Batch' : multiple default constructors specified
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(50): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(51): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
          Generating Code...
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_bitmap.cpp(81): warning C4715: 'PXL_Bitmap::check_has_transparency' : not all control paths return a value
        Lib:
@@ -123,12 +134,15 @@
          "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Input.obj"
          "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Physics.obj"
          "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_System.obj"
+         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_AndroidWindow.obj"
+         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_LinuxWindow.obj"
          "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Debug.obj"
          "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Event.obj"
          "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Exception.obj"
          "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Math.obj"
          "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Timer.obj"
          "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Window.obj"
+         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Win32Window.obj"
      1>zlib.lib(zlib1.dll) : warning LNK4006: _DllGetVersion already defined in libpng.lib(libpng12.dll); second definition ignored
      1>zlib.lib(zlib1.dll) : warning LNK4006: __imp__DllGetVersion already defined in libpng.lib(libpng12.dll); second definition ignored
      1>zlib.lib(zlib1.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
@@ -143,10 +157,73 @@
      1>winmm.lib(WINMM.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
      1>dbghelp.lib(dbghelp.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in libpng.lib(libpng12.dll); second definition ignored
      1>dbghelp.lib(dbghelp.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
+     1>PXL_Window.obj : warning LNK4006: "public: __thiscall PXL_Window::PXL_Window(int,int,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (??0PXL_Window@@QAE@HHV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_Window.obj : warning LNK4006: "public: __thiscall PXL_Window::~PXL_Window(void)" (??1PXL_Window@@QAE@XZ) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_Window.obj : warning LNK4006: "class PXL_Window * __cdecl PXL_create_window(int,int,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?PXL_create_window@@YAPAVPXL_Window@@HHV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_Window.obj : warning LNK4006: "void __cdecl PXL_swap_buffers(int)" (?PXL_swap_buffers@@YAXH@Z) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_Window.obj : warning LNK4006: "void __cdecl PXL_swap_buffers(class PXL_Window *)" (?PXL_swap_buffers@@YAXPAVPXL_Window@@@Z) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_Window.obj : warning LNK4006: "private: void __thiscall PXL_Window::create_context(void)" (?create_context@PXL_Window@@AAEXXZ) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_Window.obj : warning LNK4006: "public: void __thiscall PXL_Window::create_window(int,int,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?create_window@PXL_Window@@QAEXHHV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_Window.obj : warning LNK4006: "public: void __thiscall PXL_Window::free(void)" (?free@PXL_Window@@QAEXXZ) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_Window.obj : warning LNK4006: "public: bool __thiscall PXL_Window::poll_event(class PXL_Event &)" (?poll_event@PXL_Window@@QAE_NAAVPXL_Event@@@Z) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_Window.obj : warning LNK4006: "private: void __thiscall PXL_Window::register_class(void)" (?register_class@PXL_Window@@AAEXXZ) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_Window.obj : warning LNK4006: "private: void __thiscall PXL_Window::unregister_class(void)" (?unregister_class@PXL_Window@@AAEXXZ) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_Window.obj : warning LNK4006: "long __stdcall win_proc(struct HWND__ *,unsigned int,unsigned int,long)" (?win_proc@@YGJPAUHWND__@@IIJ@Z) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_Window.obj : warning LNK4006: "bool init_dummy_window" (?init_dummy_window@@3_NA) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_Window.obj : warning LNK4006: "int class_id" (?class_id@@3HA) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_Window.obj : warning LNK4006: "int * context_attribs" (?context_attribs@@3PAHA) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_Window.obj : warning LNK4006: "int PXL_window_width" (?PXL_window_width@@3HA) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_Window.obj : warning LNK4006: "int PXL_window_height" (?PXL_window_height@@3HA) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_Window.obj : warning LNK4006: "int PXL_center_window_x" (?PXL_center_window_x@@3HA) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_Window.obj : warning LNK4006: "int PXL_center_window_y" (?PXL_center_window_y@@3HA) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_Window.obj : warning LNK4006: "class std::vector<class PXL_Window *,class std::allocator<class PXL_Window *> > PXL_windows" (?PXL_windows@@3V?$vector@PAVPXL_Window@@V?$allocator@PAVPXL_Window@@@std@@@std@@A) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_Window.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
      1>PXL_Event.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
+     1>PXL_LinuxWindow.obj : warning LNK4006: "public: __thiscall PXL_Window::PXL_Window(int,int,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (??0PXL_Window@@QAE@HHV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_LinuxWindow.obj : warning LNK4006: "public: __thiscall PXL_Window::~PXL_Window(void)" (??1PXL_Window@@QAE@XZ) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_LinuxWindow.obj : warning LNK4006: "class PXL_Window * __cdecl PXL_create_window(int,int,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?PXL_create_window@@YAPAVPXL_Window@@HHV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_LinuxWindow.obj : warning LNK4006: "void __cdecl PXL_swap_buffers(int)" (?PXL_swap_buffers@@YAXH@Z) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_LinuxWindow.obj : warning LNK4006: "void __cdecl PXL_swap_buffers(class PXL_Window *)" (?PXL_swap_buffers@@YAXPAVPXL_Window@@@Z) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_LinuxWindow.obj : warning LNK4006: "private: void __thiscall PXL_Window::create_context(void)" (?create_context@PXL_Window@@AAEXXZ) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_LinuxWindow.obj : warning LNK4006: "public: void __thiscall PXL_Window::create_window(int,int,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?create_window@PXL_Window@@QAEXHHV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_LinuxWindow.obj : warning LNK4006: "public: void __thiscall PXL_Window::free(void)" (?free@PXL_Window@@QAEXXZ) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_LinuxWindow.obj : warning LNK4006: "public: bool __thiscall PXL_Window::poll_event(class PXL_Event &)" (?poll_event@PXL_Window@@QAE_NAAVPXL_Event@@@Z) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_LinuxWindow.obj : warning LNK4006: "private: void __thiscall PXL_Window::register_class(void)" (?register_class@PXL_Window@@AAEXXZ) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_LinuxWindow.obj : warning LNK4006: "private: void __thiscall PXL_Window::unregister_class(void)" (?unregister_class@PXL_Window@@AAEXXZ) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_LinuxWindow.obj : warning LNK4006: "long __stdcall win_proc(struct HWND__ *,unsigned int,unsigned int,long)" (?win_proc@@YGJPAUHWND__@@IIJ@Z) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_LinuxWindow.obj : warning LNK4006: "bool init_dummy_window" (?init_dummy_window@@3_NA) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_LinuxWindow.obj : warning LNK4006: "int class_id" (?class_id@@3HA) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_LinuxWindow.obj : warning LNK4006: "int * context_attribs" (?context_attribs@@3PAHA) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_LinuxWindow.obj : warning LNK4006: "int PXL_window_width" (?PXL_window_width@@3HA) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_LinuxWindow.obj : warning LNK4006: "int PXL_window_height" (?PXL_window_height@@3HA) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_LinuxWindow.obj : warning LNK4006: "int PXL_center_window_x" (?PXL_center_window_x@@3HA) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_LinuxWindow.obj : warning LNK4006: "int PXL_center_window_y" (?PXL_center_window_y@@3HA) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_LinuxWindow.obj : warning LNK4006: "class std::vector<class PXL_Window *,class std::allocator<class PXL_Window *> > PXL_windows" (?PXL_windows@@3V?$vector@PAVPXL_Window@@V?$allocator@PAVPXL_Window@@@std@@@std@@A) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_LinuxWindow.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
+     1>PXL_AndroidWindow.obj : warning LNK4006: "public: __thiscall PXL_Window::PXL_Window(int,int,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (??0PXL_Window@@QAE@HHV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_AndroidWindow.obj : warning LNK4006: "public: __thiscall PXL_Window::~PXL_Window(void)" (??1PXL_Window@@QAE@XZ) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_AndroidWindow.obj : warning LNK4006: "class PXL_Window * __cdecl PXL_create_window(int,int,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?PXL_create_window@@YAPAVPXL_Window@@HHV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_AndroidWindow.obj : warning LNK4006: "void __cdecl PXL_swap_buffers(int)" (?PXL_swap_buffers@@YAXH@Z) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_AndroidWindow.obj : warning LNK4006: "void __cdecl PXL_swap_buffers(class PXL_Window *)" (?PXL_swap_buffers@@YAXPAVPXL_Window@@@Z) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_AndroidWindow.obj : warning LNK4006: "private: void __thiscall PXL_Window::create_context(void)" (?create_context@PXL_Window@@AAEXXZ) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_AndroidWindow.obj : warning LNK4006: "public: void __thiscall PXL_Window::create_window(int,int,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?create_window@PXL_Window@@QAEXHHV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_AndroidWindow.obj : warning LNK4006: "public: void __thiscall PXL_Window::free(void)" (?free@PXL_Window@@QAEXXZ) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_AndroidWindow.obj : warning LNK4006: "public: bool __thiscall PXL_Window::poll_event(class PXL_Event &)" (?poll_event@PXL_Window@@QAE_NAAVPXL_Event@@@Z) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_AndroidWindow.obj : warning LNK4006: "private: void __thiscall PXL_Window::register_class(void)" (?register_class@PXL_Window@@AAEXXZ) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_AndroidWindow.obj : warning LNK4006: "private: void __thiscall PXL_Window::unregister_class(void)" (?unregister_class@PXL_Window@@AAEXXZ) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_AndroidWindow.obj : warning LNK4006: "long __stdcall win_proc(struct HWND__ *,unsigned int,unsigned int,long)" (?win_proc@@YGJPAUHWND__@@IIJ@Z) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_AndroidWindow.obj : warning LNK4006: "bool init_dummy_window" (?init_dummy_window@@3_NA) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_AndroidWindow.obj : warning LNK4006: "int class_id" (?class_id@@3HA) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_AndroidWindow.obj : warning LNK4006: "int * context_attribs" (?context_attribs@@3PAHA) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_AndroidWindow.obj : warning LNK4006: "int PXL_window_width" (?PXL_window_width@@3HA) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_AndroidWindow.obj : warning LNK4006: "int PXL_window_height" (?PXL_window_height@@3HA) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_AndroidWindow.obj : warning LNK4006: "int PXL_center_window_x" (?PXL_center_window_x@@3HA) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_AndroidWindow.obj : warning LNK4006: "int PXL_center_window_y" (?PXL_center_window_y@@3HA) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_AndroidWindow.obj : warning LNK4006: "class std::vector<class PXL_Window *,class std::allocator<class PXL_Window *> > PXL_windows" (?PXL_windows@@3V?$vector@PAVPXL_Window@@V?$allocator@PAVPXL_Window@@@std@@@std@@A) already defined in PXL_Win32Window.obj; second definition ignored
+     1>PXL_AndroidWindow.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
          pxl2D.vcxproj -> C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\lib\pxl2D.lib
      1>Done Building Project "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\pxl2D.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:11.18
+Time Elapsed 00:00:14.40

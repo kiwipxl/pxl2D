@@ -51,12 +51,15 @@
     <ClCompile Include="src\PXL_Input.cpp" />
     <ClCompile Include="src\PXL_Physics.cpp" />
     <ClCompile Include="src\PXL_System.cpp" />
+    <ClCompile Include="src\system\android\PXL_AndroidWindow.cpp" />
+    <ClCompile Include="src\system\linux\PXL_LinuxWindow.cpp" />
     <ClCompile Include="src\system\PXL_Debug.cpp" />
     <ClCompile Include="src\system\PXL_Event.cpp" />
     <ClCompile Include="src\system\PXL_Exception.cpp" />
     <ClCompile Include="src\system\PXL_Math.cpp" />
     <ClCompile Include="src\system\PXL_Timer.cpp" />
     <ClCompile Include="src\system\PXL_Window.cpp" />
+    <ClCompile Include="src\system\win32\PXL_Win32Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\graphics\PXL_Colour.h" />
@@ -86,6 +89,8 @@
     <ClInclude Include="include\PXL_Input.h" />
     <ClInclude Include="include\PXL_Physics.h" />
     <ClInclude Include="include\PXL_System.h" />
+    <ClInclude Include="include\system\android\PXL_AndroidWindow.h" />
+    <ClInclude Include="include\system\linux\PXL_LinuxWindow.h" />
     <ClInclude Include="include\system\PXL_API.h" />
     <ClInclude Include="include\system\PXL_Config.h" />
     <ClInclude Include="include\system\PXL_Debug.h" />
@@ -94,6 +99,7 @@
     <ClInclude Include="include\system\PXL_Math.h" />
     <ClInclude Include="include\system\PXL_Timer.h" />
     <ClInclude Include="include\system\PXL_Window.h" />
+    <ClInclude Include="include\system\win32\PXL_Win32Window.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7F4BAC6B-9372-4E84-8723-216A860B7548}</ProjectGuid>

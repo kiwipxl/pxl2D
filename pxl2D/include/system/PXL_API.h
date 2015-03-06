@@ -29,17 +29,17 @@
 #define PXL_ULLONG_MAX    0xffffffffffffffffui64		/* maximum unsigned long long int value */
 
 #if defined(__ANDROID__)
-	#define PXL_ANDROID
-	#define PXL_ANDROID_API __ANDROID_API__
+	#define PXL_SYSTEM_ANDROID
+	#define PXL_SYSTEM_ANDROID_API __ANDROID_API__
 
 #elif defined(_WIN16) || defined(_WIN32) || defined(_WIN64) || defined(__WIN32__) || defined(__TOS_WIN__) || defined(__WINDOWS__)
-	#define PXL_WINDOWS
+	#define PXL_SYSTEM_WINDOWS
 
 #elif defined(__linux__) || defined(linux) || defined(__linux)
-	#define PXL_LINUX
+	#define PXL_SYSTEM_LINUX
 
 #elif defined(macintosh) || defined(Macintosh) || (defined(__APPLE__) && defined(__MACH__))
-	#define PXL_MAC_OS
+	#define PXL_SYSTEM_MAC_OS
 
 #else
 	#error Platform not supported (OS macro could not be found (PXL_API.h))

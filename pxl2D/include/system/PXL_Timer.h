@@ -5,7 +5,7 @@
 #include "PXL_API.h"
 #include <cstdlib>
 
-#if defined(PXL_WINDOWS)
+#if defined(PXL_SYSTEM_WINDOWS)
 #include <Windows.h>
 
 struct PXL_Timer {
@@ -30,7 +30,7 @@ struct PXL_Timer {
 	private:
 		LARGE_INTEGER start_time, end_time, elapsed_ms, freq;
 };
-#elif defined(PXL_ANDROID)
+#elif defined(PXL_SYSTEM_ANDROID)
 struct PXL_Timer {
 
 	public:
