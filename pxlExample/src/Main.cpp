@@ -1,7 +1,7 @@
 #include <PXL.h>
 
 int main(int argc, char* args[]) {
-	srand(time(NULL));
+	//srand(time(NULL));
 
 	float t = 0;
 	float fps = 60;

@@ -1,10 +1,10 @@
 #include "PXL_Matrix4.h"
 #include <iostream>
 
-GLfloat* temp_mat = new GLfloat[16];
+PXL_float* temp_mat = new PXL_float[16];
 
 PXL_Matrix4::PXL_Matrix4() {
-	mat = new GLfloat[16];
+	mat = new PXL_float[16];
 	identity();
 }
 
@@ -168,7 +168,7 @@ PXL_Matrix4& PXL_Matrix4::multiply(const PXL_Matrix4& m) {
 		temp_mat[y] = sum;
 		sum = 0;
 	}
-	memcpy(mat, temp_mat, 16 * sizeof(GLfloat));
+	memcpy(mat, temp_mat, 16 * sizeof(PXL_float));
 	position = get_position();
 	rotation = get_rotation();
 	scaled = get_scale();
@@ -184,7 +184,7 @@ PXL_Matrix4& PXL_Matrix4::operator*(const PXL_Matrix4& m) {
 	return multiply(m);
 }
 
-GLfloat& PXL_Matrix4::operator[](const int index) {
+PXL_float& PXL_Matrix4::operator[](const int index) {
 	return mat[index];
 }
 

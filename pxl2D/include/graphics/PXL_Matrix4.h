@@ -106,12 +106,12 @@ class PXL_Matrix4 {
 		/**
 		\*brief: returns a copy of the matrix
 		**/
-		GLfloat* get_mat() { return mat; }
+		PXL_float* get_mat() { return mat; }
 		/**
 		\*brief: sets the matrix data to another matrix data reference
 		\*param [new_mat]: the new mat to be replaced
 		**/
-		void set_mat(GLfloat* new_mat) { mat = new_mat; }
+		void set_mat(PXL_float* new_mat) { mat = new_mat; }
 
 		/**
 		\*brief: overrides the multiplication operator to multiply matrix pointer
@@ -127,7 +127,7 @@ class PXL_Matrix4 {
 		\*brief: overrides the [] operator that returns a reference to a matrix value
 		\*param [index]: the index value of the matrix array
 		**/
-		GLfloat& operator[](int index);
+		PXL_float& operator[](int index);
 
 	private:
 		//matrix data
