@@ -1,4 +1,4 @@
-#include "PXL_Window.h"
+#include "system/win32/PXL_Win32Window.h"
 #include <iostream>
 #include <glew.h>
 #include <wglew.h>
@@ -6,14 +6,6 @@
 #include "PXL_Graphics.h"
 #include "PXL_System.h"
 #include "input/PXL_Keyboard.h"
-
-int PXL_window_width;
-int PXL_window_height;
-int PXL_center_window_x;
-int PXL_center_window_y;
-std::vector<PXL_Window*> PXL_windows;
-bool init_dummy_window = true;
-int class_id; //used to register a unique class name
 
 int context_attribs[] = {
 	WGL_CONTEXT_MAJOR_VERSION_ARB, 3,
@@ -24,20 +16,19 @@ int context_attribs[] = {
 
 LRESULT CALLBACK win_proc(HWND handle, UINT msg, WPARAM w_param, LPARAM l_param);
 
+bool init_dummy_window = true;
+PXL_uint class_id = 0;
+
 /**----------------------------------------------------------------------------
 						Window class handling
 ----------------------------------------------------------------------------**/
 
-PXL_Window::PXL_Window(int window_width, int window_height, std::string title) {
+PXL_Win32Window::PXL_Win32Window(int window_width, int window_height, std::string title) {
 	window_loaded = false;
 	create_window(window_width, window_height, title);
 }
 
-PXL_Window* PXL_create_window(int window_width, int window_height, std::string title) {
-	return new PXL_Window(window_width, window_height, title);
-}
-
-void PXL_Window::register_class() {
+void PXL_Win32Window::register_class() {
 	win_class.style = CS_DROPSHADOW | CS_OWNDC;
 	win_class.lpfnWndProc = win_proc;
 	win_class.cbClsExtra = 0;
@@ -54,11 +45,11 @@ void PXL_Window::register_class() {
 	}
 }
 
-void PXL_Window::unregister_class() {
+void PXL_Win32Window::unregister_class() {
 	UnregisterClass(win_class.lpszClassName, win_class.hInstance);
 }
 
-void PXL_Window::create_context() {
+void PXL_Win32Window::create_context() {
 	if (!(device_context_handle = GetDC(win_handle))) {
 		PXL_force_show_exception("Couldn't create an openGL device context. Error: " + PXL_get_last_error());
 	}
@@ -93,7 +84,7 @@ void PXL_Window::create_context() {
 	}
 }
 
-void PXL_Window::create_window(int window_width, int window_height, std::string title) {
+void PXL_Win32Window::create_window(int window_width, int window_height, std::string title) {
 	free();
 
 	instance_handle = GetModuleHandle(NULL);
@@ -107,11 +98,6 @@ void PXL_Window::create_window(int window_width, int window_height, std::string 
 	tagRECT rect;
 	rect.left = 0; rect.top = 0; rect.right = window_width; rect.bottom = window_height;
 	AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
-
-	PXL_window_width = window_width;
-	PXL_window_height = window_height;
-	PXL_center_window_x = PXL_window_width / 2;
-	PXL_center_window_y = PXL_window_height / 2;
 
 	win_handle = CreateWindowEx(WS_EX_CLIENTEDGE, (LPCSTR)class_name.c_str(), (LPCSTR)win_name.c_str(), WS_OVERLAPPEDWINDOW,
 								CW_USEDEFAULT, CW_USEDEFAULT, (rect.right - rect.left) + 4, (rect.bottom - rect.top) + 4,
@@ -142,23 +128,19 @@ void PXL_Window::create_window(int window_width, int window_height, std::string 
 		ShowWindow(win_handle, SW_SHOW);
 		UpdateWindow(win_handle);
 	}
-
-	PXL_windows.push_back(this);
 }
 
-void PXL_Window::free() {
+void PXL_Win32Window::free() {
 	if (window_loaded) {
 		window_loaded = false;
 		wglMakeCurrent(NULL, NULL);
 		wglDeleteContext(gl_render_context_handle);
 		DestroyWindow(win_handle);
 		unregister_class();
-
-		PXL_windows.erase(std::remove(PXL_windows.begin(), PXL_windows.end(), this), PXL_windows.end());
 	}
 }
 
-PXL_Window::~PXL_Window() {
+PXL_Win32Window::~PXL_Win32Window() {
 	free();
 }
 
@@ -187,7 +169,7 @@ LRESULT CALLBACK win_proc(HWND handle, UINT msg, WPARAM w_param, LPARAM l_param)
 	return 0;
 }
 
-bool PXL_Window::poll_event(PXL_Event& e) {
+bool PXL_Win32Window::poll_event(PXL_Event& e) {
 	if (PeekMessage(&msg, win_handle, 0, 0, PM_REMOVE) > 0) {
 		if (PXL_num_joysticks() > 0) {
 			PXL_get_joystick(0);
@@ -215,26 +197,4 @@ bool PXL_Window::poll_event(PXL_Event& e) {
 		return true;
 	}
 	return false;
-}
-
-/**----------------------------------------------------------------------------
-						Global function handling
-----------------------------------------------------------------------------**/
-
-void PXL_swap_buffers(PXL_Window* window) {
-	if (window == NULL) {
-		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
-		SwapBuffers(window->device_context_handle);
-	}else {
-		PXL_show_exception("PXL_swap_buffers window is NULL", PXL_ERROR_SWAP_BUFFERS_FAILED);
-	}
-}
-
-void PXL_swap_buffers(int window_index) {
-	if (window_index >= 0) {
-		glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
-		SwapBuffers(PXL_windows[window_index]->device_context_handle);
-	}else {
-		PXL_show_exception("PXL_swap_buffers index is out of bounds", PXL_ERROR_SWAP_BUFFERS_FAILED);
-	}
 }

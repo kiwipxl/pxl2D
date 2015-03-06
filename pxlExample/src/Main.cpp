@@ -14,7 +14,7 @@ int main(int argc, char* args[]) {
 	int average_count = 0;
 	int seconds_elapsed = 0;
 
-	PXL_Window* window = PXL_create_window(1024, 768, "PXL Example Project");
+	PXL_Window window(1024, 768, "PXL Example Project");
 	PXL_init();
 
 	PXL_Texture cat;			cat.create_texture("assets/cat.png");
@@ -39,7 +39,7 @@ int main(int argc, char* args[]) {
 		start_time.start();
 
 		PXL_Event e;
-		while (window->poll_event(e)) {
+		while (window.poll_event(e)) {
 			if (e.type == PXL_EVENT_QUIT) {
 				quit = true;
 				break;
@@ -52,7 +52,7 @@ int main(int argc, char* args[]) {
 		PXL_clear();
 
 		text.set_text("P1: 0     P2: 0");
-		text.x = (PXL_window_width / 2) - (text.get_width() / 2);
+		text.x = (window.get_width() / 2) - (text.get_width() / 2);
 		text.y = 40;
 		text.colour.set_colour(0, (cos(t / 10) + 1) / 2, 1, 1);
 		text.z_depth = batch.get_max_z_depth() - 1;

@@ -1,18 +1,267 @@
-﻿Build started 6/03/2015 11:38:03 PM.
+﻿Build started 7/03/2015 12:24:06 AM.
      1>Project "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\pxl2D.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\\" /Fd"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt src\PXL.cpp src\PXL_Graphics.cpp src\graphics\PXL_Batch.cpp src\graphics\PXL_Bitmap.cpp src\graphics\PXL_Font.cpp src\graphics\PXL_FontUtils.cpp src\graphics\PXL_FrameBuffer.cpp src\graphics\PXL_GraphicsAPI.cpp src\graphics\PXL_ImageUtils.cpp src\graphics\PXL_Lights.cpp src\graphics\PXL_ShaderProgram.cpp src\graphics\PXL_ShaderUtils.cpp src\graphics\PXL_Sprite.cpp src\graphics\PXL_Text.cpp src\graphics\PXL_Texture.cpp src\graphics\PXL_TextureSheet.cpp src\system\PXL_Window.cpp src\system\android\PXL_AndroidWindow.cpp src\system\linux\PXL_LinuxWindow.cpp src\system\win32\PXL_Win32Window.cpp
-     1>cl : Command line warning D9028: minimal rebuild failure, reverting to normal build
-         PXL.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\\" /Fd"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt src\PXL.cpp src\PXL_Graphics.cpp src\PXL_System.cpp src\graphics\PXL_Batch.cpp src\graphics\PXL_FrameBuffer.cpp src\graphics\PXL_Lights.cpp src\graphics\PXL_ShaderUtils.cpp src\graphics\PXL_TextureSheet.cpp src\input\PXL_Joystick.cpp src\system\PXL_Event.cpp src\system\PXL_Window.cpp src\system\android\PXL_AndroidWindow.cpp src\system\linux\PXL_LinuxWindow.cpp src\system\win32\PXL_Win32Window.cpp
+         PXL_LinuxWindow.cpp
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(191): warning C4520: 'PXL_Batch' : multiple default constructors specified
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(50): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(51): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
-         PXL_Graphics.cpp
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(37): error C2259: 'PXL_Window' : cannot instantiate abstract class
+                 due to following members:
+                 'void PXL_Window::create_window(int,int,std::string)' : is abstract
+                 c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\system\pxl_window.h(27) : see declaration of 'PXL_Window::create_window'
+                 'bool PXL_Window::poll_event(PXL_Event &)' : is abstract
+                 c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\system\pxl_window.h(29) : see declaration of 'PXL_Window::poll_event'
+                 'void PXL_Window::display(void)' : is abstract
+                 c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\system\pxl_window.h(31) : see declaration of 'PXL_Window::display'
+                 'void PXL_Window::free(void)' : is abstract
+                 c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\system\pxl_window.h(36) : see declaration of 'PXL_Window::free'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(40): error C2039: 'register_class' : is not a member of 'PXL_Window'
+                 c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\system\pxl_window.h(7) : see declaration of 'PXL_Window'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(41): error C2065: 'win_class' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(41): error C2228: left of '.style' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(42): error C2065: 'win_class' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(42): error C2228: left of '.lpfnWndProc' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(43): error C2065: 'win_class' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(43): error C2228: left of '.cbClsExtra' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(44): error C2065: 'win_class' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(44): error C2228: left of '.cbWndExtra' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(45): error C2065: 'win_class' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(45): error C2228: left of '.hInstance' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(45): error C2065: 'instance_handle' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(46): error C2065: 'win_class' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(46): error C2228: left of '.hIcon' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(47): error C2065: 'win_class' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(47): error C2228: left of '.hCursor' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(48): error C2065: 'win_class' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(48): error C2228: left of '.hbrBackground' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(49): error C2065: 'win_class' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(49): error C2228: left of '.lpszMenuName' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(50): error C2065: 'win_class' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(50): error C2228: left of '.lpszClassName' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(50): error C2065: 'class_name' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(50): error C2228: left of '.c_str' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(52): error C2065: 'win_class' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(57): error C2039: 'unregister_class' : is not a member of 'PXL_Window'
+                 c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\system\pxl_window.h(7) : see declaration of 'PXL_Window'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(58): error C2065: 'win_class' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(58): error C2228: left of '.lpszClassName' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(58): error C2228: left of '.hInstance' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(58): error C2660: 'UnregisterClassA' : function does not take 1 arguments
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(61): error C2039: 'create_context' : is not a member of 'PXL_Window'
+                 c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\system\pxl_window.h(7) : see declaration of 'PXL_Window'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(62): error C2065: 'device_context_handle' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(62): error C2065: 'win_handle' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(76): error C2065: 'pixel_format' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(76): error C2065: 'device_context_handle' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(79): error C2065: 'device_context_handle' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(79): error C2065: 'pixel_format' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(83): error C2065: 'gl_render_context_handle' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(83): error C2065: 'device_context_handle' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(87): error C2065: 'gl_render_context_handle' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(87): error C2065: 'device_context_handle' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(91): error C2065: 'device_context_handle' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(91): error C2065: 'gl_render_context_handle' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(99): error C2065: 'instance_handle' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(100): error C2065: 'class_name' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(102): error C2065: 'win_name' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(116): error C2065: 'win_handle' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(116): error C2065: 'class_name' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(116): error C2228: left of '.c_str' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(116): error C2065: 'win_name' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(118): error C2065: 'instance_handle' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(120): error C2065: 'win_handle' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(142): error C2065: 'win_handle' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(143): error C2065: 'win_handle' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(153): error C2065: 'gl_render_context_handle' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(154): error C2065: 'win_handle' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(191): error C2065: 'msg' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(191): error C2065: 'win_handle' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(201): error C2065: 'msg' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(201): error C2228: left of '.lParam' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(202): error C2065: 'msg' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(202): error C2228: left of '.lParam' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(204): error C2065: 'msg' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(204): error C2228: left of '.wParam' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(205): error C2065: 'msg' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(205): error C2228: left of '.message' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(206): error C2065: 'msg' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(206): error C2228: left of '.time' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(209): error C2065: 'win_handle' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(212): error C2065: 'msg' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(213): error C2065: 'msg' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(227): error C2039: 'device_context_handle' : is not a member of 'PXL_Window'
+                 c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\system\pxl_window.h(7) : see declaration of 'PXL_Window'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\linux\pxl_linuxwindow.cpp(236): error C2039: 'device_context_handle' : is not a member of 'PXL_Window'
+                 c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\system\pxl_window.h(7) : see declaration of 'PXL_Window'
+         PXL_AndroidWindow.cpp
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(191): warning C4520: 'PXL_Batch' : multiple default constructors specified
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(50): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(51): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(37): error C2259: 'PXL_Window' : cannot instantiate abstract class
+                 due to following members:
+                 'void PXL_Window::create_window(int,int,std::string)' : is abstract
+                 c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\system\pxl_window.h(27) : see declaration of 'PXL_Window::create_window'
+                 'bool PXL_Window::poll_event(PXL_Event &)' : is abstract
+                 c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\system\pxl_window.h(29) : see declaration of 'PXL_Window::poll_event'
+                 'void PXL_Window::display(void)' : is abstract
+                 c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\system\pxl_window.h(31) : see declaration of 'PXL_Window::display'
+                 'void PXL_Window::free(void)' : is abstract
+                 c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\system\pxl_window.h(36) : see declaration of 'PXL_Window::free'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(40): error C2039: 'register_class' : is not a member of 'PXL_Window'
+                 c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\system\pxl_window.h(7) : see declaration of 'PXL_Window'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(41): error C2065: 'win_class' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(41): error C2228: left of '.style' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(42): error C2065: 'win_class' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(42): error C2228: left of '.lpfnWndProc' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(43): error C2065: 'win_class' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(43): error C2228: left of '.cbClsExtra' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(44): error C2065: 'win_class' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(44): error C2228: left of '.cbWndExtra' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(45): error C2065: 'win_class' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(45): error C2228: left of '.hInstance' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(45): error C2065: 'instance_handle' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(46): error C2065: 'win_class' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(46): error C2228: left of '.hIcon' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(47): error C2065: 'win_class' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(47): error C2228: left of '.hCursor' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(48): error C2065: 'win_class' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(48): error C2228: left of '.hbrBackground' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(49): error C2065: 'win_class' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(49): error C2228: left of '.lpszMenuName' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(50): error C2065: 'win_class' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(50): error C2228: left of '.lpszClassName' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(50): error C2065: 'class_name' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(50): error C2228: left of '.c_str' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(52): error C2065: 'win_class' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(57): error C2039: 'unregister_class' : is not a member of 'PXL_Window'
+                 c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\system\pxl_window.h(7) : see declaration of 'PXL_Window'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(58): error C2065: 'win_class' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(58): error C2228: left of '.lpszClassName' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(58): error C2228: left of '.hInstance' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(58): error C2660: 'UnregisterClassA' : function does not take 1 arguments
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(61): error C2039: 'create_context' : is not a member of 'PXL_Window'
+                 c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\system\pxl_window.h(7) : see declaration of 'PXL_Window'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(62): error C2065: 'device_context_handle' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(62): error C2065: 'win_handle' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(76): error C2065: 'pixel_format' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(76): error C2065: 'device_context_handle' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(79): error C2065: 'device_context_handle' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(79): error C2065: 'pixel_format' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(83): error C2065: 'gl_render_context_handle' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(83): error C2065: 'device_context_handle' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(87): error C2065: 'gl_render_context_handle' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(87): error C2065: 'device_context_handle' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(91): error C2065: 'device_context_handle' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(91): error C2065: 'gl_render_context_handle' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(99): error C2065: 'instance_handle' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(100): error C2065: 'class_name' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(102): error C2065: 'win_name' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(116): error C2065: 'win_handle' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(116): error C2065: 'class_name' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(116): error C2228: left of '.c_str' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(116): error C2065: 'win_name' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(118): error C2065: 'instance_handle' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(120): error C2065: 'win_handle' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(142): error C2065: 'win_handle' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(143): error C2065: 'win_handle' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(153): error C2065: 'gl_render_context_handle' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(154): error C2065: 'win_handle' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(191): error C2065: 'msg' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(191): error C2065: 'win_handle' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(201): error C2065: 'msg' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(201): error C2228: left of '.lParam' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(202): error C2065: 'msg' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(202): error C2228: left of '.lParam' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(204): error C2065: 'msg' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(204): error C2228: left of '.wParam' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(205): error C2065: 'msg' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(205): error C2228: left of '.message' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(206): error C2065: 'msg' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(206): error C2228: left of '.time' must have class/struct/union
+                 type is 'unknown-type'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(209): error C2065: 'win_handle' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(212): error C2065: 'msg' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(213): error C2065: 'msg' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(227): error C2039: 'device_context_handle' : is not a member of 'PXL_Window'
+                 c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\system\pxl_window.h(7) : see declaration of 'PXL_Window'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\system\android\pxl_androidwindow.cpp(236): error C2039: 'device_context_handle' : is not a member of 'PXL_Window'
+                 c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\system\pxl_window.h(7) : see declaration of 'PXL_Window'
+         PXL_Window.cpp
+         PXL_TextureSheet.cpp
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(191): warning C4520: 'PXL_Batch' : multiple default constructors specified
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_texturesheet.cpp(48): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_texturesheet.cpp(51): error C2065: 'PXL_window_width' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_texturesheet.cpp(51): error C2065: 'PXL_window_height' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_texturesheet.cpp(82): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_texturesheet.cpp(83): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+         PXL_ShaderUtils.cpp
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(191): warning C4520: 'PXL_Batch' : multiple default constructors specified
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_shaderutils.cpp(118): warning C4003: not enough actual parameters for macro 'max'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_shaderutils.cpp(118): error C2589: '(' : illegal token on right side of '::'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_shaderutils.cpp(118): error C2143: syntax error : missing ')' before '::'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_shaderutils.cpp(118): error C2059: syntax error : ')'
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_shaderutils.cpp(123): warning C4244: 'initializing' : conversion from 'std::streamsize' to 'unsigned int', possible loss of data
+         PXL_Lights.cpp
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(191): warning C4520: 'PXL_Batch' : multiple default constructors specified
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_lights.cpp(13): error C2065: 'PXL_window_width' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_lights.cpp(13): error C2065: 'PXL_window_height' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_lights.cpp(26): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_lights.cpp(45): warning C4307: '+' : integral constant overflow
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_lights.cpp(45): warning C4307: '-' : integral constant overflow
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_lights.cpp(71): error C2065: 'PXL_window_width' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_lights.cpp(71): error C2065: 'PXL_window_height' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_lights.cpp(73): error C2065: 'PXL_window_width' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_lights.cpp(73): error C2065: 'PXL_window_height' : undeclared identifier
+         PXL_FrameBuffer.cpp
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_framebuffer.cpp(66): error C2065: 'PXL_window_width' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_framebuffer.cpp(66): error C2065: 'PXL_window_height' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_framebuffer.cpp(71): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_framebuffer.cpp(77): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_framebuffer.cpp(85): warning C4244: 'argument' : conversion from 'float' to 'GLint', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_framebuffer.cpp(92): warning C4244: 'argument' : conversion from 'float' to 'GLsizei', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_framebuffer.cpp(92): warning C4244: 'argument' : conversion from 'float' to 'GLint', possible loss of data
          PXL_Batch.cpp
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(191): warning C4520: 'PXL_Batch' : multiple default constructors specified
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(50): error C2065: 'PXL_center_window_x' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(50): error C2065: 'PXL_center_window_y' : undeclared identifier
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(185): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(191): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(195): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
@@ -34,196 +283,28 @@
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(289): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(290): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(291): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(298): error C2065: 'PXL_window_width' : undeclared identifier
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(298): error C2065: 'PXL_window_height' : undeclared identifier
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(299): warning C4018: '>=' : signed/unsigned mismatch
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(344): warning C4018: '<=' : signed/unsigned mismatch
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(352): warning C4018: '>=' : signed/unsigned mismatch
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(356): warning C4018: '<' : signed/unsigned mismatch
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(357): warning C4018: '>=' : signed/unsigned mismatch
-         PXL_Bitmap.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_bitmap.cpp(12): warning C4800: 'PXL_Bitmap *' : forcing value to bool 'true' or 'false' (performance warning)
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_bitmap.cpp(53): warning C4244: 'initializing' : conversion from 'float' to 'unsigned char', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_bitmap.cpp(54): warning C4244: 'initializing' : conversion from 'float' to 'unsigned char', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_bitmap.cpp(55): warning C4244: 'initializing' : conversion from 'float' to 'unsigned char', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_bitmap.cpp(56): warning C4244: 'initializing' : conversion from 'float' to 'unsigned char', possible loss of data
-         PXL_Font.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(191): warning C4520: 'PXL_Batch' : multiple default constructors specified
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_font.cpp(33): warning C4244: '=' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_font.cpp(34): warning C4244: '=' : conversion from 'unsigned int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_font.cpp(43): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-         PXL_FontUtils.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(191): warning C4520: 'PXL_Batch' : multiple default constructors specified
-         PXL_FrameBuffer.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_framebuffer.cpp(66): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_framebuffer.cpp(71): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_framebuffer.cpp(77): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_framebuffer.cpp(85): warning C4244: 'argument' : conversion from 'float' to 'GLint', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_framebuffer.cpp(92): warning C4244: 'argument' : conversion from 'float' to 'GLsizei', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_framebuffer.cpp(92): warning C4244: 'argument' : conversion from 'float' to 'GLint', possible loss of data
-         PXL_GraphicsAPI.cpp
-         PXL_ImageUtils.cpp
-         PXL_Lights.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(191): warning C4520: 'PXL_Batch' : multiple default constructors specified
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_lights.cpp(26): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_lights.cpp(45): warning C4307: '+' : integral constant overflow
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_lights.cpp(45): warning C4307: '-' : integral constant overflow
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_lights.cpp(71): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_lights.cpp(73): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-         PXL_ShaderProgram.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_shaderprogram.cpp(70): warning C4800: 'GLint' : forcing value to bool 'true' or 'false' (performance warning)
-         PXL_ShaderUtils.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(191): warning C4520: 'PXL_Batch' : multiple default constructors specified
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_shaderutils.cpp(123): warning C4244: 'initializing' : conversion from 'std::streamsize' to 'unsigned int', possible loss of data
-         PXL_Sprite.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(191): warning C4520: 'PXL_Batch' : multiple default constructors specified
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(50): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(51): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_sprite.cpp(64): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-         PXL_Text.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(191): warning C4520: 'PXL_Batch' : multiple default constructors specified
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(50): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(51): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_text.cpp(23): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_text.cpp(86): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_text.cpp(89): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-         PXL_Texture.cpp
-         PXL_TextureSheet.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(191): warning C4520: 'PXL_Batch' : multiple default constructors specified
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_texturesheet.cpp(48): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_texturesheet.cpp(82): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_texturesheet.cpp(83): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
-         PXL_Window.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(191): warning C4520: 'PXL_Batch' : multiple default constructors specified
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(50): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(51): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
-         PXL_AndroidWindow.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(191): warning C4520: 'PXL_Batch' : multiple default constructors specified
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(50): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(51): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
-         PXL_LinuxWindow.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(191): warning C4520: 'PXL_Batch' : multiple default constructors specified
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(50): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(51): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
+         Generating Code...
+         Compiling...
          PXL_Win32Window.cpp
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(191): warning C4520: 'PXL_Batch' : multiple default constructors specified
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(50): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(51): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
          Generating Code...
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_bitmap.cpp(81): warning C4715: 'PXL_Bitmap::check_has_transparency' : not all control paths return a value
-       Lib:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\lib\pxl2D.lib" libpng.lib zlib.lib freetype.lib winmm.lib dbghelp.lib /NOLOGO "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Colour.obj"
-         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_GraphicsAPI.obj"
-         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Sprite.obj"
-         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Joystick.obj"
-         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Keyboard.obj"
-         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Collision.obj"
-         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL.obj"
-         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Batch.obj"
-         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Bitmap.obj"
-         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Font.obj"
-         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_FontUtils.obj"
-         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_FrameBuffer.obj"
-         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_ImageUtils.obj"
-         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Lights.obj"
-         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Matrix4.obj"
-         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Text.obj"
-         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Texture.obj"
-         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_ShaderUtils.obj"
-         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_ShaderProgram.obj"
-         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_TextureSheet.obj"
-         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Graphics.obj"
-         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Input.obj"
-         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Physics.obj"
-         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_System.obj"
-         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_AndroidWindow.obj"
-         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_LinuxWindow.obj"
-         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Debug.obj"
-         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Event.obj"
-         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Exception.obj"
-         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Math.obj"
-         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Timer.obj"
-         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Window.obj"
-         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Win32Window.obj"
-     1>zlib.lib(zlib1.dll) : warning LNK4006: _DllGetVersion already defined in libpng.lib(libpng12.dll); second definition ignored
-     1>zlib.lib(zlib1.dll) : warning LNK4006: __imp__DllGetVersion already defined in libpng.lib(libpng12.dll); second definition ignored
-     1>zlib.lib(zlib1.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
-     1>zlib.lib(zlib1.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in libpng.lib(libpng12.dll); second definition ignored
-     1>zlib.lib(zlib1.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
-     1>freetype.lib(freetype6.dll) : warning LNK4006: _DllGetVersion already defined in libpng.lib(libpng12.dll); second definition ignored
-     1>freetype.lib(freetype6.dll) : warning LNK4006: __imp__DllGetVersion already defined in libpng.lib(libpng12.dll); second definition ignored
-     1>freetype.lib(freetype6.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
-     1>freetype.lib(freetype6.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in libpng.lib(libpng12.dll); second definition ignored
-     1>freetype.lib(freetype6.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
-     1>winmm.lib(WINMM.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in libpng.lib(libpng12.dll); second definition ignored
-     1>winmm.lib(WINMM.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
-     1>dbghelp.lib(dbghelp.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in libpng.lib(libpng12.dll); second definition ignored
-     1>dbghelp.lib(dbghelp.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
-     1>PXL_Window.obj : warning LNK4006: "public: __thiscall PXL_Window::PXL_Window(int,int,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (??0PXL_Window@@QAE@HHV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_Window.obj : warning LNK4006: "public: __thiscall PXL_Window::~PXL_Window(void)" (??1PXL_Window@@QAE@XZ) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_Window.obj : warning LNK4006: "class PXL_Window * __cdecl PXL_create_window(int,int,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?PXL_create_window@@YAPAVPXL_Window@@HHV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_Window.obj : warning LNK4006: "void __cdecl PXL_swap_buffers(int)" (?PXL_swap_buffers@@YAXH@Z) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_Window.obj : warning LNK4006: "void __cdecl PXL_swap_buffers(class PXL_Window *)" (?PXL_swap_buffers@@YAXPAVPXL_Window@@@Z) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_Window.obj : warning LNK4006: "private: void __thiscall PXL_Window::create_context(void)" (?create_context@PXL_Window@@AAEXXZ) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_Window.obj : warning LNK4006: "public: void __thiscall PXL_Window::create_window(int,int,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?create_window@PXL_Window@@QAEXHHV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_Window.obj : warning LNK4006: "public: void __thiscall PXL_Window::free(void)" (?free@PXL_Window@@QAEXXZ) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_Window.obj : warning LNK4006: "public: bool __thiscall PXL_Window::poll_event(class PXL_Event &)" (?poll_event@PXL_Window@@QAE_NAAVPXL_Event@@@Z) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_Window.obj : warning LNK4006: "private: void __thiscall PXL_Window::register_class(void)" (?register_class@PXL_Window@@AAEXXZ) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_Window.obj : warning LNK4006: "private: void __thiscall PXL_Window::unregister_class(void)" (?unregister_class@PXL_Window@@AAEXXZ) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_Window.obj : warning LNK4006: "long __stdcall win_proc(struct HWND__ *,unsigned int,unsigned int,long)" (?win_proc@@YGJPAUHWND__@@IIJ@Z) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_Window.obj : warning LNK4006: "bool init_dummy_window" (?init_dummy_window@@3_NA) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_Window.obj : warning LNK4006: "int class_id" (?class_id@@3HA) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_Window.obj : warning LNK4006: "int * context_attribs" (?context_attribs@@3PAHA) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_Window.obj : warning LNK4006: "int PXL_window_width" (?PXL_window_width@@3HA) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_Window.obj : warning LNK4006: "int PXL_window_height" (?PXL_window_height@@3HA) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_Window.obj : warning LNK4006: "int PXL_center_window_x" (?PXL_center_window_x@@3HA) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_Window.obj : warning LNK4006: "int PXL_center_window_y" (?PXL_center_window_y@@3HA) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_Window.obj : warning LNK4006: "class std::vector<class PXL_Window *,class std::allocator<class PXL_Window *> > PXL_windows" (?PXL_windows@@3V?$vector@PAVPXL_Window@@V?$allocator@PAVPXL_Window@@@std@@@std@@A) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_Window.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
-     1>PXL_Event.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
-     1>PXL_LinuxWindow.obj : warning LNK4006: "public: __thiscall PXL_Window::PXL_Window(int,int,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (??0PXL_Window@@QAE@HHV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_LinuxWindow.obj : warning LNK4006: "public: __thiscall PXL_Window::~PXL_Window(void)" (??1PXL_Window@@QAE@XZ) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_LinuxWindow.obj : warning LNK4006: "class PXL_Window * __cdecl PXL_create_window(int,int,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?PXL_create_window@@YAPAVPXL_Window@@HHV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_LinuxWindow.obj : warning LNK4006: "void __cdecl PXL_swap_buffers(int)" (?PXL_swap_buffers@@YAXH@Z) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_LinuxWindow.obj : warning LNK4006: "void __cdecl PXL_swap_buffers(class PXL_Window *)" (?PXL_swap_buffers@@YAXPAVPXL_Window@@@Z) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_LinuxWindow.obj : warning LNK4006: "private: void __thiscall PXL_Window::create_context(void)" (?create_context@PXL_Window@@AAEXXZ) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_LinuxWindow.obj : warning LNK4006: "public: void __thiscall PXL_Window::create_window(int,int,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?create_window@PXL_Window@@QAEXHHV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_LinuxWindow.obj : warning LNK4006: "public: void __thiscall PXL_Window::free(void)" (?free@PXL_Window@@QAEXXZ) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_LinuxWindow.obj : warning LNK4006: "public: bool __thiscall PXL_Window::poll_event(class PXL_Event &)" (?poll_event@PXL_Window@@QAE_NAAVPXL_Event@@@Z) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_LinuxWindow.obj : warning LNK4006: "private: void __thiscall PXL_Window::register_class(void)" (?register_class@PXL_Window@@AAEXXZ) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_LinuxWindow.obj : warning LNK4006: "private: void __thiscall PXL_Window::unregister_class(void)" (?unregister_class@PXL_Window@@AAEXXZ) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_LinuxWindow.obj : warning LNK4006: "long __stdcall win_proc(struct HWND__ *,unsigned int,unsigned int,long)" (?win_proc@@YGJPAUHWND__@@IIJ@Z) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_LinuxWindow.obj : warning LNK4006: "bool init_dummy_window" (?init_dummy_window@@3_NA) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_LinuxWindow.obj : warning LNK4006: "int class_id" (?class_id@@3HA) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_LinuxWindow.obj : warning LNK4006: "int * context_attribs" (?context_attribs@@3PAHA) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_LinuxWindow.obj : warning LNK4006: "int PXL_window_width" (?PXL_window_width@@3HA) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_LinuxWindow.obj : warning LNK4006: "int PXL_window_height" (?PXL_window_height@@3HA) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_LinuxWindow.obj : warning LNK4006: "int PXL_center_window_x" (?PXL_center_window_x@@3HA) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_LinuxWindow.obj : warning LNK4006: "int PXL_center_window_y" (?PXL_center_window_y@@3HA) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_LinuxWindow.obj : warning LNK4006: "class std::vector<class PXL_Window *,class std::allocator<class PXL_Window *> > PXL_windows" (?PXL_windows@@3V?$vector@PAVPXL_Window@@V?$allocator@PAVPXL_Window@@@std@@@std@@A) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_LinuxWindow.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
-     1>PXL_AndroidWindow.obj : warning LNK4006: "public: __thiscall PXL_Window::PXL_Window(int,int,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (??0PXL_Window@@QAE@HHV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_AndroidWindow.obj : warning LNK4006: "public: __thiscall PXL_Window::~PXL_Window(void)" (??1PXL_Window@@QAE@XZ) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_AndroidWindow.obj : warning LNK4006: "class PXL_Window * __cdecl PXL_create_window(int,int,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?PXL_create_window@@YAPAVPXL_Window@@HHV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_AndroidWindow.obj : warning LNK4006: "void __cdecl PXL_swap_buffers(int)" (?PXL_swap_buffers@@YAXH@Z) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_AndroidWindow.obj : warning LNK4006: "void __cdecl PXL_swap_buffers(class PXL_Window *)" (?PXL_swap_buffers@@YAXPAVPXL_Window@@@Z) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_AndroidWindow.obj : warning LNK4006: "private: void __thiscall PXL_Window::create_context(void)" (?create_context@PXL_Window@@AAEXXZ) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_AndroidWindow.obj : warning LNK4006: "public: void __thiscall PXL_Window::create_window(int,int,class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> >)" (?create_window@PXL_Window@@QAEXHHV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@Z) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_AndroidWindow.obj : warning LNK4006: "public: void __thiscall PXL_Window::free(void)" (?free@PXL_Window@@QAEXXZ) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_AndroidWindow.obj : warning LNK4006: "public: bool __thiscall PXL_Window::poll_event(class PXL_Event &)" (?poll_event@PXL_Window@@QAE_NAAVPXL_Event@@@Z) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_AndroidWindow.obj : warning LNK4006: "private: void __thiscall PXL_Window::register_class(void)" (?register_class@PXL_Window@@AAEXXZ) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_AndroidWindow.obj : warning LNK4006: "private: void __thiscall PXL_Window::unregister_class(void)" (?unregister_class@PXL_Window@@AAEXXZ) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_AndroidWindow.obj : warning LNK4006: "long __stdcall win_proc(struct HWND__ *,unsigned int,unsigned int,long)" (?win_proc@@YGJPAUHWND__@@IIJ@Z) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_AndroidWindow.obj : warning LNK4006: "bool init_dummy_window" (?init_dummy_window@@3_NA) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_AndroidWindow.obj : warning LNK4006: "int class_id" (?class_id@@3HA) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_AndroidWindow.obj : warning LNK4006: "int * context_attribs" (?context_attribs@@3PAHA) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_AndroidWindow.obj : warning LNK4006: "int PXL_window_width" (?PXL_window_width@@3HA) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_AndroidWindow.obj : warning LNK4006: "int PXL_window_height" (?PXL_window_height@@3HA) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_AndroidWindow.obj : warning LNK4006: "int PXL_center_window_x" (?PXL_center_window_x@@3HA) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_AndroidWindow.obj : warning LNK4006: "int PXL_center_window_y" (?PXL_center_window_y@@3HA) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_AndroidWindow.obj : warning LNK4006: "class std::vector<class PXL_Window *,class std::allocator<class PXL_Window *> > PXL_windows" (?PXL_windows@@3V?$vector@PAVPXL_Window@@V?$allocator@PAVPXL_Window@@@std@@@std@@A) already defined in PXL_Win32Window.obj; second definition ignored
-     1>PXL_AndroidWindow.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
-         pxl2D.vcxproj -> C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\lib\pxl2D.lib
-     1>Done Building Project "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\pxl2D.vcxproj" (Build target(s)).
+         Skipping... (no relevant changes detected)
+         PXL_Event.cpp
+         PXL_Joystick.cpp
+         PXL_System.cpp
+         PXL_Graphics.cpp
+         PXL.cpp
+     1>Done Building Project "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\pxl2D.vcxproj" (Build target(s)) -- FAILED.
 
-Build succeeded.
+Build FAILED.
 
-Time Elapsed 00:00:14.40
+Time Elapsed 00:00:06.63
