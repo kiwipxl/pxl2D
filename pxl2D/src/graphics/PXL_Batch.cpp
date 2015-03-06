@@ -32,9 +32,9 @@ void PXL_Batch::create_batch(PXL_BatchSize max_vertices) {
 		glEnableVertexAttribArray(2);
 
 		//set vertex shader attrib pointers
-		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(PXL_VertexPoint), (void*)offsetof(PXL_VertexPoint, pos));
-		glVertexAttribPointer(1, 2, GL_UNSIGNED_SHORT, GL_TRUE, sizeof(PXL_VertexPoint), (void*)offsetof(PXL_VertexPoint, uv));
-		glVertexAttribPointer(2, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(PXL_VertexPoint), (void*)offsetof(PXL_VertexPoint, colour));
+		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(PXL_VertexPoint), (void*)8);
+		glVertexAttribPointer(1, 2, GL_UNSIGNED_SHORT, GL_TRUE, sizeof(PXL_VertexPoint), (void*)12);
+		glVertexAttribPointer(2, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(PXL_VertexPoint), (void*)16);
 
 		vertices = new VertexContainer[max_quads_amount];
 
@@ -116,12 +116,12 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 	if (verify_texture_add(texture, rect)) {
 		z_depth += (max_quads_amount - 1) / 2;
 		if (z_depth < 0) {
-			PXL_show_exception("Z depth value cannot be below half of the max quad batch size (" + std::to_string(-max_quads_amount / 2) + ")", 
-				PXL_ERROR_BATCH_ADD_FAILED);
+			//PXL_show_exception("Z depth value cannot be below half of the max quad batch size (" + std::to_string(-max_quads_amount / 2) + ")", 
+			//	PXL_ERROR_BATCH_ADD_FAILED);
 			z_depth = 0;
 		}else if (z_depth >= max_quads_amount) {
-			PXL_show_exception("Z depth value cannot be greater than half ot the max quad batch size (" + std::to_string(max_quads_amount / 2) + ")", 
-				PXL_ERROR_BATCH_ADD_FAILED);
+			//PXL_show_exception("Z depth value cannot be greater than half ot the max quad batch size (" + std::to_string(max_quads_amount / 2) + ")", 
+			//	PXL_ERROR_BATCH_ADD_FAILED);
 			z_depth = max_quads_amount - 1;
 		}
 		
@@ -297,7 +297,7 @@ bool PXL_Batch::verify_texture_add(const PXL_Texture& texture, PXL_Rect* rect) {
 	if (texture.texture_created) {
 		if (rect->x + rect->w > 0 && rect->y + rect->h > 0 && rect->x < PXL_window_width && rect->y < PXL_window_height) {
 			if (total_vertices >= max_vertices_amount) {
-				PXL_show_exception("Hit max batch size at " + std::to_string(max_quads_amount) + " max sprites/quads", PXL_ERROR_BATCH_ADD_FAILED);
+				//PXL_show_exception("Hit max batch size at " + std::to_string(max_quads_amount) + " max sprites/quads", PXL_ERROR_BATCH_ADD_FAILED);
 				return false;
 			}
 

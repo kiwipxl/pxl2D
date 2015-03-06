@@ -1,7 +1,7 @@
 #ifndef _PXL_BITMAP_H
 #define _PXL_BITMAP_H
 
-#include <glew.h>
+#include "PXL_GraphicsAPI.h"
 #include <string>
 #include "PXL_Colour.h"
 #include "PXL_Structs.h"
@@ -24,7 +24,10 @@ const struct PXL_Channel {
 
 static const PXL_Channel PXL_CHANNEL_RGB			{ 3, GL_RGB,					{ 0, 1, 2, -1 }		};
 static const PXL_Channel PXL_CHANNEL_RGBA			{ 4, GL_RGBA,					{ 0, 1, 2, 3 }		};
-static const PXL_Channel PXL_CHANNEL_BGRA			{ 4, GL_BGRA,					{ 2, 1, 0, 3 }		};
+
+//android GLES does not support GL_BGRA, so leave out temporarily and maybe add back later
+//static const PXL_Channel PXL_CHANNEL_BGRA			{ 4, GL_BGRA,					{ 2, 1, 0, 3 }		};
+
 static const PXL_Channel PXL_CHANNEL_GRAY_ALPHA		{ 2, GL_LUMINANCE_ALPHA,		{ 0, 0, 0, 1 }		};
 static const PXL_Channel PXL_CHANNEL_ALPHA			{ 1, GL_ALPHA,					{ -1, -1, -1, 0 }	};
 

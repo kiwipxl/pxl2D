@@ -1,7 +1,6 @@
 #ifndef _PXL_GRAPHICS_H
 #define _PXL_GRAPHICS_H
 
-#define GLEW_STATIC
 #include "graphics/PXL_Batch.h"
 #include "graphics/PXL_ShaderUtils.h"
 #include "graphics/PXL_TextureSheet.h"
@@ -11,7 +10,6 @@
 #include "graphics/PXL_FrameBuffer.h"
 #include "graphics/PXL_Colour.h"
 #include "graphics/PXL_Sprite.h"
-#include <glew.h>
 
 /** Initialises PXL graphics
 **/

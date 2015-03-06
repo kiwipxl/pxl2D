@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\graphics\PXL_Colour.h" />
+    <ClInclude Include="include\graphics\PXL_GraphicsAPI.h" />
     <ClInclude Include="include\graphics\PXL_PrebuiltShaders.h" />
     <ClInclude Include="include\graphics\PXL_ShaderProgram - Copy.h" />
     <ClInclude Include="include\graphics\PXL_Sprite.h" />
@@ -160,9 +161,9 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Android'">
     <SourcePath>$(ProjectDir)src;$(ProjectDir)src\graphics;$(ProjectDir)src\system;$(ProjectDir)src\physics;$(ProjectDir)src\input;$(SourcePath)</SourcePath>
-    <LibraryPath>$(ProjectDir)lib\libpng-1.2.37\lib;$(ProjectDir)lib\zlib-1.2.3\lib;$(ProjectDir)lib\freetype-2.3.5\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)lib\libpng-1.2.37\lib;$(ProjectDir)lib\zlib-1.2.3\lib;$(ProjectDir)lib\freetype-2.3.5\lib;C:\AndroidDevelopment\android-ndk-r9b\sources\cxx-stl\stlport\libs\x86;$(LibraryPath)</LibraryPath>
     <TargetName>pxl2D</TargetName>
-    <IncludePath>$(VC_IncludePath);$(ProjectDir)lib\glew-1.11.0\include;$(ProjectDir)lib\libpng-1.2.37\include;$(ProjectDir)lib\zlib-1.2.3\include;$(ProjectDir)lib\freetype-2.3.5\include;$(ProjectDir)lib\freetype-2.3.5\include\freetype2;$(ProjectDir)include;$(ProjectDir)include\graphics;$(ProjectDir)include\system;$(ProjectDir)include\physics;$(ProjectDir)include\input</IncludePath>
+    <IncludePath>$(VC_IncludePath);</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)lib\glew-1.11.0\include;$(ProjectDir)lib\libpng-1.2.37\include;$(ProjectDir)lib\zlib-1.2.3\include;$(ProjectDir)lib\freetype-2.3.5\include;$(ProjectDir)lib\freetype-2.3.5\include\freetype2;$(ProjectDir)include;$(ProjectDir)include\graphics;$(ProjectDir)include\system;$(ProjectDir)include\physics;$(ProjectDir)include\input;$(ProjectDir)include\physics</IncludePath>
@@ -203,9 +204,8 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>
-      </AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;__arm__%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)lib\glew-1.11.0\include;$(ProjectDir)lib\libpng-1.2.37\include;$(ProjectDir)lib\zlib-1.2.3\include;$(ProjectDir)lib\freetype-2.3.5\include;$(ProjectDir)lib\freetype-2.3.5\include\freetype2;$(ProjectDir)include;$(ProjectDir)include\graphics;$(ProjectDir)include\system;$(ProjectDir)include\physics;$(ProjectDir)include\input;C:\AndroidDevelopment\android-ndk-r10d\platforms\android-21\arch-arm\usr\include;C:\AndroidDevelopment\android-ndk-r10d\sources\cxx-stl\stlport\stlport</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <DisableSpecificWarnings>
       </DisableSpecificWarnings>

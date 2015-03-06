@@ -1,7 +1,7 @@
 #ifndef _PXL_TEXTURE_H
 #define _PXL_TEXTURE_H
 
-#include <glew.h>
+#include "PXL_GraphicsAPI.h"
 #include "PXL_Structs.h"
 #include "PXL_Bitmap.h"
 #include "system/PXL_API.h"

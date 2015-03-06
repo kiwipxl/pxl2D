@@ -1,7 +1,6 @@
 #ifndef _PXL_TEXTURE_SHEET_H
 #define _PXL_TEXTURE_SHEET_H
 
-#include <glew.h>
 #include <vector>
 #include "PXL_Batch.h"
 

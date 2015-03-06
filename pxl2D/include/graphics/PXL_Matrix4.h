@@ -1,9 +1,9 @@
 #ifndef _PXL_MATRIX_4_H
 #define _PXL_MATRIX_4_H
 
-#include <glew.h>
 #include "PXL_Structs.h"
 #include "system/PXL_Math.h"
+#include "system/PXL_API.h"
 
 class PXL_Matrix4 {
 
@@ -131,7 +131,7 @@ class PXL_Matrix4 {
 
 	private:
 		//matrix data
-		GLfloat* mat;
+		PXL_float* mat;
 
 		//matrix info
 		PXL_Vec3 position;

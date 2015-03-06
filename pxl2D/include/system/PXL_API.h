@@ -13,6 +13,8 @@
 #define PXL_long long
 #define PXL_ulong unsigned long
 
+#define PXL_float float
+
 #define PXL_SHRT_MIN    (-32768)						/* minimum (signed) short value */
 #define PXL_SHRT_MAX      32767							/* maximum (signed) short value */
 #define PXL_USHRT_MAX     0xffff						/* maximum unsigned short value */
