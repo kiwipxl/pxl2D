@@ -2,6 +2,24 @@
 #include <iostream>
 #include "system/PXL_Math.h"
 
+const PXL_Colour PXL_COLOUR_WHITE				= PXL_Colour(0xffffffff);	/**> Pre-defined white colour **/
+const PXL_Colour PXL_COLOUR_BLACK				= PXL_Colour(0x000000ff);	/**> Pre-defined black colour **/
+const PXL_Colour PXL_COLOUR_RED					= PXL_Colour(0xff0000ff);	/**> Pre-defined red colour **/
+const PXL_Colour PXL_COLOUR_GREEN				= PXL_Colour(0x00ff00ff);	/**> Pre-defined green colour **/
+const PXL_Colour PXL_COLOUR_BLUE				= PXL_Colour(0x0000ffff);	/**> Pre-defined blue colour **/
+const PXL_Colour PXL_COLOUR_YELLOW				= PXL_Colour(0xffff00ff);	/**> Pre-defined yellow colour **/
+const PXL_Colour PXL_COLOUR_ORANGE				= PXL_Colour(0xff9900ff);	/**> Pre-defined orange colour **/
+const PXL_Colour PXL_COLOUR_PINK				= PXL_Colour(0xff66ffff);	/**> Pre-defined pink colour **/
+const PXL_Colour PXL_COLOUR_PURPLE				= PXL_Colour(0xcc00ccff);	/**> Pre-defined purple colour **/
+const PXL_Colour PXL_COLOUR_LIGHT_RED			= PXL_Colour(0xff9999ff);	/**> Pre-defined light red colour **/
+const PXL_Colour PXL_COLOUR_LIGHT_GREEN			= PXL_Colour(0x99ff99ff);	/**> Pre-defined light green colour **/
+const PXL_Colour PXL_COLOUR_LIGHT_BLUE			= PXL_Colour(0x00ccffff);	/**> Pre-defined light blue colour **/
+const PXL_Colour PXL_COLOUR_DARK_RED			= PXL_Colour(0x751919ff);	/**> Pre-defined dark red colour **/
+const PXL_Colour PXL_COLOUR_DARK_GREEN			= PXL_Colour(0x19a347ff);	/**> Pre-defined dark green colour **/
+const PXL_Colour PXL_COLOUR_DARK_BLUE			= PXL_Colour(0x000099ff);	/**> Pre-defined dark blue colour **/
+const PXL_Colour PXL_COLOUR_TRANSPARENT_WHITE	= PXL_Colour(0xffffff00);	/**> Pre-defined fully transparent white colour **/
+const PXL_Colour PXL_COLOUR_TRANSPARENT_BLACK	= PXL_Colour(0x00000000);	/**> Pre-defined fully transparent black colour **/
+
 PXL_Colour::PXL_Colour(float red, float green, float blue, float alpha) {
 	set_colour(red, green, blue, alpha);
 }

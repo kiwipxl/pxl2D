@@ -6,8 +6,22 @@
 #include "system/PXL_API.h"
 
 typedef int PXL_FrameBufferAction;
-#define PXL_GL_FRAMEBUFFER_READ GL_READ_FRAMEBUFFER
-#define PXL_GL_FRAMEBUFFER_WRITE GL_DRAW_FRAMEBUFFER
+
+#if defined(GL_READ_FRAMEBUFFER)
+	#define PXL_GL_FRAMEBUFFER_READ GL_READ_FRAMEBUFFER
+#elif defined(GL_FRAMEBUFFER)
+	#define PXL_GL_FRAMEBUFFER_READ GL_FRAMEBUFFER
+#else
+	#define PXL_GL_FRAMEBUFFER_READ 0
+#endif
+
+#if defined(GL_DRAW_FRAMEBUFFER)
+	#define PXL_GL_FRAMEBUFFER_WRITE GL_DRAW_FRAMEBUFFER
+#elif defined(GL_FRAMEBUFFER)
+	#define PXL_GL_FRAMEBUFFER_WRITE GL_FRAMEBUFFER
+#else
+	#define PXL_GL_FRAMEBUFFER_WRITE 0
+#endif
 
 /** The PXL_FrameBuffer class handles uploading of pixel data to the GPU to create a frame_buffer that can be
 used with a PXL_Batch to render images to the screen

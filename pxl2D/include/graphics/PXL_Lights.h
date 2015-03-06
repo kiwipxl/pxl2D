@@ -6,7 +6,7 @@
 #include "PXL_ShaderUtils.h"
 #include "system/PXL_API.h"
 
-const struct PXL_PointLight {
+struct PXL_PointLight {
 
 	float x, y;
 	float radius, intensity;

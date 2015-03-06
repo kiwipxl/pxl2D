@@ -5,7 +5,7 @@
 
 #define PXL_Color PXL_Colour
 
-const struct PXL_Colour {
+struct PXL_Colour {
 
 	PXL_Colour() { }
 	PXL_Colour(float red, float green, float blue, float alpha = 1);
@@ -37,22 +37,22 @@ const struct PXL_Colour {
 #define PXL_COLOR_TRANSPARENT_WHITE		PXL_COLOUR_TRANSPARENT_WHITE	/**> Pre-defined fully transparent white colour **/
 #define PXL_COLOR_TRANSPARENT_BLACK		PXL_COLOUR_TRANSPARENT_BLACK	/**> Pre-defined fully transparent black colour **/
 
-static const PXL_Colour PXL_COLOUR_WHITE(0xffffffff);				/**> Pre-defined white colour **/
-static const PXL_Colour PXL_COLOUR_BLACK(0x000000ff);				/**> Pre-defined black colour **/
-static const PXL_Colour PXL_COLOUR_RED(0xff0000ff);					/**> Pre-defined red colour **/
-static const PXL_Colour PXL_COLOUR_GREEN(0x00ff00ff);				/**> Pre-defined green colour **/
-static const PXL_Colour PXL_COLOUR_BLUE(0x0000ffff);				/**> Pre-defined blue colour **/
-static const PXL_Colour PXL_COLOUR_YELLOW(0xffff00ff);				/**> Pre-defined yellow colour **/
-static const PXL_Colour PXL_COLOUR_ORANGE(0xff9900ff);				/**> Pre-defined orange colour **/
-static const PXL_Colour PXL_COLOUR_PINK(0xff66ffff);				/**> Pre-defined pink colour **/
-static const PXL_Colour PXL_COLOUR_PURPLE(0xcc00ccff);				/**> Pre-defined purple colour **/
-static const PXL_Colour PXL_COLOUR_LIGHT_RED(0xff9999ff);			/**> Pre-defined light red colour **/
-static const PXL_Colour PXL_COLOUR_LIGHT_GREEN(0x99ff99ff);			/**> Pre-defined light green colour **/
-static const PXL_Colour PXL_COLOUR_LIGHT_BLUE(0x00ccffff);			/**> Pre-defined light blue colour **/
-static const PXL_Colour PXL_COLOUR_DARK_RED(0x751919ff);			/**> Pre-defined dark red colour **/
-static const PXL_Colour PXL_COLOUR_DARK_GREEN(0x19a347ff);			/**> Pre-defined dark green colour **/
-static const PXL_Colour PXL_COLOUR_DARK_BLUE(0x000099ff);			/**> Pre-defined dark blue colour **/
-static const PXL_Colour PXL_COLOUR_TRANSPARENT_WHITE(0xffffff00);	/**> Pre-defined fully transparent white colour **/
-static const PXL_Colour PXL_COLOUR_TRANSPARENT_BLACK(0x00000000);	/**> Pre-defined fully transparent black colour **/
+const extern PXL_Colour PXL_COLOUR_WHITE;				/**> Pre-defined white colour **/
+const extern PXL_Colour PXL_COLOUR_BLACK;				/**> Pre-defined black colour **/
+const extern PXL_Colour PXL_COLOUR_RED;					/**> Pre-defined red colour **/
+const extern PXL_Colour PXL_COLOUR_GREEN;				/**> Pre-defined green colour **/
+const extern PXL_Colour PXL_COLOUR_BLUE;				/**> Pre-defined blue colour **/
+const extern PXL_Colour PXL_COLOUR_YELLOW;				/**> Pre-defined yellow colour **/
+const extern PXL_Colour PXL_COLOUR_ORANGE;				/**> Pre-defined orange colour **/
+const extern PXL_Colour PXL_COLOUR_PINK;				/**> Pre-defined pink colour **/
+const extern PXL_Colour PXL_COLOUR_PURPLE;				/**> Pre-defined purple colour **/
+const extern PXL_Colour PXL_COLOUR_LIGHT_RED;			/**> Pre-defined light red colour **/
+const extern PXL_Colour PXL_COLOUR_LIGHT_GREEN;			/**> Pre-defined light green colour **/
+const extern PXL_Colour PXL_COLOUR_LIGHT_BLUE;			/**> Pre-defined light blue colour **/
+const extern PXL_Colour PXL_COLOUR_DARK_RED;			/**> Pre-defined dark red colour **/
+const extern PXL_Colour PXL_COLOUR_DARK_GREEN;			/**> Pre-defined dark green colour **/
+const extern PXL_Colour PXL_COLOUR_DARK_BLUE;			/**> Pre-defined dark blue colour **/
+const extern PXL_Colour PXL_COLOUR_TRANSPARENT_WHITE;	/**> Pre-defined fully transparent white colour **/
+const extern PXL_Colour PXL_COLOUR_TRANSPARENT_BLACK;	/**> Pre-defined fully transparent black colour **/
 
 #endif

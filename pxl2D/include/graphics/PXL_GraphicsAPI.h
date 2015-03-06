@@ -12,13 +12,13 @@
 #elif defined(PXL_PLATFORM_ANDROID)
 	#include <EGL/egl.h>
 
-	//#include <GLES/gl.h>
-	//#include <GLES/glext.h>
-	//#include <GLES/glplatform.h>
+	#include <GLES/gl.h>
+	#include <GLES/glext.h>
+	#include <GLES/glplatform.h>
 
-	#include <GLES2/gl2.h>
-	#include <GLES2/gl2ext.h>
-	#include <GLES2/gl2platform.h>
+	//#include <GLES2/gl2.h>
+	//#include <GLES2/gl2ext.h>
+	//#include <GLES2/gl2platform.h>
 
 	//#include <GLES3/gl3.h>
 	//#include <GLES3/gl3ext.h>

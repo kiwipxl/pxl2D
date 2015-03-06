@@ -7,7 +7,7 @@
 #include "PXL_Structs.h"
 #include "system/PXL_API.h"
 
-const struct PXL_Channel {
+struct PXL_Channel {
 
 	PXL_uint num_channels;
 	PXL_uint gl_pixel_mode;

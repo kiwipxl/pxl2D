@@ -1,7 +1,6 @@
 #ifndef _PXL_KEYBOARD_H
 #define _PXL_KEYBOARD_H
 
-#include <Windows.h>
 #include "system/PXL_API.h"
 
 struct KeyEvent {
