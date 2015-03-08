@@ -2,7 +2,7 @@
 #define _PXL_SPRITE_H
 
 #include <string>
-#include "PXL_Batch.h"
+#include "graphics/PXL_Batch.h"
 #include "system/PXL_API.h"
 
 enum PXL_Origin {

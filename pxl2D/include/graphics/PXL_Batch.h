@@ -2,13 +2,13 @@
 #define _PXL_BATCH_H
 
 #include <vector>
-#include "PXL_Bitmap.h"
-#include "PXL_Texture.h"
-#include "PXL_Matrix4.h"
-#include "PXL_Structs.h"
-#include "PXL_ShaderUtils.h"
-#include "PXL_ShaderProgram.h"
-#include "PXL_FrameBuffer.h"
+#include "graphics/PXL_Bitmap.h"
+#include "graphics/PXL_Texture.h"
+#include "graphics/PXL_Matrix4.h"
+#include "graphics/PXL_Structs.h"
+#include "graphics/PXL_ShaderUtils.h"
+#include "graphics/PXL_ShaderProgram.h"
+#include "graphics/PXL_FrameBuffer.h"
 #include "system/PXL_API.h"
 
 enum PXL_Flip {

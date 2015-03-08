@@ -2,10 +2,10 @@
 #include <iostream>
 #include <ft2build.h>
 #include FT_FREETYPE_H
-#include "PXL_Bitmap.h"
-#include "PXL_Texture.h"
-#include "PXL_Batch.h"
-#include "PXL_Font.h"
+#include "graphics/PXL_Bitmap.h"
+#include "graphics/PXL_Texture.h"
+#include "graphics/PXL_Batch.h"
+#include "graphics/PXL_Font.h"
 #include "system/PXL_Exception.h"
 
 FT_Library PXL_FT_lib;

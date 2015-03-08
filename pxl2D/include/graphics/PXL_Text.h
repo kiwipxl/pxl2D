@@ -2,9 +2,9 @@
 #define _PXL_TEXT_H
 
 #include <string>
-#include "PXL_FontUtils.h"
-#include "PXL_Batch.h"
-#include "PXL_Sprite.h"
+#include "graphics/PXL_FontUtils.h"
+#include "graphics/PXL_Batch.h"
+#include "graphics/PXL_Sprite.h"
 #include "system/PXL_API.h"
 
 class PXL_Text : public PXL_Sprite {

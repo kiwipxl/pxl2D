@@ -1,10 +1,9 @@
 #ifndef _PXL_BITMAP_H
 #define _PXL_BITMAP_H
 
-#include "PXL_GraphicsAPI.h"
-#include <string>
-#include "PXL_Colour.h"
-#include "PXL_Structs.h"
+#include "graphics/PXL_GraphicsAPI.h"
+#include "graphics/PXL_Colour.h"
+#include "graphics/PXL_Structs.h"
 #include "system/PXL_API.h"
 
 struct PXL_Channel {

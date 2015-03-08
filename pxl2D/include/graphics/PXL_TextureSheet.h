@@ -2,7 +2,7 @@
 #define _PXL_TEXTURE_SHEET_H
 
 #include <vector>
-#include "PXL_Batch.h"
+#include "graphics/PXL_Batch.h"
 
 class PXL_TextureSheet : public PXL_Texture {
 

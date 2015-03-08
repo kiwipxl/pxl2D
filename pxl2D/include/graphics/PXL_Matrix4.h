@@ -1,7 +1,7 @@
 #ifndef _PXL_MATRIX_4_H
 #define _PXL_MATRIX_4_H
 
-#include "PXL_Structs.h"
+#include "graphics/PXL_Structs.h"
 #include "system/PXL_Math.h"
 #include "system/PXL_API.h"
 

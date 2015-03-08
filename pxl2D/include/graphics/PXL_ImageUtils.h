@@ -3,7 +3,7 @@
 
 #include <string>
 #include <iostream>
-#include "PXL_Bitmap.h"
+#include "graphics/PXL_Bitmap.h"
 
 /**
 \*brief: loads the contents of a png image into a PXL_Bitmap

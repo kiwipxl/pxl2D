@@ -3,7 +3,7 @@
 
 #include <string>
 #include <iostream>
-#include "PXL_ShaderProgram.h"
+#include "graphics/PXL_ShaderProgram.h"
 
 class PXL_Batch;
 

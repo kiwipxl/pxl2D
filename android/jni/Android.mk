@@ -17,8 +17,8 @@ LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
 LOCAL_MODULE    := native-activity
-LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../pxl2D/include/
 LOCAL_SRC_FILES := main.cpp
+LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../pxl2D/include/
 LOCAL_LDLIBS    := -llog -landroid -lEGL -lGLESv1_CM
 LOCAL_STATIC_LIBRARIES := android_native_app_glue
 

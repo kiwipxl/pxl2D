@@ -1,8 +1,8 @@
 #ifndef _PXL_FONT_H
 #define _PXL_FONT_H
 
-#include "PXL_FontUtils.h"
-#include "PXL_TextureSheet.h"
+#include "graphics/PXL_FontUtils.h"
+#include "graphics/PXL_TextureSheet.h"
 #include "system/PXL_Math.h"
 
 typedef struct FT_FaceRec_* FT_Face;

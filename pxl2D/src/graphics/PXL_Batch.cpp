@@ -1,7 +1,7 @@
-#include "PXL_Batch.h"
+#include "graphics/PXL_Batch.h"
 #include <iostream>
 #include <algorithm>
-#include "PXL_Window.h"
+#include "system/PXL_Window.h"
 #include "system/PXL_Exception.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -23,9 +23,6 @@ void PXL_Batch::create_batch(PXL_BatchSize max_vertices) {
 		glBindBuffer(GL_ARRAY_BUFFER, vbo_id);
 		glBufferData(GL_ARRAY_BUFFER, max_vertices_amount * sizeof(PXL_VertexPoint), NULL, GL_STATIC_DRAW);
 
-		glGenVertexArrays(1, &vao_id);
-		glBindVertexArray(vao_id);
-
 		//enable vertex attrib pointers when rendering
 		glEnableVertexAttribArray(0);
 		glEnableVertexAttribArray(1);
@@ -35,6 +32,8 @@ void PXL_Batch::create_batch(PXL_BatchSize max_vertices) {
 		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(PXL_VertexPoint), (void*)8);
 		glVertexAttribPointer(1, 2, GL_UNSIGNED_SHORT, GL_TRUE, sizeof(PXL_VertexPoint), (void*)12);
 		glVertexAttribPointer(2, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(PXL_VertexPoint), (void*)16);
+
+		glBindBuffer(GL_ARRAY_BUFFER, NULL);
 
 		vertices = new VertexContainer[max_quads_amount];
 
@@ -67,7 +66,6 @@ void PXL_Batch::render_all() {
 		}
 
 		glDisable(GL_DEPTH_TEST);
-		glDisable(GL_ALPHA_TEST);
 		glEnable(GL_BLEND);
 
 		draw_vbo();
@@ -379,7 +377,9 @@ void PXL_Batch::draw_vbo() {
 
 			if (changed) {
 				//draw vertex data from vertex data in buffer
-				glDrawArrays(GL_QUADS, vbo_offset, num_vertices);
+				//todo: upload vertices as normal but upload a pre-made indices list (only when it
+				//needs to be uploaded) as 0, 1, 2 and then 0, 3, 2
+				glDrawArrays(GL_TRIANGLES, vbo_offset, num_vertices);
 
 				vbo_offset += num_vertices;
 				num_vertices = 0;

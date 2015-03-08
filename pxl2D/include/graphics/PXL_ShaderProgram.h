@@ -1,10 +1,10 @@
 #ifndef _PXL_SHADER_PROGRAM_H
 #define _PXL_SHADER_PROGRAM_H
 
-#include "PXL_GraphicsAPI.h"
 #include <string>
 #include <iostream>
 #include <vector>
+#include "graphics/PXL_GraphicsAPI.h"
 #include "system/PXL_API.h"
 
 class PXL_ShaderProgram {

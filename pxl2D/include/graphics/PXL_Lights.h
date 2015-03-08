@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <vector>
-#include "PXL_ShaderUtils.h"
+#include "graphics/PXL_ShaderUtils.h"
 #include "system/PXL_API.h"
 
 struct PXL_PointLight {

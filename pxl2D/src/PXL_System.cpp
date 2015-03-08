@@ -3,7 +3,9 @@
 void PXL_system_init() {
 	PXL_math_init();
 
-	timeBeginPeriod(1);
+	#if defined(PXL_PLATFORM_WIN32)
+		timeBeginPeriod(1);
+	#endif
 }
 
 char* PXL_append_char(char* c1, char* c2) {

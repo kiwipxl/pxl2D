@@ -1,8 +1,8 @@
 #ifndef _PXL_FRAME_BUFFER_H
 #define _PXL_FRAME_BUFFER_H
 
-#include "PXL_Structs.h"
-#include "PXL_Texture.h"
+#include "graphics/PXL_Structs.h"
+#include "graphics/PXL_Texture.h"
 #include "system/PXL_API.h"
 
 typedef int PXL_FrameBufferAction;

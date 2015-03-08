@@ -27,8 +27,8 @@ void PXL_FrameBuffer::create_frame_buffer(int w, int h, bool create_depth_buffer
 	if (create_depth_buffer) {
 		glGenRenderbuffers(1, &depth_id);
 		glBindRenderbuffer(PXL_GL_FRAMEBUFFER_WRITE, depth_id);
-		glRenderbufferStorage(PXL_GL_FRAMEBUFFER_WRITE, GL_DEPTH24_STENCIL8, width, height);
-		glFramebufferRenderbuffer(PXL_GL_FRAMEBUFFER_WRITE, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, depth_id);
+		glRenderbufferStorage(PXL_GL_FRAMEBUFFER_WRITE, GL_DEPTH_COMPONENT24_OES, width, height);
+		glFramebufferRenderbuffer(PXL_GL_FRAMEBUFFER_WRITE, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depth_id);
 	}else {
 		depth_id = -1;
 	}
@@ -50,7 +50,7 @@ void PXL_FrameBuffer::create_frame_buffer(int w, int h, bool create_depth_buffer
 }
 
 void PXL_FrameBuffer::clear(float r, float g, float b, float a) {
-	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, id);
+	glBindFramebuffer(PXL_GL_FRAMEBUFFER_WRITE, id);
 	glClearColor(r, g, b, a);
 	glClear(GL_COLOR_BUFFER_BIT);
 	if (depth_id != -1) {
@@ -79,17 +79,20 @@ void PXL_FrameBuffer::blit(PXL_FrameBuffer* dest_frame_buffer, PXL_Rect* rect, P
 	}else {
 		frame_src_rect = *src_rect;
 	}
-	glBindFramebuffer(GL_READ_FRAMEBUFFER, id);
-	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, draw_id);
-	glBlitFramebuffer(frame_src_rect.x, frame_src_rect.y, frame_src_rect.w, frame_src_rect.h, 
+	glBindFramebuffer(PXL_GL_FRAMEBUFFER_READ, id);
+	glBindFramebuffer(PXL_GL_FRAMEBUFFER_WRITE, draw_id);
+
+	//todo: blit frame buffer in gles2
+	/*glBlitFramebuffer(frame_src_rect.x, frame_src_rect.y, frame_src_rect.w, frame_src_rect.h, 
 					  frame_rect.x, frame_rect.y, frame_rect.w, frame_rect.h, 
-					  GL_COLOR_BUFFER_BIT, filter);
+					  GL_COLOR_BUFFER_BIT, filter);*/
 }
 
 void PXL_FrameBuffer::blit(const PXL_Texture& dest_texture, PXL_Rect* rect) {
 	bind(PXL_GL_FRAMEBUFFER_READ);
 	glBindTexture(GL_TEXTURE_2D, dest_texture.get_id());
-	glReadBuffer(GL_COLOR_ATTACHMENT0);
+	//todo read buffer in gles2
+	//glReadBuffer(GL_COLOR_ATTACHMENT0);
 	glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, -rect->x, -rect->y, rect->w, rect->h);
 }
 

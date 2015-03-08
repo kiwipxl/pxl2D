@@ -1,9 +1,9 @@
 #ifndef _PXL_TEXTURE_H
 #define _PXL_TEXTURE_H
 
-#include "PXL_GraphicsAPI.h"
-#include "PXL_Structs.h"
-#include "PXL_Bitmap.h"
+#include "graphics/PXL_GraphicsAPI.h"
+#include "graphics/PXL_Structs.h"
+#include "graphics/PXL_Bitmap.h"
 #include "system/PXL_API.h"
 #include "system/PXL_Exception.h"
 

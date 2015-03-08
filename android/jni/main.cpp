@@ -3,6 +3,9 @@
 #include <jni.h>
 #include <errno.h>
 
+#include <EGL/egl.h>
+#include <GLES/gl.h>
+
 #include <android/sensor.h>
 #include <android/log.h>
 #include <android_native_app_glue.h>
@@ -54,7 +57,9 @@ static int engine_init_display(struct engine* engine) {
      * component compatible with on-screen windows
      */
 
-    LOGW("initialising engine...");
+    LOGW("initialising engine111111...");
+
+    PXL_init();
 
     const EGLint attribs[] = {
             EGL_SURFACE_TYPE, EGL_WINDOW_BIT,
