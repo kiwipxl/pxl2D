@@ -1,7 +1,6 @@
-#include "PXL_Joystick.h"
-#include <iostream>
+#include "input/PXL_Joystick.h"
 #include <vector>
-#include "PXL_Keyboard.h"
+#include "input/PXL_Keyboard.h"
 #include "system/PXL_Exception.h"
 
 std::vector<PXL_Joystick*> joysticks;

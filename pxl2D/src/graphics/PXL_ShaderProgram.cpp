@@ -1,4 +1,4 @@
-#include "PXL_ShaderProgram.h"
+#include "graphics/PXL_ShaderProgram.h"
 #include "system/PXL_Exception.h"
 
 PXL_ShaderProgram::PXL_ShaderProgram(std::string vertex_shader, std::string fragment_shader, 

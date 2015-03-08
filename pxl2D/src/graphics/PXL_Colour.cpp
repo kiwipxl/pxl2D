@@ -1,5 +1,4 @@
-#include "PXL_Colour.h"
-#include <iostream>
+#include "graphics/PXL_Colour.h"
 #include "system/PXL_Math.h"
 
 const PXL_Colour PXL_COLOUR_WHITE				= PXL_Colour(0xffffffff);	/**> Pre-defined white colour **/

@@ -2,7 +2,7 @@
 #define _PXL_EXCEPTION_H
 
 #include <string>
-#include "PXL_Config.h"
+#include "system/PXL_Config.h"
 
 enum PXL_ExceptionType {
 	PXL_EXCEPTION_CONSOLE = 1, 

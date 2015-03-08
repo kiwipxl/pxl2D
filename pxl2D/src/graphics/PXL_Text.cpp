@@ -1,4 +1,4 @@
-#include "PXL_Text.h"
+#include "graphics/PXL_Text.h"
 #include <iostream>
 
 PXL_Text::PXL_Text(PXL_Font* f_font, std::string f_text, int f_pos_x, int f_pos_y, short f_size) {

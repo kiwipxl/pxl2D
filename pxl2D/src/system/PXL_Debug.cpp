@@ -1,4 +1,4 @@
-#include "PXL_Debug.h"
+#include "system/PXL_Debug.h"
 #include <string>
 
 #if defined(PXL_PLATFORM_WIN32)

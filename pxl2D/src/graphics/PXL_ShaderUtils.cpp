@@ -1,4 +1,4 @@
-#include "PXL_ShaderUtils.h"
+#include "graphics/PXL_ShaderUtils.h"
 #include <fstream>
 #include "graphics/PXL_Batch.h"
 #include "graphics/PXL_PrebuiltShaders.h"

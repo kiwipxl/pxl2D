@@ -1,4 +1,4 @@
-#include "PXL_Lights.h"
+#include "graphics/PXL_Lights.h"
 #include <fstream>
 #include <algorithm>
 #include "graphics/PXL_Batch.h"
@@ -46,7 +46,8 @@ PXL_PointLight* PXL_create_point_light(int x, int y, float radius, float intensi
 
 		return light;
 	}else {
-		PXL_show_exception("Cannot create more than " + std::to_string(PXL_max_point_lights) + " lights");
+		//todo: std::to_string not supported by android
+		//PXL_show_exception("Cannot create more than " + std::to_string(PXL_max_point_lights) + " lights");
 	}
 	return NULL;
 }
@@ -75,7 +76,8 @@ const void PXL_render_point_lights(PXL_Batch* batch, int z_depth) {
 }
 
 const void PXL_remove_point_light(PXL_PointLight* light, bool delete_pointer) {
-	PXL_point_lights.erase(remove(PXL_point_lights.begin(), PXL_point_lights.end(), light), PXL_point_lights.end());
+	//todo: vector erasing maybe not supported by android port
+	//PXL_point_lights.erase(remove(PXL_point_lights.begin(), PXL_point_lights.end(), light), PXL_point_lights.end());
 
 	glUseProgram(PXL_point_light_shader->get_program_id());
 	glUniform1i(PXL_point_light_shader->get_uniform_location(1), PXL_point_lights.size() * 7);

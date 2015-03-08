@@ -177,13 +177,6 @@ obj/local/armeabi/objs/pxl2D/__/__/pxl2D/src/graphics/PXL_Batch.o: \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_ioserr.h \
  jni/../../pxl2D/include/graphics/PXL_ShaderProgram.h \
  jni/../../pxl2D/include/graphics/PXL_FrameBuffer.h \
- C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/algorithm \
- C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_algo.h \
- C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_heap.h \
- C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_heap.c \
- C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_algo.c \
- C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_tempbuf.h \
- C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_tempbuf.c \
  jni/../../pxl2D/include/system/PXL_Window.h \
  jni/../../pxl2D/include/system/PXL_Event.h \
  jni/../../pxl2D/include/input/PXL_Joystick.h \
@@ -543,20 +536,6 @@ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_iose
 jni/../../pxl2D/include/graphics/PXL_ShaderProgram.h:
 
 jni/../../pxl2D/include/graphics/PXL_FrameBuffer.h:
-
-C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/algorithm:
-
-C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_algo.h:
-
-C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_heap.h:
-
-C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_heap.c:
-
-C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_algo.c:
-
-C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_tempbuf.h:
-
-C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_tempbuf.c:
 
 jni/../../pxl2D/include/system/PXL_Window.h:
 

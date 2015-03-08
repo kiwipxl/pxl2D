@@ -1,4 +1,4 @@
-#include "PXL_FrameBuffer.h"
+#include "graphics/PXL_FrameBuffer.h"
 #include <iostream>
 #include "system/PXL_Window.h"
 

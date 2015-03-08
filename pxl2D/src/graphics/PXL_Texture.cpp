@@ -1,4 +1,4 @@
-#include "PXL_Texture.h"
+#include "graphics/PXL_Texture.h"
 #include <iostream>
 
 PXL_Texture::PXL_Texture() {
@@ -56,7 +56,8 @@ PXL_ubyte* PXL_Texture::get_pixels() {
 	if (texture_created) {
 		bind();
 		PXL_ubyte* pixels = new PXL_ubyte[(width * height) * channel.num_channels];
-		glGetTexImage(GL_TEXTURE_2D, 0, channel.gl_pixel_mode, GL_UNSIGNED_BYTE, pixels);
+		//todo: glgetteximage not supported by gles2
+		//glGetTexImage(GL_TEXTURE_2D, 0, channel.gl_pixel_mode, GL_UNSIGNED_BYTE, pixels);
 		return pixels;
 	}
 	return NULL;

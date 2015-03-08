@@ -1,4 +1,4 @@
-#include "PXL_Bitmap.h"
+#include "graphics/PXL_Bitmap.h"
 #include <iostream>
 #include "graphics/PXL_ImageUtils.h"
 

@@ -151,7 +151,6 @@ obj/local/armeabi/objs/pxl2D/__/__/pxl2D/src/PXL_System.o: \
  jni/../../pxl2D/include/system/PXL_Event.h \
  jni/../../pxl2D/include/system/PXL_API.h \
  jni/../../pxl2D/include/input/PXL_Joystick.h \
- jni/../../pxl2D/include/system/PXL_API.h \
  jni/../../pxl2D/include/system/android/PXL_AndroidWindow.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/vector \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_vector.h \
@@ -160,8 +159,8 @@ obj/local/armeabi/objs/pxl2D/__/__/pxl2D/src/PXL_System.o: \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_relops_cont.h \
  jni/../../pxl2D/include/system/PXL_WindowImpl.h \
  jni/../../pxl2D/include/system/PXL_Math.h \
+ jni/../../pxl2D/include/system/PXL_API.h \
  jni/../../pxl2D/include/system/PXL_Timer.h \
- C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/cstdlib \
  jni/../../pxl2D/include/system/PXL_Exception.h \
  jni/../../pxl2D/include/system/PXL_Config.h \
  jni/../../pxl2D/include/system/PXL_Event.h \
@@ -473,8 +472,6 @@ jni/../../pxl2D/include/system/PXL_API.h:
 
 jni/../../pxl2D/include/input/PXL_Joystick.h:
 
-jni/../../pxl2D/include/system/PXL_API.h:
-
 jni/../../pxl2D/include/system/android/PXL_AndroidWindow.h:
 
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/vector:
@@ -491,9 +488,9 @@ jni/../../pxl2D/include/system/PXL_WindowImpl.h:
 
 jni/../../pxl2D/include/system/PXL_Math.h:
 
-jni/../../pxl2D/include/system/PXL_Timer.h:
+jni/../../pxl2D/include/system/PXL_API.h:
 
-C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/cstdlib:
+jni/../../pxl2D/include/system/PXL_Timer.h:
 
 jni/../../pxl2D/include/system/PXL_Exception.h:
 

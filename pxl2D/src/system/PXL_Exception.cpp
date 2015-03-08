@@ -1,8 +1,11 @@
-#include "PXL_Exception.h"
+#include "system/PXL_Exception.h"
 #include <iostream>
-#include <Windows.h>
-#include "PXL_Config.h"
-#include "PXL_Debug.h"
+#include "system/PXL_Config.h"
+#include "system/PXL_Debug.h"
+
+#if defined(PXL_PLATFORM_WIN32)
+	#include <Windows.h>
+#endif
 
 extern bool PXL_show_exception(std::string exception_message, PXL_ErrorCode error_string, PXL_ExceptionType type, bool exit) {
 	#if (defined(PXL_DEBUG) && PXL_CONFIG_SHOW_EXCEPTIONS_IN_DEBUG) || (defined(PXL_RELEASE) && PXL_CONFIG_SHOW_EXCEPTIONS_IN_RELEASE)
@@ -30,7 +33,9 @@ extern void PXL_force_show_exception(std::string exception_message, PXL_ErrorCod
 		std::cout << msg << "\n";
 	}
 	if ((type & PXL_EXCEPTION_MSG_BOX) != 0) {
-		MessageBox(NULL, msg.c_str(), PXL_CONFIG_EXCEPTION_TITLE, MB_ICONERROR | MB_OK);
+		#if defined(PXL_PLATFORM_WIN32)
+			MessageBox(NULL, msg.c_str(), PXL_CONFIG_EXCEPTION_TITLE, MB_ICONERROR | MB_OK);
+		#endif
 	}
 	if (exit) std::exit(0);
 }

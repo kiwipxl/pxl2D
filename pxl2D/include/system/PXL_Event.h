@@ -1,7 +1,7 @@
 #ifndef _PXL_EVENT_H
 #define _PXL_EVENT_H
 
-#include "PXL_API.h"
+#include "system/PXL_API.h"
 #include "input/PXL_Joystick.h"
 
 #if defined(PXL_PLATFORM_WIN32)

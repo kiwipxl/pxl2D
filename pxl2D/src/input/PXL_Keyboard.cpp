@@ -1,4 +1,4 @@
-#include "PXL_Keyboard.h"
+#include "input/PXL_Keyboard.h"
 #include <iostream>
 
 KeyEvent* PXL_keys = new KeyEvent[255];

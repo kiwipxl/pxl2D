@@ -2,7 +2,7 @@
 #define _PXL_DEBUG_H
 
 #include <iostream>
-#include "PXL_API.h"
+#include "system/PXL_API.h"
 
 extern const std::string PXL_stack_trace(int num_traces = 8);
 extern std::string PXL_get_last_error();

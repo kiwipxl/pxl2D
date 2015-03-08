@@ -2,8 +2,7 @@
 #define _PXL_TIMER_H
 
 #include <vector>
-#include "PXL_API.h"
-#include <cstdlib>
+#include "system/PXL_API.h"
 
 #if defined(PXL_PLATFORM_WIN32)
 #include <Windows.h>

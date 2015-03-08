@@ -1,4 +1,4 @@
-#include "PXL_Sprite.h"
+#include "graphics/PXL_Sprite.h"
 #include <iostream>
 
 PXL_Sprite::PXL_Sprite() {
