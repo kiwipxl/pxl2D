@@ -1,6 +1,6 @@
 #include "PXL_TextureSheet.h"
 #include <iostream>
-#include <system/PXL_Window.h>
+#include "system/PXL_Window.h"
 
 PXL_FrameBuffer* sheet_frame_buffer = NULL;
 

@@ -1,7 +1,7 @@
 #include "PXL_Lights.h"
 #include <fstream>
 #include <algorithm>
-#include "PXL_Batch.h"
+#include "graphics/PXL_Batch.h"
 #include "system/PXL_Exception.h"
 #include "system/PXL_Window.h"
 

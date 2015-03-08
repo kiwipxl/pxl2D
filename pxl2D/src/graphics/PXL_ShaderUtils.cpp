@@ -1,7 +1,7 @@
 #include "PXL_ShaderUtils.h"
 #include <fstream>
-#include "PXL_Batch.h"
-#include "PXL_PrebuiltShaders.h"
+#include "graphics/PXL_Batch.h"
+#include "graphics/PXL_PrebuiltShaders.h"
 
 //defines
 const char* start_v_header = "//[START_VERTEX]";
@@ -112,7 +112,7 @@ PXL_ShaderProgram* PXL_create_program_shader(std::string program_str, std::strin
 }
 
 std::string PXL_load_file(std::string file_name) {
-	std::ifstream file(file_name, std::ifstream::in);
+	std::ifstream file(file_name.c_str(), std::ifstream::in);
 	if (file) {
 		file.ignore(std::numeric_limits<std::streamsize>::max());
 		std::streamsize size = file.gcount();

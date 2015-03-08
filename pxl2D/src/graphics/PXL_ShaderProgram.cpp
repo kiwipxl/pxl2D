@@ -1,5 +1,4 @@
 #include "PXL_ShaderProgram.h"
-#include <fstream>
 #include "system/PXL_Exception.h"
 
 PXL_ShaderProgram::PXL_ShaderProgram(std::string vertex_shader, std::string fragment_shader, 
@@ -50,7 +49,8 @@ PXL_ShaderProgram::PXL_ShaderProgram(std::string vertex_shader, std::string frag
 
 bool PXL_ShaderProgram::compile(GLuint shader_id, int shader_type, std::string shader_name) {
 	GLint compiled;
-	glGetObjectParameterivARB(shader_id, GL_COMPILE_STATUS, &compiled);
+	//todo: not supported by gles2
+	//glGetObjectParameterivARB(shader_id, GL_COMPILE_STATUS, &compiled);
 	if (compiled) {
 		std::cout << "shader compiled successfully\n";
 	}else {
@@ -77,7 +77,8 @@ void PXL_ShaderProgram::log(GLuint shader_id) {
 	if (log_len > 1) {
 		GLchar* log = (GLchar*)malloc(log_len);
 
-		glGetInfoLogARB(shader_id, log_len, 0, log);
+		//todo: not supported by gles2
+		//glGetInfoLogARB(shader_id, log_len, 0, log);
 
 		std::cout << log << "\n";
 		delete log;

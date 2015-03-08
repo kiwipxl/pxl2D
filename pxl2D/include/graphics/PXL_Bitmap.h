@@ -1,6 +1,7 @@
 #ifndef _PXL_BITMAP_H
 #define _PXL_BITMAP_H
 
+#include <string>
 #include "graphics/PXL_GraphicsAPI.h"
 #include "graphics/PXL_Colour.h"
 #include "graphics/PXL_Structs.h"

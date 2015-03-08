@@ -1,6 +1,6 @@
 #include "PXL_Bitmap.h"
 #include <iostream>
-#include "PXL_ImageUtils.h"
+#include "graphics/PXL_ImageUtils.h"
 
 PXL_Bitmap::PXL_Bitmap() {
 	buffer_loaded = false;

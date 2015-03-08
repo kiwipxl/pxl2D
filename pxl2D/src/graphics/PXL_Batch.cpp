@@ -1,10 +1,6 @@
 #include "graphics/PXL_Batch.h"
-#include <iostream>
-#include <algorithm>
 #include "system/PXL_Window.h"
 #include "system/PXL_Exception.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 PXL_Batch::PXL_Batch(PXL_BatchSize max_vertices) {
 	batch_created = false;

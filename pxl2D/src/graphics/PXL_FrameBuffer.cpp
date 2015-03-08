@@ -1,6 +1,6 @@
 #include "PXL_FrameBuffer.h"
 #include <iostream>
-#include "PXL_Window.h"
+#include "system/PXL_Window.h"
 
 PXL_FrameBuffer::PXL_FrameBuffer(int w, int h, bool create_depth_buffer) {
 	frame_buffer_created = false;
