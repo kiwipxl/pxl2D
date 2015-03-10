@@ -27,7 +27,7 @@ void PXL_FrameBuffer::create_frame_buffer(int w, int h, bool create_depth_buffer
 	if (create_depth_buffer) {
 		glGenRenderbuffers(1, &depth_id);
 		glBindRenderbuffer(PXL_GL_FRAMEBUFFER_WRITE, depth_id);
-		glRenderbufferStorage(PXL_GL_FRAMEBUFFER_WRITE, GL_DEPTH_COMPONENT24_OES, width, height);
+		glRenderbufferStorage(PXL_GL_FRAMEBUFFER_WRITE, GL_DEPTH_COMPONENT24, width, height);
 		glFramebufferRenderbuffer(PXL_GL_FRAMEBUFFER_WRITE, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depth_id);
 	}else {
 		depth_id = -1;

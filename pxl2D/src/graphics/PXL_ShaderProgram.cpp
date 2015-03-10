@@ -48,7 +48,7 @@ PXL_ShaderProgram::PXL_ShaderProgram(std::string vertex_shader, std::string frag
 }
 
 bool PXL_ShaderProgram::compile(GLuint shader_id, int shader_type, std::string shader_name) {
-	GLint compiled;
+	GLint compiled = false;
 	//todo: not supported by gles2
 	//glGetObjectParameterivARB(shader_id, GL_COMPILE_STATUS, &compiled);
 	if (compiled) {

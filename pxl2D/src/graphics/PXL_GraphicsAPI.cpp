@@ -1,6 +1,7 @@
 #include "graphics/PXL_GraphicsAPI.h"
 #include "system/PXL_API.h"
 #include "system/PXL_Exception.h"
+#include "system/PXL_Debug.h"
 
 extern void PXL_glew_init() {
 	#if defined(PXL_PLATFORM_WIN32)
@@ -10,15 +11,15 @@ extern void PXL_glew_init() {
 			PXL_force_show_exception("Could not initialise GLEW. Error: " + (std::string)(char*)glewGetErrorString(error));
 			return;
 		}
-		std::cout << "glew initiated\n";
+		PXL_print << "glew initiated\n";
 		int min;
 		glGetIntegerv(GL_MINOR_VERSION, &min);
 		int target;
 		glGetIntegerv(GL_MAJOR_VERSION, &target);
-		std::cout << "gl version: " << glGetString(GL_VERSION) << ", min: " << min << ", target: " << target << "\n";
-		std::cout << "glsl version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << "\n";
-		std::cout << "vendor: " << glGetString(GL_VENDOR) << "\n";
-		std::cout << "renderer: " << glGetString(GL_RENDERER) << "\n";
+		PXL_print << "gl version: " << glGetString(GL_VERSION) << ", min: " << min << ", target: " << target << "\n";
+		PXL_print << "glsl version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << "\n";
+		PXL_print << "vendor: " << glGetString(GL_VENDOR) << "\n";
+		PXL_print << "renderer: " << glGetString(GL_RENDERER) << "\n";
 	#endif
 }
 

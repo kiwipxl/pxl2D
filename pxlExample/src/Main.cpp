@@ -67,14 +67,15 @@ int main(int argc, char* args[]) {
 		++average_count;
 		if (start_second_time.end() / 1000.0f >= 1000) {
 			if (seconds_elapsed % 2 == 0) {
-				std::cout << "elapsed: " << average_time / average_count <<
+				PXL_print << "elapsed: " << average_time / average_count <<
 					", ms: " << (average_time / average_count) / 1000.0f << "\n";
 				average_time = 0;
 				average_count = 0;
 			}
 			++seconds_elapsed;
 
-			std::cout << "fps: " << frame_counter << "\n";
+			PXL_print << "fps: " << frame_counter << "\n";
+
 			frame_counter = 0;
 			start_second_time.start();
 		}

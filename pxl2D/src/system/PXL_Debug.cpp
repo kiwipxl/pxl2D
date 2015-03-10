@@ -75,6 +75,17 @@
 		return message;
 	}
 
+	PrintDebugger::~PrintDebugger() {
+		std::cout << msg.str();
+	}
+
+	LogDebugger::~LogDebugger() {
+		OutputDebugString("[");
+		OutputDebugString(tag.str().c_str());
+		OutputDebugString("]: ");
+		OutputDebugString(msg.str().c_str());
+	}
+
 #elif defined(PXL_PLATFORM_ANDROID)
 	
 	#include <android/log.h>
@@ -94,6 +105,14 @@
 
 	void PXL_log(std::string msg, std::string tag = "") {
 		ANDROID_LOG(tag.c_str(), msg.c_str());
+	}
+
+	PrintDebugger::~PrintDebugger() {
+		PXL_log(msg.str());
+	}
+
+	LogDebugger::~LogDebugger() {
+		PXL_log(msg.str(), tag.str());
 	}
 
 #elif defined(PXL_PLATFORM_LINUX)
