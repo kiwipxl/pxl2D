@@ -15,5 +15,5 @@ if %BUILD_EXAMPLE_PROJECT% equ 1 call C:\AndroidDevelopment\android-ndk-r10d\ndk
 call ant debug
 call adb install -r bin/NativeActivity-debug.apk
 call adb shell am start -n com.example.native_activity/android.app.NativeActivity
-call adb -d logcat native-activity:w *:s
+call adb -d logcat pxl:i *:s
 pause

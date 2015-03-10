@@ -1,5 +1,4 @@
 #include "system/PXL_Exception.h"
-#include <iostream>
 #include "system/PXL_Config.h"
 #include "system/PXL_Debug.h"
 
@@ -9,8 +8,8 @@
 
 extern bool PXL_show_exception(std::string exception_message, PXL_ErrorCode error_string, PXL_ExceptionType type, bool exit) {
 	#if (defined(PXL_DEBUG) && PXL_CONFIG_SHOW_EXCEPTIONS_IN_DEBUG) || (defined(PXL_RELEASE) && PXL_CONFIG_SHOW_EXCEPTIONS_IN_RELEASE)
-	PXL_force_show_exception(exception_message, error_string, type, exit);
-	return true;
+		PXL_force_show_exception(exception_message, error_string, type, exit);
+		return true;
 	#endif
 	return false;
 }
@@ -27,14 +26,15 @@ extern void PXL_force_show_exception(std::string exception_message, PXL_ErrorCod
 		msg += "\n";
 	#endif
 
-	std::cout << msg << "\n";
-
 	if ((type & PXL_EXCEPTION_CONSOLE) != 0) {
-		std::cout << msg << "\n";
+		PXL_print << msg << "\n";
 	}
 	if ((type & PXL_EXCEPTION_MSG_BOX) != 0) {
 		#if defined(PXL_PLATFORM_WIN32)
 			MessageBox(NULL, msg.c_str(), PXL_CONFIG_EXCEPTION_TITLE, MB_ICONERROR | MB_OK);
+		#elif defined(PXL_PLATFORM_ANDROID)
+			//todo: add msg box here as well as printing
+			PXL_print << msg << "\n";
 		#endif
 	}
 	if (exit) std::exit(0);

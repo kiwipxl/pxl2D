@@ -104,7 +104,7 @@
 	}
 
 	PrintDebugger::~PrintDebugger() {
-		ANDROID_LOG("", msg.str().c_str());
+		ANDROID_LOG("pxl", msg.str().c_str());
 	}
 
 	LogDebugger::~LogDebugger() {

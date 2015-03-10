@@ -6,5 +6,5 @@ void PXL_init() {
 	PXL_system_init();
 	PXL_physics_init();
 	PXL_input_init();
-	PXL_print << "PXL initialised successfully\n";
+	PXL_print << "PXL initialised successfully!\n";
 }

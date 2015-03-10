@@ -1,6 +1,7 @@
 #include <PXL.h>
+#include <android_native_app_glue.h>
 
-int main(int argc, char* args[]) {
+void android_main(struct android_app* state) {
 	//srand(time(NULL));
 
 	float t = 0;
@@ -17,16 +18,24 @@ int main(int argc, char* args[]) {
 	PXL_Window window(1024, 768, "PXL Example Project");
 	PXL_init();
 
+	PXL_print << "loading cat pix...\n";
+
 	PXL_Texture cat;			cat.create_texture("assets/cat.png");
 	PXL_Texture cat_2;			cat_2.create_texture("assets/cat2.png");
 	PXL_Texture cute_cat;		cute_cat.create_texture("assets/cutecat.png");
+
+	PXL_print << "loaded cat pix. loading fonts...\n";
 
 	PXL_Font square("assets/square.ttf");
 	PXL_Font arcade("assets/arcade.ttf");
 	PXL_Text text(&arcade, "", 150, 450, 42);
 	text.set_origin(PXL_ORIGIN_CENTER);
 
+	PXL_print << "loaded fonts. creating batch...\n";
+
 	PXL_Batch batch = PXL_Batch(PXL_BATCH_SMALL);
+
+	PXL_print << "created batch. checking joysticks...\n";
 
 	int num = PXL_num_joysticks();
 	if (num > 0) {
@@ -34,8 +43,12 @@ int main(int argc, char* args[]) {
 		j->activate();
 	}
 
+	PXL_print << "checked joysticks. running loop...\n";
+
 	start_second_time.start();
 	while (!quit) {
+		PXL_print << "running loop\n";
+
 		start_time.start();
 
 		PXL_Event e;
@@ -81,5 +94,5 @@ int main(int argc, char* args[]) {
 		}
 	}
 
-	return 0;
+	//return 0;
 }

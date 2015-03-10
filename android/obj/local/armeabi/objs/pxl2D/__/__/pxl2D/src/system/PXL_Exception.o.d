@@ -149,9 +149,9 @@ obj/local/armeabi/objs/pxl2D/__/__/pxl2D/src/system/PXL_Exception.o: \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_epilog.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_config_compat_post.h \
  jni/../../pxl2D/include/system/PXL_Config.h \
+ jni/../../pxl2D/include/system/PXL_Debug.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/iostream \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_ioserr.h \
- jni/../../pxl2D/include/system/PXL_Debug.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/sstream \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_sstream.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_sstream.c \
@@ -455,11 +455,11 @@ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_conf
 
 jni/../../pxl2D/include/system/PXL_Config.h:
 
+jni/../../pxl2D/include/system/PXL_Debug.h:
+
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/iostream:
 
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_ioserr.h:
-
-jni/../../pxl2D/include/system/PXL_Debug.h:
 
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/sstream:
 
