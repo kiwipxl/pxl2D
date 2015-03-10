@@ -1,4 +1,5 @@
 #include "graphics/PXL_Matrix4.h"
+#include <string>
 
 PXL_float* temp_mat = new PXL_float[16];
 

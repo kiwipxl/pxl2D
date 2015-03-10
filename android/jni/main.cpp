@@ -57,7 +57,7 @@ static int engine_init_display(struct engine* engine) {
      * component compatible with on-screen windows
      */
 
-    LOGW("initialising engine111111...");
+    LOGW("initialising engine222444...");
 
     PXL_init();
 
@@ -109,10 +109,11 @@ static int engine_init_display(struct engine* engine) {
     engine->height = h;
     engine->state.angle = 0;
 
-    // Initialize GL state.
-    glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_FASTEST);
+    // Initialize GL state
+    //todo: these were prob removed in gles2
+    //glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_FASTEST);
+    //glShadeModel(GL_SMOOTH);
     glEnable(GL_CULL_FACE);
-    glShadeModel(GL_SMOOTH);
     glDisable(GL_DEPTH_TEST);
 
     LOGW("initialised successfully");

@@ -49,7 +49,8 @@ void PXL_TextureSheet::create_sheet(PXL_Channel sheet_channel, bool dispose_batc
 	sheet_frame_buffer->blit(*this, &rect);
 
 	//todo: set viewport back to its previous value
-	glReadBuffer(GL_BACK);
+	//todo: glreadbuffer not supported in gles2
+	//glReadBuffer(GL_BACK);
 
 	texture_created = true;
 

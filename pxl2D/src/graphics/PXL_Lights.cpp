@@ -54,7 +54,8 @@ PXL_PointLight* PXL_create_point_light(int x, int y, float radius, float intensi
 
 const void PXL_render_point_lights(PXL_Batch* batch, int z_depth) {
 	int index = 0;
-	for (PXL_PointLight* light : PXL_point_lights) {
+	for (int n = 0; n < PXL_point_lights.size(); ++n) {
+		PXL_PointLight* light = PXL_point_lights[n];
 		point_lights_arr[index] = light->x;
 		point_lights_arr[index + 1] = light->y;
 		point_lights_arr[index + 2] = light->radius;

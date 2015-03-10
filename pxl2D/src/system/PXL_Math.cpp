@@ -1,4 +1,4 @@
-#include "PXL_Math.h"
+#include "system/PXL_Math.h"
 #include <iostream>
 
 double* cos_table;
