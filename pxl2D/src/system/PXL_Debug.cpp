@@ -77,6 +77,10 @@
 
 #elif defined(PXL_PLATFORM_ANDROID)
 	
+	#include <android/log.h>
+
+	#define ANDROID_LOG(tag, ...) ((void)__android_log_print(ANDROID_LOG_INFO, tag, __VA_ARGS__))
+	
 	const std::string PXL_stack_trace(int num_traces) {
 		return "";
 	}
@@ -86,6 +90,10 @@
 	**/
 	std::string PXL_get_last_error() {
 		return "";
+	}
+
+	void PXL_log(std::string msg, std::string tag = "") {
+		ANDROID_LOG(tag.c_str(), msg.c_str());
 	}
 
 #elif defined(PXL_PLATFORM_LINUX)
