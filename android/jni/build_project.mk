@@ -15,6 +15,7 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE := libfreetype
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/../../pxl2D/lib/freetype/include/
+LOCAL_EXPORT_C_INCLUDES += $(LOCAL_PATH)/../../pxl2D/lib/freetype/include/freetype2/
 LOCAL_SRC_FILES := libfreetype2.a
 
 

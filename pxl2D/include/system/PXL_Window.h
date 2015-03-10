@@ -5,16 +5,16 @@
 #include "system/PXL_Event.h"
 
 #if defined(PXL_PLATFORM_WIN32)
-	#include "win32/PXL_Win32Window.h"
+	#include "system/win32/PXL_Win32Window.h"
 	typedef PXL_Win32Window WinImplClass;
 #elif defined(PXL_PLATFORM_ANDROID)
-	#include "android/PXL_AndroidWindow.h"
+	#include "system/android/PXL_AndroidWindow.h"
 	typedef PXL_AndroidWindow WinImplClass;
 #elif defined (PXL_PLATFORM_LINUX)
-	#include "linux/PXL_LinuxWindow.h"
+	#include "system/linux/PXL_LinuxWindow.h"
 	typedef PXL_LinuxWindow WinImplClass;
 #elif defined(PXL_PLATFORM_MAC_OS)
-	#include "mac/PXL_MacWindow.h"
+	#include "system/mac/PXL_MacWindow.h"
 	typedef PXL_MacWindow WinImplClass;
 #endif
 

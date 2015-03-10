@@ -4,9 +4,10 @@ rem The following variables define whether to build PXL, the example project or 
 rem Set the value to 1 to build and 0 to not build
 rem Make sure you've build PXL at least once so libpxl2D.a is in obj/local/armeai
 
-set BUILD_PXL=0
+set BUILD_PXL=1
 set BUILD_EXAMPLE_PROJECT=1
 
+if %BUILD_PXL% equ 1 call C:\AndroidDevelopment\android-ndk-r10d\ndk-build APP_BUILD_SCRIPT=jni/build_pxl.mk clean
 if %BUILD_EXAMPLE_PROJECT% equ 1 call C:\AndroidDevelopment\android-ndk-r10d\ndk-build APP_BUILD_SCRIPT=jni/build_project.mk clean
 if %BUILD_PXL% equ 1 call C:\AndroidDevelopment\android-ndk-r10d\ndk-build APP_BUILD_SCRIPT=jni/build_pxl.mk
 if %BUILD_EXAMPLE_PROJECT% equ 1 call C:\AndroidDevelopment\android-ndk-r10d\ndk-build APP_BUILD_SCRIPT=jni/build_project.mk

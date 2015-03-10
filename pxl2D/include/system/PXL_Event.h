@@ -20,17 +20,17 @@
 	#define PXL_EVENT_SETFOCUS		WM_SETFOCUS
 	
 #elif defined(PXL_PLATFORM_ANDROID)
-	#define PXL_EVENT_NULL
-	#define PXL_EVENT_CLOSE
-	#define PXL_EVENT_QUIT
+	#define PXL_EVENT_NULL 0
+	#define PXL_EVENT_CLOSE 0
+	#define PXL_EVENT_QUIT 0
 
-	#define PXL_EVENT_KEYDOWN
-	#define PXL_EVENT_KEYUP
+	#define PXL_EVENT_KEYDOWN 0
+	#define PXL_EVENT_KEYUP 0
 
-	#define PXL_EVENT_MOVE
-	#define PXL_EVENT_SIZE
-	#define PXL_EVENT_ACTIVATE
-	#define PXL_EVENT_SETFOCUS
+	#define PXL_EVENT_MOVE 0
+	#define PXL_EVENT_SIZE 0
+	#define PXL_EVENT_ACTIVATE 0
+	#define PXL_EVENT_SETFOCUS 0
 	
 #elif defined(PXL_PLATFORM_LINUX)
 	

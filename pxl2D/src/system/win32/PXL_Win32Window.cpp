@@ -1,4 +1,4 @@
-#include "win32/PXL_Win32Window.h"
+#include "system/win32/PXL_Win32Window.h"
 #include "graphics/PXL_GraphicsAPI.h"
 #include <wglew.h>
 #include "input/PXL_Keyboard.h"

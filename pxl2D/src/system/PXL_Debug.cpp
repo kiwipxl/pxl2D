@@ -90,7 +90,7 @@
 	
 	#include <android/log.h>
 
-	#define ANDROID_LOG(tag, ...) ((void)__android_log_print(ANDROID_LOG_INFO, tag, __VA_ARGS__))
+	#define ANDROID_LOG(tag, text) ((void)__android_log_write(ANDROID_LOG_INFO, tag, text))
 	
 	const std::string PXL_stack_trace(int num_traces) {
 		return "";
@@ -103,16 +103,12 @@
 		return "";
 	}
 
-	void PXL_log(std::string msg, std::string tag = "") {
-		ANDROID_LOG(tag.c_str(), msg.c_str());
-	}
-
 	PrintDebugger::~PrintDebugger() {
-		PXL_log(msg.str());
+		ANDROID_LOG("", msg.str().c_str());
 	}
 
 	LogDebugger::~LogDebugger() {
-		PXL_log(msg.str(), tag.str());
+		ANDROID_LOG(tag.str().c_str(), msg.str().c_str());
 	}
 
 #elif defined(PXL_PLATFORM_LINUX)

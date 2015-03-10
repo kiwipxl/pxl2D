@@ -1,4 +1,4 @@
-#include "linux/PXL_LinuxWindow.h"
+#include "system/linux/PXL_LinuxWindow.h"
 #include "graphics/PXL_GraphicsAPI.h"
 #include "input/PXL_Keyboard.h"
 #include "system/PXL_Exception.h"
@@ -17,6 +17,10 @@ void PXL_LinuxWindow::display() {
 	}else {
 		PXL_show_exception("Window display failed - window has not been created yet", PXL_ERROR_SWAP_BUFFERS_FAILED);
 	}
+}
+
+bool PXL_LinuxWindow::poll_event(PXL_Event& e) {
+	return false;
 }
 
 void PXL_LinuxWindow::free() {

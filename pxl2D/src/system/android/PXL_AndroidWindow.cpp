@@ -1,4 +1,4 @@
-#include "android/PXL_AndroidWindow.h"
+#include "system/android/PXL_AndroidWindow.h"
 #include "graphics/PXL_GraphicsAPI.h"
 #include "input/PXL_Keyboard.h"
 #include "system/PXL_Exception.h"
@@ -13,6 +13,10 @@ void PXL_AndroidWindow::display() {
 	}else {
 		PXL_show_exception("Window display failed - window has not been created yet", PXL_ERROR_SWAP_BUFFERS_FAILED);
 	}
+}
+
+bool PXL_AndroidWindow::poll_event(PXL_Event& e) {
+	return false;
 }
 
 void PXL_AndroidWindow::free() {
