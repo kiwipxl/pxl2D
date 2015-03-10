@@ -61,7 +61,7 @@ int main(int argc, char* args[]) {
 		window.display();
 
 		double ms = start_time.end() / 1000.0f;
-		if (ms >= 0 && ms < ms_per_frame) { Sleep(ms_per_frame - ms); }
+		if (ms >= 0 && ms < ms_per_frame) { PXL_sleep(ms_per_frame - ms); }
 
 		++frame_counter;
 		++average_count;
