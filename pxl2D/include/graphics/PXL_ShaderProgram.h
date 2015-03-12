@@ -28,6 +28,9 @@ class PXL_ShaderProgram {
 		PXL_uint get_uniform_location(int index) { return locations[index]; }
 		PXL_uint add_uniform_location(std::string uniform_name);
 
+		void print_program_log(GLuint program_id);
+		void print_shader_log(GLuint shader_id);
+
 	private:
 		//shaderprogram ids
 		PXL_uint vertex_id;

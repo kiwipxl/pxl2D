@@ -37,6 +37,7 @@ PXL_ShaderProgram::PXL_ShaderProgram(std::string vertex_shader, std::string frag
 			matrix_loc = glGetUniformLocation(program_id, "matrix");
 		}else {
 			PXL_show_exception("shader (" + v_shader_name + ", " + f_shader_name + ") link failed", PXL_ERROR_SHADER_LINK_FAILED, PXL_EXCEPTION_CONSOLE, false);
+			print_program_log(program_id);
 		}
 
 		//detach shaders whether or not linking was successful
@@ -49,11 +50,10 @@ PXL_ShaderProgram::PXL_ShaderProgram(std::string vertex_shader, std::string frag
 }
 
 bool PXL_ShaderProgram::compile(GLuint shader_id, int shader_type, std::string shader_name) {
-	GLint compiled = true;
-	//todo: not supported by gles2
-	//glGetObjectParameterivARB(shader_id, GL_COMPILE_STATUS, &compiled);
+	GLint compiled;
+	glGetShaderiv(shader_id, GL_COMPILE_STATUS, &compiled);
 	if (compiled) {
-		PXL_print << "shader compiled successfully\n";
+		PXL_print << "shader (" << shader_name << ") compiled successfully\n";
 	}else {
 		switch (shader_type) {
 			case GL_VERTEX_SHADER:
@@ -66,20 +66,35 @@ bool PXL_ShaderProgram::compile(GLuint shader_id, int shader_type, std::string s
 				PXL_show_exception("Unknown shader (" + shader_name + ") failed to compile", PXL_ERROR_SHADER_COMPILE_FAILED, PXL_EXCEPTION_CONSOLE, false);
 				break;
 		}
-		log(shader_id);
+		print_shader_log(shader_id);
 	}
 	return compiled;
 }
 
-void PXL_ShaderProgram::log(GLuint shader_id) {
+void PXL_ShaderProgram::print_program_log(GLuint program_id) {
+	GLint log_len;
+	glGetProgramiv(program_id, GL_INFO_LOG_LENGTH, &log_len);
+	PXL_print << "[program log]: ";
+	if (log_len > 1) {
+		GLchar* log = new GLchar[log_len];
+
+		glGetProgramInfoLog(program_id, log_len, 0, log);
+
+		PXL_print << log << "\n";
+		delete log;
+	}else {
+		PXL_print << "empty\n";
+	}
+}
+
+void PXL_ShaderProgram::print_shader_log(GLuint shader_id) {
 	GLint log_len;
 	glGetShaderiv(shader_id, GL_INFO_LOG_LENGTH, &log_len);
 	PXL_print << "[compiler log]: ";
 	if (log_len > 1) {
-		GLchar* log = (GLchar*)malloc(log_len);
+		GLchar* log = new GLchar[log_len];
 
-		//todo: not supported by gles2
-		//glGetInfoLogARB(shader_id, log_len, 0, log);
+		glGetShaderInfoLog(shader_id, log_len, 0, log);
 
 		PXL_print << log << "\n";
 		delete log;

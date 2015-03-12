@@ -1,6 +1,7 @@
 #include "graphics/PXL_Batch.h"
 #include "system/PXL_Window.h"
 #include "system/PXL_Exception.h"
+#include "system/PXL_Debug.h"
 
 PXL_Batch::PXL_Batch(PXL_BatchSize max_vertices) {
 	batch_created = false;
@@ -335,14 +336,6 @@ void PXL_Batch::draw_vbo() {
 	int num_vertices = 0;
 	int num_indices = 0;
 	bool changed = false;
-
-	//render notes
-	//vertex batches vectors
-	//vertex data has it's own vectors like vertex batches
-	//upload buffer data for each z depth vector
-	//when uploading input vector as buffer data
-	//cache buffer data by not uploading if it hasn't changed
-	//maybe can render non-transparent images with depth buffer first and then disable it and render transparent images
 
 	for (int i = min_vertex_index; i <= max_vertex_index; ++i) {
 		size_t num_batches = vertices[i].batch_index;

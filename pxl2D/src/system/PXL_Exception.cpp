@@ -7,10 +7,10 @@
 #endif
 
 extern bool PXL_show_exception(std::string exception_message, PXL_ErrorCode error_string, PXL_ExceptionType type, bool exit) {
-	#if (defined(PXL_DEBUG) && PXL_CONFIG_SHOW_EXCEPTIONS_IN_DEBUG) || (defined(PXL_RELEASE) && PXL_CONFIG_SHOW_EXCEPTIONS_IN_RELEASE)
+	//#if (defined(PXL_DEBUG) && PXL_CONFIG_SHOW_EXCEPTIONS_IN_DEBUG) || (defined(PXL_RELEASE) && PXL_CONFIG_SHOW_EXCEPTIONS_IN_RELEASE)
 		PXL_force_show_exception(exception_message, error_string, type, exit);
 		return true;
-	#endif
+	//#endif
 	return false;
 }
 

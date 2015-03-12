@@ -221,7 +221,7 @@ bool PXL_AndroidWindow::poll_event(PXL_Event& e) {
 
 	if ((ident = ALooper_pollAll(0, NULL, &events, (void**)&source)) >= 0) {
 
-		PXL_print << "event14: " << win_data.in_focus << "\n";
+		PXL_print << "event24: " << win_data.in_focus << "\n";
 
 		// Process this event.
 		if (source != NULL) {
