@@ -1,4 +1,5 @@
 #include "graphics/PXL_ShaderProgram.h"
+#include "system/PXL_Debug.h"
 #include "system/PXL_Exception.h"
 
 PXL_ShaderProgram::PXL_ShaderProgram(std::string vertex_shader, std::string fragment_shader, 
@@ -32,7 +33,7 @@ PXL_ShaderProgram::PXL_ShaderProgram(std::string vertex_shader, std::string frag
 		GLint linked;
 		glGetProgramiv(program_id, GL_LINK_STATUS, &linked);
 		if (linked) {
-			std::cout << "shader (" << v_shader_name << ", " << f_shader_name << ") linked successfully\n";
+			PXL_print << "shader (" << v_shader_name << ", " << f_shader_name << ") linked successfully\n";
 			matrix_loc = glGetUniformLocation(program_id, "matrix");
 		}else {
 			PXL_show_exception("shader (" + v_shader_name + ", " + f_shader_name + ") link failed", PXL_ERROR_SHADER_LINK_FAILED, PXL_EXCEPTION_CONSOLE, false);
@@ -52,7 +53,7 @@ bool PXL_ShaderProgram::compile(GLuint shader_id, int shader_type, std::string s
 	//todo: not supported by gles2
 	//glGetObjectParameterivARB(shader_id, GL_COMPILE_STATUS, &compiled);
 	if (compiled) {
-		std::cout << "shader compiled successfully\n";
+		PXL_print << "shader compiled successfully\n";
 	}else {
 		switch (shader_type) {
 			case GL_VERTEX_SHADER:
@@ -73,17 +74,17 @@ bool PXL_ShaderProgram::compile(GLuint shader_id, int shader_type, std::string s
 void PXL_ShaderProgram::log(GLuint shader_id) {
 	GLint log_len;
 	glGetShaderiv(shader_id, GL_INFO_LOG_LENGTH, &log_len);
-	std::cout << "[compiler log]: ";
+	PXL_print << "[compiler log]: ";
 	if (log_len > 1) {
 		GLchar* log = (GLchar*)malloc(log_len);
 
 		//todo: not supported by gles2
 		//glGetInfoLogARB(shader_id, log_len, 0, log);
 
-		std::cout << log << "\n";
+		PXL_print << log << "\n";
 		delete log;
 	}else {
-		std::cout << "empty\n";
+		PXL_print << "empty\n";
 	}
 }
 

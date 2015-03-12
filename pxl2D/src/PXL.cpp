@@ -8,3 +8,10 @@ void PXL_init() {
 	PXL_input_init();
 	PXL_print << "PXL initialised successfully!\n";
 }
+
+#if defined(PXL_PLATFORM_ANDROID)
+	void android_main(struct android_app* state) {
+		android_state = state;
+		main(NULL, NULL);
+	}
+#endif

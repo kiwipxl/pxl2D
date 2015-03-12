@@ -10,4 +10,10 @@
 **/
 extern void PXL_init();
 
+extern int main(int argc, char* args[]);
+
+#if defined(PXL_PLATFORM_ANDROID)
+	#include <android_native_app_glue.h>
+#endif
+
 #endif

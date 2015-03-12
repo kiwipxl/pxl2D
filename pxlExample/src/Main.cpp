@@ -1,7 +1,6 @@
 #include <PXL.h>
-#include <android_native_app_glue.h>
 
-void android_main(struct android_app* state) {
+int main(int argc, char* args[]) {
 	//srand(time(NULL));
 
 	float t = 0;
@@ -47,34 +46,37 @@ void android_main(struct android_app* state) {
 
 	start_second_time.start();
 	while (!quit) {
-		PXL_print << "running loop\n";
-
 		start_time.start();
 
 		PXL_Event e;
 		while (window.poll_event(e)) {
 			if (e.type == PXL_EVENT_QUIT) {
 				quit = true;
+				PXL_print << "am quitting\n";
 				break;
 			}
 		}
 
 		PXL_start_timer();
 
-		PXL_set_clear_colour(0, 0, 0, 1);
+		t += .5f;
+		PXL_set_clear_colour(0, sin(t / 10) + sin(t / 4) + cos(t) + cos(t / 20), 0, 1);
 		PXL_clear();
 
-		text.set_text("P1: 0     P2: 0");
+		/*text.set_text("P1: 0     P2: 0");
+		PXL_print << "running loop12.25\n";
 		text.x = (window.get_width() / 2) - (text.get_width() / 2);
+		PXL_print << "running loop12.5\n";
 		text.y = 40;
+		PXL_print << "running loop14\n";
 		text.colour.set_colour(0, (cos(t / 10) + 1) / 2, 1, 1);
 		text.z_depth = batch.get_max_z_depth() - 1;
-		text.render(&batch);
+		text.render(&batch);*/
 
 		window.display();
 
-		double ms = start_time.end() / 1000.0f;
-		if (ms >= 0 && ms < ms_per_frame) { PXL_sleep(ms_per_frame - ms); }
+		//double ms = start_time.end() / 1000.0f;
+		//if (ms >= 0 && ms < ms_per_frame) { PXL_sleep(ms_per_frame - ms); }
 
 		++frame_counter;
 		++average_count;
@@ -94,5 +96,5 @@ void android_main(struct android_app* state) {
 		}
 	}
 
-	//return 0;
+	return 0;
 }

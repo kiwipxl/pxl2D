@@ -7,6 +7,11 @@
 #include "system/PXL_WindowImpl.h"
 #include "system/PXL_API.h"
 
+struct android_app;
+struct engine engine;
+
+extern struct android_app* android_state;
+
 class PXL_AndroidWindow : public PXL_WindowImpl {
 
 	public:
