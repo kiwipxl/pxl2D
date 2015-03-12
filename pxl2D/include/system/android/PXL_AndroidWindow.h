@@ -8,7 +8,7 @@
 #include "system/PXL_API.h"
 
 struct android_app;
-struct engine engine;
+struct Engine2;
 
 extern struct android_app* android_state;
 

@@ -18,7 +18,7 @@
 /**
 * Our saved state data.
 */
-struct saved_state {
+struct SavedState {
 	float angle;
 	int32_t x;
 	int32_t y;
@@ -27,8 +27,8 @@ struct saved_state {
 /**
 * Shared state for our app.
 */
-struct engine {
-	struct android_app* app;
+struct Engine2 {
+	android_app* app;
 
 	ASensorManager* sensorManager;
 	const ASensor* accelerometerSensor;
@@ -40,11 +40,11 @@ struct engine {
 	EGLContext context;
 	int32_t width;
 	int32_t height;
-	struct saved_state state;
+	SavedState state;
 };
 
-struct engine engine;
-struct android_app* android_state;
+Engine2 engine;
+android_app* android_state;
 
 void swap_buffers() {
 	if (engine.display != NULL) {
@@ -55,7 +55,7 @@ void swap_buffers() {
 /**
 * Initialize an EGL context for the current display.
 */
-int engine_init_display(struct engine* engine) {
+int engine_init_display(Engine2* engine) {
 	// initialize OpenGL ES and EGL
 
 	/*
@@ -125,12 +125,10 @@ int engine_init_display(struct engine* engine) {
 	return 0;
 }
 
-float b = 0;
-
 /**
 * Tear down the EGL context currently associated with the display.
 */
-void engine_term_display(struct engine* engine) {
+void engine_term_display(Engine2* engine) {
 	if (engine->display != EGL_NO_DISPLAY) {
 		eglMakeCurrent(engine->display, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
 		if (engine->context != EGL_NO_CONTEXT) {
@@ -150,8 +148,8 @@ void engine_term_display(struct engine* engine) {
 /**
 * Process the next input event.
 */
-int32_t engine_handle_input(struct android_app* app, AInputEvent* event) {
-	struct engine* engine = (struct engine*)app->userData;
+int32_t engine_handle_input(android_app* app, AInputEvent* event) {
+	Engine2* engine = (Engine2*)app->userData;
 	if (AInputEvent_getType(event) == AINPUT_EVENT_TYPE_MOTION) {
 		engine->animating = 1;
 		engine->state.x = AMotionEvent_getX(event, 0);
@@ -164,15 +162,15 @@ int32_t engine_handle_input(struct android_app* app, AInputEvent* event) {
 /**
 * Process the next main command.
 */
-void engine_handle_cmd(struct android_app* app, int32_t cmd) {
-	struct engine* engine = (struct engine*)app->userData;
+void engine_handle_cmd(android_app* app, int32_t cmd) {
+	Engine2* engine = (Engine2*)app->userData;
 	PXL_print << "cmd: " << cmd << "\n";
 	switch (cmd) {
 		case APP_CMD_SAVE_STATE:
 			// The system has asked us to save our current state.  Do so.
-			engine->app->savedState = malloc(sizeof(struct saved_state));
-			*((struct saved_state*)engine->app->savedState) = engine->state;
-			engine->app->savedStateSize = sizeof(struct saved_state);
+			engine->app->savedState = malloc(sizeof(SavedState));
+			*((SavedState*)engine->app->savedState) = engine->state;
+			engine->app->savedStateSize = sizeof(SavedState);
 			break;
 		case APP_CMD_INIT_WINDOW:
 			// The window is being shown, get it ready.
@@ -231,7 +229,7 @@ void PXL_AndroidWindow::create_window(int window_width, int window_height, std::
 
 	if (android_state->savedState != NULL) {
 		// We are starting with a previous saved state; restore from it.
-		engine.state = *(struct saved_state*)android_state->savedState;
+		engine.state = *(SavedState*)android_state->savedState;
 	}
 
 	window_created = true;
@@ -249,14 +247,14 @@ bool PXL_AndroidWindow::poll_event(PXL_Event& e) {
 	//read all pending events
 	int ident;
 	int events;
-	struct android_poll_source* source;
+	android_poll_source* source;
 
 	// If not animating, we will block forever waiting for events.
 	// If animating, we loop until all events are read, then continue
 	// to draw the next frame of animation.
 	while ((ident = ALooper_pollAll(engine.animating ? 0 : -1, NULL, &events, (void**)&source)) >= 0) {
 
-		PXL_print << "event: " << engine.animating << "\n";
+		PXL_print << "event8: " << engine.animating << "\n";
 
 		// Process this event.
 		if (source != NULL) {
