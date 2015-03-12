@@ -1,6 +1,10 @@
 #ifndef _PXL_ANDROIDWINDOW_H
 #define _PXL_ANDROIDWINDOW_H
 
+#include "graphics/PXL_GraphicsAPI.h"
+
+#if defined(PXL_PLATFORM_ANDROID)
+
 #include <string>
 #include <vector>
 #include "system/PXL_Event.h"
@@ -8,14 +12,47 @@
 #include "system/PXL_API.h"
 
 struct android_app;
-struct Engine2;
+struct ASensorManager;
+struct ASensor;
+struct ASensorEventQueue;
+typedef void* EGLDisplay;
+typedef void* EGLSurface;
+typedef void* EGLContext;
+
+/**
+* Our saved state data.
+*/
+struct AppSavedState {
+	float angle;
+	int32_t x;
+	int32_t y;
+};
+
+/**
+* Shared state for our app.
+*/
+struct AppWinData {
+	android_app* app;
+
+	ASensorManager* sensorManager;
+	const ASensor* accelerometerSensor;
+	ASensorEventQueue* sensorEventQueue;
+
+	int in_focus;
+	EGLDisplay display;
+	EGLSurface surface;
+	EGLContext context;
+	int32_t width;
+	int32_t height;
+	AppSavedState state;
+};
 
 extern struct android_app* android_state;
 
 class PXL_AndroidWindow : public PXL_WindowImpl {
 
 	public:
-		PXL_AndroidWindow() { }
+		PXL_AndroidWindow();
 		/**
 		\*brief: window deconstructor
 		**/
@@ -40,4 +77,5 @@ class PXL_AndroidWindow : public PXL_WindowImpl {
 		//window info
 };
 
+#endif
 #endif

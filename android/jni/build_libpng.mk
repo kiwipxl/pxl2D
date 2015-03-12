@@ -19,10 +19,10 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE := libpng
 
-LIBPNG_SRC_FILES := $(wildcard $(LOCAL_PATH)/../../pxl2D/lib/libpng/*.c)
+LIBPNG_SRC_FILES := $(wildcard $(LOCAL_PATH)/../../pxl2D/lib/libpng/src/*.c)
 LIBPNG_SRC_FILES := $(LIBPNG_SRC_FILES:$(LOCAL_PATH)/%=%)
 
-LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../pxl2D/lib/libpng/
+LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../pxl2D/lib/libpng/src/
 
 LOCAL_SRC_FILES := $(LIBPNG_SRC_FILES)
 

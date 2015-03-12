@@ -1,5 +1,7 @@
 #include "system/android/PXL_AndroidWindow.h"
 
+#if defined(PXL_PLATFORM_ANDROID)
+
 #include <jni.h>
 #include <errno.h>
 
@@ -15,47 +17,25 @@
 #include "system/PXL_Exception.h"
 #include "system/PXL_Debug.h"
 
-/**
-* Our saved state data.
-*/
-struct SavedState {
-	float angle;
-	int32_t x;
-	int32_t y;
-};
+//defines to make classes a little more readable
+#define AndroidApp android_app
+#define AndroidPollSource android_poll_source
 
-/**
-* Shared state for our app.
-*/
-struct Engine2 {
-	android_app* app;
-
-	ASensorManager* sensorManager;
-	const ASensor* accelerometerSensor;
-	ASensorEventQueue* sensorEventQueue;
-
-	int animating;
-	EGLDisplay display;
-	EGLSurface surface;
-	EGLContext context;
-	int32_t width;
-	int32_t height;
-	SavedState state;
-};
-
-Engine2 engine;
-android_app* android_state;
+AndroidApp* android_state;
+AppSavedState saved_state;
+AppWinData win_data;
+PXL_AndroidWindow* window = NULL;
 
 void swap_buffers() {
-	if (engine.display != NULL) {
-		eglSwapBuffers(engine.display, engine.surface);
+	if (win_data.display != EGL_NO_DISPLAY) {
+		eglSwapBuffers(win_data.display, win_data.surface);
 	}
 }
 
 /**
 * Initialize an EGL context for the current display.
 */
-int engine_init_display(Engine2* engine) {
+int win_data_init_display(AppWinData* win_data) {
 	// initialize OpenGL ES and EGL
 
 	/*
@@ -64,7 +44,7 @@ int engine_init_display(Engine2* engine) {
 	* component compatible with on-screen windows
 	*/
 
-	PXL_print << "engine initialising...\n";
+	PXL_print << "win_data initialising...\n";
 
 	const EGLint attribs[] = {
 		EGL_SURFACE_TYPE, EGL_WINDOW_BIT,
@@ -94,9 +74,9 @@ int engine_init_display(Engine2* engine) {
 	* ANativeWindow buffers to match, using EGL_NATIVE_VISUAL_ID. */
 	eglGetConfigAttrib(display, config, EGL_NATIVE_VISUAL_ID, &format);
 
-	ANativeWindow_setBuffersGeometry(engine->app->window, 0, 0, format);
+	ANativeWindow_setBuffersGeometry(win_data->app->window, 0, 0, format);
 
-	surface = eglCreateWindowSurface(display, config, engine->app->window, NULL);
+	surface = eglCreateWindowSurface(display, config, win_data->app->window, NULL);
 	context = eglCreateContext(display, config, NULL, NULL);
 
 	if (eglMakeCurrent(display, surface, surface, context) == EGL_FALSE) {
@@ -107,12 +87,12 @@ int engine_init_display(Engine2* engine) {
 	eglQuerySurface(display, surface, EGL_WIDTH, &w);
 	eglQuerySurface(display, surface, EGL_HEIGHT, &h);
 
-	engine->display = display;
-	engine->context = context;
-	engine->surface = surface;
-	engine->width = w;
-	engine->height = h;
-	engine->state.angle = 0;
+	win_data->display = display;
+	win_data->context = context;
+	win_data->surface = surface;
+	win_data->width = w;
+	win_data->height = h;
+	win_data->state.angle = 0;
 
 	//todo: these were prob removed in gles2
 	//glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_FASTEST);
@@ -126,34 +106,14 @@ int engine_init_display(Engine2* engine) {
 }
 
 /**
-* Tear down the EGL context currently associated with the display.
-*/
-void engine_term_display(Engine2* engine) {
-	if (engine->display != EGL_NO_DISPLAY) {
-		eglMakeCurrent(engine->display, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
-		if (engine->context != EGL_NO_CONTEXT) {
-			eglDestroyContext(engine->display, engine->context);
-		}
-		if (engine->surface != EGL_NO_SURFACE) {
-			eglDestroySurface(engine->display, engine->surface);
-		}
-		eglTerminate(engine->display);
-	}
-	engine->animating = 0;
-	engine->display = EGL_NO_DISPLAY;
-	engine->context = EGL_NO_CONTEXT;
-	engine->surface = EGL_NO_SURFACE;
-}
-
-/**
 * Process the next input event.
 */
-int32_t engine_handle_input(android_app* app, AInputEvent* event) {
-	Engine2* engine = (Engine2*)app->userData;
+int32_t win_data_handle_input(AndroidApp* app, AInputEvent* event) {
+	AppWinData* win_data = (AppWinData*)app->userData;
 	if (AInputEvent_getType(event) == AINPUT_EVENT_TYPE_MOTION) {
-		engine->animating = 1;
-		engine->state.x = AMotionEvent_getX(event, 0);
-		engine->state.y = AMotionEvent_getY(event, 0);
+		win_data->in_focus = true;
+		win_data->state.x = AMotionEvent_getX(event, 0);
+		win_data->state.y = AMotionEvent_getY(event, 0);
 		return 1;
 	}
 	return 0;
@@ -162,51 +122,55 @@ int32_t engine_handle_input(android_app* app, AInputEvent* event) {
 /**
 * Process the next main command.
 */
-void engine_handle_cmd(android_app* app, int32_t cmd) {
-	Engine2* engine = (Engine2*)app->userData;
+void win_data_handle_cmd(AndroidApp* app, int32_t cmd) {
+	AppWinData* win_data = (AppWinData*)app->userData;
 	PXL_print << "cmd: " << cmd << "\n";
 	switch (cmd) {
 		case APP_CMD_SAVE_STATE:
 			// The system has asked us to save our current state.  Do so.
-			engine->app->savedState = malloc(sizeof(SavedState));
-			*((SavedState*)engine->app->savedState) = engine->state;
-			engine->app->savedStateSize = sizeof(SavedState);
+			win_data->app->savedState = malloc(sizeof(AppSavedState));
+			*((AppSavedState*)win_data->app->savedState) = win_data->state;
+			win_data->app->savedStateSize = sizeof(AppSavedState);
 			break;
 		case APP_CMD_INIT_WINDOW:
 			// The window is being shown, get it ready.
 			PXL_print << "initwindow!\n";
-			if (engine->app->window != NULL) {
+			if (win_data->app->window != NULL) {
 				PXL_print << "inited\n";
-				engine_init_display(engine);
+				win_data_init_display(win_data);
 				swap_buffers();
 			}
 			break;
 		case APP_CMD_TERM_WINDOW:
 			// The window is being hidden or closed, clean it up.
-			engine_term_display(engine);
+			window->free();
 			break;
 		case APP_CMD_GAINED_FOCUS:
 			// When our app gains focus, we start monitoring the accelerometer.
-			if (engine->accelerometerSensor != NULL) {
-				ASensorEventQueue_enableSensor(engine->sensorEventQueue,
-					engine->accelerometerSensor);
+			if (win_data->accelerometerSensor != NULL) {
+				ASensorEventQueue_enableSensor(win_data->sensorEventQueue,
+					win_data->accelerometerSensor);
 				// We'd like to get 60 events per second (in us).
-				ASensorEventQueue_setEventRate(engine->sensorEventQueue,
-					engine->accelerometerSensor, (1000L / 60) * 1000);
+				ASensorEventQueue_setEventRate(win_data->sensorEventQueue,
+					win_data->accelerometerSensor, (1000L / 60) * 1000);
 			}
 			break;
 		case APP_CMD_LOST_FOCUS:
 			// When our app loses focus, we stop monitoring the accelerometer.
 			// This is to avoid consuming battery while not being used.
-			if (engine->accelerometerSensor != NULL) {
-				ASensorEventQueue_disableSensor(engine->sensorEventQueue,
-					engine->accelerometerSensor);
+			if (win_data->accelerometerSensor != NULL) {
+				ASensorEventQueue_disableSensor(win_data->sensorEventQueue,
+					win_data->accelerometerSensor);
 			}
-			// Also stop animating.
-			engine->animating = 0;
+			// Also stop in_focus.
+			win_data->in_focus = false;
 			swap_buffers();
 			break;
 	}
+}
+
+PXL_AndroidWindow::PXL_AndroidWindow() {
+
 }
 
 void PXL_AndroidWindow::create_window(int window_width, int window_height, std::string title) {
@@ -215,24 +179,25 @@ void PXL_AndroidWindow::create_window(int window_width, int window_height, std::
 	// Make sure glue isn't stripped.
 	app_dummy();
 
-	android_state->userData = &engine;
-	android_state->onAppCmd = engine_handle_cmd;
-	android_state->onInputEvent = engine_handle_input;
-	engine.app = android_state;
+	android_state->userData = &win_data;
+	android_state->onAppCmd = win_data_handle_cmd;
+	android_state->onInputEvent = win_data_handle_input;
+	win_data.app = android_state;
 
 	// Prepare to monitor accelerometer
-	engine.sensorManager = ASensorManager_getInstance();
-	engine.accelerometerSensor = ASensorManager_getDefaultSensor(engine.sensorManager,
+	win_data.sensorManager = ASensorManager_getInstance();
+	win_data.accelerometerSensor = ASensorManager_getDefaultSensor(win_data.sensorManager,
 		ASENSOR_TYPE_ACCELEROMETER);
-	engine.sensorEventQueue = ASensorManager_createEventQueue(engine.sensorManager,
+	win_data.sensorEventQueue = ASensorManager_createEventQueue(win_data.sensorManager,
 		android_state->looper, LOOPER_ID_USER, NULL, NULL);
 
 	if (android_state->savedState != NULL) {
 		// We are starting with a previous saved state; restore from it.
-		engine.state = *(SavedState*)android_state->savedState;
+		win_data.state = *(AppSavedState*)android_state->savedState;
 	}
 
 	window_created = true;
+	win_data.in_focus = true;
 }
 
 void PXL_AndroidWindow::display() {
@@ -244,17 +209,16 @@ void PXL_AndroidWindow::display() {
 }
 
 bool PXL_AndroidWindow::poll_event(PXL_Event& e) {
+	if (!win_data.in_focus) { return false; }
+
 	//read all pending events
 	int ident;
 	int events;
-	android_poll_source* source;
+	AndroidPollSource* source;
 
-	// If not animating, we will block forever waiting for events.
-	// If animating, we loop until all events are read, then continue
-	// to draw the next frame of animation.
-	while ((ident = ALooper_pollAll(engine.animating ? 0 : -1, NULL, &events, (void**)&source)) >= 0) {
+	if ((ident = ALooper_pollAll(0, NULL, &events, (void**)&source)) >= 0) {
 
-		PXL_print << "event8: " << engine.animating << "\n";
+		PXL_print << "event14: " << win_data.in_focus << "\n";
 
 		// Process this event.
 		if (source != NULL) {
@@ -263,9 +227,9 @@ bool PXL_AndroidWindow::poll_event(PXL_Event& e) {
 
 		// If a sensor has data, process it now.
 		if (ident == LOOPER_ID_USER) {
-			if (engine.accelerometerSensor != NULL) {
+			if (win_data.accelerometerSensor != NULL) {
 				ASensorEvent event;
-				while (ASensorEventQueue_getEvents(engine.sensorEventQueue, &event, 1) > 0) {
+				while (ASensorEventQueue_getEvents(win_data.sensorEventQueue, &event, 1) > 0) {
 					/*PXL_print << "accelerometer: " << "  x = " << event.acceleration.x 
 												   << ", y = " << event.acceleration.y 
 												   << ", z = " << event.acceleration.z;*/
@@ -275,7 +239,7 @@ bool PXL_AndroidWindow::poll_event(PXL_Event& e) {
 
 		// Check if we are exiting.
 		if (android_state->destroyRequested != 0) {
-			engine_term_display(&engine);
+			free();
 			return false;
 		}
 	}
@@ -285,9 +249,26 @@ bool PXL_AndroidWindow::poll_event(PXL_Event& e) {
 void PXL_AndroidWindow::free() {
 	if (window_created) {
 		window_created = false;
+
+		if (win_data.display != EGL_NO_DISPLAY) {
+			eglMakeCurrent(win_data.display, EGL_NO_SURFACE, EGL_NO_SURFACE, EGL_NO_CONTEXT);
+			if (win_data.context != EGL_NO_CONTEXT) {
+				eglDestroyContext(win_data.display, win_data.context);
+			}
+			if (win_data.surface != EGL_NO_SURFACE) {
+				eglDestroySurface(win_data.display, win_data.surface);
+			}
+			eglTerminate(win_data.display);
+		}
+		win_data.in_focus = false;
+		win_data.display = EGL_NO_DISPLAY;
+		win_data.context = EGL_NO_CONTEXT;
+		win_data.surface = EGL_NO_SURFACE;
 	}
 }
 
 PXL_AndroidWindow::~PXL_AndroidWindow() {
 	free();
 }
+
+#endif

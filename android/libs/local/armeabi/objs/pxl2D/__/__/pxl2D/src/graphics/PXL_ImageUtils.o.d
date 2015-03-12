@@ -167,10 +167,10 @@ libs/local/armeabi/objs/pxl2D/__/__/pxl2D/src/graphics/PXL_ImageUtils.o: \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_fstream.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_codecvt.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_fstream.c \
- jni/../../pxl2D/lib/libpng/png.h \
+ jni/../../pxl2D/lib/libpng/src/png.h \
  C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/zlib.h \
  C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/zconf.h \
- jni/../../pxl2D/lib/libpng/pngconf.h \
+ jni/../../pxl2D/lib/libpng/src/pngconf.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/setjmp.h \
  C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/../include/setjmp.h \
  C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/machine/setjmp.h \
@@ -511,13 +511,13 @@ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_code
 
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_fstream.c:
 
-jni/../../pxl2D/lib/libpng/png.h:
+jni/../../pxl2D/lib/libpng/src/png.h:
 
 C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/zlib.h:
 
 C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/zconf.h:
 
-jni/../../pxl2D/lib/libpng/pngconf.h:
+jni/../../pxl2D/lib/libpng/src/pngconf.h:
 
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/setjmp.h:
 

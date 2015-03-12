@@ -36,7 +36,7 @@ include $(CLEAR_VARS)
 
 
 LOCAL_MODULE := libpng
-LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/../../pxl2D/lib/libpng/
+LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/../../pxl2D/lib/libpng/src/
 LOCAL_SRC_FILES := ../libs/local/armeabi/libpng.a
 
 

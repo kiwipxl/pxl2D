@@ -159,12 +159,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)lib\glew-1.11.0\include;$(ProjectDir)lib\libpng-old\include;$(ProjectDir)lib\zlib-1.2.3\include;$(ProjectDir)lib\freetype\include;$(ProjectDir)lib\freetype\include\freetype2;$(ProjectDir)include;$(ProjectDir)include\graphics;$(ProjectDir)include\system;$(ProjectDir)include\physics;$(ProjectDir)include\input</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)lib\glew-1.11.0\include;$(ProjectDir)lib\libpng\include;$(ProjectDir)lib\zlib-1.2.3\include;$(ProjectDir)lib\freetype\include;$(ProjectDir)lib\freetype\include\freetype2;$(ProjectDir)include;$(ProjectDir)include\graphics;$(ProjectDir)include\system;$(ProjectDir)include\physics;$(ProjectDir)include\input</IncludePath>
     <OutDir>$(SolutionDir)lib\</OutDir>
     <TargetName>pxl2D</TargetName>
     <IntDir>$(ProjectDir)bin\</IntDir>
     <SourcePath>$(ProjectDir)src;$(ProjectDir)src\graphics;$(ProjectDir)src\system;$(ProjectDir)src\physics;$(ProjectDir)src\input;$(SourcePath)</SourcePath>
-    <LibraryPath>$(ProjectDir)lib\libpng-old\lib;$(ProjectDir)lib\zlib-1.2.3\lib;$(ProjectDir)lib\freetype\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)lib\libpng\lib;$(ProjectDir)lib\zlib-1.2.3\lib;$(ProjectDir)lib\freetype\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Android'">
     <SourcePath>$(ProjectDir)src;$(ProjectDir)src\graphics;$(ProjectDir)src\system;$(ProjectDir)src\physics;$(ProjectDir)src\input;$(SourcePath)</SourcePath>

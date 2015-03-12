@@ -183,20 +183,20 @@ libs/local/armeabi/objs/pxl2D/__/__/pxl2D/src/graphics/PXL_Font.o: \
  jni/../../pxl2D/include/graphics/PXL_ShaderProgram.h \
  jni/../../pxl2D/include/graphics/PXL_FrameBuffer.h \
  jni/../../pxl2D/lib/freetype/include/ft2build.h \
- jni/../../pxl2D/lib/freetype/include/freetype2/freetype/config/ftheader.h \
- jni/../../pxl2D/lib/freetype/include/freetype2/freetype/freetype.h \
- jni/../../pxl2D/lib/freetype/include/freetype2/freetype/config/ftconfig.h \
- jni/../../pxl2D/lib/freetype/include/freetype2/freetype/config/ftoption.h \
- jni/../../pxl2D/lib/freetype/include/freetype2/freetype/config/ftstdlib.h \
+ jni/../../pxl2D/lib/freetype/include/freetype/config/ftheader.h \
+ jni/../../pxl2D/lib/freetype/include/freetype/freetype.h \
+ jni/../../pxl2D/lib/freetype/include/freetype/config/ftconfig.h \
+ jni/../../pxl2D/lib/freetype/include/freetype/config/ftoption.h \
+ jni/../../pxl2D/lib/freetype/include/freetype/config/ftstdlib.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/setjmp.h \
  C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/../include/setjmp.h \
  C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/machine/setjmp.h \
- jni/../../pxl2D/lib/freetype/include/freetype2/freetype/fterrors.h \
- jni/../../pxl2D/lib/freetype/include/freetype2/freetype/ftmoderr.h \
- jni/../../pxl2D/lib/freetype/include/freetype2/freetype/fterrdef.h \
- jni/../../pxl2D/lib/freetype/include/freetype2/freetype/fttypes.h \
- jni/../../pxl2D/lib/freetype/include/freetype2/freetype/ftsystem.h \
- jni/../../pxl2D/lib/freetype/include/freetype2/freetype/ftimage.h
+ jni/../../pxl2D/lib/freetype/include/freetype/fterrors.h \
+ jni/../../pxl2D/lib/freetype/include/freetype/ftmoderr.h \
+ jni/../../pxl2D/lib/freetype/include/freetype/fterrdef.h \
+ jni/../../pxl2D/lib/freetype/include/freetype/fttypes.h \
+ jni/../../pxl2D/lib/freetype/include/freetype/ftsystem.h \
+ jni/../../pxl2D/lib/freetype/include/freetype/ftimage.h
 
 jni/../../pxl2D/include/graphics/PXL_Font.h:
 
@@ -564,15 +564,15 @@ jni/../../pxl2D/include/graphics/PXL_FrameBuffer.h:
 
 jni/../../pxl2D/lib/freetype/include/ft2build.h:
 
-jni/../../pxl2D/lib/freetype/include/freetype2/freetype/config/ftheader.h:
+jni/../../pxl2D/lib/freetype/include/freetype/config/ftheader.h:
 
-jni/../../pxl2D/lib/freetype/include/freetype2/freetype/freetype.h:
+jni/../../pxl2D/lib/freetype/include/freetype/freetype.h:
 
-jni/../../pxl2D/lib/freetype/include/freetype2/freetype/config/ftconfig.h:
+jni/../../pxl2D/lib/freetype/include/freetype/config/ftconfig.h:
 
-jni/../../pxl2D/lib/freetype/include/freetype2/freetype/config/ftoption.h:
+jni/../../pxl2D/lib/freetype/include/freetype/config/ftoption.h:
 
-jni/../../pxl2D/lib/freetype/include/freetype2/freetype/config/ftstdlib.h:
+jni/../../pxl2D/lib/freetype/include/freetype/config/ftstdlib.h:
 
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/setjmp.h:
 
@@ -580,14 +580,14 @@ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/
 
 C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/machine/setjmp.h:
 
-jni/../../pxl2D/lib/freetype/include/freetype2/freetype/fterrors.h:
+jni/../../pxl2D/lib/freetype/include/freetype/fterrors.h:
 
-jni/../../pxl2D/lib/freetype/include/freetype2/freetype/ftmoderr.h:
+jni/../../pxl2D/lib/freetype/include/freetype/ftmoderr.h:
 
-jni/../../pxl2D/lib/freetype/include/freetype2/freetype/fterrdef.h:
+jni/../../pxl2D/lib/freetype/include/freetype/fterrdef.h:
 
-jni/../../pxl2D/lib/freetype/include/freetype2/freetype/fttypes.h:
+jni/../../pxl2D/lib/freetype/include/freetype/fttypes.h:
 
-jni/../../pxl2D/lib/freetype/include/freetype2/freetype/ftsystem.h:
+jni/../../pxl2D/lib/freetype/include/freetype/ftsystem.h:
 
-jni/../../pxl2D/lib/freetype/include/freetype2/freetype/ftimage.h:
+jni/../../pxl2D/lib/freetype/include/freetype/ftimage.h:
