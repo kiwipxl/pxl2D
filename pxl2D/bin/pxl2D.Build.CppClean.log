@@ -1,5 +1,7 @@
 c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\bin\vc120.pdb
 c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\bin\vc120.idb
+c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\bin\pxl_imageutils.obj
+c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\bin\pxl_lights.obj
 c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\bin\pxl_matrix4.obj
 c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\bin\pxl_text.obj
 c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\bin\pxl_texture.obj
@@ -30,8 +32,6 @@ c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\bin\pxl_bitmap.o
 c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\bin\pxl_font.obj
 c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\bin\pxl_fontutils.obj
 c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\bin\pxl_framebuffer.obj
-c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\bin\pxl_imageutils.obj
-c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\bin\pxl_lights.obj
 c:\users\flynnuser\desktop\development\c++ projects\pxl2d\lib\pxl2d.lib
 c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\bin\pxl2d.tlog\cl.command.1.tlog
 c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\bin\pxl2d.tlog\cl.read.1.tlog

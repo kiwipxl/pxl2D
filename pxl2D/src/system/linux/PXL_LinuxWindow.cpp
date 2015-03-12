@@ -1,4 +1,7 @@
 #include "system/linux/PXL_LinuxWindow.h"
+
+#if defined(PXL_PLATFORM_LINUX)
+
 #include "graphics/PXL_GraphicsAPI.h"
 #include "input/PXL_Keyboard.h"
 #include "system/PXL_Exception.h"
@@ -9,7 +12,8 @@
 ----------------------------------------------------------------------------**/
 
 void PXL_LinuxWindow::create_window(int window_width, int window_height, std::string title) {
-
+	width = window_width;
+	height = window_height;
 }
 
 void PXL_LinuxWindow::display() {
@@ -32,3 +36,5 @@ void PXL_LinuxWindow::free() {
 PXL_LinuxWindow::~PXL_LinuxWindow() {
 	free();
 }
+
+#endif

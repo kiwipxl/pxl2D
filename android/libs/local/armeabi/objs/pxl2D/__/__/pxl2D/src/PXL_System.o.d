@@ -152,6 +152,15 @@ libs/local/armeabi/objs/pxl2D/__/__/pxl2D/src/PXL_System.o: \
  jni/../../pxl2D/include/system/PXL_API.h \
  jni/../../pxl2D/include/input/PXL_Joystick.h \
  jni/../../pxl2D/include/system/android/PXL_AndroidWindow.h \
+ jni/../../pxl2D/include/graphics/PXL_GraphicsAPI.h \
+ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/EGL/egl.h \
+ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/EGL/eglplatform.h \
+ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/KHR/khrplatform.h \
+ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/android/native_window.h \
+ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/android/rect.h \
+ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/GLES2/gl2.h \
+ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/GLES2/gl2platform.h \
+ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/GLES2/gl2ext.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/vector \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_vector.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_vector.c \
@@ -477,6 +486,24 @@ jni/../../pxl2D/include/system/PXL_API.h:
 jni/../../pxl2D/include/input/PXL_Joystick.h:
 
 jni/../../pxl2D/include/system/android/PXL_AndroidWindow.h:
+
+jni/../../pxl2D/include/graphics/PXL_GraphicsAPI.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/EGL/egl.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/EGL/eglplatform.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/KHR/khrplatform.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/android/native_window.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/android/rect.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/GLES2/gl2.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/GLES2/gl2platform.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/GLES2/gl2ext.h:
 
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/vector:
 

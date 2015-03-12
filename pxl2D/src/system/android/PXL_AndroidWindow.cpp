@@ -176,6 +176,9 @@ PXL_AndroidWindow::PXL_AndroidWindow() {
 void PXL_AndroidWindow::create_window(int window_width, int window_height, std::string title) {
 	free();
 
+	width = window_width;
+	height = window_height;
+
 	// Make sure glue isn't stripped.
 	app_dummy();
 

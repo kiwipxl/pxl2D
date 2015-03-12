@@ -30,6 +30,9 @@ void PXL_TextureSheet::create_sheet(PXL_Channel sheet_channel, bool dispose_batc
 		sheet_frame_buffer = new PXL_FrameBuffer(1, 1);
 	}
 
+	int viewport_size[4];
+	glGetIntegerv(GL_VIEWPORT, viewport_size);
+
 	glViewport(0, 0, width, height);
 	batch->perspective_mat.identity();
 	batch->perspective_mat.scale(1.0f / (width / 2), 1.0f / (height / 2));
@@ -50,6 +53,8 @@ void PXL_TextureSheet::create_sheet(PXL_Channel sheet_channel, bool dispose_batc
 
 	//todo: set viewport back to its previous value
 	//todo: glreadbuffer not supported in gles2
+	glViewport(viewport_size[0], viewport_size[1], viewport_size[2], viewport_size[3]);
+
 	//glReadBuffer(GL_BACK);
 
 	texture_created = true;

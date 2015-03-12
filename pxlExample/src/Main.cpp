@@ -60,18 +60,22 @@ int main(int argc, char* args[]) {
 		PXL_start_timer();
 
 		t += .5f;
-		PXL_set_clear_colour(0, sin(t / 10) + sin(t / 4) + cos(t) + cos(t / 20), 0, 1);
+		PXL_set_clear_colour(0, 0, 0, 1);
 		PXL_clear();
 
-		/*text.set_text("P1: 0     P2: 0");
-		PXL_print << "running loop12.25\n";
+		PXL_Rect rect(0, 0, 400, 300);
+		batch.add(cat, &rect);
+		rect.x = cos(t / 20) * 400;
+		batch.add(cat_2, &rect);
+
+		text.set_text("P1: 0     P2: 0");
 		text.x = (window.get_width() / 2) - (text.get_width() / 2);
-		PXL_print << "running loop12.5\n";
 		text.y = 40;
-		PXL_print << "running loop14\n";
 		text.colour.set_colour(0, (cos(t / 10) + 1) / 2, 1, 1);
 		text.z_depth = batch.get_max_z_depth() - 1;
-		text.render(&batch);*/
+		text.render(&batch);
+
+		batch.render_all();
 
 		window.display();
 

@@ -1,5 +1,7 @@
 #include "system/win32/PXL_Win32Window.h"
-#include "graphics/PXL_GraphicsAPI.h"
+
+#if defined(PXL_PLATFORM_WIN32)
+
 #include <wglew.h>
 #include "input/PXL_Keyboard.h"
 #include "system/PXL_Exception.h"
@@ -79,6 +81,9 @@ void PXL_Win32Window::create_context() {
 
 void PXL_Win32Window::create_window(int window_width, int window_height, std::string title) {
 	free();
+
+	width = window_width;
+	height = window_height;
 
 	instance_handle = GetModuleHandle(NULL);
 	class_name = "PXL_Class" + std::to_string(class_id);
@@ -204,3 +209,5 @@ bool PXL_Win32Window::poll_event(PXL_Event& e) {
 	}
 	return false;
 }
+
+#endif

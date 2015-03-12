@@ -1,6 +1,10 @@
 #ifndef _PXL_WIN32WINDOW_H
 #define _PXL_WIN32WINDOW_H
 
+#include "graphics/PXL_GraphicsAPI.h"
+
+#if defined(PXL_PLATFORM_WIN32)
+
 #include <string>
 #include <vector>
 #define NOMINMAX //macro to not have the windows header define min/max so it doesn't interfere
@@ -52,4 +56,5 @@ class PXL_Win32Window : public PXL_WindowImpl {
 		void create_context();
 };
 
+#endif
 #endif

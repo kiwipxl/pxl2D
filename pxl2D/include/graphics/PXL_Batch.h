@@ -50,7 +50,8 @@ struct PXL_VertexBatch {
 	int z_depth = 0;
 	PXL_ShaderProgram* shader = NULL;
 	PXL_BlendMode blend_mode;
-	int num_vertices;
+	PXL_ushort num_vertices;
+	PXL_ushort num_indices;
 
 	//transform cache values
 	PXL_Colour colour;
@@ -174,11 +175,13 @@ class PXL_Batch {
 		struct VertexContainer {
 			PXL_uint batch_index = 0;
 			PXL_uint data_index = 0;
+			PXL_uint indices_index = 0;
+			PXL_uint indices_count = 0;
 			std::vector<PXL_VertexBatch> batches;
 			std::vector<PXL_VertexPoint> data;
+			std::vector<PXL_ushort> indices;
 		};
 		VertexContainer* vertices;
-		PXL_uint vbo_offset = 0;
 
 		/** Verifies whether the texture should be added to the batch and returns the result
 		@param rect Used to check the texture position on the screen

@@ -1,6 +1,10 @@
 #ifndef _PXL_LINUXWINDOW_H
 #define _PXL_LINUXWINDOW_H
 
+#include "graphics/PXL_GraphicsAPI.h"
+
+#if defined(PXL_PLATFORM_LINUX)
+
 #include <string>
 #include <vector>
 #include "system/PXL_Event.h"
@@ -34,4 +38,5 @@ class PXL_LinuxWindow : public PXL_WindowImpl {
 		//window info
 };
 
+#endif
 #endif

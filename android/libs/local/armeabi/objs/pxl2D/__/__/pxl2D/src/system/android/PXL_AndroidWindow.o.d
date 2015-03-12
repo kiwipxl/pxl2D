@@ -1,8 +1,16 @@
 libs/local/armeabi/objs/pxl2D/__/__/pxl2D/src/system/android/PXL_AndroidWindow.o: \
  jni/../../pxl2D/src/system/android/PXL_AndroidWindow.cpp \
  jni/../../pxl2D/include/system/android/PXL_AndroidWindow.h \
- C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/string \
- C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_prolog.h \
+ jni/../../pxl2D/include/graphics/PXL_GraphicsAPI.h \
+ jni/../../pxl2D/include/system/PXL_API.h \
+ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/EGL/egl.h \
+ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/EGL/eglplatform.h \
+ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/KHR/khrplatform.h \
+ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/sys/cdefs.h \
+ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/sys/cdefs_elf.h \
+ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/android/api-level.h \
+ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/stdint.h \
+ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stddef.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_cprolog.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/config/features.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_stlport_version.h \
@@ -11,17 +19,24 @@ libs/local/armeabi/objs/pxl2D/__/__/pxl2D/src/system/android/PXL_AndroidWindow.o
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/config/host.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/config/_system.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/config/_android.h \
- C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/sys/cdefs.h \
- C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/sys/cdefs_elf.h \
- C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/android/api-level.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/config/_gcc.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/config/stl_confix.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/config/_native_headers.h \
+ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_epilog.h \
+ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_config_compat_post.h \
+ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/sys/_types.h \
+ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/machine/_types.h \
+ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/android/native_window.h \
+ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/android/rect.h \
+ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/GLES2/gl2.h \
+ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/GLES2/gl2platform.h \
+ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/GLES2/gl2ext.h \
+ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/string \
+ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_prolog.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/debug/_debug.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_string.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_alloc.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_cstddef.h \
- C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stddef.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_cstdlib.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stdlib.h \
  C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/../include/stdlib.h \
@@ -31,9 +46,6 @@ libs/local/armeabi/objs/pxl2D/__/__/pxl2D/src/system/android/PXL_AndroidWindow.o
  C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/alloca.h \
  C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/strings.h \
  C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/sys/types.h \
- C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/stdint.h \
- C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/sys/_types.h \
- C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/machine/_types.h \
  C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/linux/posix_types.h \
  C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/linux/stddef.h \
  C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/linux/compiler.h \
@@ -146,15 +158,12 @@ libs/local/armeabi/objs/pxl2D/__/__/pxl2D/src/system/android/PXL_AndroidWindow.o
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_num_get.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_num_get.c \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_string_io.c \
- C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_epilog.h \
- C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_config_compat_post.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/vector \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_vector.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_vector.c \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_bvector.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_relops_cont.h \
  jni/../../pxl2D/include/system/PXL_Event.h \
- jni/../../pxl2D/include/system/PXL_API.h \
  jni/../../pxl2D/include/input/PXL_Joystick.h \
  jni/../../pxl2D/include/system/PXL_WindowImpl.h \
  C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/jni.h \
@@ -176,17 +185,8 @@ libs/local/armeabi/objs/pxl2D/__/__/pxl2D/src/system/android/PXL_AndroidWindow.o
  C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/android/native_activity.h \
  C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/android/input.h \
  C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/android/keycodes.h \
- C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/android/native_window.h \
- C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/android/rect.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/iostream \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_ioserr.h \
- jni/../../pxl2D/include/graphics/PXL_GraphicsAPI.h \
- C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/EGL/egl.h \
- C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/EGL/eglplatform.h \
- C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/KHR/khrplatform.h \
- C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/GLES2/gl2.h \
- C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/GLES2/gl2platform.h \
- C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/GLES2/gl2ext.h \
  jni/../../pxl2D/include/input/PXL_Keyboard.h \
  jni/../../pxl2D/include/system/PXL_Exception.h \
  jni/../../pxl2D/include/system/PXL_Config.h \
@@ -197,9 +197,25 @@ libs/local/armeabi/objs/pxl2D/__/__/pxl2D/src/system/android/PXL_AndroidWindow.o
 
 jni/../../pxl2D/include/system/android/PXL_AndroidWindow.h:
 
-C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/string:
+jni/../../pxl2D/include/graphics/PXL_GraphicsAPI.h:
 
-C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_prolog.h:
+jni/../../pxl2D/include/system/PXL_API.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/EGL/egl.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/EGL/eglplatform.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/KHR/khrplatform.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/sys/cdefs.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/sys/cdefs_elf.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/android/api-level.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/stdint.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stddef.h:
 
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_cprolog.h:
 
@@ -217,17 +233,33 @@ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/confi
 
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/config/_android.h:
 
-C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/sys/cdefs.h:
-
-C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/sys/cdefs_elf.h:
-
-C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/android/api-level.h:
-
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/config/_gcc.h:
 
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/config/stl_confix.h:
 
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/config/_native_headers.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_epilog.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_config_compat_post.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/sys/_types.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/machine/_types.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/android/native_window.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/android/rect.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/GLES2/gl2.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/GLES2/gl2platform.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/GLES2/gl2ext.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/string:
+
+C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_prolog.h:
 
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/debug/_debug.h:
 
@@ -236,8 +268,6 @@ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_stri
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_alloc.h:
 
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_cstddef.h:
-
-C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stddef.h:
 
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_cstdlib.h:
 
@@ -256,12 +286,6 @@ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/
 C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/strings.h:
 
 C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/sys/types.h:
-
-C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/stdint.h:
-
-C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/sys/_types.h:
-
-C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/machine/_types.h:
 
 C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/linux/posix_types.h:
 
@@ -487,10 +511,6 @@ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_num_
 
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_string_io.c:
 
-C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_epilog.h:
-
-C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_config_compat_post.h:
-
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/vector:
 
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_vector.h:
@@ -502,8 +522,6 @@ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_bvec
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_relops_cont.h:
 
 jni/../../pxl2D/include/system/PXL_Event.h:
-
-jni/../../pxl2D/include/system/PXL_API.h:
 
 jni/../../pxl2D/include/input/PXL_Joystick.h:
 
@@ -547,27 +565,9 @@ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/
 
 C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/android/keycodes.h:
 
-C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/android/native_window.h:
-
-C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/android/rect.h:
-
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/iostream:
 
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_ioserr.h:
-
-jni/../../pxl2D/include/graphics/PXL_GraphicsAPI.h:
-
-C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/EGL/egl.h:
-
-C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/EGL/eglplatform.h:
-
-C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/KHR/khrplatform.h:
-
-C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/GLES2/gl2.h:
-
-C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/GLES2/gl2platform.h:
-
-C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/GLES2/gl2ext.h:
 
 jni/../../pxl2D/include/input/PXL_Keyboard.h:
 

@@ -25,9 +25,9 @@ void PXL_Batch::create_batch(PXL_BatchSize max_vertices) {
 		glEnableVertexAttribArray(2);
 
 		//set vertex shader attrib pointers
-		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(PXL_VertexPoint), (void*)8);
-		glVertexAttribPointer(1, 2, GL_UNSIGNED_SHORT, GL_TRUE, sizeof(PXL_VertexPoint), (void*)12);
-		glVertexAttribPointer(2, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(PXL_VertexPoint), (void*)16);
+		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(PXL_VertexPoint), (void*)0);
+		glVertexAttribPointer(1, 2, GL_UNSIGNED_SHORT, GL_TRUE, sizeof(PXL_VertexPoint), (void*)8);
+		glVertexAttribPointer(2, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(PXL_VertexPoint), (void*)12);
 
 		glBindBuffer(GL_ARRAY_BUFFER, NULL);
 
@@ -128,6 +128,7 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 		PXL_VertexBatch& v_batch = c.batches[c.batch_index];
 
 		v_batch.num_vertices = 4;
+		v_batch.num_indices = 6;
 		v_batch.texture_id = texture.get_id();
 		v_batch.shader = shader;
 		v_batch.z_depth = z_depth;
@@ -145,6 +146,17 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 			c.data.push_back(PXL_VertexPoint());
 		}
 		PXL_VertexPoint* v = &c.data[c.data_index];
+
+		if (c.indices_index >= c.indices.size()) {
+			for (int n = 0; n < 6; ++n) {
+				c.indices.push_back(0);
+			}
+		}
+		int i = c.indices_count;
+		c.indices[c.indices_index] = i;			c.indices[c.indices_index + 1] = i + 1;		c.indices[c.indices_index + 2] = i + 2;
+		c.indices[c.indices_index + 3] = i;		c.indices[c.indices_index + 4] = i + 3;		c.indices[c.indices_index + 5] = i + 2;
+		c.indices_index += 6;
+		c.indices_count += 4;
 
 		total_vertices += 4;
 		++c.batch_index;
@@ -289,6 +301,7 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 }
 
 bool PXL_Batch::verify_texture_add(const PXL_Texture& texture, PXL_Rect* rect) {
+	return true;
 	if (texture.texture_created) {
 		//todo non magic variables
 		if (rect->x + rect->w > 0 && rect->y + rect->h > 0 && rect->x < 1024 && rect->y < 768) {
@@ -318,8 +331,9 @@ void PXL_Batch::draw_vbo() {
 	glBindBuffer(GL_ARRAY_BUFFER, vbo_id);
 
 	//loops through each texture and draws the vertex data with that texture id
-	vbo_offset = 0;
+	int ibo_offset = 0;
 	int num_vertices = 0;
+	int num_indices = 0;
 	bool changed = false;
 
 	//render notes
@@ -330,25 +344,27 @@ void PXL_Batch::draw_vbo() {
 	//cache buffer data by not uploading if it hasn't changed
 	//maybe can render non-transparent images with depth buffer first and then disable it and render transparent images
 
-	GLuint prev_id = vertices[min_vertex_index].batches[0].texture_id;
-	glBindTexture(GL_TEXTURE_2D, prev_id);
-	PXL_BlendMode prev_blend_mode = vertices[min_vertex_index].batches[0].blend_mode;
-	use_blend_mode(prev_blend_mode);
-	PXL_ShaderProgram* prev_shader = vertices[min_vertex_index].batches[0].shader;
-	use_shader(prev_shader);
-
 	for (int i = min_vertex_index; i <= max_vertex_index; ++i) {
 		size_t num_batches = vertices[i].batch_index;
 		if (num_batches == 0) continue;
 
+		ibo_offset = 0;
 		num_vertices = 0;
+		num_indices = 0;
 
 		VertexContainer& c = vertices[i];
 
-		if (vbo_offset + c.data_index >= max_vertices_amount) vbo_offset = 0;
-		glBufferSubData(GL_ARRAY_BUFFER, vbo_offset * sizeof(PXL_VertexPoint), c.data_index * sizeof(PXL_VertexPoint), &c.data[0]);
+		glBufferData(GL_ARRAY_BUFFER, c.data_index * sizeof(PXL_VertexPoint), &c.data[0], GL_DYNAMIC_DRAW);
 
-		PXL_VertexBatch* v_batch;
+		PXL_VertexBatch* v_batch = &c.batches[0];
+
+		GLuint prev_id = v_batch->texture_id;
+		glBindTexture(GL_TEXTURE_2D, prev_id);
+		PXL_BlendMode prev_blend_mode = v_batch->blend_mode;
+		use_blend_mode(prev_blend_mode);
+		PXL_ShaderProgram* prev_shader = v_batch->shader;
+		use_shader(prev_shader);
+
 		for (int n = 0; n < num_batches + 1; ++n) {
 			if (n >= num_batches) changed = true;
 			else v_batch = &c.batches[n];
@@ -372,20 +388,21 @@ void PXL_Batch::draw_vbo() {
 			}
 
 			if (changed) {
-				//draw vertex data from vertex data in buffer
-				//todo: upload vertices as normal but upload a pre-made indices list (only when it
-				//needs to be uploaded) as 0, 1, 2 and then 0, 3, 2
-				glDrawArrays(GL_TRIANGLES, vbo_offset, num_vertices);
+				glDrawElements(GL_TRIANGLES, num_vertices * 2, GL_UNSIGNED_SHORT, &c.indices[ibo_offset]);
 
-				vbo_offset += num_vertices;
+				ibo_offset += num_indices;
 				num_vertices = 0;
+				num_indices = 0;
 
 				changed = false;
 			}
 			num_vertices += v_batch->num_vertices;
+			num_indices += v_batch->num_indices;
 		}
 		c.batch_index = 0;
 		c.data_index = 0;
+		c.indices_index = 0;
+		c.indices_count = 0;
 	}
 }
 
