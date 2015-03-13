@@ -163,8 +163,12 @@ libs/local/armeabi/objs/pxl2D/__/__/pxl2D/src/graphics/PXL_Texture.o: \
  jni/../../pxl2D/include/graphics/PXL_Colour.h \
  jni/../../pxl2D/include/system/PXL_Exception.h \
  jni/../../pxl2D/include/system/PXL_Config.h \
+ jni/../../pxl2D/include/system/PXL_Debug.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/iostream \
- C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_ioserr.h
+ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_ioserr.h \
+ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/sstream \
+ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_sstream.h \
+ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_sstream.c
 
 jni/../../pxl2D/include/graphics/PXL_Texture.h:
 
@@ -492,6 +496,14 @@ jni/../../pxl2D/include/system/PXL_Exception.h:
 
 jni/../../pxl2D/include/system/PXL_Config.h:
 
+jni/../../pxl2D/include/system/PXL_Debug.h:
+
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/iostream:
 
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_ioserr.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/sstream:
+
+C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_sstream.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_sstream.c:

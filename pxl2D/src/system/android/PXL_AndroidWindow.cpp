@@ -25,6 +25,7 @@ AndroidApp* android_state;
 AppSavedState saved_state;
 AppWinData win_data;
 PXL_AndroidWindow* window = NULL;
+bool win_init = false;
 
 void swap_buffers() {
 	if (win_data.display != EGL_NO_DISPLAY) {
@@ -51,6 +52,11 @@ int win_data_init_display(AppWinData* win_data) {
 		EGL_BLUE_SIZE, 8,
 		EGL_GREEN_SIZE, 8,
 		EGL_RED_SIZE, 8,
+		EGL_RENDERABLE_TYPE, EGL_OPENGL_ES2_BIT,
+		EGL_NONE
+	};
+	const EGLint attrib_list[] = {
+		EGL_CONTEXT_CLIENT_VERSION, 2,
 		EGL_NONE
 	};
 	EGLint w, h, dummy, format;
@@ -77,7 +83,7 @@ int win_data_init_display(AppWinData* win_data) {
 	ANativeWindow_setBuffersGeometry(win_data->app->window, 0, 0, format);
 
 	surface = eglCreateWindowSurface(display, config, win_data->app->window, NULL);
-	context = eglCreateContext(display, config, NULL, NULL);
+	context = eglCreateContext(display, config, NULL, attrib_list);
 
 	if (eglMakeCurrent(display, surface, surface, context) == EGL_FALSE) {
 		PXL_force_show_exception("Unable to eglMakeCurrent");
@@ -94,6 +100,9 @@ int win_data_init_display(AppWinData* win_data) {
 	win_data->height = h;
 	win_data->state.angle = 0;
 
+	window->width = w;
+	window->height = h;
+
 	//todo: these were prob removed in gles2
 	//glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_FASTEST);
 	//glShadeModel(GL_SMOOTH);
@@ -101,6 +110,11 @@ int win_data_init_display(AppWinData* win_data) {
 	glDisable(GL_DEPTH_TEST);
 
 	PXL_print << "initialised successfully\n";
+
+	PXL_print << "gl version: " << glGetString(GL_VERSION) << "\n";
+	PXL_print << "glsl version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << "\n";
+	PXL_print << "vendor: " << glGetString(GL_VENDOR) << "\n";
+	PXL_print << "renderer: " << glGetString(GL_RENDERER) << "\n";
 
 	return 0;
 }
@@ -133,12 +147,15 @@ void win_data_handle_cmd(AndroidApp* app, int32_t cmd) {
 			win_data->app->savedStateSize = sizeof(AppSavedState);
 			break;
 		case APP_CMD_INIT_WINDOW:
-			// The window is being shown, get it ready.
-			PXL_print << "initwindow!\n";
-			if (win_data->app->window != NULL) {
-				PXL_print << "inited\n";
-				win_data_init_display(win_data);
-				swap_buffers();
+			if (!win_init) {
+				// The window is being shown, get it ready.
+				PXL_print << "initwindow!\n";
+				if (win_data->app->window != NULL) {
+					PXL_print << "inited\n";
+					win_data_init_display(win_data);
+					swap_buffers();
+					win_init = true;
+				}
 			}
 			break;
 		case APP_CMD_TERM_WINDOW:
@@ -176,6 +193,8 @@ PXL_AndroidWindow::PXL_AndroidWindow() {
 void PXL_AndroidWindow::create_window(int window_width, int window_height, std::string title) {
 	free();
 
+	window = this;
+
 	width = window_width;
 	height = window_height;
 
@@ -201,6 +220,12 @@ void PXL_AndroidWindow::create_window(int window_width, int window_height, std::
 
 	window_created = true;
 	win_data.in_focus = true;
+
+	PXL_Event e;
+	while (win_data.app->window == NULL) {
+		poll_event(e);
+	}
+	PXL_print << "starting...\n";
 }
 
 void PXL_AndroidWindow::display() {
@@ -220,9 +245,6 @@ bool PXL_AndroidWindow::poll_event(PXL_Event& e) {
 	AndroidPollSource* source;
 
 	if ((ident = ALooper_pollAll(0, NULL, &events, (void**)&source)) >= 0) {
-
-		PXL_print << "event24: " << win_data.in_focus << "\n";
-
 		// Process this event.
 		if (source != NULL) {
 			source->process(android_state, source);

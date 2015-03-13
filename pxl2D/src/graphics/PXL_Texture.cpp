@@ -1,5 +1,5 @@
 #include "graphics/PXL_Texture.h"
-#include <iostream>
+#include "system/PXL_Debug.h"
 
 PXL_Texture::PXL_Texture() {
 	texture_created = false;
@@ -7,8 +7,10 @@ PXL_Texture::PXL_Texture() {
 
 bool PXL_Texture::create_texture(std::string file_path) {
 	PXL_Bitmap bitmap;
-	bitmap.create_bitmap(file_path);
-	return create_texture(&bitmap);
+	if (bitmap.create_bitmap(file_path)) {
+		return create_texture(&bitmap);
+	}
+	return false;
 }
 
 bool PXL_Texture::create_texture(PXL_Bitmap* bitmap) {
@@ -32,6 +34,10 @@ bool PXL_Texture::create_texture(int w, int h, PXL_ubyte* pixels, PXL_Channel pi
 	height = h;
 	channel = pixel_channel;
 
+	PXL_print << "error: " << glGetError() << ", width: " << w << ", h: " << h << "\n";
+	PXL_print << channel.gl_pixel_mode << ", " << channel.num_channels << "\n";
+	//PXL_print << pixels << "\n";
+
 	glPixelStorei(GL_UNPACK_ALIGNMENT, channel.num_channels);
 
 	if (!texture_created) { glGenTextures(1, &id); }
@@ -45,6 +51,8 @@ bool PXL_Texture::create_texture(int w, int h, PXL_ubyte* pixels, PXL_Channel pi
 
 	texture_created = true;
 
+	PXL_print << "new_error: " << glGetError() << ", width: " << w << ", h: " << h << ", id: " << id << "\n";
+
 	return true;
 }
 
@@ -57,7 +65,7 @@ PXL_ubyte* PXL_Texture::get_pixels() {
 		bind();
 		PXL_ubyte* pixels = new PXL_ubyte[(width * height) * channel.num_channels];
 		//todo: glgetteximage not supported by gles2
-		//glGetTexImage(GL_TEXTURE_2D, 0, channel.gl_pixel_mode, GL_UNSIGNED_BYTE, pixels);
+		glGetTexImage(GL_TEXTURE_2D, 0, channel.gl_pixel_mode, GL_UNSIGNED_BYTE, pixels);
 		return pixels;
 	}
 	return NULL;

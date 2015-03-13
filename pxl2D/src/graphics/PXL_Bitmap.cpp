@@ -1,6 +1,6 @@
 #include "graphics/PXL_Bitmap.h"
-#include <iostream>
 #include "graphics/PXL_ImageUtils.h"
+#include "system/PXL_Debug.h"
 
 PXL_Bitmap::PXL_Bitmap() {
 	buffer_loaded = false;
@@ -26,6 +26,7 @@ void PXL_Bitmap::create_bitmap(int bitmap_width, int bitmap_height, PXL_Colour f
 	channel = pixel_channel;
 	row_size = width * channel.num_channels;
 	buffer_size = row_size * height;
+
 	pixels = new PXL_ubyte[buffer_size];
 
 	fill(fill_colour);
@@ -54,6 +55,8 @@ void PXL_Bitmap::fill(PXL_Colour colour) {
 	PXL_ubyte g = colour.g * 255;
 	PXL_ubyte b = colour.b * 255;
 	PXL_ubyte a = colour.a * 255;
+
+	PXL_print << "r: " << r << ", g: " << g << ", b: " << b << ", a: " << a << "\n";
 
 	for (size_t y = 0; y < height; ++y) {
 		int row_y = y * row_size;

@@ -84,9 +84,6 @@ LOCAL_SRC_FILES += $(SYSTEM_SRC_FILES)
 LOCAL_SRC_FILES += $(SYSTEM_ANDROID_SRC_FILES)
 
 
-LOCAL_LDLIBS    := -llog -landroid -lEGL -lGLESv2 -lz
-
-
 LOCAL_WHOLE_STATIC_LIBRARIES := android_native_app_glue libfreetype libpng
 
 

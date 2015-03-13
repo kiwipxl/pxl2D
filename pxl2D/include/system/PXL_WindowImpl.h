@@ -8,6 +8,11 @@
 class PXL_WindowImpl {
 
 	public:
+		bool window_created = false;
+		std::string title;
+		int width;
+		int height;
+
 		/**
 		\*brief: loads a window from the specified path
 		\*param [path]: the path and file name for the window to load
@@ -29,10 +34,6 @@ class PXL_WindowImpl {
 
 	protected:
 		//window info
-		bool window_created = false;
-		int width;
-		int height;
-		std::string title;
 };
 
 #endif

@@ -4,31 +4,27 @@
 #include <string>
 #include <iostream>
 
-#define GLSL(src) "#version 150 core\n" #src
+#define GLSL(src) "#version 130\n" #src
 
 /**
-
 	-------------- default vertex shader -------------
-
 	author: Richman Stewart
-
 	simple vertex shader that sets the position
 	to the specified matrix and position while
 	passing the vertex colour and tex coords
 	to the fragment shader
-
 **/
 const char* PXL_basic_vertex_shader_str = GLSL(
 	//[START_VERTEX]
 
-	in vec2 a_position;
-	in vec2 a_tex_coord;
-	in vec4 a_colour;
+	attribute vec2 a_position;
+	attribute vec2 a_tex_coord;
+	attribute vec4 a_colour;
 
 	uniform mat4 matrix;
 
-	out vec4 v_colour;
-	out vec2 tex_coord;
+	varying vec4 v_colour;
+	varying vec2 tex_coord;
 
 	void main() {
 		v_colour = a_colour;
@@ -40,26 +36,18 @@ const char* PXL_basic_vertex_shader_str = GLSL(
 );
 
 /**
-
 	------------ default fragment shader ------------
-
 	author: Richman Stewart
-
 	simple default fragment shader that multiplies
 	the vertex colour with a texel
-
 **/
 const char* PXL_default_shader_str = GLSL(
 	//[START_FRAGMENT]
 
-	in vec4 v_colour;
-	in vec2 tex_coord;
-	out vec4 pixel;
-
 	uniform sampler2D t0;
 
 	void main() {
-		pixel = v_colour * texture(t0, tex_coord);
+		gl_FragColor = vec4(1, 0, 0, 1);
 	}
 
 	//[END_FRAGMENT]
@@ -83,9 +71,9 @@ const char* PXL_default_shader_str = GLSL(
 const char* PXL_bloom_shader_str = GLSL(
 	//[START_FRAGMENT]
 
-	in vec4 v_colour;
-	in vec2 tex_coord;
-	out vec4 pixel;
+	attribute vec4 v_colour;
+	attribute vec2 tex_coord;
+	varying vec4 pixel;
 
 	uniform sampler2D t0;
 	uniform float outline_spread;
@@ -135,9 +123,9 @@ const char* PXL_bloom_shader_str = GLSL(
 const char* PXL_blur_shader_str = GLSL(
 	//[START_FRAGMENT]
 
-	in vec4 v_colour;
-	in vec2 tex_coord;
-	out vec4 pixel;
+	attribute vec4 v_colour;
+	attribute vec2 tex_coord;
+	varying vec4 pixel;
 
 	uniform sampler2D t0;
 	uniform vec2 blur_size;
@@ -179,9 +167,9 @@ const char* PXL_blur_shader_str = GLSL(
 const char* PXL_grayscale_shader_str = GLSL(
 	//[START_FRAGMENT]
 
-	in vec4 v_colour;
-	in vec2 tex_coord;
-	out vec4 pixel;
+	attribute vec4 v_colour;
+	attribute vec2 tex_coord;
+	varying vec4 pixel;
 
 	uniform sampler2D t0;
 
@@ -213,9 +201,9 @@ const char* PXL_grayscale_shader_str = GLSL(
 const char* PXL_glow_shader_str = GLSL(
 	//[START_FRAGMENT]
 
-	in vec4 v_colour;
-	in vec2 tex_coord;
-	out vec4 pixel;
+	attribute vec4 v_colour;
+	attribute vec2 tex_coord;
+	varying vec4 pixel;
 
 	uniform sampler2D t0;
 	uniform float outline_size;
@@ -272,9 +260,9 @@ const char* PXL_glow_shader_str = GLSL(
 const char* PXL_outline_shader_str = GLSL(
 	//[START_FRAGMENT]
 
-	in vec4 v_colour;
-	in vec2 tex_coords;
-	out vec4 pixel;
+	attribute vec4 v_colour;
+	attribute vec2 tex_coords;
+	varying vec4 pixel;
 
 	uniform sampler2D t0;
 	uniform float outline_thickness = 1;
@@ -332,9 +320,9 @@ const char* PXL_outline_shader_str = GLSL(
 const char* PXL_point_light_shader_str = GLSL(
 	//[START_FRAGMENT]
 
-	in vec4 v_colour;
-	in vec2 tex_coord;
-	out vec4 pixel;
+	attribute vec4 v_colour;
+	attribute vec2 tex_coord;
+	varying vec4 pixel;
 
 	uniform sampler2D t0;
 	uniform float points[504];
@@ -383,9 +371,9 @@ const char* PXL_point_light_shader_str = GLSL(
 const char* PXL_repeat_shader_str = GLSL(
 	//[START_FRAGMENT]
 
-	in vec4 v_colour;
-	in vec2 tex_coord;
-	out vec4 pixel;
+	attribute vec4 v_colour;
+	attribute vec2 tex_coord;
+	varying vec4 pixel;
 
 	uniform sampler2D t0;
 	uniform vec2 repeat = vec2(2.0, 2.0);
@@ -415,9 +403,9 @@ const char* PXL_repeat_shader_str = GLSL(
 const char* PXL_text_shader_str = GLSL(
 	//[START_FRAGMENT]
 
-	in vec4 v_colour;
-	in vec2 tex_coord;
-	out vec4 pixel;
+	attribute vec4 v_colour;
+	attribute vec2 tex_coord;
+	varying vec4 pixel;
 
 	uniform sampler2D t0;
 	uniform vec4 glyph_rects[];

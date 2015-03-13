@@ -160,9 +160,13 @@ libs/local/armeabi/objs/pxl2D/__/__/pxl2D/src/graphics/PXL_Bitmap.o: \
  C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/GLES2/gl2ext.h \
  jni/../../pxl2D/include/graphics/PXL_Colour.h \
  jni/../../pxl2D/include/graphics/PXL_Structs.h \
+ jni/../../pxl2D/include/graphics/PXL_ImageUtils.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/iostream \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_ioserr.h \
- jni/../../pxl2D/include/graphics/PXL_ImageUtils.h
+ jni/../../pxl2D/include/system/PXL_Debug.h \
+ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/sstream \
+ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_sstream.h \
+ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_sstream.c
 
 jni/../../pxl2D/include/graphics/PXL_Bitmap.h:
 
@@ -484,8 +488,16 @@ jni/../../pxl2D/include/graphics/PXL_Colour.h:
 
 jni/../../pxl2D/include/graphics/PXL_Structs.h:
 
+jni/../../pxl2D/include/graphics/PXL_ImageUtils.h:
+
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/iostream:
 
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_ioserr.h:
 
-jni/../../pxl2D/include/graphics/PXL_ImageUtils.h:
+jni/../../pxl2D/include/system/PXL_Debug.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/sstream:
+
+C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_sstream.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_sstream.c:

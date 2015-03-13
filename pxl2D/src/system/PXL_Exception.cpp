@@ -37,5 +37,6 @@ extern void PXL_force_show_exception(std::string exception_message, PXL_ErrorCod
 			PXL_print << msg << "\n";
 		#endif
 	}
-	if (exit) std::exit(0);
+	//todo: broken on android
+	//if (exit) std::exit(0);
 }
