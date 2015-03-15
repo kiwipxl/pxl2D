@@ -45,6 +45,7 @@ int win_data_init_display(AppWinData* win_data) {
 	* component compatible with on-screen windows
 	*/
 
+	android_state->activity->env;
 	PXL_print << "win_data initialising...\n";
 
 	const EGLint attribs[] = {

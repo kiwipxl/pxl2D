@@ -20,7 +20,7 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := libfreetype
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/../../pxl2D/lib/freetype/include/
 LOCAL_EXPORT_C_INCLUDES += $(LOCAL_PATH)/../../pxl2D/lib/freetype/include/freetype2/
-LOCAL_SRC_FILES := ../libs/local/armeabi/libfreetype2.a
+LOCAL_SRC_FILES := ../libs/local/$(APP_ABI)/libfreetype2.a
 
 
 include $(PREBUILT_STATIC_LIBRARY)
@@ -37,7 +37,7 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE := libpng
 LOCAL_EXPORT_C_INCLUDES := $(LOCAL_PATH)/../../pxl2D/lib/libpng/src/
-LOCAL_SRC_FILES := ../libs/local/armeabi/libpng.a
+LOCAL_SRC_FILES := ../libs/local/$(APP_ABI)/libpng.a
 
 
 include $(PREBUILT_STATIC_LIBRARY)
@@ -53,7 +53,7 @@ include $(CLEAR_VARS)
 
 
 LOCAL_MODULE := pxl2D
-LOCAL_SRC_FILES := ../libs/local/armeabi/libpxl2D.a
+LOCAL_SRC_FILES := ../libs/local/$(APP_ABI)/libpxl2D.a
 
 
 include $(PREBUILT_STATIC_LIBRARY)
