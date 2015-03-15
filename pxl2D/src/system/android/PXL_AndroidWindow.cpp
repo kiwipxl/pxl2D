@@ -112,9 +112,9 @@ int win_data_init_display(AppWinData* win_data) {
 	PXL_print << "initialised successfully\n";
 
 	PXL_print << "gl version: " << glGetString(GL_VERSION) << "\n";
-	PXL_print << "glsl version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << "\n";
-	PXL_print << "vendor: " << glGetString(GL_VENDOR) << "\n";
-	PXL_print << "renderer: " << glGetString(GL_RENDERER) << "\n";
+	//PXL_print << "glsl version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << "\n";
+	//PXL_print << "vendor: " << glGetString(GL_VENDOR) << "\n";
+	//PXL_print << "renderer: " << glGetString(GL_RENDERER) << "\n";
 
 	return 0;
 }

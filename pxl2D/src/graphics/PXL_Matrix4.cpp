@@ -22,6 +22,17 @@ PXL_Matrix4& PXL_Matrix4::identity() {
 	return *this;
 }
 
+PXL_Matrix4& PXL_Matrix4::transpose() {
+	std::swap(mat[1], mat[4]);
+	std::swap(mat[2], mat[8]);
+	std::swap(mat[3], mat[12]);
+	std::swap(mat[6], mat[9]);
+	std::swap(mat[7], mat[13]);
+	std::swap(mat[14], mat[11]);
+
+	return *this;
+}
+
 PXL_Matrix4& PXL_Matrix4::translate(float x, float y, float z) {
 	if (x != 0) { translate_x(x); }
 	if (y != 0) { translate_y(y); }

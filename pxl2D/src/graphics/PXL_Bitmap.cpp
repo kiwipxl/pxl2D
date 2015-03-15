@@ -56,8 +56,6 @@ void PXL_Bitmap::fill(PXL_Colour colour) {
 	PXL_ubyte b = colour.b * 255;
 	PXL_ubyte a = colour.a * 255;
 
-	PXL_print << "r: " << r << ", g: " << g << ", b: " << b << ", a: " << a << "\n";
-
 	for (size_t y = 0; y < height; ++y) {
 		int row_y = y * row_size;
 		for (size_t x = 0; x < row_size; x += channel.num_channels) {

@@ -21,7 +21,7 @@ int main(int argc, char* args[]) {
 
 	PXL_Bitmap bitmap;		bitmap.create_bitmap(400, 300, PXL_COLOR_LIGHT_GREEN, PXL_CHANNEL_RGBA);
 
-	PXL_Texture cat;			cat.create_texture(&bitmap);
+	PXL_Texture cat;			cat.create_texture("assets/cat2.png");
 	PXL_Texture cat_2;			cat_2.create_texture("assets/cat2.png");
 	PXL_Texture cute_cat;		cute_cat.create_texture("assets/cutecat.png");
 

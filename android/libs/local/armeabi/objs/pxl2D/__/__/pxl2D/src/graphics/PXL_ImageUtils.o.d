@@ -175,7 +175,11 @@ libs/local/armeabi/objs/pxl2D/__/__/pxl2D/src/graphics/PXL_ImageUtils.o: \
  C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/../include/setjmp.h \
  C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/machine/setjmp.h \
  jni/../../pxl2D/include/system/PXL_Exception.h \
- jni/../../pxl2D/include/system/PXL_Config.h
+ jni/../../pxl2D/include/system/PXL_Config.h \
+ jni/../../pxl2D/include/system/PXL_Debug.h \
+ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/sstream \
+ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_sstream.h \
+ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_sstream.c
 
 jni/../../pxl2D/include/graphics/PXL_ImageUtils.h:
 
@@ -528,3 +532,11 @@ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/
 jni/../../pxl2D/include/system/PXL_Exception.h:
 
 jni/../../pxl2D/include/system/PXL_Config.h:
+
+jni/../../pxl2D/include/system/PXL_Debug.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/sstream:
+
+C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_sstream.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_sstream.c:

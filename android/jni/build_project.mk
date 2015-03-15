@@ -59,7 +59,6 @@ LOCAL_SRC_FILES := ../libs/local/armeabi/libpxl2D.a
 include $(PREBUILT_STATIC_LIBRARY)
 
 
-
 #####################################################################
 # builds pxlExample with the pxl2D lib
 #####################################################################
@@ -74,9 +73,10 @@ LOCAL_SRC_FILES := ../../pxlExample/src/Main.cpp
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../pxl2D/include/
 
-LOCAL_LDLIBS    := -llog -landroid -lEGL -lGLESv2 -lz
+LOCAL_LDLIBS    := -llog -landroid -lz -lGLESv2 -lEGL
 
 LOCAL_WHOLE_STATIC_LIBRARIES := android_native_app_glue libfreetype libpng pxl2D
+
 
 
 include $(BUILD_SHARED_LIBRARY)

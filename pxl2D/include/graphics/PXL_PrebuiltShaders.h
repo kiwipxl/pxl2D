@@ -45,9 +45,17 @@ const char* PXL_default_shader_str = GLSL(
 	//[START_FRAGMENT]
 
 	uniform sampler2D t0;
+	
+	varying vec4 v_colour;
+	varying vec2 tex_coord;
 
 	void main() {
-		gl_FragColor = vec4(1, 0, 0, 1);
+		ivec2 size = textureSize(t0, 0);
+
+		float uv_x = tex_coord.x * size.x;
+		float uv_y = tex_coord.y * size.y;
+
+		gl_FragColor = v_colour * texture(t0, vec2(uv_x, uv_y));
 	}
 
 	//[END_FRAGMENT]

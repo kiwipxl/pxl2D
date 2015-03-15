@@ -105,6 +105,8 @@ void PXL_Win32Window::create_window(int window_width, int window_height, std::st
 		PXL_force_show_exception("Window creation failed! Error: " + PXL_get_last_error());
 	}
 
+	hwnd = win_handle;
+
 	create_context();
 
 	window_created = true;
@@ -173,6 +175,9 @@ LRESULT CALLBACK win_proc(HWND handle, UINT msg, WPARAM w_param, LPARAM l_param)
 			if (w_param < 255) {
 				PXL_keys[w_param].key_down = false;
 			}
+			break;
+		case 1200:
+			PXL_print << "received msg!\n";
 			break;
 		default:
 			return DefWindowProc(handle, msg, w_param, l_param);

@@ -92,7 +92,9 @@ void PXL_Batch::use_shader(PXL_ShaderProgram* shader) {
 		glUseProgram(current_shader->get_program_id());
 
 		//set matrix uniform in the vertex shader for the program
-		glUniformMatrix4fv(current_shader->get_matrix_loc(), 1, true, view_mat.get_mat());
+		PXL_print << "shader mat loc: " << current_shader->get_matrix_loc() << "\n";
+
+		glUniformMatrix4fv(current_shader->get_matrix_loc(), 1, false, view_mat.get_mat());
 	}
 }
 
@@ -327,6 +329,7 @@ void PXL_Batch::draw_vbo() {
 	if (num_added == 0) { return; }
 
 	view_mat * perspective_mat;
+	view_mat.transpose();
 
 	//binds vertex buffer
 	glBindBuffer(GL_ARRAY_BUFFER, vbo_id);

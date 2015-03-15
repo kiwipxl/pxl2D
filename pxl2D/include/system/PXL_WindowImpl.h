@@ -5,6 +5,8 @@
 #include "system/PXL_Event.h"
 #include "system/PXL_API.h"
 
+struct PXL_WindowHandle;
+
 class PXL_WindowImpl {
 
 	public:
@@ -12,6 +14,12 @@ class PXL_WindowImpl {
 		std::string title;
 		int width;
 		int height;
+
+		//temporary code
+		//todo: make cross-platform window handle
+		#if defined(PXL_PLATFORM_WIN32)
+			HWND hwnd;
+		#endif
 
 		/**
 		\*brief: loads a window from the specified path

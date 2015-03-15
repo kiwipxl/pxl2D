@@ -12,28 +12,22 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pxlExample", "pxlExample\px
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Android = Debug|Android
+		Debug|Tegra-Android = Debug|Tegra-Android
 		Debug|Win32 = Debug|Win32
-		Release|Android = Release|Android
+		Release|Tegra-Android = Release|Tegra-Android
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7F4BAC6B-9372-4E84-8723-216A860B7548}.Debug|Android.ActiveCfg = Debug|Android
-		{7F4BAC6B-9372-4E84-8723-216A860B7548}.Debug|Android.Build.0 = Debug|Android
+		{7F4BAC6B-9372-4E84-8723-216A860B7548}.Debug|Tegra-Android.ActiveCfg = Debug|Win32
 		{7F4BAC6B-9372-4E84-8723-216A860B7548}.Debug|Win32.ActiveCfg = Debug|Win32
 		{7F4BAC6B-9372-4E84-8723-216A860B7548}.Debug|Win32.Build.0 = Debug|Win32
-		{7F4BAC6B-9372-4E84-8723-216A860B7548}.Release|Android.ActiveCfg = Release|Android
-		{7F4BAC6B-9372-4E84-8723-216A860B7548}.Release|Android.Build.0 = Release|Android
-		{7F4BAC6B-9372-4E84-8723-216A860B7548}.Release|Android.Deploy.0 = Release|Android
+		{7F4BAC6B-9372-4E84-8723-216A860B7548}.Release|Tegra-Android.ActiveCfg = Release|Win32
 		{7F4BAC6B-9372-4E84-8723-216A860B7548}.Release|Win32.ActiveCfg = Release|Win32
 		{7F4BAC6B-9372-4E84-8723-216A860B7548}.Release|Win32.Build.0 = Release|Win32
-		{9E9A4CA8-CB50-4ED6-80BC-CC56A5453D71}.Debug|Android.ActiveCfg = Debug|Android
-		{9E9A4CA8-CB50-4ED6-80BC-CC56A5453D71}.Debug|Android.Build.0 = Debug|Android
+		{9E9A4CA8-CB50-4ED6-80BC-CC56A5453D71}.Debug|Tegra-Android.ActiveCfg = Debug|Win32
 		{9E9A4CA8-CB50-4ED6-80BC-CC56A5453D71}.Debug|Win32.ActiveCfg = Debug|Win32
 		{9E9A4CA8-CB50-4ED6-80BC-CC56A5453D71}.Debug|Win32.Build.0 = Debug|Win32
-		{9E9A4CA8-CB50-4ED6-80BC-CC56A5453D71}.Release|Android.ActiveCfg = Release|Android
-		{9E9A4CA8-CB50-4ED6-80BC-CC56A5453D71}.Release|Android.Build.0 = Release|Android
-		{9E9A4CA8-CB50-4ED6-80BC-CC56A5453D71}.Release|Android.Deploy.0 = Release|Android
+		{9E9A4CA8-CB50-4ED6-80BC-CC56A5453D71}.Release|Tegra-Android.ActiveCfg = Release|Win32
 		{9E9A4CA8-CB50-4ED6-80BC-CC56A5453D71}.Release|Win32.ActiveCfg = Release|Win32
 		{9E9A4CA8-CB50-4ED6-80BC-CC56A5453D71}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection

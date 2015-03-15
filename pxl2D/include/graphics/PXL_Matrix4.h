@@ -17,6 +17,11 @@ class PXL_Matrix4 {
 		PXL_Matrix4& identity();
 
 		/**
+		\*brief: sets the matrix to it's identity
+		**/
+		PXL_Matrix4& transpose();
+
+		/**
 		\*brief: translates the matrix position
 		\*param [x, y, z]: values to translate on axis
 		**/
