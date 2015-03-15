@@ -1,5 +1,5 @@
 #include "graphics/PXL_Bitmap.h"
-#include "graphics/PXL_ImageUtils.h"
+#include "system/PXL_ImageIO.h"
 #include "system/PXL_Debug.h"
 
 PXL_Bitmap::PXL_Bitmap() {

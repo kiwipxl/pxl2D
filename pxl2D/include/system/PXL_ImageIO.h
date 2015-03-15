@@ -1,5 +1,5 @@
-#ifndef _PXL_IMAGE_UTILS_H
-#define _PXL_IMAGE_UTILS_H
+#ifndef _PXL_IMAGE_IO_H
+#define _PXL_IMAGE_IO_H
 
 #include <string>
 #include <iostream>

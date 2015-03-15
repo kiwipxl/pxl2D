@@ -179,7 +179,12 @@ libs/local/armeabi/objs/pxl2D/__/__/pxl2D/src/PXL_System.o: \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_ioserr.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/sstream \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_sstream.h \
- C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_sstream.c
+ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_sstream.c \
+ jni/../../pxl2D/include/system/PXL_ImageIO.h \
+ jni/../../pxl2D/include/graphics/PXL_Bitmap.h \
+ jni/../../pxl2D/include/graphics/PXL_Colour.h \
+ jni/../../pxl2D/include/graphics/PXL_Structs.h \
+ jni/../../pxl2D/include/system/PXL_IO.h
 
 jni/../../pxl2D/include/PXL_System.h:
 
@@ -542,3 +547,13 @@ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/sstream:
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_sstream.h:
 
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_sstream.c:
+
+jni/../../pxl2D/include/system/PXL_ImageIO.h:
+
+jni/../../pxl2D/include/graphics/PXL_Bitmap.h:
+
+jni/../../pxl2D/include/graphics/PXL_Colour.h:
+
+jni/../../pxl2D/include/graphics/PXL_Structs.h:
+
+jni/../../pxl2D/include/system/PXL_IO.h:

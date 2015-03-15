@@ -42,7 +42,6 @@
     <ClCompile Include="src\graphics\PXL_Font.cpp" />
     <ClCompile Include="src\graphics\PXL_FontUtils.cpp" />
     <ClCompile Include="src\graphics\PXL_FrameBuffer.cpp" />
-    <ClCompile Include="src\graphics\PXL_ImageUtils.cpp" />
     <ClCompile Include="src\graphics\PXL_Lights.cpp" />
     <ClCompile Include="src\graphics\PXL_Matrix4.cpp" />
     <ClCompile Include="src\graphics\PXL_Text.cpp" />
@@ -59,6 +58,8 @@
     <ClCompile Include="src\system\PXL_Debug.cpp" />
     <ClCompile Include="src\system\PXL_Event.cpp" />
     <ClCompile Include="src\system\PXL_Exception.cpp" />
+    <ClCompile Include="src\system\PXL_ImageIO.cpp" />
+    <ClCompile Include="src\system\PXL_IO.cpp" />
     <ClCompile Include="src\system\PXL_Math.cpp" />
     <ClCompile Include="src\system\PXL_Timer.cpp" />
     <ClCompile Include="src\system\win32\PXL_Win32Window.cpp" />
@@ -78,7 +79,6 @@
     <ClInclude Include="include\graphics\PXL_Font.h" />
     <ClInclude Include="include\graphics\PXL_FontUtils.h" />
     <ClInclude Include="include\graphics\PXL_FrameBuffer.h" />
-    <ClInclude Include="include\graphics\PXL_ImageUtils.h" />
     <ClInclude Include="include\graphics\PXL_Lights.h" />
     <ClInclude Include="include\graphics\PXL_Matrix4.h" />
     <ClInclude Include="include\graphics\PXL_Text.h" />
@@ -98,6 +98,8 @@
     <ClInclude Include="include\system\PXL_Debug.h" />
     <ClInclude Include="include\system\PXL_Event.h" />
     <ClInclude Include="include\system\PXL_Exception.h" />
+    <ClInclude Include="include\system\PXL_ImageIO.h" />
+    <ClInclude Include="include\system\PXL_IO.h" />
     <ClInclude Include="include\system\PXL_Math.h" />
     <ClInclude Include="include\system\PXL_Timer.h" />
     <ClInclude Include="include\system\PXL_Window.h" />

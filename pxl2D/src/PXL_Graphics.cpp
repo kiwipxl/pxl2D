@@ -1,7 +1,4 @@
 #include "PXL_Graphics.h"
-#include "system/PXL_Exception.h"
-#include "system/PXL_Window.h"
-#include "system/PXL_Debug.h"
 
 void PXL_graphics_init() {
 	PXL_set_clear_colour(1, 1, 1, 1);

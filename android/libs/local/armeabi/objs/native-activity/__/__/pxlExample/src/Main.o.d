@@ -206,6 +206,8 @@ libs/local/armeabi/objs/native-activity/__/__/pxlExample/src/Main.o: \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/sstream \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_sstream.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_sstream.c \
+ jni/../../pxl2D/include/system/PXL_ImageIO.h \
+ jni/../../pxl2D/include/system/PXL_IO.h \
  jni/../../pxl2D/include/PXL_Physics.h \
  jni/../../pxl2D/include/physics/PXL_Collision.h \
  jni/../../pxl2D/include/PXL_Input.h \
@@ -636,6 +638,10 @@ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/sstream:
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_sstream.h:
 
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_sstream.c:
+
+jni/../../pxl2D/include/system/PXL_ImageIO.h:
+
+jni/../../pxl2D/include/system/PXL_IO.h:
 
 jni/../../pxl2D/include/PXL_Physics.h:
 

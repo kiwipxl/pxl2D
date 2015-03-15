@@ -7,6 +7,8 @@
 #include "system/PXL_Exception.h"
 #include "system/PXL_Event.h"
 #include "system/PXL_Debug.h"
+#include "system/PXL_ImageIO.h"
+#include "system/PXL_IO.h"
 
 /** Initialises PXL system
 **/
