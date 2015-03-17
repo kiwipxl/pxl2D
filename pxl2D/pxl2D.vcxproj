@@ -212,7 +212,7 @@
     <SourcePath>$(ProjectDir)src;$(ProjectDir)src\graphics;$(ProjectDir)src\system;$(ProjectDir)src\physics;$(ProjectDir)src\input;$(SourcePath)</SourcePath>
     <LibraryPath>$(ProjectDir)lib\libpng\lib;$(ProjectDir)lib\zlib-1.2.3\lib;$(ProjectDir)lib\freetype\lib;$(LibraryPath)</LibraryPath>
     <TargetName>pxl2D</TargetName>
-    <IncludePath>$(VC_IncludePath);$(ProjectDir)lib\glew-1.11.0\include;$(ProjectDir)lib\libpng\include;$(ProjectDir)lib\zlib-1.2.3\include;$(ProjectDir)lib\freetype\include;$(ProjectDir)lib\freetype\include\freetype2;$(ProjectDir)include;C:\AndroidDevelopment\android-ndk-r10d\sources\cxx-stl\stlport\stlport;C:\AndroidDevelopment\android-ndk-r10d\platforms\android-9\arch-arm\usr\include</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(ProjectDir)lib\glew-1.11.0\include;$(ProjectDir)lib\libpng\include;$(ProjectDir)lib\zlib-1.2.3\include;$(ProjectDir)lib\freetype\include;$(ProjectDir)lib\freetype\include\freetype2;$(ProjectDir)include;C:\AndroidDevelopment\android-ndk-r10d\sources\cxx-stl\stlport\stlport;C:\AndroidDevelopment\android-ndk-r10d\platforms\android-9\arch-arm\usr\include;C:\AndroidDevelopment\android-ndk-r10d\sources\android\native_app_glue</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
     <SourcePath>$(ProjectDir)src;$(ProjectDir)src\graphics;$(ProjectDir)src\system;$(ProjectDir)src\physics;$(ProjectDir)src\input;$(SourcePath)</SourcePath>

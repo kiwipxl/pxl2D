@@ -2,14 +2,19 @@
 
 #include <fstream>
 #include <png.h>
+#include <cassert>
+
+#if defined(PXL_PLATFORM_ANDROID)
 #include <jni.h>
 #include <android/asset_manager.h>
 #include <android_native_app_glue.h>
 #include <unistd.h>
+#endif
 
 #include "system/PXL_Exception.h"
 #include "system/PXL_Debug.h"
 #include "system/android/PXL_AndroidWindow.h"
+#include "system/PXL_IO.h"
 
 #define PNG_SIG_SIZE 8
 
@@ -21,6 +26,7 @@ std::ifstream file;
 PXL_Bitmap* PXL_load_png(std::string file_name, PXL_Bitmap* bitmap) {
 	if (bitmap == NULL) return NULL;
 
+	#if defined(PXL_PLATFORM_ANDROID)
 	PXL_print << "test\n";
 
 	JNIEnv* env = android_state->activity->env;
@@ -54,17 +60,20 @@ PXL_Bitmap* PXL_load_png(std::string file_name, PXL_Bitmap* bitmap) {
 	const char* filename = (const char*)NULL;
 	while ((filename = AAssetDir_getNextFileName(assetDir)) != NULL) {
 		AAsset* asset = AAssetManager_open(android_state->activity->assetManager, filename, AASSET_MODE_STREAMING);
-		char buf[BUFSIZ];
+		/*char buf[BUFSIZ];
 		int nb_read = 0;
 		FILE* out = fopen(filename, "w");
 		while ((nb_read = AAsset_read(asset, buf, BUFSIZ)) > 0)
 			fwrite(buf, nb_read, 1, out);
-		fclose(out);
+		fclose(out);*/
 		AAsset_close(asset);
 	}
 	AAssetDir_close(assetDir);
 
 	PXL_print << "test12\n";
+	#endif
+
+	assert(1 == 1 && "finished image io");
 
 	file.open(file_name.c_str(), std::ios::binary);
 

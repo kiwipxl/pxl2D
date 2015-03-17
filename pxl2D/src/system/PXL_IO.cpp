@@ -5,7 +5,7 @@
 #include "system/PXL_Exception.h"
 #include "system/PXL_Debug.h"
 
-std::string PXL_load_file_contents(std::string file_name) {
+std::string PXL_read_file_contents(std::string file_name) {
 	std::ifstream file(file_name.c_str(), std::ifstream::in);
 	if (file) {
 		file.ignore(std::numeric_limits<std::streamsize>::max());

@@ -26,9 +26,16 @@ void PXL_Batch::create_batch(PXL_BatchSize max_vertices) {
 		glEnableVertexAttribArray(2);
 
 		//set vertex shader attrib pointers
-		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(PXL_VertexPoint), (void*)0);
-		glVertexAttribPointer(1, 2, GL_UNSIGNED_SHORT, GL_TRUE, sizeof(PXL_VertexPoint), (void*)8);
-		glVertexAttribPointer(2, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(PXL_VertexPoint), (void*)12);
+		PXL_print << "shader location: " << glGetAttribLocation(PXL_default_shader->get_program_id(), "a_position") << "\n";
+		PXL_print << "shader location: " << glGetAttribLocation(PXL_default_shader->get_program_id(), "a_tex_coord") << "\n";
+		PXL_print << "shader location: " << glGetAttribLocation(PXL_default_shader->get_program_id(), "a_colour") << "\n";
+
+		glVertexAttribPointer(glGetAttribLocation(PXL_default_shader->get_program_id(), "a_position"), 
+								2, GL_FLOAT, GL_FALSE, sizeof(PXL_VertexPoint), (void*)0);
+		glVertexAttribPointer(glGetAttribLocation(PXL_default_shader->get_program_id(), "a_tex_coord"), 
+								2, GL_UNSIGNED_SHORT, GL_TRUE, sizeof(PXL_VertexPoint), (void*)8);
+		glVertexAttribPointer(glGetAttribLocation(PXL_default_shader->get_program_id(), "a_colour"), 
+								4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(PXL_VertexPoint), (void*)12);
 
 		glBindBuffer(GL_ARRAY_BUFFER, NULL);
 
@@ -44,7 +51,7 @@ void PXL_Batch::create_batch(PXL_BatchSize max_vertices) {
 	perspective_mat.identity();
 
 	//todo non magic variables for window width/height
-	perspective_mat.scale(1.0f / 512, -1.0f / 384);
+	perspective_mat.scale(1.0f / 240, -1.0f / 400);
 	perspective_mat.translate(-1.0f, 1.0f);
 
 	//enable alpha blending
@@ -65,11 +72,18 @@ void PXL_Batch::render_all() {
 		glDisable(GL_DEPTH_TEST);
 		glEnable(GL_BLEND);
 
+		glViewport(0, 0, 480, 800);
+
+		view_mat * perspective_mat;
+		view_mat.transpose();
+
 		draw_vbo();
 
 		glBindFramebuffer(PXL_GL_FRAMEBUFFER_WRITE, 0);
 	}
 	clear_all();
+
+	view_mat.identity();
 }
 
 void PXL_Batch::clear_all() {
@@ -79,7 +93,6 @@ void PXL_Batch::clear_all() {
 	max_vertex_index = 0;
 	total_vertices = 0;
 	min_vertices_count = 0;
-	view_mat.identity();
 }
 
 void PXL_Batch::use_shader(PXL_ShaderProgram* shader) {
@@ -327,9 +340,6 @@ void PXL_Batch::set_target(PXL_FrameBuffer* f) {
 void PXL_Batch::draw_vbo() {
 	//if there are no textures to draw or no vertex data then return
 	if (num_added == 0) { return; }
-
-	view_mat * perspective_mat;
-	view_mat.transpose();
 
 	//binds vertex buffer
 	glBindBuffer(GL_ARRAY_BUFFER, vbo_id);

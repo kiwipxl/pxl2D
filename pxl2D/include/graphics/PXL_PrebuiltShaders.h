@@ -50,7 +50,7 @@ const char* PXL_default_shader_str = GLSL(
 	varying vec2 tex_coord;
 
 	void main() {
-		gl_FragColor = v_colour * texture(t0, tex_coord);
+		gl_FragColor = v_colour * texture2D(t0, tex_coord);
 	}
 
 	//[END_FRAGMENT]
