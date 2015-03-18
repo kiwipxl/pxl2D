@@ -45,7 +45,7 @@ extern PXL_ShaderProgram* PXL_point_light_shader;
 /**
 \*brief: initialises prebuilt shaders, note: this should only ever be called by PXL
 **/
-extern const void PXL_shader_init();
+extern const void PXL_init_shader();
 
 /**
 \*brief: sets a prebuilt default shader onto the specified batch

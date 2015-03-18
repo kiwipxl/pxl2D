@@ -36,3 +36,10 @@ std::string PXL_read_file_contents(std::string file_name) {
 	}
 	return "";
 }
+
+char* PXL_append_char(const char* c1, const char* c2) {
+	char* buffer = new char[strlen(c1) + strlen(c2)];
+	strcpy(buffer, c1);
+	strcat(buffer, c2);
+	return buffer;
+}

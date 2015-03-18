@@ -6,5 +6,7 @@ C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\android\assets\cat2.pn
 C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\android\assets\cutecat.png \
 C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\android\assets\grid_hex.png \
 C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\android\assets\lol.png \
+C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\android\assets\newfolder \
 C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\android\assets\square.ttf \
+C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\android\assets\newfolder\newfile.png \
 C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\android\bin\AndroidManifest.xml \

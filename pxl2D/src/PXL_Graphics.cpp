@@ -5,6 +5,6 @@ void PXL_graphics_init() {
 	PXL_set_clear_depth(1);
 	PXL_clear();
 
-	PXL_shader_init();
-	PXL_font_init();
+	PXL_init_shader();
+	PXL_init_font();
 }

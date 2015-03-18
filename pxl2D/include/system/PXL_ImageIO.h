@@ -5,6 +5,8 @@
 #include <iostream>
 #include "graphics/PXL_Bitmap.h"
 
+extern void PXL_init_assets();
+
 /**
 \*brief: loads the contents of a png image into a PXL_Bitmap
 \*param [file_name]: the path and file name of the png to load

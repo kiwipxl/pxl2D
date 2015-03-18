@@ -13,7 +13,7 @@
 #define PXL_two_pi 6.28318530718f
 #define PXL_radian double(180 / PXL_pi)
 
-extern void PXL_math_init();
+extern void PXL_init_math();
 extern double PXL_fast_cos(double degrees);
 extern double PXL_fast_sin(double degrees);
 

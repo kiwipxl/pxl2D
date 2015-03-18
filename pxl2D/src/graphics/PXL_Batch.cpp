@@ -26,10 +26,6 @@ void PXL_Batch::create_batch(PXL_BatchSize max_vertices) {
 		glEnableVertexAttribArray(2);
 
 		//set vertex shader attrib pointers
-		PXL_print << "shader location: " << glGetAttribLocation(PXL_default_shader->get_program_id(), "a_position") << "\n";
-		PXL_print << "shader location: " << glGetAttribLocation(PXL_default_shader->get_program_id(), "a_tex_coord") << "\n";
-		PXL_print << "shader location: " << glGetAttribLocation(PXL_default_shader->get_program_id(), "a_colour") << "\n";
-
 		glVertexAttribPointer(glGetAttribLocation(PXL_default_shader->get_program_id(), "a_position"), 
 								2, GL_FLOAT, GL_FALSE, sizeof(PXL_VertexPoint), (void*)0);
 		glVertexAttribPointer(glGetAttribLocation(PXL_default_shader->get_program_id(), "a_tex_coord"), 
@@ -105,8 +101,6 @@ void PXL_Batch::use_shader(PXL_ShaderProgram* shader) {
 		glUseProgram(current_shader->get_program_id());
 
 		//set matrix uniform in the vertex shader for the program
-		PXL_print << "shader mat loc: " << current_shader->get_matrix_loc() << "\n";
-
 		glUniformMatrix4fv(current_shader->get_matrix_loc(), 1, false, view_mat.get_mat());
 	}
 }

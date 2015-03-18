@@ -174,9 +174,6 @@ libs/local/armeabi/objs/pxl2D/__/__/pxl2D/src/system/PXL_ImageIO.o: \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/setjmp.h \
  C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/../include/setjmp.h \
  C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/machine/setjmp.h \
- C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/cassert \
- C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/assert.h \
- C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/../include/assert.h \
  C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/jni.h \
  C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/android/asset_manager.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/android/native_app_glue/android_native_app_glue.h \
@@ -193,6 +190,17 @@ libs/local/armeabi/objs/pxl2D/__/__/pxl2D/src/system/PXL_ImageIO.o: \
  C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/sys/sysconf.h \
  C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/linux/capability.h \
  C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/pathconf.h \
+ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/sys/stat.h \
+ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/linux/stat.h \
+ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/endian.h \
+ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/sys/endian.h \
+ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/machine/endian.h \
+ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/errno.h \
+ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/../include/errno.h \
+ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/linux/errno.h \
+ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/asm/errno.h \
+ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/asm-generic/errno.h \
+ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/asm-generic/errno-base.h \
  jni/../../pxl2D/include/system/PXL_Exception.h \
  jni/../../pxl2D/include/system/PXL_Config.h \
  jni/../../pxl2D/include/system/PXL_Debug.h \
@@ -558,12 +566,6 @@ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/
 
 C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/machine/setjmp.h:
 
-C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/cassert:
-
-C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/assert.h:
-
-C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/../include/assert.h:
-
 C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/jni.h:
 
 C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/android/asset_manager.h:
@@ -595,6 +597,28 @@ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/
 C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/linux/capability.h:
 
 C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/pathconf.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/sys/stat.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/linux/stat.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/endian.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/sys/endian.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/machine/endian.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/errno.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/../include/errno.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/linux/errno.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/asm/errno.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/asm-generic/errno.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/asm-generic/errno-base.h:
 
 jni/../../pxl2D/include/system/PXL_Exception.h:
 

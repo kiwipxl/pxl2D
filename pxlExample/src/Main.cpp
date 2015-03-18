@@ -21,9 +21,9 @@ int main(int argc, char* args[]) {
 
 	PXL_Bitmap bitmap;		bitmap.create_bitmap(400, 300, PXL_COLOR_LIGHT_GREEN, PXL_CHANNEL_RGBA);
 
-	PXL_Texture cat;			cat.create_texture("cat2.png");
-	PXL_Texture cat_2;			cat_2.create_texture("cat2.png");
-	PXL_Texture cute_cat;		cute_cat.create_texture("cutecat.png");
+	PXL_Texture cat;			cat.create_texture("assets/cat2.png");
+	PXL_Texture cat_2;			cat_2.create_texture("assets/cat2.png");
+	PXL_Texture cute_cat;		cute_cat.create_texture("assets/cutecat.png");
 
 	PXL_print << "loaded cat pix. loading fonts...\n";
 
@@ -70,12 +70,12 @@ int main(int argc, char* args[]) {
 		rect.x = cos(t / 20) * 400;
 		batch.add(cat_2, &rect);
 
-		/*text.set_text("P1: 0     P2: 0");
+		text.set_text("P1: 0     P2: 0");
 		text.x = (window.get_width() / 2) - (text.get_width() / 2);
 		text.y = 40;
 		text.colour.set_colour(0, (cos(t / 10) + 1) / 2, 1, 1);
 		text.z_depth = batch.get_max_z_depth() - 1;
-		text.render(&batch);*/
+		text.render(&batch);
 
 		batch.render_all();
 

@@ -19,7 +19,7 @@ PXL_ShaderProgram* PXL_glow_shader;
 PXL_ShaderProgram* PXL_text_shader;
 PXL_ShaderProgram* PXL_point_light_shader;
 
-const void PXL_shader_init() {
+const void PXL_init_shader() {
 	//setup premade pxl glsl shaders
 	PXL_default_shader = PXL_create_shader(PXL_basic_vertex_shader_str, PXL_default_shader_str, "default_vert", "default_frag");
 	PXL_bloom_shader = PXL_create_shader(PXL_basic_vertex_shader_str, PXL_bloom_shader_str, "bloom_vert", "bloom_frag");

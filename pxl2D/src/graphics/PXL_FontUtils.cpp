@@ -9,7 +9,7 @@
 
 FT_Library PXL_FT_lib;
 
-void PXL_font_init() {
+void PXL_init_font() {
 	if (FT_Init_FreeType(&PXL_FT_lib)) {
 		PXL_show_exception("An error occurred while loading the freetype library");
 	}else {

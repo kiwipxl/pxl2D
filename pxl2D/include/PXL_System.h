@@ -14,7 +14,4 @@
 **/
 extern void PXL_system_init();
 
-//template<typename... Args>
-extern char* PXL_append_char(char* c1, char* c2);
-
 #endif

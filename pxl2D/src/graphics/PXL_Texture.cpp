@@ -34,8 +34,6 @@ bool PXL_Texture::create_texture(int w, int h, PXL_ubyte* pixels, PXL_Channel pi
 	height = h;
 	channel = pixel_channel;
 
-	PXL_print << channel.gl_pixel_mode << ", " << channel.num_channels << "\n";
-
 	glPixelStorei(GL_UNPACK_ALIGNMENT, channel.num_channels);
 
 	if (!texture_created) { glGenTextures(1, &id); }

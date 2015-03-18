@@ -10,7 +10,7 @@ call ant debug
 call adb install -r bin/NativeActivity-debug.apk
 
 echo --clearing logcat--
-adb logcat -c
+call adb logcat -c
 
 echo --starting activity--
 call adb shell am start -n com.example.native_activity/android.app.NativeActivity

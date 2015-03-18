@@ -10,6 +10,6 @@ extern FT_Library PXL_FT_lib;
 /**
 \*brief: initialises font, note: this should only ever be called by PXL
 **/
-extern void PXL_font_init();
+extern void PXL_init_font();
 
 #endif

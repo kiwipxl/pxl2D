@@ -7,7 +7,7 @@ const int table_size = 5760;
 const double table_size_pi = table_size / PXL_two_pi;
 const int table_overflow = 127 + table_size;
 
-void PXL_math_init() {
+void PXL_init_math() {
 	cos_table = new double[table_size];
 	for (int c = 0; c < table_size; ++c) {
 		cos_table[c] = cos(c / table_size_pi);
