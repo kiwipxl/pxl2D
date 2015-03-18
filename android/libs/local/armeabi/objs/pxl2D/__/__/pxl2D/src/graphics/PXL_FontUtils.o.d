@@ -181,6 +181,11 @@ libs/local/armeabi/objs/pxl2D/__/__/pxl2D/src/graphics/PXL_FontUtils.o: \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_ioserr.h \
  jni/../../pxl2D/include/graphics/PXL_ShaderProgram.h \
  jni/../../pxl2D/include/graphics/PXL_FrameBuffer.h \
+ jni/../../pxl2D/include/system/PXL_Window.h \
+ jni/../../pxl2D/include/system/PXL_Event.h \
+ jni/../../pxl2D/include/input/PXL_Joystick.h \
+ jni/../../pxl2D/include/system/android/PXL_AndroidWindow.h \
+ jni/../../pxl2D/include/system/PXL_WindowImpl.h \
  jni/../../pxl2D/lib/freetype/include/ft2build.h \
  jni/../../pxl2D/lib/freetype/include/freetype/config/ftheader.h \
  jni/../../pxl2D/lib/freetype/include/freetype/freetype.h \
@@ -559,6 +564,16 @@ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_iose
 jni/../../pxl2D/include/graphics/PXL_ShaderProgram.h:
 
 jni/../../pxl2D/include/graphics/PXL_FrameBuffer.h:
+
+jni/../../pxl2D/include/system/PXL_Window.h:
+
+jni/../../pxl2D/include/system/PXL_Event.h:
+
+jni/../../pxl2D/include/input/PXL_Joystick.h:
+
+jni/../../pxl2D/include/system/android/PXL_AndroidWindow.h:
+
+jni/../../pxl2D/include/system/PXL_WindowImpl.h:
 
 jni/../../pxl2D/lib/freetype/include/ft2build.h:
 

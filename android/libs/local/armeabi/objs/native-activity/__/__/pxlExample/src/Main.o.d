@@ -179,6 +179,11 @@ libs/local/armeabi/objs/native-activity/__/__/pxlExample/src/Main.o: \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_ioserr.h \
  jni/../../pxl2D/include/graphics/PXL_ShaderProgram.h \
  jni/../../pxl2D/include/graphics/PXL_FrameBuffer.h \
+ jni/../../pxl2D/include/system/PXL_Window.h \
+ jni/../../pxl2D/include/system/PXL_Event.h \
+ jni/../../pxl2D/include/input/PXL_Joystick.h \
+ jni/../../pxl2D/include/system/android/PXL_AndroidWindow.h \
+ jni/../../pxl2D/include/system/PXL_WindowImpl.h \
  jni/../../pxl2D/include/graphics/PXL_ShaderUtils.h \
  jni/../../pxl2D/include/graphics/PXL_TextureSheet.h \
  jni/../../pxl2D/include/graphics/PXL_Batch.h \
@@ -194,10 +199,6 @@ libs/local/armeabi/objs/native-activity/__/__/pxlExample/src/Main.o: \
  jni/../../pxl2D/include/graphics/PXL_Sprite.h \
  jni/../../pxl2D/include/PXL_System.h \
  jni/../../pxl2D/include/system/PXL_Window.h \
- jni/../../pxl2D/include/system/PXL_Event.h \
- jni/../../pxl2D/include/input/PXL_Joystick.h \
- jni/../../pxl2D/include/system/android/PXL_AndroidWindow.h \
- jni/../../pxl2D/include/system/PXL_WindowImpl.h \
  jni/../../pxl2D/include/system/PXL_Math.h \
  jni/../../pxl2D/include/system/PXL_Timer.h \
  jni/../../pxl2D/include/system/PXL_Exception.h \
@@ -585,6 +586,16 @@ jni/../../pxl2D/include/graphics/PXL_ShaderProgram.h:
 
 jni/../../pxl2D/include/graphics/PXL_FrameBuffer.h:
 
+jni/../../pxl2D/include/system/PXL_Window.h:
+
+jni/../../pxl2D/include/system/PXL_Event.h:
+
+jni/../../pxl2D/include/input/PXL_Joystick.h:
+
+jni/../../pxl2D/include/system/android/PXL_AndroidWindow.h:
+
+jni/../../pxl2D/include/system/PXL_WindowImpl.h:
+
 jni/../../pxl2D/include/graphics/PXL_ShaderUtils.h:
 
 jni/../../pxl2D/include/graphics/PXL_TextureSheet.h:
@@ -614,14 +625,6 @@ jni/../../pxl2D/include/graphics/PXL_Sprite.h:
 jni/../../pxl2D/include/PXL_System.h:
 
 jni/../../pxl2D/include/system/PXL_Window.h:
-
-jni/../../pxl2D/include/system/PXL_Event.h:
-
-jni/../../pxl2D/include/input/PXL_Joystick.h:
-
-jni/../../pxl2D/include/system/android/PXL_AndroidWindow.h:
-
-jni/../../pxl2D/include/system/PXL_WindowImpl.h:
 
 jni/../../pxl2D/include/system/PXL_Math.h:
 

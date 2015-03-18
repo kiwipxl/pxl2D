@@ -5,6 +5,7 @@
 #include "input/PXL_Joystick.h"
 
 #if defined(PXL_PLATFORM_WIN32)
+	#define NOMINMAX //macro to not have the windows header define min/max so it doesn't interfere
 	#include <Windows.h>
 	
 	#define PXL_EVENT_NULL			WM_NULL

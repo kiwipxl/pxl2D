@@ -10,6 +10,7 @@
 #include "graphics/PXL_ShaderProgram.h"
 #include "graphics/PXL_FrameBuffer.h"
 #include "system/PXL_API.h"
+#include "system/PXL_Window.h"
 
 enum PXL_Flip {
 	PXL_FLIP_NONE, 
@@ -75,7 +76,7 @@ class PXL_Batch {
 		@param size the max amount of adds this batch can have
 		**/
 		PXL_Batch() { }
-		PXL_Batch(PXL_BatchSize max_vertices = PXL_BATCH_SMALL);
+		PXL_Batch(PXL_Window* window, PXL_BatchSize max_vertices = PXL_BATCH_SMALL);
 		~PXL_Batch();
 
 		//batch matrices
@@ -85,7 +86,7 @@ class PXL_Batch {
 		/** Creates the batch with the specified max render size
 		@param size the max amount of adds this batch can have and the size of the vbo uploaded
 		**/
-		void create_batch(PXL_BatchSize max_vertices = PXL_BATCH_SMALL);
+		void create_batch(PXL_Window* window, PXL_BatchSize max_vertices = PXL_BATCH_SMALL);
 
 		/** Renders everything that was added to the batch and clears all data when finished. You
 		can set where the target will render to using set_target with a PXL_FrameBuffer.
@@ -110,7 +111,9 @@ class PXL_Batch {
 		Read more about frame buffers here: https://www.opengl.org/wiki/Framebuffer_Object
 		@see render_all(), clear_all(), add()
 		**/
-		void set_target(PXL_FrameBuffer* buffer = NULL);
+		void set_render_target(PXL_FrameBuffer* buffer = NULL);
+
+		void set_window_target(PXL_Window* window);
 
 		/** Adds the specified texture to the batch render queue and transforms it with all specified parameters
 		@param texture The texture to add to the batch
@@ -163,6 +166,8 @@ class PXL_Batch {
 		PXL_ShaderProgram* current_shader = NULL;
 		PXL_BlendMode current_blend_mode;
 		PXL_Matrix4 proj_view_mat;
+		PXL_Window* target_window;
+		PXL_Rect render_bounds;
 
 		//vertex data
 		GLuint vbo_id; /**> The id associated with the vertex buffer object **/

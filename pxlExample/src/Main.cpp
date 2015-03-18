@@ -34,7 +34,7 @@ int main(int argc, char* args[]) {
 
 	PXL_print << "loaded fonts. creating batch...\n";
 
-	PXL_Batch batch = PXL_Batch(PXL_BATCH_SMALL);
+	PXL_Batch batch = PXL_Batch(&window, PXL_BATCH_SMALL);
 
 	PXL_print << "created batch. checking joysticks...\n";
 
@@ -70,10 +70,9 @@ int main(int argc, char* args[]) {
 		rect.x = cos(t / 20) * 400;
 		batch.add(cat_2, &rect);
 
-		rect.x = 0; rect.y = 0;
+		rect.x = 0; rect.y = 400;
 		rect.w = arcade.get_glyph_sheet()->get_width(); rect.h = arcade.get_glyph_sheet()->get_height();
-		batch.add(*arcade.get_glyph_sheet(), &rect);
-
+		batch.add(*arcade.get_glyph_sheet(), &rect, 0, 0, 0, PXL_FLIP_NONE, 0, PXL_COLOR_WHITE, PXL_text_shader);
 		text.set_text("hey there sexy ladeh ;)\n");
 		text.x = (window.get_width() / 2) - (text.get_width() / 2);
 		text.y = 40;

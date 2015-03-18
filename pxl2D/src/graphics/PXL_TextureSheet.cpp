@@ -1,17 +1,16 @@
 #include "graphics/PXL_TextureSheet.h"
-#include "system/PXL_Window.h"
 #include "system/PXL_Debug.h"
 
 PXL_FrameBuffer* sheet_frame_buffer = NULL;
 
-PXL_TextureSheet::PXL_TextureSheet(PXL_BatchSize max_vertices) {
+PXL_TextureSheet::PXL_TextureSheet(PXL_Window* window, PXL_BatchSize max_vertices) {
 	//initiate sheet
 	texture_created = false;
 	width = 0;
 	height = 0;
 	bg_colour = PXL_COLOUR_TRANSPARENT_BLACK;
 
-	batch = new PXL_Batch(max_vertices);
+	batch = new PXL_Batch(window, max_vertices);
 }
 
 void PXL_TextureSheet::create_sheet(PXL_Channel sheet_channel, bool dispose_batch, bool dispose_list, bool clear_list) {
@@ -44,10 +43,10 @@ void PXL_TextureSheet::create_sheet(PXL_Channel sheet_channel, bool dispose_batc
 	sheet_frame_buffer->get_texture()->create_texture(width, height, NULL, PXL_CHANNEL_RGBA);
 
 	sheet_frame_buffer->clear(bg_colour.r, bg_colour.g, bg_colour.b, bg_colour.a);
-	batch->set_target(sheet_frame_buffer);
+	batch->set_render_target(sheet_frame_buffer);
 	batch->render_all();
 
-	batch->set_target();
+	batch->set_render_target();
 
 	PXL_Rect rect;
 	rect.x = 0; rect.y = 0; rect.w = width; rect.h = height;

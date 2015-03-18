@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "graphics/PXL_Batch.h"
+#include "system/PXL_Window.h"
 
 class PXL_TextureSheet : public PXL_Texture {
 
@@ -10,7 +11,7 @@ class PXL_TextureSheet : public PXL_Texture {
 		/**
 		\*brief: default constructor
 		**/
-		PXL_TextureSheet(PXL_BatchSize max_vertices = PXL_BATCH_SMALL);
+		PXL_TextureSheet(PXL_Window* window = NULL, PXL_BatchSize max_vertices = PXL_BATCH_SMALL);
 		/**
 		\*brief: batch deconstructor
 		**/
