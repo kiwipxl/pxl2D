@@ -65,6 +65,7 @@ class PXL_Texture {
 		\return The id
 		**/
 		GLint get_id() const { return id; }
+		PXL_Channel get_channel() const { return channel; }
 
 	protected:
 		int width; /**< The width of the texture **/

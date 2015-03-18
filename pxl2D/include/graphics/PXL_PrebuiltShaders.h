@@ -406,15 +406,13 @@ const char* PXL_repeat_shader_str = GLSL(
 const char* PXL_text_shader_str = GLSL(
 	//[START_FRAGMENT]
 
-	attribute vec4 v_colour;
-	attribute vec2 tex_coord;
-	varying vec4 pixel;
-
 	uniform sampler2D t0;
-	uniform vec4 glyph_rects[];
+	
+	varying vec4 v_colour;
+	varying vec2 tex_coord;
 
 	void main() {
-	  pixel = vec4(v_colour.rgb, v_colour.a * texture(t0, tex_coord).a);
+		gl_FragColor = vec4(v_colour.rgb, texture2D(t0, tex_coord).a);
 	}
 
 	//[END_FRAGMENT]

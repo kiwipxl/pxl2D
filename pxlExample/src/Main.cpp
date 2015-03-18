@@ -70,11 +70,15 @@ int main(int argc, char* args[]) {
 		rect.x = cos(t / 20) * 400;
 		batch.add(cat_2, &rect);
 
-		text.set_text("P1: 0     P2: 0");
+		rect.x = 0; rect.y = 0;
+		rect.w = arcade.get_glyph_sheet()->get_width(); rect.h = arcade.get_glyph_sheet()->get_height();
+		batch.add(*arcade.get_glyph_sheet(), &rect);
+
+		text.set_text("hey there sexy ladeh ;)\n");
 		text.x = (window.get_width() / 2) - (text.get_width() / 2);
 		text.y = 40;
 		text.colour.set_colour(0, (cos(t / 10) + 1) / 2, 1, 1);
-		text.z_depth = batch.get_max_z_depth() - 1;
+		text.z_depth = 1;
 		text.render(&batch);
 
 		batch.render_all();

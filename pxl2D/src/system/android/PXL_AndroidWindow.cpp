@@ -148,15 +148,12 @@ void win_data_handle_cmd(AndroidApp* app, int32_t cmd) {
 			win_data->app->savedStateSize = sizeof(AppSavedState);
 			break;
 		case APP_CMD_INIT_WINDOW:
-			if (!win_init) {
-				// The window is being shown, get it ready.
-				PXL_print << "initwindow!\n";
-				if (win_data->app->window != NULL) {
-					PXL_print << "inited\n";
-					win_data_init_display(win_data);
-					swap_buffers();
-					win_init = true;
-				}
+			// The window is being shown, get it ready.
+			if (win_data->app->window != NULL) {
+				PXL_print << "inited\n";
+				win_data_init_display(win_data);
+				swap_buffers();
+				win_init = true;
 			}
 			break;
 		case APP_CMD_TERM_WINDOW:

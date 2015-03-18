@@ -77,6 +77,8 @@ void PXL_init_assets() {
 		write_asset_dir("");
 
 		cache_dir = PXL_append_char(cache_dir, "/");
+
+		chdir(cache_dir);
 	#endif
 }
 
@@ -90,7 +92,10 @@ std::ifstream file;
 PXL_Bitmap* PXL_load_png(std::string file_name, PXL_Bitmap* bitmap) {
 	if (bitmap == NULL) return NULL;
 
-	chdir(cache_dir);
+	#if defined(PXL_PLATFORM_ANDROID)
+		chdir(cache_dir);
+	#endif
+
 	file.open(file_name.c_str(), std::ios::binary);
 
 	if (!png_validate(file)) {

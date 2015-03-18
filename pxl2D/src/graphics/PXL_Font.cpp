@@ -1,10 +1,13 @@
 #include "graphics/PXL_Font.h"
-#include <iostream>
+
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
+#include "system/PXL_Debug.h"
+
 PXL_Font::PXL_Font(std::string path, int c_max_font_size) {
 	max_font_size = c_max_font_size;
+	PXL_print << "attempting to load font...\n";
 	if (!FT_New_Face(PXL_FT_lib, path.c_str(), 0, &f)) {
 		FT_Set_Pixel_Sizes(f, max_font_size, 0);
 
@@ -17,6 +20,7 @@ PXL_Font::PXL_Font(std::string path, int c_max_font_size) {
 		PXL_Rect rect;
 		glyph_rects = new PXL_Rect[f->num_glyphs];
 		f->style_flags = FT_STYLE_FLAG_BOLD;
+		int glyphs_loaded = 0;
 		for (int n = 0; n < f->num_glyphs; ++n) {
 			FT_Load_Glyph(f, n, FT_LOAD_RENDER);
 			if (f->glyph->bitmap.width == 0 || f->glyph->bitmap.rows == 0) { continue; }
@@ -42,9 +46,12 @@ PXL_Font::PXL_Font(std::string path, int c_max_font_size) {
 				rect.x = 0;
 				rect.y = glyph_sheet->get_height();
 			}
+			++glyphs_loaded;
 		}
 		//create sheet from all textures added and then clear and dispose the textures
 		glyph_sheet->create_sheet(PXL_CHANNEL_ALPHA, true, true, true);
+
+		PXL_print << "loaded font (" << path << ") with " << glyphs_loaded << " glyphs loaded\n";
 	}
 }
 

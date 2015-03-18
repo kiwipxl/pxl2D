@@ -1,6 +1,6 @@
 #include "graphics/PXL_TextureSheet.h"
-#include <iostream>
 #include "system/PXL_Window.h"
+#include "system/PXL_Debug.h"
 
 PXL_FrameBuffer* sheet_frame_buffer = NULL;
 
@@ -30,6 +30,8 @@ void PXL_TextureSheet::create_sheet(PXL_Channel sheet_channel, bool dispose_batc
 		sheet_frame_buffer = new PXL_FrameBuffer(1, 1);
 	}
 
+	PXL_print << "width: " << width << ", height: " << height << "\n";
+
 	int viewport_size[4];
 	glGetIntegerv(GL_VIEWPORT, viewport_size);
 
@@ -39,7 +41,7 @@ void PXL_TextureSheet::create_sheet(PXL_Channel sheet_channel, bool dispose_batc
 	batch->perspective_mat.translate(-1.0f, -1.0f);
 
 	create_texture(width, height, NULL, sheet_channel);
-	sheet_frame_buffer->get_texture()->create_texture(width, height, NULL, sheet_channel);
+	sheet_frame_buffer->get_texture()->create_texture(width, height, NULL, PXL_CHANNEL_RGBA);
 
 	sheet_frame_buffer->clear(bg_colour.r, bg_colour.g, bg_colour.b, bg_colour.a);
 	batch->set_target(sheet_frame_buffer);
@@ -51,10 +53,9 @@ void PXL_TextureSheet::create_sheet(PXL_Channel sheet_channel, bool dispose_batc
 	rect.x = 0; rect.y = 0; rect.w = width; rect.h = height;
 	sheet_frame_buffer->blit(*this, &rect);
 
-	//todo: set viewport back to its previous value
-	//todo: glreadbuffer not supported in gles2
 	glViewport(viewport_size[0], viewport_size[1], viewport_size[2], viewport_size[3]);
 
+	//todo: glreadbuffer not supported in gles2
 	//glReadBuffer(GL_BACK);
 
 	texture_created = true;

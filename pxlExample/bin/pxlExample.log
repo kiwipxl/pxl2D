@@ -1,14 +1,6 @@
-﻿Build started 16/03/2015 4:12:19 AM.
+﻿Build started 18/03/2015 5:44:08 PM.
      1>Project "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxlExample\pxlExample.vcxproj" on node 2 (Build target(s)).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D GLEW_STATIC /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxlExample\bin\\" /Fd"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxlExample\bin\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt src\Main.cpp
-         Main.cpp
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_graphicsapi.h(7): warning C4005: 'GLEW_STATIC' : macro redefinition
-                 command-line arguments :  see previous definition of 'GLEW_STATIC'
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_batch.h(194): warning C4520: 'PXL_Batch' : multiple default constructors specified
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(50): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(51): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
-       Link:
+     1>Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\bin\pxlExample.exe" /INCREMENTAL:NO /NOLOGO Vfw32.lib pxl2D.lib opengl32.lib glew32s.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\bin\pxlExample.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\bin\pxlExample.lib" /MACHINE:X86 "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxlExample\bin\Main.obj"
      1>Main.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/OPT:LBR' specification
      1>LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
@@ -18,4 +10,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.88
+Time Elapsed 00:00:00.58
