@@ -45,6 +45,7 @@ struct AppWinData {
 	int32_t width;
 	int32_t height;
 	AppSavedState state;
+	PXL_TouchEvent touch_event;
 };
 
 extern struct android_app* android_state;

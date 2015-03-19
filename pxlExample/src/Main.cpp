@@ -46,12 +46,25 @@ int main(int argc, char* args[]) {
 
 	PXL_print << "checked joysticks. running loop...\n";
 
+	PXL_Rect cat_rect(0, 0, 400, 300);
+
 	start_second_time.start();
 	while (!quit) {
 		start_time.start();
 
 		PXL_Event e;
 		while (window.poll_event(e)) {
+			if (e.type == PXL_EVENT_TOUCH) {
+				if (e.touch_event.num_touching <= 2) {
+					text.x = e.touch_event.touches[0].x;
+					text.y = e.touch_event.touches[0].y;
+				}
+				if (e.touch_event.num_touching == 2) {
+					cat_rect.x = e.touch_event.touches[1].x;
+					cat_rect.y = e.touch_event.touches[1].y;
+				}
+			}
+
 			if (e.type == PXL_EVENT_QUIT) {
 				quit = true;
 				PXL_print << "am quitting\n";
@@ -65,17 +78,15 @@ int main(int argc, char* args[]) {
 		PXL_set_clear_colour(0, 0, 0, 1);
 		PXL_clear();
 
-		PXL_Rect rect(0, 0, 400, 300);
-		batch.add(cat, &rect);
-		rect.x = cos(t / 20) * 400;
+		batch.add(cat, &cat_rect);
+		PXL_Rect rect(cos(t / 20) * 400, 0, 400, 300);
 		batch.add(cat_2, &rect);
 
 		rect.x = 0; rect.y = 400;
 		rect.w = arcade.get_glyph_sheet()->get_width(); rect.h = arcade.get_glyph_sheet()->get_height();
 		batch.add(*arcade.get_glyph_sheet(), &rect, 0, 0, 0, PXL_FLIP_NONE, 0, PXL_COLOR_WHITE, PXL_text_shader);
+
 		text.set_text("hey there sexy ladeh ;)\n");
-		text.x = (window.get_width() / 2) - (text.get_width() / 2);
-		text.y = 40;
 		text.colour.set_colour(0, (cos(t / 10) + 1) / 2, 1, 1);
 		text.z_depth = 1;
 		text.render(&batch);

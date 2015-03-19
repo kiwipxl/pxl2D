@@ -1,9 +1,7 @@
 libs/local/armeabi/objs/pxl2D/__/__/pxl2D/src/system/PXL_Event.o: \
  jni/../../pxl2D/src/system/PXL_Event.cpp \
  jni/../../pxl2D/include/system/PXL_Event.h \
- jni/../../pxl2D/include/system/PXL_API.h \
- jni/../../pxl2D/include/input/PXL_Joystick.h \
- C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/string \
+ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/vector \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_prolog.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_cprolog.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/config/features.h \
@@ -20,16 +18,26 @@ libs/local/armeabi/objs/pxl2D/__/__/pxl2D/src/system/PXL_Event.o: \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/config/stl_confix.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/config/_native_headers.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/debug/_debug.h \
- C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_string.h \
- C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_alloc.h \
+ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_algobase.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_cstddef.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stddef.h \
- C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_cstdlib.h \
- C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stdlib.h \
- C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/../include/stdlib.h \
+ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_cstring.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/string.h \
  C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/../include/string.h \
  C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/malloc.h \
+ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/using/cstring \
+ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/climits \
+ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/limits.h \
+ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/../include/limits.h \
+ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/sys/limits.h \
+ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/linux/limits.h \
+ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/machine/internal_types.h \
+ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/machine/limits.h \
+ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/sys/syslimits.h \
+ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/asm/page.h \
+ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_cstdlib.h \
+ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stdlib.h \
+ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/../include/stdlib.h \
  C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/alloca.h \
  C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/strings.h \
  C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/sys/types.h \
@@ -48,18 +56,6 @@ libs/local/armeabi/objs/pxl2D/__/__/pxl2D/src/system/PXL_Event.o: \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_cmath.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/math.h \
  C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/../include/math.h \
- C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/limits.h \
- C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/../include/limits.h \
- C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/sys/limits.h \
- C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/linux/limits.h \
- C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/machine/internal_types.h \
- C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/machine/limits.h \
- C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/sys/syslimits.h \
- C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/asm/page.h \
- C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_cstring.h \
- C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/using/cstring \
- C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_algobase.h \
- C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/climits \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_pair.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/type_traits.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/type_manips.h \
@@ -69,6 +65,8 @@ libs/local/armeabi/objs/pxl2D/__/__/pxl2D/src/system/PXL_Event.o: \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_algobase.c \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_function_base.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_iterator.h \
+ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_vector.h \
+ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_alloc.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_new.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/../../gabi++/include/new \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/cstddef \
@@ -82,6 +80,17 @@ libs/local/armeabi/objs/pxl2D/__/__/pxl2D/src/system/PXL_Event.o: \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stdarg.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_construct.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_alloc.c \
+ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_uninitialized.h \
+ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_vector.c \
+ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_range_errors.h \
+ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_bvector.h \
+ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_relops_cont.h \
+ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_epilog.h \
+ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_config_compat_post.h \
+ jni/../../pxl2D/include/system/PXL_API.h \
+ jni/../../pxl2D/include/input/PXL_Joystick.h \
+ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/string \
+ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_string.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_string_fwd.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_iosfwd.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/char_traits.h \
@@ -95,7 +104,6 @@ libs/local/armeabi/objs/pxl2D/__/__/pxl2D/src/system/PXL_Event.o: \
  C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/asm-generic/siginfo.h \
  C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/sys/_wchar_limits.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_mbstate_t.h \
- C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_uninitialized.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_string_base.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_string_npos.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_string_operators.h \
@@ -103,7 +111,6 @@ libs/local/armeabi/objs/pxl2D/__/__/pxl2D/src/system/PXL_Event.o: \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_ctraits_fns.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_function.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_function_adaptors.h \
- C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_range_errors.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_string_hash.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_hash_fun.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_string_io.h \
@@ -148,8 +155,7 @@ libs/local/armeabi/objs/pxl2D/__/__/pxl2D/src/system/PXL_Event.o: \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_num_get.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_num_get.c \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_string_io.c \
- C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_epilog.h \
- C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_config_compat_post.h \
+ jni/../../pxl2D/include/graphics/PXL_Structs.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/iostream \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_ioserr.h \
  jni/../../pxl2D/include/system/PXL_Window.h \
@@ -163,20 +169,11 @@ libs/local/armeabi/objs/pxl2D/__/__/pxl2D/src/system/PXL_Event.o: \
  C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/GLES2/gl2.h \
  C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/GLES2/gl2platform.h \
  C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/GLES2/gl2ext.h \
- C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/vector \
- C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_vector.h \
- C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_vector.c \
- C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_bvector.h \
- C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_relops_cont.h \
  jni/../../pxl2D/include/system/PXL_WindowImpl.h
 
 jni/../../pxl2D/include/system/PXL_Event.h:
 
-jni/../../pxl2D/include/system/PXL_API.h:
-
-jni/../../pxl2D/include/input/PXL_Joystick.h:
-
-C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/string:
+C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/vector:
 
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_prolog.h:
 
@@ -210,25 +207,45 @@ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/confi
 
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/debug/_debug.h:
 
-C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_string.h:
-
-C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_alloc.h:
+C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_algobase.h:
 
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_cstddef.h:
 
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stddef.h:
 
-C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_cstdlib.h:
-
-C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stdlib.h:
-
-C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/../include/stdlib.h:
+C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_cstring.h:
 
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/string.h:
 
 C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/../include/string.h:
 
 C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/malloc.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/using/cstring:
+
+C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/climits:
+
+C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/limits.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/../include/limits.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/sys/limits.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/linux/limits.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/machine/internal_types.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/machine/limits.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/sys/syslimits.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/asm/page.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_cstdlib.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stdlib.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/../include/stdlib.h:
 
 C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/alloca.h:
 
@@ -266,30 +283,6 @@ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/math.h:
 
 C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/../include/math.h:
 
-C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/limits.h:
-
-C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/../include/limits.h:
-
-C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/sys/limits.h:
-
-C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/linux/limits.h:
-
-C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/machine/internal_types.h:
-
-C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/machine/limits.h:
-
-C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/sys/syslimits.h:
-
-C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/asm/page.h:
-
-C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_cstring.h:
-
-C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/using/cstring:
-
-C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_algobase.h:
-
-C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/climits:
-
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_pair.h:
 
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/type_traits.h:
@@ -307,6 +300,10 @@ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_algo
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_function_base.h:
 
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_iterator.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_vector.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_alloc.h:
 
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_new.h:
 
@@ -334,6 +331,28 @@ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_cons
 
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_alloc.c:
 
+C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_uninitialized.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_vector.c:
+
+C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_range_errors.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_bvector.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_relops_cont.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_epilog.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_config_compat_post.h:
+
+jni/../../pxl2D/include/system/PXL_API.h:
+
+jni/../../pxl2D/include/input/PXL_Joystick.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/string:
+
+C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_string.h:
+
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_string_fwd.h:
 
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_iosfwd.h:
@@ -360,8 +379,6 @@ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/
 
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_mbstate_t.h:
 
-C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_uninitialized.h:
-
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_string_base.h:
 
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_string_npos.h:
@@ -375,8 +392,6 @@ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_ctra
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_function.h:
 
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_function_adaptors.h:
-
-C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_range_errors.h:
 
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_string_hash.h:
 
@@ -466,9 +481,7 @@ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_num_
 
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_string_io.c:
 
-C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_epilog.h:
-
-C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_config_compat_post.h:
+jni/../../pxl2D/include/graphics/PXL_Structs.h:
 
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/iostream:
 
@@ -495,15 +508,5 @@ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/
 C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/GLES2/gl2platform.h:
 
 C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/GLES2/gl2ext.h:
-
-C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/vector:
-
-C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_vector.h:
-
-C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_vector.c:
-
-C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_bvector.h:
-
-C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_relops_cont.h:
 
 jni/../../pxl2D/include/system/PXL_WindowImpl.h:

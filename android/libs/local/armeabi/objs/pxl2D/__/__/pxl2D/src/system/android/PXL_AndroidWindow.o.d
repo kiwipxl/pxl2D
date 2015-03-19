@@ -165,6 +165,7 @@ libs/local/armeabi/objs/pxl2D/__/__/pxl2D/src/system/android/PXL_AndroidWindow.o
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_relops_cont.h \
  jni/../../pxl2D/include/system/PXL_Event.h \
  jni/../../pxl2D/include/input/PXL_Joystick.h \
+ jni/../../pxl2D/include/graphics/PXL_Structs.h \
  jni/../../pxl2D/include/system/PXL_WindowImpl.h \
  C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/jni.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/errno.h \
@@ -524,6 +525,8 @@ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_relo
 jni/../../pxl2D/include/system/PXL_Event.h:
 
 jni/../../pxl2D/include/input/PXL_Joystick.h:
+
+jni/../../pxl2D/include/graphics/PXL_Structs.h:
 
 jni/../../pxl2D/include/system/PXL_WindowImpl.h:
 

@@ -149,8 +149,14 @@ libs/local/armeabi/objs/pxl2D/__/__/pxl2D/src/PXL_System.o: \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_epilog.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_config_compat_post.h \
  jni/../../pxl2D/include/system/PXL_Event.h \
+ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/vector \
+ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_vector.h \
+ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_vector.c \
+ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_bvector.h \
+ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_relops_cont.h \
  jni/../../pxl2D/include/system/PXL_API.h \
  jni/../../pxl2D/include/input/PXL_Joystick.h \
+ jni/../../pxl2D/include/graphics/PXL_Structs.h \
  jni/../../pxl2D/include/system/android/PXL_AndroidWindow.h \
  jni/../../pxl2D/include/graphics/PXL_GraphicsAPI.h \
  C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/EGL/egl.h \
@@ -161,11 +167,6 @@ libs/local/armeabi/objs/pxl2D/__/__/pxl2D/src/PXL_System.o: \
  C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/GLES2/gl2.h \
  C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/GLES2/gl2platform.h \
  C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/GLES2/gl2ext.h \
- C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/vector \
- C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_vector.h \
- C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_vector.c \
- C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_bvector.h \
- C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_relops_cont.h \
  jni/../../pxl2D/include/system/PXL_WindowImpl.h \
  jni/../../pxl2D/include/system/PXL_Math.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/cmath \
@@ -183,7 +184,6 @@ libs/local/armeabi/objs/pxl2D/__/__/pxl2D/src/PXL_System.o: \
  jni/../../pxl2D/include/system/PXL_ImageIO.h \
  jni/../../pxl2D/include/graphics/PXL_Bitmap.h \
  jni/../../pxl2D/include/graphics/PXL_Colour.h \
- jni/../../pxl2D/include/graphics/PXL_Structs.h \
  jni/../../pxl2D/include/system/PXL_IO.h
 
 jni/../../pxl2D/include/PXL_System.h:
@@ -486,9 +486,21 @@ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_conf
 
 jni/../../pxl2D/include/system/PXL_Event.h:
 
+C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/vector:
+
+C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_vector.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_vector.c:
+
+C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_bvector.h:
+
+C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_relops_cont.h:
+
 jni/../../pxl2D/include/system/PXL_API.h:
 
 jni/../../pxl2D/include/input/PXL_Joystick.h:
+
+jni/../../pxl2D/include/graphics/PXL_Structs.h:
 
 jni/../../pxl2D/include/system/android/PXL_AndroidWindow.h:
 
@@ -509,16 +521,6 @@ C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/
 C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/GLES2/gl2platform.h:
 
 C:/AndroidDevelopment/android-ndk-r10d/platforms/android-9/arch-arm/usr/include/GLES2/gl2ext.h:
-
-C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/vector:
-
-C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_vector.h:
-
-C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_vector.c:
-
-C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_bvector.h:
-
-C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_relops_cont.h:
 
 jni/../../pxl2D/include/system/PXL_WindowImpl.h:
 
@@ -553,7 +555,5 @@ jni/../../pxl2D/include/system/PXL_ImageIO.h:
 jni/../../pxl2D/include/graphics/PXL_Bitmap.h:
 
 jni/../../pxl2D/include/graphics/PXL_Colour.h:
-
-jni/../../pxl2D/include/graphics/PXL_Structs.h:
 
 jni/../../pxl2D/include/system/PXL_IO.h:

@@ -166,13 +166,13 @@ libs/local/armeabi/objs/pxl2D/__/__/pxl2D/src/graphics/PXL_FrameBuffer.o: \
  jni/../../pxl2D/include/system/PXL_Config.h \
  jni/../../pxl2D/include/system/PXL_Window.h \
  jni/../../pxl2D/include/system/PXL_Event.h \
- jni/../../pxl2D/include/input/PXL_Joystick.h \
- jni/../../pxl2D/include/system/android/PXL_AndroidWindow.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/vector \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_vector.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_vector.c \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_bvector.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_relops_cont.h \
+ jni/../../pxl2D/include/input/PXL_Joystick.h \
+ jni/../../pxl2D/include/system/android/PXL_AndroidWindow.h \
  jni/../../pxl2D/include/system/PXL_WindowImpl.h \
  jni/../../pxl2D/include/system/PXL_Debug.h \
  C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/iostream \
@@ -513,10 +513,6 @@ jni/../../pxl2D/include/system/PXL_Window.h:
 
 jni/../../pxl2D/include/system/PXL_Event.h:
 
-jni/../../pxl2D/include/input/PXL_Joystick.h:
-
-jni/../../pxl2D/include/system/android/PXL_AndroidWindow.h:
-
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/vector:
 
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_vector.h:
@@ -526,6 +522,10 @@ C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_vect
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_bvector.h:
 
 C:/AndroidDevelopment/android-ndk-r10d/sources/cxx-stl/stlport/stlport/stl/_relops_cont.h:
+
+jni/../../pxl2D/include/input/PXL_Joystick.h:
+
+jni/../../pxl2D/include/system/android/PXL_AndroidWindow.h:
 
 jni/../../pxl2D/include/system/PXL_WindowImpl.h:
 

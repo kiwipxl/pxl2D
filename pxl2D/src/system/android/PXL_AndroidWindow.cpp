@@ -125,13 +125,60 @@ int win_data_init_display(AppWinData* win_data) {
 */
 int32_t win_data_handle_input(AndroidApp* app, AInputEvent* event) {
 	AppWinData* win_data = (AppWinData*)app->userData;
-	if (AInputEvent_getType(event) == AINPUT_EVENT_TYPE_MOTION) {
+
+	int32_t action_mask = AMotionEvent_getAction(event) & AMOTION_EVENT_ACTION_MASK;
+
+	if (action_mask == AMOTION_EVENT_ACTION_DOWN			||	action_mask == AMOTION_EVENT_ACTION_UP			||
+		action_mask == AMOTION_EVENT_ACTION_POINTER_DOWN	||	action_mask == AMOTION_EVENT_ACTION_POINTER_UP	||
+		action_mask == AMOTION_EVENT_ACTION_MOVE) {
+		win_data->touch_event.num_touching = AMotionEvent_getPointerCount(event);
+
 		win_data->in_focus = true;
-		win_data->state.x = AMotionEvent_getX(event, 0);
-		win_data->state.y = AMotionEvent_getY(event, 0);
+
+		bool set_state = false;
+		if (action_mask != AMOTION_EVENT_ACTION_MOVE) {
+			int index = (AMotionEvent_getAction(event) & AMOTION_EVENT_ACTION_POINTER_INDEX_MASK) >> AMOTION_EVENT_ACTION_POINTER_INDEX_SHIFT;
+
+			if (index < 128) {
+				if (index == win_data->touch_event.touches.size()) {
+					win_data->touch_event.touches.push_back(PXL_TouchInfo());
+				}
+
+				win_data->touch_event.touches[index].id = index;
+				if (index < win_data->touch_event.touches.size()) {
+					if (action_mask == AMOTION_EVENT_ACTION_DOWN || action_mask == AMOTION_EVENT_ACTION_POINTER_DOWN) {
+						win_data->touch_event.touches[index].state = PXL_TOUCH_DOWN;
+						set_state = true;
+					}else if (action_mask == AMOTION_EVENT_ACTION_UP || action_mask == AMOTION_EVENT_ACTION_POINTER_UP) {
+						win_data->touch_event.touches[index].state = PXL_TOUCH_UP;
+						set_state = true;
+					}
+				}
+			}
+		}
+
+		for (int i = 0; i < win_data->touch_event.num_touching; ++i) {
+			float new_x = AMotionEvent_getX(event, i);
+			float new_y = AMotionEvent_getY(event, i);
+
+			if (!set_state) {
+				if (win_data->touch_event.touches[i].x != new_x || win_data->touch_event.touches[i].y != new_y) {
+					if (action_mask == AMOTION_EVENT_ACTION_MOVE) {
+						win_data->touch_event.touches[i].state = PXL_TOUCH_MOVE;
+					}
+				}else {
+					win_data->touch_event.touches[i].state = PXL_TOUCH_IDLE;
+				}
+			}
+
+			win_data->touch_event.touches[i].x = new_x;
+			win_data->touch_event.touches[i].y = new_y;
+		}
+
 		return 1;
 	}
-	return 0;
+
+	return 1;
 }
 
 /**
@@ -243,6 +290,8 @@ bool PXL_AndroidWindow::poll_event(PXL_Event& e) {
 	AndroidPollSource* source;
 
 	if ((ident = ALooper_pollAll(0, NULL, &events, (void**)&source)) >= 0) {
+		e.type = PXL_EVENT_UNKNOWN;
+
 		// Process this event.
 		if (source != NULL) {
 			source->process(android_state, source);
@@ -253,11 +302,17 @@ bool PXL_AndroidWindow::poll_event(PXL_Event& e) {
 			if (win_data.accelerometerSensor != NULL) {
 				ASensorEvent event;
 				while (ASensorEventQueue_getEvents(win_data.sensorEventQueue, &event, 1) > 0) {
-					/*PXL_print << "accelerometer: " << "  x = " << event.acceleration.x 
-												   << ", y = " << event.acceleration.y 
+					/*PXL_print << "accelerometer: " << "  x = " << event.acceleration.x
+												   << ", y = " << event.acceleration.y
 												   << ", z = " << event.acceleration.z;*/
 				}
 			}
+		}
+
+		if (ident == LOOPER_ID_INPUT) {
+			e.touch_event = win_data.touch_event;
+			e.type = PXL_EVENT_TOUCH;
+			return true;
 		}
 
 		// Check if we are exiting.
@@ -266,6 +321,7 @@ bool PXL_AndroidWindow::poll_event(PXL_Event& e) {
 			return false;
 		}
 	}
+
 	return false;
 }
 
