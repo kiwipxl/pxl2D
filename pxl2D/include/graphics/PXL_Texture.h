@@ -43,7 +43,7 @@ class PXL_Texture {
 		@param min_filter The filter value for when the texture is scaled and is smaller than its original size
 		@param max_filter The filter value for when the texture is scaled and is larger than its original size
 		**/
-		void set_filters(PXL_TextureFilter min_filter = PXL_GL_NEAREST, PXL_TextureFilter max_filter = PXL_GL_NEAREST);
+		void set_filters(PXL_TextureFilter min_filter = PXL_GL_LINEAR, PXL_TextureFilter max_filter = PXL_GL_LINEAR);
 
 		/** Deletes all texture information
 		**/

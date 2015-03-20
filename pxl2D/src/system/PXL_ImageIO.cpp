@@ -63,7 +63,8 @@ void PXL_init_assets() {
 		PXL_print << "cache assets dir: " << cache_dir << "\n";
 
 		//free jcachepath
-		delete j_cache_path;
+		//todo: delete j_cache_path properly without breaking cache_dir
+		//delete j_cache_path;
 
 		chdir(cache_dir);
 		std::string temp = cache_dir;

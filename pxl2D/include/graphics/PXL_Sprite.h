@@ -47,9 +47,6 @@ class PXL_Sprite {
 		void set_origin(float x = 0, float y = 0);
 		void set_origin(const PXL_Origin origin_point = PXL_ORIGIN_TOP_LEFT);
 
-		float get_texture_width() { return texture_source->get_width(); }
-		float get_texture_height() { return texture_source->get_height(); }
-
 		PXL_Vec2 get_origin() { return origin; }
 		PXL_Origin get_origin_type() { return origin_type; }
 
@@ -63,6 +60,8 @@ class PXL_Sprite {
 		**/
 		virtual void free();
 
+		void set_texture(const PXL_Texture& source);
+
 	protected:
 		bool texture_set = false; /*> Defines whether or not the sprite has been loaded or not */
 		const PXL_Texture* texture_source = NULL;
@@ -70,7 +69,8 @@ class PXL_Sprite {
 		PXL_Vec2 origin; /*> The origin point of the sprite to perform rotation and scaling transformations */
 		PXL_Origin origin_type = PXL_ORIGIN_TOP_LEFT;
 
-		void set_texture(const PXL_Texture& source);
+		float get_texture_width() { return texture_source->get_width(); }
+		float get_texture_height() { return texture_source->get_height(); }
 };
 
 #endif

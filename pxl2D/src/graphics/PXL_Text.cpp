@@ -1,5 +1,5 @@
 #include "graphics/PXL_Text.h"
-#include <iostream>
+#include "system/PXL_Debug.h"
 
 PXL_Text::PXL_Text(PXL_Font* f_font, std::string f_text, int f_pos_x, int f_pos_y, short f_size) {
 	font = f_font;

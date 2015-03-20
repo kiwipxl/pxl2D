@@ -16,7 +16,9 @@ void PXL_Batch::create_batch(PXL_Window* window, PXL_BatchSize max_vertices) {
 
 	{
 		//create the vbo
+		PXL_print << "trying to create vbo\n";
 		glGenBuffers(1, &vbo_id);
+		PXL_print << "created vbo id: " << vbo_id << "\n";
 		glBindBuffer(GL_ARRAY_BUFFER, vbo_id);
 		glBufferData(GL_ARRAY_BUFFER, max_vertices_amount * sizeof(PXL_VertexPoint), NULL, GL_STATIC_DRAW);
 
@@ -317,6 +319,7 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 }
 
 bool PXL_Batch::verify_texture_add(const PXL_Texture& texture, PXL_Rect* rect) {
+	return true;
 	if (texture.texture_created) {
 		if (rect->x + rect->w > render_bounds.x && rect->y + rect->h > render_bounds.y && rect->x < render_bounds.w && rect->y < render_bounds.h) {
 			if (total_vertices >= max_vertices_amount) {
@@ -416,7 +419,9 @@ void PXL_Batch::draw_vbo() {
 
 void PXL_Batch::free() {
 	if (batch_created) {
-		glDeleteBuffers(1, &vbo_id);
+		//glDeleteBuffers(1, &vbo_id);
+
+		//PXL_print << "deleted vbo id: " << vbo_id << "\n";
 
 		for (int n = 0; n < max_quads_amount; ++n) {
 			vertices[n].batches.clear();
@@ -425,6 +430,7 @@ void PXL_Batch::free() {
 		delete[] vertices;
 
 		batch_created = false;
+		vbo_id = 0;
 	}
 }
 

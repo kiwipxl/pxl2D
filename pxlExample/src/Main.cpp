@@ -1,5 +1,12 @@
 #include <PXL.h>
 
+//temporary to_string function until one has been added to pxl
+template <typename T> std::string to_string(const T& n) {
+	std::ostringstream stm;
+	stm << n;
+	return stm.str();
+}
+
 int main(int argc, char* args[]) {
 	//srand(time(NULL));
 
@@ -14,23 +21,52 @@ int main(int argc, char* args[]) {
 	int average_count = 0;
 	int seconds_elapsed = 0;
 
-	PXL_Window window(1024, 768, "PXL Example Project");
+	PXL_Window window(480, 800, "PXL Example Project");
 	PXL_init();
 
-	PXL_print << "loading cat pix...\n";
+	PXL_print << "loading assets...\n";
 
-	PXL_Bitmap bitmap;		bitmap.create_bitmap(400, 300, PXL_COLOR_LIGHT_GREEN, PXL_CHANNEL_RGBA);
+	PXL_Texture arena_texture;			arena_texture.create_texture("assets/arena.png");
+	PXL_Texture puck_texture;			puck_texture.create_texture("assets/puck.png");
+	PXL_Texture p1paddle_texture;		p1paddle_texture.create_texture("assets/p1paddle.png");
+	PXL_Texture p2paddle_texture;		p2paddle_texture.create_texture("assets/p2paddle.png");
 
-	PXL_Texture cat;			cat.create_texture("assets/cat2.png");
-	PXL_Texture cat_2;			cat_2.create_texture("assets/cat2.png");
-	PXL_Texture cute_cat;		cute_cat.create_texture("assets/cutecat.png");
+	PXL_print << "loaded assets. loading fonts...\n";
 
-	PXL_print << "loaded cat pix. loading fonts...\n";
+	PXL_Vec2 window_center(window.get_width() / 2, window.get_height() / 2);
+
+	struct Paddle : public PXL_Sprite {
+
+		PXL_Vec2 dest;
+		int touchid;
+		PXL_Vec2 center;
+	};
+
+	Paddle p1paddle;		p1paddle.set_texture(p1paddle_texture);
+	p1paddle.width = 96;	p1paddle.height = 96;
+	Paddle p2paddle;		p2paddle.set_texture(p2paddle_texture);
+	p2paddle.width = 96;	p2paddle.height = 96;
+
+	p1paddle.center.x = p1paddle.width / 2;		p1paddle.center.y = p1paddle.height / 2;
+	p2paddle.center.x = p2paddle.width / 2;		p2paddle.center.y = p2paddle.height / 2;
+
+	PXL_Sprite puck(puck_texture);
+	PXL_Vec2 puck_speed;
+	puck.x = window.get_width() / 2;	puck.y = window.get_height() / 2;
+	puck.width = 64;					puck.height = 64;
 
 	PXL_Font square("assets/square.ttf");
 	PXL_Font arcade("assets/arcade.ttf");
-	PXL_Text text(&arcade, "", 150, 450, 42);
-	text.set_origin(PXL_ORIGIN_CENTER);
+	PXL_Text p1score_text(&arcade, "0", window.get_width() - 40, window_center.y - 100, 42);
+	p1score_text.set_origin(PXL_ORIGIN_MID_LEFT);
+	p1score_text.rotation = 90;
+
+	PXL_Text p2score_text(&arcade, "0", window.get_width() - 40, window_center.y + 32, 42);
+	p2score_text.set_origin(PXL_ORIGIN_MID_LEFT);
+	p2score_text.rotation = 90;
+
+	int p1score = 0;
+	int p2score = 0;
 
 	PXL_print << "loaded fonts. creating batch...\n";
 
@@ -46,8 +82,6 @@ int main(int argc, char* args[]) {
 
 	PXL_print << "checked joysticks. running loop...\n";
 
-	PXL_Rect cat_rect(0, 0, 400, 300);
-
 	start_second_time.start();
 	while (!quit) {
 		start_time.start();
@@ -55,13 +89,38 @@ int main(int argc, char* args[]) {
 		PXL_Event e;
 		while (window.poll_event(e)) {
 			if (e.type == PXL_EVENT_TOUCH) {
-				if (e.touch_event.num_touching <= 2) {
-					text.x = e.touch_event.touches[0].x;
-					text.y = e.touch_event.touches[0].y;
-				}
-				if (e.touch_event.num_touching == 2) {
-					cat_rect.x = e.touch_event.touches[1].x;
-					cat_rect.y = e.touch_event.touches[1].y;
+				for (int i = 0; i < e.touch_event.num_touching; ++i) {
+					PXL_TouchInfo info = e.touch_event.touches[i];
+
+					if (info.y - p1paddle.center.y >= window_center.y && info.state == PXL_TOUCH_DOWN) {
+						p1paddle.touchid = info.id;
+						p1paddle.dest.x = info.x - p1paddle.center.x;
+						p1paddle.dest.y = info.y - p1paddle.center.y;
+					}else if (p1paddle.touchid == info.id) {
+						p1paddle.dest.x = info.x - p1paddle.center.x;
+						if (info.y - p1paddle.center.y >= window_center.y) {
+							p1paddle.dest.y = info.y - p1paddle.center.y;
+						}else {
+							p1paddle.dest.y = window_center.y;
+						}
+						if (info.state == PXL_TOUCH_UP) {
+							p1paddle.touchid = -1;
+						}
+					}else if (info.y - p2paddle.center.y <= window_center.y - p2paddle.height && info.state == PXL_TOUCH_DOWN) {
+						p2paddle.touchid = info.id;
+						p2paddle.dest.x = info.x - p2paddle.center.x;
+						p2paddle.dest.y = info.y - p2paddle.center.y;
+					}else if (p2paddle.touchid == info.id) {
+						p2paddle.dest.x = info.x - p2paddle.center.x;
+						if (info.y - p2paddle.center.y <= window_center.y - p2paddle.height) {
+							p2paddle.dest.y = info.y - p2paddle.center.y;
+						}else {
+							p2paddle.dest.y = window_center.y - p2paddle.height;
+						}
+						if (info.state == PXL_TOUCH_UP) {
+							p2paddle.touchid = -1;
+						}
+					}
 				}
 			}
 
@@ -78,18 +137,62 @@ int main(int argc, char* args[]) {
 		PXL_set_clear_colour(0, 0, 0, 1);
 		PXL_clear();
 
-		batch.add(cat, &cat_rect);
-		PXL_Rect rect(cos(t / 20) * 400, 0, 400, 300);
-		batch.add(cat_2, &rect);
+		PXL_Rect rect(0, 0, window.get_width(), window.get_height());
+		batch.add(arena_texture, &rect);
 
-		rect.x = 0; rect.y = 400;
-		rect.w = arcade.get_glyph_sheet()->get_width(); rect.h = arcade.get_glyph_sheet()->get_height();
-		batch.add(*arcade.get_glyph_sheet(), &rect, 0, 0, 0, PXL_FLIP_NONE, 0, PXL_COLOR_WHITE, PXL_text_shader);
+		p1score_text.colour.set_colour(0, (cos(t / 10) + 1) / 2, 1, 1);
+		p1score_text.render(&batch);
 
-		text.set_text("hey there sexy ladeh ;)\n");
-		text.colour.set_colour(0, (cos(t / 10) + 1) / 2, 1, 1);
-		text.z_depth = 1;
-		text.render(&batch);
+		p2score_text.colour.set_colour(0, (cos(t / 10) + 1) / 2, 1, 1);
+		p2score_text.render(&batch);
+
+		p1paddle.x -= (p1paddle.x - p1paddle.dest.x) / 4;
+		p1paddle.y -= (p1paddle.y - p1paddle.dest.y) / 4;
+		p2paddle.x -= (p2paddle.x - p2paddle.dest.x) / 4;
+		p2paddle.y -= (p2paddle.y - p2paddle.dest.y) / 4;
+
+		p1paddle.render(&batch);
+		p2paddle.render(&batch);
+
+		if (puck.x >= window.get_width() - 64) {	puck_speed.x = -puck_speed.x; puck.x = window.get_width() - 64; }
+		if (puck.x <= 64) {							puck_speed.x = -puck_speed.x; puck.x = 64; }
+		if (puck.y >= window.get_height() - 64) {
+			if (puck.x >= window_center.x / 2 && puck.x <= window_center.x + (window_center.x / 2)) {
+				puck.x = window.get_width() / 2;	puck.y = window.get_height() / 2;
+				++p2score;
+				p2score_text.set_text(to_string(p2score));
+			}else {
+				puck_speed.y = -puck_speed.y;		puck.y = window.get_height() - 64;
+			}
+		}
+		if (puck.y <= 64) {
+			if (puck.x >= window_center.x / 2 && puck.x <= window_center.x + (window_center.x / 2)) {
+				puck.x = window.get_width() / 2;	puck.y = window.get_height() / 2;
+				++p1score;
+				p1score_text.set_text(to_string(p1score));
+				p1score_text.y = (window_center.y - 100) - (p1score_text.get_width());
+			}else {
+				puck_speed.y = -puck_speed.y;		puck.y = 64;
+			}
+		}
+
+		puck.x += puck_speed.x;
+		puck.y += puck_speed.y;
+		puck_speed.x = puck_speed.x * .95f;
+		puck_speed.y = puck_speed.y * .95f;
+
+		float p1dist = sqrt(pow(float(p1paddle.x - puck.x), 2) + pow(float(p1paddle.y - puck.y), 2));
+		if (p1dist <= 80) {
+			puck_speed.x -= (p1paddle.x - puck.x) / 4;
+			puck_speed.y -= (p1paddle.y - puck.y) / 4;
+		}
+		float p2dist = sqrt(pow(float(p2paddle.x - puck.x), 2) + pow(float(p2paddle.y - puck.y), 2));
+		if (p2dist <= 80) {
+			puck_speed.x -= (p2paddle.x - puck.x) / 4;
+			puck_speed.y -= (p2paddle.y - puck.y) / 4;
+		}
+
+		puck.render(&batch);
 
 		batch.render_all();
 
