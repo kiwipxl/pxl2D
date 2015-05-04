@@ -14,7 +14,7 @@
 class PXL_Win32Window : public PXL_WindowImpl {
 
 	public:
-		PXL_Win32Window() { }
+        PXL_Win32Window() { }
 		/**
 		\*brief: window deconstructor
 		**/

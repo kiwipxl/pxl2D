@@ -72,11 +72,10 @@ const char* PXL_default_shader_str = GLSL(
 
 **/
 const char* PXL_bloom_shader_str = GLSL(
-	//[START_FRAGMENT]
+    //[START_FRAGMENT]
 
-	attribute vec4 v_colour;
-	attribute vec2 tex_coord;
-	varying vec4 pixel;
+    varying vec4 v_colour;
+    varying vec2 tex_coord;
 
 	uniform sampler2D t0;
 	uniform float outline_spread;
@@ -104,7 +103,7 @@ const char* PXL_bloom_shader_str = GLSL(
 			sum += h_sum / 9.0;
 		}
 
-		pixel = v_colour * (texture(t0, tex_coord) + ((sum / 9.0) * outline_intensity));
+        gl_FragColor = v_colour * (texture(t0, tex_coord) + ((sum / 9.0) * outline_intensity));
 	}
 
 	//[END_FRAGMENT]
@@ -124,11 +123,10 @@ const char* PXL_bloom_shader_str = GLSL(
 
 **/
 const char* PXL_blur_shader_str = GLSL(
-	//[START_FRAGMENT]
+    //[START_FRAGMENT]
 
-	attribute vec4 v_colour;
-	attribute vec2 tex_coord;
-	varying vec4 pixel;
+    varying vec4 v_colour;
+    varying vec2 tex_coord;
 
 	uniform sampler2D t0;
 	uniform vec2 blur_size;
@@ -151,7 +149,7 @@ const char* PXL_blur_shader_str = GLSL(
 		sum += texelFetch(t0, ivec2(uv_x + (3.0 * blur_size.x), uv_y + (3.0 * blur_size.y)), 0);
 		sum += texelFetch(t0, ivec2(uv_x + (4.0 * blur_size.x), uv_y + (4.0 * blur_size.y)), 0);
 
-		pixel = v_colour * (sum / 9.0);
+        gl_FragColor = v_colour * (sum / 9.0);
 	}
 
 	//[END_FRAGMENT]
@@ -168,18 +166,17 @@ const char* PXL_blur_shader_str = GLSL(
 
 **/
 const char* PXL_grayscale_shader_str = GLSL(
-	//[START_FRAGMENT]
+    //[START_FRAGMENT]
 
-	attribute vec4 v_colour;
-	attribute vec2 tex_coord;
-	varying vec4 pixel;
+    varying vec4 v_colour;
+    varying vec2 tex_coord;
 
 	uniform sampler2D t0;
 
 	void main() {
-		pixel = texture(t0, tex_coord);
-		float g = dot(pixel.rgb, vec3(0.299, 0.587, 0.114));
-		pixel = vec4(g, g, g, v_colour.a * pixel.a);
+        gl_FragColor = texture(t0, tex_coord);
+        float g = dot(gl_FragColor.rgb, vec3(0.299, 0.587, 0.114));
+        gl_FragColor = vec4(g, g, g, v_colour.a * gl_FragColor.a);
 	}
 
 	//[END_FRAGMENT]
@@ -202,11 +199,10 @@ const char* PXL_grayscale_shader_str = GLSL(
 
 **/
 const char* PXL_glow_shader_str = GLSL(
-	//[START_FRAGMENT]
+    //[START_FRAGMENT]
 
-	attribute vec4 v_colour;
-	attribute vec2 tex_coord;
-	varying vec4 pixel;
+    varying vec4 v_colour;
+    varying vec2 tex_coord;
 
 	uniform sampler2D t0;
 	uniform float outline_size;
@@ -215,8 +211,8 @@ const char* PXL_glow_shader_str = GLSL(
 	uniform float outline_threshold;
 
 	void main() {
-		pixel = texture(t0, tex_coord);
-		if (pixel.a <= outline_threshold) {
+        gl_FragColor = texture(t0, tex_coord);
+        if (gl_FragColor.a <= outline_threshold) {
 			ivec2 size = textureSize(t0, 0);
 	
 			float uv_x = tex_coord.x * size.x;
@@ -238,7 +234,7 @@ const char* PXL_glow_shader_str = GLSL(
 				sum += h_sum / 9.0;
 			}
 
-			pixel = vec4(outline_colour, (sum / 9.0) * outline_intensity);
+            gl_FragColor = vec4(outline_colour, (sum / 9.0) * outline_intensity);
 		}
 	}
 
@@ -261,11 +257,10 @@ const char* PXL_glow_shader_str = GLSL(
 
 **/
 const char* PXL_outline_shader_str = GLSL(
-	//[START_FRAGMENT]
+    //[START_FRAGMENT]
 
-	attribute vec4 v_colour;
-	attribute vec2 tex_coords;
-	varying vec4 pixel;
+    varying vec4 v_colour;
+    varying vec2 tex_coords;
 
 	uniform sampler2D t0;
 	uniform float outline_thickness = 1;
@@ -273,9 +268,9 @@ const char* PXL_outline_shader_str = GLSL(
 	uniform float outline_threshold = .5;
 
 	void main() {
-		pixel = texture(t0, tex_coords);
+        gl_FragColor = texture(t0, tex_coords);
 
-		if (pixel.a <= outline_threshold) {
+        if (gl_FragColor.a <= outline_threshold) {
 			ivec2 size = textureSize(t0, 0);
 
 			float uv_x = tex_coords.x * size.x;
@@ -298,7 +293,7 @@ const char* PXL_outline_shader_str = GLSL(
 			}
 
 			if (sum / 9.0 >= 0.0001) {
-				pixel = outline_colour;
+                gl_FragColor = outline_colour;
 			}
 		}
 	}
@@ -321,11 +316,10 @@ const char* PXL_outline_shader_str = GLSL(
 
 **/
 const char* PXL_point_light_shader_str = GLSL(
-	//[START_FRAGMENT]
+    //[START_FRAGMENT]
 
-	attribute vec4 v_colour;
-	attribute vec2 tex_coord;
-	varying vec4 pixel;
+    varying vec4 v_colour;
+    varying vec2 tex_coord;
 
 	uniform sampler2D t0;
 	uniform float points[504];
@@ -334,7 +328,7 @@ const char* PXL_point_light_shader_str = GLSL(
 	const int point_size = 7;
 
 	void main() {
-		pixel = vec4(0, 0, 0, 0);
+        gl_FragColor = vec4(0, 0, 0, 0);
 
 		vec2 pos = tex_coord * textureSize(t0, 0);
 		float size;
@@ -345,13 +339,13 @@ const char* PXL_point_light_shader_str = GLSL(
 			float dist = sqrt(pow(pos.x - points[n], 2) + pow(pos.y - points[n + 1], 2));
 			if (dist <= size) {
 				float a = intensity - (dist / (size / intensity));
-				pixel.r += a * points[n + 4];
-				pixel.g += a * points[n + 5];
-				pixel.b += a * points[n + 6];
-				pixel.a += a * pixel.rgb;
+                gl_FragColor.r += a * points[n + 4];
+                gl_FragColor.g += a * points[n + 5];
+                gl_FragColor.b += a * points[n + 6];
+                gl_FragColor.a += a * gl_FragColor.rgb;
 			}
 		}
-		pixel.a = clamp(pixel.a, 0, max_alpha);
+        gl_FragColor.a = clamp(gl_FragColor.a, 0, max_alpha);
 	}
 
 	//[END_FRAGMENT]
@@ -372,18 +366,17 @@ const char* PXL_point_light_shader_str = GLSL(
 
 **/
 const char* PXL_repeat_shader_str = GLSL(
-	//[START_FRAGMENT]
+    //[START_FRAGMENT]
 
-	attribute vec4 v_colour;
-	attribute vec2 tex_coord;
-	varying vec4 pixel;
+    varying vec4 v_colour;
+    varying vec2 tex_coord;
 
 	uniform sampler2D t0;
 	uniform vec2 repeat = vec2(2.0, 2.0);
 
 	void main() {
 		ivec2 size = textureSize(t0, 0);
-		pixel = v_colour * texelFetch(t0, ivec2(mod(tex_coord.xy * repeat.xy * size.xy, size.xy)), 0);
+        gl_FragColor = v_colour * texelFetch(t0, ivec2(mod(tex_coord.xy * repeat.xy * size.xy, size.xy)), 0);
 	}
 
 	//[END_FRAGMENT]

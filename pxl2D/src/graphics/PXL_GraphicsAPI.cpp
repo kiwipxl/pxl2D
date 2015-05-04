@@ -6,11 +6,10 @@
 extern void PXL_glew_init() {
 	#if defined(PXL_PLATFORM_WIN32)
 		glewExperimental = true;
-		GLenum error;
-		if ((error = glewInit()) != GLEW_OK) {
-			PXL_force_show_exception("Could not initialise GLEW. Error: " + (std::string)(char*)glewGetErrorString(error));
-			return;
-		}
+        GLenum error;
+        if ((error = glewInit()) != GL_NO_ERROR) {
+            PXL_force_show_exception("Could not initialise GLEW. Error: " + (std::string)(char*)glewGetErrorString(error));
+        }
 		PXL_print << "glew initiated\n";
 		int min;
 		glGetIntegerv(GL_MINOR_VERSION, &min);

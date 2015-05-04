@@ -1,23 +1,9 @@
-﻿Build started 4/05/2015 4:50:38 PM.
+﻿Build started 4/05/2015 8:58:58 PM.
      1>Project "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\pxl2D.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\\" /Fd"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt src\PXL.cpp src\PXL_Graphics.cpp src\PXL_System.cpp src\graphics\PXL_Batch.cpp src\graphics\PXL_Font.cpp src\graphics\PXL_FontUtils.cpp src\graphics\PXL_FrameBuffer.cpp src\graphics\PXL_Lights.cpp src\graphics\PXL_ShaderUtils.cpp src\graphics\PXL_Sprite.cpp src\graphics\PXL_Text.cpp src\graphics\PXL_TextureSheet.cpp src\system\PXL_Event.cpp src\system\win32\PXL_Win32Window.cpp
-         PXL_Win32Window.cpp
-         Generating Code...
-         Skipping... (no relevant changes detected)
-         PXL_Event.cpp
-         PXL_TextureSheet.cpp
-         PXL_Text.cpp
-         PXL_Sprite.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\\" /Fd"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt src\graphics\PXL_ShaderUtils.cpp
          PXL_ShaderUtils.cpp
-         PXL_Lights.cpp
-         PXL_FrameBuffer.cpp
-         PXL_FontUtils.cpp
-         PXL_Font.cpp
-         PXL_Batch.cpp
-         PXL_System.cpp
-         PXL_Graphics.cpp
-         PXL.cpp
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_shaderutils.cpp(123): warning C4244: 'initializing' : conversion from 'std::streamsize' to 'unsigned int', possible loss of data
        Lib:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\lib\pxl2D.lib" libpng.lib zlib.lib freetype.lib winmm.lib dbghelp.lib /NOLOGO "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Colour.obj"
          "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_GraphicsAPI.obj"
@@ -72,4 +58,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:02.84
+Time Elapsed 00:00:03.86
