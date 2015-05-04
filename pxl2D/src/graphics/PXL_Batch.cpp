@@ -28,12 +28,12 @@ void PXL_Batch::create_batch(PXL_Window* window, PXL_BatchSize max_vertices) {
 		glEnableVertexAttribArray(2);
 
 		//set vertex shader attrib pointers
-		glVertexAttribPointer(glGetAttribLocation(PXL_default_shader->get_program_id(), "a_position"), 
-								2, GL_FLOAT, GL_FALSE, sizeof(PXL_VertexPoint), (void*)0);
-		glVertexAttribPointer(glGetAttribLocation(PXL_default_shader->get_program_id(), "a_tex_coord"), 
-								2, GL_UNSIGNED_SHORT, GL_TRUE, sizeof(PXL_VertexPoint), (void*)8);
-		glVertexAttribPointer(glGetAttribLocation(PXL_default_shader->get_program_id(), "a_colour"), 
-								4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(PXL_VertexPoint), (void*)12);
+		glVertexAttribPointer(glGetAttribLocation(PXL_default_shader->get_program_id(), "a_position"),
+			2, GL_FLOAT, GL_FALSE, sizeof(PXL_VertexPoint), (void*)0);
+		glVertexAttribPointer(glGetAttribLocation(PXL_default_shader->get_program_id(), "a_tex_coord"),
+			2, GL_UNSIGNED_SHORT, GL_TRUE, sizeof(PXL_VertexPoint), (void*)8);
+		glVertexAttribPointer(glGetAttribLocation(PXL_default_shader->get_program_id(), "a_colour"),
+			4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(PXL_VertexPoint), (void*)12);
 
 		glBindBuffer(GL_ARRAY_BUFFER, NULL);
 
@@ -124,8 +124,8 @@ void PXL_Batch::use_blend_mode(PXL_BlendMode blend_mode) {
 	}
 }
 
-void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_rect, float rotation, PXL_Vec2* origin, 
-					PXL_Flip flip, int z_depth, PXL_Colour colour, PXL_ShaderProgram* shader, PXL_BlendMode blend_mode) {
+void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_rect, float rotation, PXL_Vec2* origin,
+	PXL_Flip flip, int z_depth, PXL_Colour colour, PXL_ShaderProgram* shader, PXL_BlendMode blend_mode) {
 	if (verify_texture_add(texture, rect)) {
 		z_depth += (max_quads_amount - 1) / 2;
 		if (z_depth < 0) {
@@ -137,7 +137,7 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 			//	PXL_ERROR_BATCH_ADD_FAILED);
 			z_depth = max_quads_amount - 1;
 		}
-		
+
 		VertexContainer& c = vertices[z_depth];
 
 		if (c.batch_index >= c.batches.size()) {
@@ -182,7 +182,7 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 
 		/**
 		==================================================================================
-									Set vertex positions
+		Set vertex positions
 		==================================================================================
 		**/
 		//set vertex pos, uvs and colours
@@ -257,13 +257,13 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 
 		/**
 		==================================================================================
-									Set UV vertex coords
+		Set UV vertex coords
 		==================================================================================
 		**/
 		//attempt to optimise by not setting uv values if they have the same value in the vertex batch as the new values
 		modified = false;
 		if (src_rect == NULL) {
-			if (v_batch.src_rect.x != 0					  || v_batch.src_rect.y != 0 ||
+			if (v_batch.src_rect.x != 0 || v_batch.src_rect.y != 0 ||
 				v_batch.src_rect.w != texture.get_width() || v_batch.src_rect.h != texture.get_height()) {
 				modified = true;
 
@@ -297,7 +297,7 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 
 		/**
 		==================================================================================
-									Set vertex colours
+		Set vertex colours
 		==================================================================================
 		**/
 		int i_r = colour.r * 255; int i_g = colour.g * 255; int i_b = colour.b * 255; int i_a = colour.a * 255;

@@ -2,6 +2,7 @@
 #include <fstream>
 #include "graphics/PXL_Batch.h"
 #include "graphics/PXL_PrebuiltShaders.h"
+#include "system/PXL_Debug.h"
 
 //defines
 const char* start_v_header = "//[START_VERTEX]";

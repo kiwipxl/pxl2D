@@ -44,7 +44,15 @@ int main(int argc, char* args[]) {
 
 	Paddle p1paddle;		p1paddle.set_texture(p1paddle_texture);
 	p1paddle.width = 96;	p1paddle.height = 96;
+	p1paddle.dest.x = window_center.x;
+	p1paddle.dest.y = window_center.y / 2;
+	p1paddle.x = p1paddle.dest.x;
+	p1paddle.y = p1paddle.dest.y;
 	Paddle p2paddle;		p2paddle.set_texture(p2paddle_texture);
+	p2paddle.dest.x = window_center.x;
+	p2paddle.dest.y = window_center.y + (window_center.y / 2);
+	p2paddle.x = p2paddle.dest.x;
+	p2paddle.y = p2paddle.dest.y;
 	p2paddle.width = 96;	p2paddle.height = 96;
 
 	p1paddle.center.x = p1paddle.width / 2;		p1paddle.center.y = p1paddle.height / 2;
@@ -54,23 +62,26 @@ int main(int argc, char* args[]) {
 	PXL_Vec2 puck_speed;
 	puck.x = window.get_width() / 2;	puck.y = window.get_height() / 2;
 	puck.width = 64;					puck.height = 64;
+	puck.z_depth = 1;
 
 	PXL_Font square("assets/square.ttf");
 	PXL_Font arcade("assets/arcade.ttf");
 	PXL_Text p1score_text(&arcade, "0", window.get_width() - 40, window_center.y - 100, 42);
 	p1score_text.set_origin(PXL_ORIGIN_MID_LEFT);
 	p1score_text.rotation = 90;
+	p1score_text.z_depth = 2;
 
 	PXL_Text p2score_text(&arcade, "0", window.get_width() - 40, window_center.y + 32, 42);
 	p2score_text.set_origin(PXL_ORIGIN_MID_LEFT);
 	p2score_text.rotation = 90;
+	p2score_text.z_depth = 2;
 
 	int p1score = 0;
 	int p2score = 0;
 
 	PXL_print << "loaded fonts. creating batch...\n";
 
-	PXL_Batch batch = PXL_Batch(&window, PXL_BATCH_SMALL);
+	PXL_Batch batch = PXL_Batch(&window, PXL_BATCH_TINY);
 
 	PXL_print << "created batch. checking joysticks...\n";
 
@@ -123,6 +134,22 @@ int main(int argc, char* args[]) {
 					}
 				}
 			}
+
+			/*if (e.mouse_y - p1paddle.center.y >= window_center.y) {
+				p1paddle.dest.x = e.mouse_x - p1paddle.center.x;
+				if (e.mouse_y - p1paddle.center.y >= window_center.y) {
+					p1paddle.dest.y = e.mouse_y - p1paddle.center.y;
+				}else {
+					p1paddle.dest.y = window_center.y;
+				}
+			}else if (e.mouse_y - p2paddle.center.y <= window_center.y - p2paddle.height) {
+				p2paddle.dest.x = e.mouse_x - p2paddle.center.x;
+				if (e.mouse_y - p2paddle.center.y <= window_center.y - p2paddle.height) {
+					p2paddle.dest.y = e.mouse_y - p2paddle.center.y;
+				}else {
+					p2paddle.dest.y = window_center.y - p2paddle.height;
+				}
+			}*/
 
 			if (e.type == PXL_EVENT_QUIT) {
 				quit = true;

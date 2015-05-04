@@ -7,11 +7,6 @@ PXL_ShaderProgram::PXL_ShaderProgram(std::string vertex_shader, std::string frag
 	vertex_id = glCreateShader(GL_VERTEX_SHADER);
 	fragment_id = glCreateShader(GL_FRAGMENT_SHADER);
 
-	if (vertex_id == 0 || fragment_id == 0) {
-		PXL_print << "ayyyy lmao\n";
-		return;
-	}
-
 	const GLchar* v_shader = vertex_shader.c_str();
 	const GLint v_len = vertex_shader.length();
 	const GLchar* f_shader = fragment_shader.c_str();

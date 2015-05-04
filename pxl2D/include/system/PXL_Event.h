@@ -7,9 +7,11 @@
 #include "graphics/PXL_Structs.h"
 
 #if defined(PXL_PLATFORM_WIN32)
-	#define NOMINMAX //macro to not have the windows header define min/max so it doesn't interfere
-	#include <Windows.h>
-	
+    #define NOMINMAX //macro to not have the windows header define min/max so it doesn't interfere
+    #include <Windows.h>
+    #undef ABSOLUTE
+    #undef RELATIVE
+    
 	#define PXL_EVENT_NULL			0
 	#define PXL_EVENT_CLOSE			WM_CLOSE /**> Event message that occurs when a window sends a termination message **/
 	#define PXL_EVENT_QUIT			WM_QUIT
@@ -57,7 +59,7 @@ struct PXL_TouchInfo {
 
 	int x;
 	int y;
-	int id;
+	int id = -1;
 	PXL_TouchEventState state;
 };
 

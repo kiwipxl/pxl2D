@@ -79,11 +79,12 @@ void PXL_Win32Window::create_context() {
 	}
 }
 
-void PXL_Win32Window::create_window(int window_width, int window_height, std::string title) {
+void PXL_Win32Window::create_window(int win_width, int win_height, std::string win_title) {
 	free();
 
-	width = window_width;
-	height = window_height;
+	width = win_width;
+    height = win_height;
+    title = win_title;
 
 	instance_handle = GetModuleHandle(NULL);
 	class_name = "PXL_Class" + std::to_string(class_id);
@@ -94,7 +95,7 @@ void PXL_Win32Window::create_window(int window_width, int window_height, std::st
 
 	//calculate adjusted window rect with border so the client rect is the same size as the specified width/height
 	tagRECT rect;
-	rect.left = 0; rect.top = 0; rect.right = window_width; rect.bottom = window_height;
+	rect.left = 0; rect.top = 0; rect.right = win_width; rect.bottom = win_height;
 	AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, false);
 
 	win_handle = CreateWindowEx(WS_EX_CLIENTEDGE, (LPCSTR)class_name.c_str(), (LPCSTR)win_name.c_str(), WS_OVERLAPPEDWINDOW,
@@ -115,7 +116,7 @@ void PXL_Win32Window::create_window(int window_width, int window_height, std::st
 		init_dummy_window = false;
 		PXL_glew_init();
 		free();
-		create_window(window_width, window_height, title);
+		create_window(win_width, win_height, win_title);
 
 		int min;
 		glGetIntegerv(GL_MINOR_VERSION, &min);
