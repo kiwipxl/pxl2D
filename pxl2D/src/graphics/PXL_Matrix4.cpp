@@ -219,10 +219,6 @@ PXL_Matrix4& PXL_Matrix4::operator=(PXL_Matrix4& b) {
     return *this;
 }
 
-PXL_Matrix4* PXL_Matrix4::operator*(const PXL_Matrix4* b) {
-	return &multiply(*b);
-}
-
 PXL_Matrix4& PXL_Matrix4::operator*(const PXL_Matrix4& b) {
 	return multiply(b);
 }

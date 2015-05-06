@@ -124,18 +124,13 @@ class PXL_Matrix4 {
         void set_mat(PXL_float* new_mat);
 
         /**
-        \*brief: overrides the multiplication operator to multiply matrix pointer
-        \*param [m]: matrix to be multiplied by
+        \*brief: overrides the equal operator and sets this matrix equal to b
+        \*param [b]: matrix to set equal to
         **/
         PXL_Matrix4& operator=(PXL_Matrix4& b);
 		/**
-		\*brief: overrides the multiplication operator to multiply matrix pointer
-		\*param [m]: matrix to be multiplied by
-		**/
-		PXL_Matrix4* operator*(const PXL_Matrix4* b);
-		/**
 		\*brief: overrides the multiplication operator to multiply matrix reference
-		\*param [m]: matrix to be multiplied by
+		\*param [b]: matrix to be multiplied by
 		**/
 		PXL_Matrix4& operator*(const PXL_Matrix4& b);
 		/**
