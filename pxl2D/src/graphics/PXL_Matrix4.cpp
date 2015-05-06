@@ -207,9 +207,8 @@ PXL_Matrix4& PXL_Matrix4::multiply(const PXL_Matrix4& b) {
     return PXL_Matrix4(n);
 }
 
-PXL_Matrix4& PXL_Matrix4::clone() {
-    PXL_Matrix4 n(*this);
-    return PXL_Matrix4(n);
+PXL_Matrix4 PXL_Matrix4::clone() {
+    return PXL_Matrix4(*this);
 }
 
 PXL_Matrix4& PXL_Matrix4::operator=(PXL_Matrix4& b) {

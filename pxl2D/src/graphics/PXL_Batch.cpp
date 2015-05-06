@@ -67,6 +67,10 @@ void PXL_Batch::create_batch(PXL_Window* window, PXL_BatchSize max_vertices) {
     view_mat = perspective_mat.clone();
     view_mat[1] = 8;
 
+    PXL_Matrix4* t = new PXL_Matrix4();
+    t = &perspective_mat.clone();
+    t = view_mat;
+
 	//enable alpha blending
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

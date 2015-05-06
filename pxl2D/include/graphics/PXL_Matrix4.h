@@ -111,7 +111,7 @@ class PXL_Matrix4 {
         /**
         \*brief: clones this matrix4 and returns a new temporary result
         **/
-        PXL_Matrix4& clone();
+        PXL_Matrix4 clone();
 
 		/**
 		\*brief: returns the raw matrix array reference for this matrix
