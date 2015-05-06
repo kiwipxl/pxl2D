@@ -207,12 +207,25 @@ PXL_Matrix4& PXL_Matrix4::multiply(const PXL_Matrix4& b) {
     return PXL_Matrix4(n);
 }
 
-PXL_Matrix4* PXL_Matrix4::operator*(const PXL_Matrix4* m) {
-	return &multiply(*m);
+PXL_Matrix4& PXL_Matrix4::clone() {
+    PXL_Matrix4 n(*this);
+    return PXL_Matrix4(n);
 }
 
-PXL_Matrix4& PXL_Matrix4::operator*(const PXL_Matrix4& m) {
-	return multiply(m);
+PXL_Matrix4& PXL_Matrix4::operator=(PXL_Matrix4& b) {
+    set_mat(b.get_mat());
+    position = get_position();
+    rotation = get_rotation();
+    scaled = get_scale();
+    return *this;
+}
+
+PXL_Matrix4* PXL_Matrix4::operator*(const PXL_Matrix4* b) {
+	return &multiply(*b);
+}
+
+PXL_Matrix4& PXL_Matrix4::operator*(const PXL_Matrix4& b) {
+	return multiply(b);
 }
 
 PXL_float& PXL_Matrix4::operator[](const int index) {

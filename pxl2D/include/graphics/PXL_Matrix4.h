@@ -103,10 +103,15 @@ class PXL_Matrix4 {
 		}
 
 		/**
-		\*brief: multiplies another matrix4 by this matrix and return the result
+		\*brief: multiplies another matrix4 (b) by this matrix and returns a temporary new result
 		\*param [m]: constant non-pointer matrix4 reference
 		**/
-		PXL_Matrix4& multiply(const PXL_Matrix4& b);
+        PXL_Matrix4& multiply(const PXL_Matrix4& b);
+
+        /**
+        \*brief: clones this matrix4 and returns a new temporary result
+        **/
+        PXL_Matrix4& clone();
 
 		/**
 		\*brief: returns the raw matrix array reference for this matrix
@@ -118,16 +123,21 @@ class PXL_Matrix4 {
 		**/
         void set_mat(PXL_float* new_mat);
 
+        /**
+        \*brief: overrides the multiplication operator to multiply matrix pointer
+        \*param [m]: matrix to be multiplied by
+        **/
+        PXL_Matrix4& operator=(PXL_Matrix4& b);
 		/**
 		\*brief: overrides the multiplication operator to multiply matrix pointer
 		\*param [m]: matrix to be multiplied by
 		**/
-		PXL_Matrix4* operator*(const PXL_Matrix4* m);
+		PXL_Matrix4* operator*(const PXL_Matrix4* b);
 		/**
 		\*brief: overrides the multiplication operator to multiply matrix reference
 		\*param [m]: matrix to be multiplied by
 		**/
-		PXL_Matrix4& operator*(const PXL_Matrix4& m);
+		PXL_Matrix4& operator*(const PXL_Matrix4& b);
 		/**
 		\*brief: overrides the [] operator that returns a reference to a matrix value
 		\*param [index]: the index value of the matrix array

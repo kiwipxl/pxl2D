@@ -60,6 +60,13 @@ void PXL_Batch::create_batch(PXL_Window* window, PXL_BatchSize max_vertices) {
 	perspective_mat.scale(1.0f / (render_bounds.w / 2), -1.0f / (render_bounds.h / 2));
     perspective_mat.translate(-(render_bounds.w / 2), -(render_bounds.h / 2));
 
+    view_mat = perspective_mat;
+    view_mat[4] = 4;
+    view_mat.identity();
+
+    view_mat = perspective_mat.clone();
+    view_mat[1] = 8;
+
 	//enable alpha blending
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -149,7 +156,7 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 
 		/**
 		==================================================================================
-		Set vertex positions
+		                            Set vertex positions
 		==================================================================================
 		**/
 		//set vertex pos, uvs and colours
@@ -224,7 +231,7 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 
 		/**
 		==================================================================================
-		Set UV vertex coords
+		                            Set UV vertex coords
 		==================================================================================
 		**/
 		//attempt to optimise by not setting uv values if they have the same value in the vertex batch as the new values
@@ -264,7 +271,7 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 
 		/**
 		==================================================================================
-		Set vertex colours
+		                            Set vertex colours
 		==================================================================================
 		**/
 		int i_r = colour.r * 255; int i_g = colour.g * 255; int i_b = colour.b * 255; int i_a = colour.a * 255;
@@ -329,7 +336,6 @@ void PXL_Batch::render_all() {
         }
 
         proj_view_mat = (perspective_mat * view_mat).transpose();
-        //proj_view_mat.transpose();
 
         glDisable(GL_DEPTH_TEST);
         glEnable(GL_BLEND);
