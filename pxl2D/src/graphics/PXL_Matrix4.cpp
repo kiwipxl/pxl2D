@@ -167,6 +167,12 @@ PXL_Matrix4& PXL_Matrix4::scale_z(float scale) {
 	return *this;
 }
 
+void PXL_Matrix4::set_mat(PXL_float* new_mat) {
+    for (int n = 0; n < 16; ++n) {
+        mat[n] = new_mat[n];
+    }
+}
+
 PXL_Matrix4& PXL_Matrix4::multiply(const PXL_Matrix4& b) {
 	PXL_Matrix4 n(b);
 	float sum = 0;

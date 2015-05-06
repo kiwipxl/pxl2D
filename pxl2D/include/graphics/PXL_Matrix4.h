@@ -109,14 +109,18 @@ class PXL_Matrix4 {
 		PXL_Matrix4& multiply(const PXL_Matrix4& b);
 
 		/**
-		\*brief: returns a copy of the matrix
+		\*brief: returns the raw matrix array reference for this matrix
 		**/
 		PXL_float* get_mat() { return mat; }
 		/**
 		\*brief: sets the matrix data to another matrix data reference
 		\*param [new_mat]: the new mat to be replaced
 		**/
-		//void set_mat(PXL_float* new_mat) { mat = new_mat; }
+        void set_mat(PXL_float* new_mat);
+        /**
+        \*brief: returns the raw matrix array reference for this matrix
+        **/
+        PXL_float* clone_mat() { return mat; }
 
 		/**
 		\*brief: overrides the multiplication operator to multiply matrix pointer
