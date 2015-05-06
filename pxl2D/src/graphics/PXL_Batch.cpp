@@ -66,34 +66,6 @@ void PXL_Batch::create_batch(PXL_Window* window, PXL_BatchSize max_vertices) {
 	glDisable(GL_CULL_FACE);
 }
 
-void PXL_Batch::render_all() {
-	if (num_added != 0) {
-		//if a framebuffer is specified, bind to it, if not bind to the default framebuffer
-		if (target_frame_buffer != NULL) {
-			target_frame_buffer->bind(PXL_GL_FRAMEBUFFER_WRITE);
-		}else {
-			glBindFramebuffer(PXL_GL_FRAMEBUFFER_WRITE, 0);
-		}
-
-		glDisable(GL_DEPTH_TEST);
-		glEnable(GL_BLEND);
-
-		draw_vbo();
-
-		glBindFramebuffer(PXL_GL_FRAMEBUFFER_WRITE, 0);
-	}
-	clear_all();
-}
-
-void PXL_Batch::clear_all() {
-	total_vertices = 0;
-	num_added = 0;
-	min_vertex_index = UINT_MAX;
-	max_vertex_index = 0;
-	total_vertices = 0;
-	min_vertices_count = 0;
-}
-
 void PXL_Batch::use_shader(PXL_ShaderProgram* shader) {
 	if (shader == NULL) { shader = PXL_default_shader; }
 
@@ -104,11 +76,7 @@ void PXL_Batch::use_shader(PXL_ShaderProgram* shader) {
 		glUseProgram(current_shader->get_program_id());
 
 		//set matrix uniform in the vertex shader for the program
-
-        PXL_Matrix4 t = perspective_mat * view_mat;
-        t.transpose();
-
-		glUniformMatrix4fv(current_shader->get_matrix_loc(), 1, false, t.get_mat());
+		glUniformMatrix4fv(current_shader->get_matrix_loc(), 1, false, proj_view_mat.get_mat());
 	}
 }
 
@@ -339,6 +307,38 @@ void PXL_Batch::set_render_target(PXL_FrameBuffer* f) {
 
 void PXL_Batch::set_window_target(PXL_Window* window) {
 	target_window = window;
+}
+
+
+void PXL_Batch::clear_all() {
+    total_vertices = 0;
+    num_added = 0;
+    min_vertex_index = UINT_MAX;
+    max_vertex_index = 0;
+    total_vertices = 0;
+    min_vertices_count = 0;
+}
+
+void PXL_Batch::render_all() {
+    if (num_added != 0) {
+        //if a framebuffer is specified, bind to it, if not bind to the default framebuffer
+        if (target_frame_buffer != NULL) {
+            target_frame_buffer->bind(PXL_GL_FRAMEBUFFER_WRITE);
+        }else {
+            glBindFramebuffer(PXL_GL_FRAMEBUFFER_WRITE, 0);
+        }
+
+        proj_view_mat = (perspective_mat * view_mat).transpose();
+        //proj_view_mat.transpose();
+
+        glDisable(GL_DEPTH_TEST);
+        glEnable(GL_BLEND);
+
+        draw_vbo();
+
+        glBindFramebuffer(PXL_GL_FRAMEBUFFER_WRITE, 0);
+    }
+    clear_all();
 }
 
 void PXL_Batch::draw_vbo() {

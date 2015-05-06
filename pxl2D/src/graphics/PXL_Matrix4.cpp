@@ -20,12 +20,29 @@ PXL_Matrix4& PXL_Matrix4::identity() {
 }
 
 PXL_Matrix4& PXL_Matrix4::transpose() {
-	std::swap(mat[1], mat[4]);
-	std::swap(mat[2], mat[8]);
-	std::swap(mat[3], mat[12]);
-	std::swap(mat[6], mat[9]);
-	std::swap(mat[7], mat[13]);
-	std::swap(mat[14], mat[11]);
+    PXL_float temp = mat[4];
+    mat[4] = mat[1];
+    mat[1] = temp;
+
+    temp = mat[8];
+    mat[8] = mat[2];
+    mat[2] = temp;
+
+    temp = mat[12];
+    mat[12] = mat[3];
+    mat[3] = temp;
+
+    temp = mat[9];
+    mat[9] = mat[6];
+    mat[6] = temp;
+
+    temp = mat[13];
+    mat[13] = mat[7];
+    mat[7] = temp;
+
+    temp = mat[11];
+    mat[11] = mat[14];
+    mat[14] = temp;
 
 	return *this;
 }
@@ -187,7 +204,7 @@ PXL_Matrix4& PXL_Matrix4::multiply(const PXL_Matrix4& b) {
     n.rotation = n.get_rotation();
     n.scaled = n.get_scale();
 
-    return n;
+    return PXL_Matrix4(n);
 }
 
 PXL_Matrix4* PXL_Matrix4::operator*(const PXL_Matrix4* m) {

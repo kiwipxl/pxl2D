@@ -117,10 +117,6 @@ class PXL_Matrix4 {
 		\*param [new_mat]: the new mat to be replaced
 		**/
         void set_mat(PXL_float* new_mat);
-        /**
-        \*brief: returns the raw matrix array reference for this matrix
-        **/
-        PXL_float* clone_mat() { return mat; }
 
 		/**
 		\*brief: overrides the multiplication operator to multiply matrix pointer
