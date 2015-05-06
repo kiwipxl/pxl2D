@@ -135,7 +135,7 @@ int main(int argc, char* args[]) {
 				}
 			}
 
-			/*if (e.mouse_y - p1paddle.center.y >= window_center.y) {
+			if (e.mouse_y - p1paddle.center.y >= window_center.y) {
 				p1paddle.dest.x = e.mouse_x - p1paddle.center.x;
 				if (e.mouse_y - p1paddle.center.y >= window_center.y) {
 					p1paddle.dest.y = e.mouse_y - p1paddle.center.y;
@@ -149,7 +149,7 @@ int main(int argc, char* args[]) {
 				}else {
 					p2paddle.dest.y = window_center.y - p2paddle.height;
 				}
-			}*/
+			}
 
 			if (e.type == PXL_EVENT_QUIT) {
 				quit = true;

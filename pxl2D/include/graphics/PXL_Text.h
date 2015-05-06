@@ -10,6 +10,7 @@
 class PXL_Text : public PXL_Sprite {
 
 	public:
+		PXL_Text() { }
 		/**
 		\*brief: text constructor
 		**/
@@ -20,6 +21,7 @@ class PXL_Text : public PXL_Sprite {
 		**/
 		~PXL_Text();
 
+		bool text_loaded;				/*> Defines whether or not the text has been loaded or not */
 		PXL_Font* font;
 		int max_width = INT_MAX;
 		int max_height = INT_MAX;
@@ -68,7 +70,6 @@ class PXL_Text : public PXL_Sprite {
 		void free() override;
 
 	private:
-		bool text_loaded;				/*> Defines whether or not the text has been loaded or not */
 		std::string text = "";			/*> The text to be rendered */
 		short size;						/*> The size of the text to be rendered */
 		float width = 0;				/*> The width boundaries of the text */

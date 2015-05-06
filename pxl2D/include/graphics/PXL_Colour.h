@@ -17,6 +17,15 @@ struct PXL_Colour {
 	void set_colour(PXL_uint colour);
 
 	void clamp(float min = 0, float max = 1, bool clamp_alpha = true);
+
+	PXL_Colour operator*(const PXL_Colour& op) {
+		PXL_Colour n;
+		n.r = r * op.r;
+		n.g = g * op.g;
+		n.b = b * op.g;
+		n.a = a * op.a;
+		return PXL_Colour(n);
+	}
 };
 
 #define PXL_COLOR_WHITE					PXL_COLOUR_WHITE				/**> Pre-defined white colour **/

@@ -106,7 +106,7 @@ class PXL_Matrix4 {
 		\*brief: multiplies another matrix4 by this matrix and return the result
 		\*param [m]: constant non-pointer matrix4 reference
 		**/
-		PXL_Matrix4& multiply(const PXL_Matrix4& m);
+		PXL_Matrix4& multiply(const PXL_Matrix4& b);
 
 		/**
 		\*brief: returns a copy of the matrix
@@ -116,7 +116,7 @@ class PXL_Matrix4 {
 		\*brief: sets the matrix data to another matrix data reference
 		\*param [new_mat]: the new mat to be replaced
 		**/
-		void set_mat(PXL_float* new_mat) { mat = new_mat; }
+		//void set_mat(PXL_float* new_mat) { mat = new_mat; }
 
 		/**
 		\*brief: overrides the multiplication operator to multiply matrix pointer
@@ -136,7 +136,7 @@ class PXL_Matrix4 {
 
 	private:
 		//matrix data
-		PXL_float* mat;
+		PXL_float mat[16];
 
 		//matrix info
 		PXL_Vec3 position;

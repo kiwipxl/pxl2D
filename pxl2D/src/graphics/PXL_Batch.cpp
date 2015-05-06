@@ -58,7 +58,7 @@ void PXL_Batch::create_batch(PXL_Window* window, PXL_BatchSize max_vertices) {
 	perspective_mat.identity();
 
 	perspective_mat.scale(1.0f / (render_bounds.w / 2), -1.0f / (render_bounds.h / 2));
-	perspective_mat.translate(-1.0f, 1.0f);
+    perspective_mat.translate(-(render_bounds.w / 2), -(render_bounds.h / 2));
 
 	//enable alpha blending
 	glEnable(GL_BLEND);
@@ -78,16 +78,11 @@ void PXL_Batch::render_all() {
 		glDisable(GL_DEPTH_TEST);
 		glEnable(GL_BLEND);
 
-		view_mat * perspective_mat;
-		view_mat.transpose();
-
 		draw_vbo();
 
 		glBindFramebuffer(PXL_GL_FRAMEBUFFER_WRITE, 0);
 	}
 	clear_all();
-
-	view_mat.identity();
 }
 
 void PXL_Batch::clear_all() {
@@ -109,7 +104,11 @@ void PXL_Batch::use_shader(PXL_ShaderProgram* shader) {
 		glUseProgram(current_shader->get_program_id());
 
 		//set matrix uniform in the vertex shader for the program
-		glUniformMatrix4fv(current_shader->get_matrix_loc(), 1, false, view_mat.get_mat());
+
+        PXL_Matrix4 t = perspective_mat * view_mat;
+        t.transpose();
+
+		glUniformMatrix4fv(current_shader->get_matrix_loc(), 1, false, t.get_mat());
 	}
 }
 

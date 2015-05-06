@@ -1,10 +1,7 @@
 #include "graphics/PXL_Matrix4.h"
 #include <string>
 
-PXL_float* temp_mat = new PXL_float[16];
-
 PXL_Matrix4::PXL_Matrix4() {
-	mat = new PXL_float[16];
 	identity();
 }
 
@@ -170,21 +167,21 @@ PXL_Matrix4& PXL_Matrix4::scale_z(float scale) {
 	return *this;
 }
 
-PXL_Matrix4& PXL_Matrix4::multiply(const PXL_Matrix4& m) {
+PXL_Matrix4& PXL_Matrix4::multiply(const PXL_Matrix4& b) {
+	PXL_Matrix4 n(b);
 	float sum = 0;
 	for (int y = 0; y < 16; ++y) {
 		for (int x = 0; x < 4; ++x) {
-			sum += mat[(4 * x) + (y % 4)] * m.mat[x + (int(y / 4) * 4)];
+			sum += mat[(4 * x) + (y % 4)] * n.mat[x + (int(y / 4) * 4)];
 		}
-		temp_mat[y] = sum;
+		n.mat[y] = sum;
 		sum = 0;
 	}
-	memcpy(mat, temp_mat, 16 * sizeof(PXL_float));
-	position = get_position();
-	rotation = get_rotation();
-	scaled = get_scale();
+    n.position = n.get_position();
+    n.rotation = n.get_rotation();
+    n.scaled = n.get_scale();
 
-	return *this;
+    return n;
 }
 
 PXL_Matrix4* PXL_Matrix4::operator*(const PXL_Matrix4* m) {
@@ -200,6 +197,5 @@ PXL_float& PXL_Matrix4::operator[](const int index) {
 }
 
 PXL_Matrix4::~PXL_Matrix4() {
-	delete[] mat;
-	mat = NULL;
+
 }

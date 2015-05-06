@@ -13,6 +13,8 @@ bool PXL_Bitmap::create_bitmap(std::string path) {
 
 	check_has_transparency();
 
+	//fill(PXL_COLOUR_BLACK);
+
 	return buffer_loaded;
 }
 
@@ -51,18 +53,16 @@ void PXL_Bitmap::create_bitmap(int bitmap_width, int bitmap_height, PXL_ubyte* p
 void PXL_Bitmap::fill(PXL_Colour colour) {
 	if (pixels == NULL) return;
 
-	PXL_ubyte r = colour.r * 255;
-	PXL_ubyte g = colour.g * 255;
-	PXL_ubyte b = colour.b * 255;
-	PXL_ubyte a = colour.a * 255;
+	//multiplies the input colour by 255 (as it's a 0-1 range float)
+	PXL_Colour rgba = colour * 255;
 
 	for (size_t y = 0; y < height; ++y) {
 		int row_y = y * row_size;
 		for (size_t x = 0; x < row_size; x += channel.num_channels) {
-			if (channel.channel_index.r != -1) pixels[x + row_y + channel.channel_index.r] = r;
-			if (channel.channel_index.g != -1) pixels[x + row_y + channel.channel_index.g] = g;
-			if (channel.channel_index.b != -1) pixels[x + row_y + channel.channel_index.b] = b;
-			if (channel.channel_index.a != -1) pixels[x + row_y + channel.channel_index.a] = a;
+			if (channel.channel_index.r != -1) pixels[x + row_y + channel.channel_index.r] = rgba.r;
+			if (channel.channel_index.g != -1) pixels[x + row_y + channel.channel_index.g] = rgba.g;
+			if (channel.channel_index.b != -1) pixels[x + row_y + channel.channel_index.b] = rgba.b;
+			if (channel.channel_index.a != -1) pixels[x + row_y + channel.channel_index.a] = rgba.a;
 		}
 	}
 }
