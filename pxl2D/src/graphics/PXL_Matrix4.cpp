@@ -184,10 +184,11 @@ PXL_Matrix4& PXL_Matrix4::scale_z(float scale) {
 	return *this;
 }
 
-void PXL_Matrix4::set_mat(PXL_float* new_mat) {
+void PXL_Matrix4::set_raw_matrix(PXL_float* raw_matrix) {
     for (int n = 0; n < 16; ++n) {
-        mat[n] = new_mat[n];
+        mat[n] = raw_matrix[n];
     }
+    update_transform_vectors();
 }
 
 PXL_Matrix4& PXL_Matrix4::mul(const PXL_Matrix4& b) {
@@ -200,9 +201,7 @@ PXL_Matrix4& PXL_Matrix4::mul(const PXL_Matrix4& b) {
 		n.mat[y] = sum;
 		sum = 0;
 	}
-    n.position = n.get_position();
-    n.rotation = n.get_rotation();
-    n.scaled = n.get_scale();
+    n.update_transform_vectors();
 
     return PXL_Matrix4(n);
 }
@@ -212,9 +211,7 @@ PXL_Matrix4& PXL_Matrix4::mul(float b) {
     for (int y = 0; y < 16; ++y) {
         n.mat[y] *= b;
     }
-    n.position = n.get_position();
-    n.rotation = n.get_rotation();
-    n.scaled = n.get_scale();
+    n.update_transform_vectors();
 
     return PXL_Matrix4(n);
 }
@@ -224,9 +221,7 @@ PXL_Matrix4& PXL_Matrix4::add(const PXL_Matrix4& b) {
     for (int y = 0; y < 16; ++y) {
         n.mat[y] += b.mat[y];
     }
-    n.position = n.get_position();
-    n.rotation = n.get_rotation();
-    n.scaled = n.get_scale();
+    n.update_transform_vectors();
 
     return PXL_Matrix4(n);
 }
@@ -236,11 +231,35 @@ PXL_Matrix4& PXL_Matrix4::add(float b) {
     for (int y = 0; y < 16; ++y) {
         n.mat[y] += b;
     }
-    n.position = n.get_position();
-    n.rotation = n.get_rotation();
-    n.scaled = n.get_scale();
+    n.update_transform_vectors();
 
     return PXL_Matrix4(n);
+}
+
+PXL_Matrix4& PXL_Matrix4::sub(const PXL_Matrix4& b) {
+    PXL_Matrix4 n(*this);
+    for (int y = 0; y < 16; ++y) {
+        n.mat[y] -= b.mat[y];
+    }
+    n.update_transform_vectors();
+
+    return PXL_Matrix4(n);
+}
+
+PXL_Matrix4& PXL_Matrix4::sub(float b) {
+    PXL_Matrix4 n(*this);
+    for (int y = 0; y < 16; ++y) {
+        n.mat[y] -= b;
+    }
+    n.update_transform_vectors();
+
+    return PXL_Matrix4(n);
+}
+
+void PXL_Matrix4::update_transform_vectors() {
+    position = get_position();
+    rotation = get_rotation();
+    scaled = get_scale();
 }
 
 PXL_Matrix4 PXL_Matrix4::clone() {
@@ -248,10 +267,8 @@ PXL_Matrix4 PXL_Matrix4::clone() {
 }
 
 PXL_Matrix4& PXL_Matrix4::operator=(PXL_Matrix4& b) {
-    set_mat(b.get_mat());
-    position = get_position();
-    rotation = get_rotation();
-    scaled = get_scale();
+    set_raw_matrix(b.get_raw_matrix());
+    update_transform_vectors();
     return *this;
 }
 

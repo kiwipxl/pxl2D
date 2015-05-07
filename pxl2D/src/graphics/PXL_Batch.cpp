@@ -61,7 +61,7 @@ void PXL_Batch::create_batch(PXL_Window* window, PXL_BatchSize max_vertices) {
     perspective_mat.translate(-(render_bounds.w / 2), -(render_bounds.h / 2));
 
     view_mat = view_mat + 8 * 2;
-    PXL_Matrix4 t = view_mat + perspective_mat;
+    PXL_Matrix4 t = view_mat - perspective_mat;
 
 	//enable alpha blending
 	glEnable(GL_BLEND);
@@ -79,7 +79,7 @@ void PXL_Batch::use_shader(PXL_ShaderProgram* shader) {
 		glUseProgram(current_shader->get_program_id());
 
 		//set matrix uniform in the vertex shader for the program
-		glUniformMatrix4fv(current_shader->get_matrix_loc(), 1, false, proj_view_mat.get_mat());
+        glUniformMatrix4fv(current_shader->get_matrix_loc(), 1, false, proj_view_mat.get_raw_matrix());
 	}
 }
 

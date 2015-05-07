@@ -144,14 +144,15 @@ class PXL_Matrix4 {
         PXL_Matrix4 clone();
 
 		/**
-		\*brief: returns the raw matrix array reference for this matrix
+		\*brief: returns the raw internal matrix data
 		**/
-		PXL_float* get_mat() { return mat; }
+		PXL_float* get_raw_matrix() { return mat; }
+
 		/**
-		\*brief: sets the matrix data to another matrix data reference
-		\*param [new_mat]: the new mat to be replaced
+		\*brief: sets the internal matrix data to the new specified raw matrix
+		\*param [raw_matrix]: raw 4x4 matrix data array
 		**/
-        void set_mat(PXL_float* new_mat);
+        void set_raw_matrix(PXL_float* raw_matrix);
 
         /**
         \*brief: overrides the equal operator, sets this matrix to the operand and return this matrix
@@ -208,7 +209,12 @@ class PXL_Matrix4 {
 		//matrix info
 		PXL_Vec3 position;
 		PXL_Vec3 rotation;
-		PXL_Vec3 scaled;
+        PXL_Vec3 scaled;
+
+        /**
+        \*brief: updates private position, rotation and scaled vectors according to the matrix raw data
+        **/
+        void update_transform_vectors();
 };
 
 #endif
