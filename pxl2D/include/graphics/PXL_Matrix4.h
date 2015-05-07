@@ -26,21 +26,25 @@ class PXL_Matrix4 {
 		\*param [x, y, z]: values to translate on axis
 		**/
 		PXL_Matrix4& translate(float x = 0, float y = 0, float z = 0);
+
 		/**
 		\*brief: translates the matrix position on the x axis
 		\*param [x]: translate value
 		**/
 		PXL_Matrix4& translate_x(float x);
+
 		/**
 		\*brief: translates the matrix position on the y axis
 		\*param [y]: translate value
 		**/
 		PXL_Matrix4& translate_y(float y);
+
 		/**
 		\*brief: translates the matrix position on the z axis
 		\*param [z]: translate value
 		**/
 		PXL_Matrix4& translate_z(float z);
+
 		/**
 		\*brief: returns a vec3 of the position in the matrix
 		**/
@@ -54,21 +58,25 @@ class PXL_Matrix4 {
 		\*param [x, y, z]: values to rotate
 		**/
 		PXL_Matrix4& rotate(float x = 0, float y = 0, float z = 0);
+
 		/**
 		\*brief: rotates the matrix on the x axis
 		\*param [angle]: value to rotate in degrees
 		**/
 		PXL_Matrix4& rotate_x(float angle);
+
 		/**
 		\*brief: rotates the matrix on the y axis
 		\*param [angle]: value to rotate in degrees
 		**/
 		PXL_Matrix4& rotate_y(float angle);
+
 		/**
 		\*brief: rotates the matrix on the z axis
 		\*param [angle]: value to rotate in degrees
 		**/
 		PXL_Matrix4& rotate_z(float angle);
+
 		/**
 		\*brief: returns a vec3 rotation in the matrix
 		**/
@@ -79,21 +87,25 @@ class PXL_Matrix4 {
 		\*param [x, y, z]: values to scale
 		**/
 		PXL_Matrix4& scale(float x = 1, float y = 1, float z = 1);
+
 		/**
 		\*brief: scales the matrix on the x axis
 		\*param [scale]: value to be multiplied on x axis
 		**/
 		PXL_Matrix4& scale_x(float scale);
+
 		/**
 		\*brief: scales the matrix on the y axis
 		\*param [scale]: value to be multiplied on y axis
 		**/
 		PXL_Matrix4& scale_y(float scale);
+
 		/**
 		\*brief: scales the matrix on the z axis
 		\*param [scale]: value to be multiplied on z axis
 		**/
 		PXL_Matrix4& scale_z(float scale);
+
 		/**
 		\*brief: returns a vec3 of the scale in the matrix
 		**/
@@ -103,43 +115,43 @@ class PXL_Matrix4 {
 		}
 
         /**
-        \*brief: adds another matrix4 (b) by this matrix and returns a temporary new result
+        \*brief: adds another matrix4 (b) by this matrix and returns the temporary new result
         \*param [b]: constant non-pointer matrix4 reference
         **/
         PXL_Matrix4& add(const PXL_Matrix4& b);
 
         /**
-        \*brief: adds this matrix by a float and returns a temporary new result
+        \*brief: adds this matrix by a float and returns the temporary new result
         \*param [b]: float to be added by
         **/
         PXL_Matrix4& add(float b);
 
         /**
-        \*brief: subs another matrix4 (b) by this matrix and returns a temporary new result
+        \*brief: subs another matrix4 (b) by this matrix and returns the temporary new result
         \*param [b]: constant non-pointer matrix4 reference
         **/
         PXL_Matrix4& sub(const PXL_Matrix4& b);
 
         /**
-        \*brief: subs this matrix by a float and returns a temporary new result
+        \*brief: subs this matrix by a float and returns the temporary new result
         \*param [b]: float to be subtracted by
         **/
         PXL_Matrix4& sub(float b);
 
 		/**
-		\*brief: multiplies another matrix4 (b) by this matrix and returns a temporary new result
+		\*brief: multiplies another matrix4 (b) by this matrix and returns the temporary new result
 		\*param [b]: constant non-pointer matrix4 reference
 		**/
         PXL_Matrix4& mul(const PXL_Matrix4& b);
 
         /**
-        \*brief: multiplies this matrix by a float and returns a temporary new result
+        \*brief: multiplies this matrix by a float and returns the temporary new result
         \*param [b]: float to be multiplied by
         **/
         PXL_Matrix4& mul(float b);
 
         /**
-        \*brief: clones this matrix4 and returns a new temporary result
+        \*brief: clones this matrix4 and returns the new temporary result
         **/
         PXL_Matrix4 clone();
 
@@ -161,43 +173,63 @@ class PXL_Matrix4 {
         PXL_Matrix4& operator=(PXL_Matrix4& b);
 
         /**
-        \*brief: overrides the addition operator and returns a temporary added matrix result
+        \*brief: overrides the addition operator and returns the temporary added matrix result
         \*param [b]: matrix to be added by
         **/
         PXL_Matrix4& operator+(const PXL_Matrix4& b) { return add(b); }
 
         /**
-        \*brief: overrides the addition operator and returns a temporary added matrix result by a float
+        \*brief: overrides the addition operator and returns the temporary added matrix result by a float
         \*param [b]: float value to be added by
         **/
         PXL_Matrix4& operator+(float b) { return add(b); }
 
         /**
-        \*brief: overrides the subtraction operator and returns a temporary added matrix result
+        \*brief: overrides the subtraction operator and returns the temporary added matrix result
         \*param [b]: matrix to be subtracted by
         **/
         PXL_Matrix4& operator-(const PXL_Matrix4& b) { return sub(b); }
 
         /**
-        \*brief: overrides the addition operator and returns a temporary added matrix result by a float
+        \*brief: overrides the addition operator and returns the temporary added matrix result by a float
         \*param [b]: float value to be subtracted by
         **/
         PXL_Matrix4& operator-(float b) { return sub(b); }
 
 		/**
-		\*brief: overrides the multiplication operator and returns a temporary multiplied matrix result
+		\*brief: overrides the multiplication operator and returns the temporary multiplied matrix result
 		\*param [b]: matrix to be multiplied by
 		**/
         PXL_Matrix4& operator*(const PXL_Matrix4& b) { return mul(b); }
 
         /**
-        \*brief: overrides the multiplication operator and returns a temporary multiplied matrix result by a float
+        \*brief: overrides the multiplication operator and returns the temporary multiplied matrix result by a float
         \*param [b]: float value to be multiplied by
         **/
         PXL_Matrix4& operator*(float b) { return mul(b); }
 
+        /**
+        \*brief: overrides the multiplication operator and returns the temporary multiplied matrix result
+        \*param [b]: matrix to be multiplied by
+        **/
+        PXL_Matrix4& operator*=(const PXL_Matrix4& b) {
+            set_raw_matrix(mul(b).get_raw_matrix());
+            update_transform_vectors();
+            return *this;
+        }
+
+        /**
+        \*brief: overrides the multiplication operator and returns the temporary multiplied matrix result by a float
+        \*param [b]: float value to be multiplied by
+        **/
+        PXL_Matrix4& operator*=(float b) {
+            set_raw_matrix(mul(b).get_raw_matrix());
+            update_transform_vectors();
+            return *this;
+        }
+
 		/**
-		\*brief: overrides the [] operator that returns a reference to a matrix value
+		\*brief: overrides the [] operator that returns the reference to a matrix value
 		\*param [index]: the index value of the matrix array
 		**/
 		PXL_float& operator[](int index);
