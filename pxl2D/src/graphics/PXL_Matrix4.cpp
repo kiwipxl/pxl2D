@@ -219,6 +219,18 @@ PXL_Matrix4& PXL_Matrix4::add(const PXL_Matrix4& b) {
     return PXL_Matrix4(n);
 }
 
+PXL_Matrix4& PXL_Matrix4::add(float b) {
+    PXL_Matrix4 n(*this);
+    for (int y = 0; y < 16; ++y) {
+        n.mat[y] += b;
+    }
+    n.position = n.get_position();
+    n.rotation = n.get_rotation();
+    n.scaled = n.get_scale();
+
+    return PXL_Matrix4(n);
+}
+
 PXL_Matrix4 PXL_Matrix4::clone() {
     return PXL_Matrix4(*this);
 }
@@ -232,6 +244,10 @@ PXL_Matrix4& PXL_Matrix4::operator=(PXL_Matrix4& b) {
 }
 
 PXL_Matrix4& PXL_Matrix4::operator+(const PXL_Matrix4& b) {
+    return add(b);
+}
+
+PXL_Matrix4& PXL_Matrix4::operator+(float b) {
     return add(b);
 }
 

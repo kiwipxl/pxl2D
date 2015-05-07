@@ -115,6 +115,12 @@ class PXL_Matrix4 {
         PXL_Matrix4& add(const PXL_Matrix4& b);
 
         /**
+        \*brief: adds this matrix by a float and returns a temporary new result
+        \*param [m]: constant non-pointer matrix4 reference
+        **/
+        PXL_Matrix4& add(float b);
+
+        /**
         \*brief: clones this matrix4 and returns a new temporary result
         **/
         PXL_Matrix4 clone();
@@ -130,17 +136,22 @@ class PXL_Matrix4 {
         void set_mat(PXL_float* new_mat);
 
         /**
-        \*brief: overrides the equal operator and sets this matrix equal to b
+        \*brief: overrides the equal operator, sets this matrix to the operand and return this matrix
         \*param [b]: matrix to set equal to
         **/
         PXL_Matrix4& operator=(PXL_Matrix4& b);
         /**
-        \*brief: overrides the addition operator to multiply matrix reference
+        \*brief: overrides the addition operator and returns a temporary added matrix result
         \*param [b]: matrix to be multiplied by
         **/
         PXL_Matrix4& operator+(const PXL_Matrix4& b);
+        /**
+        \*brief: overrides the addition operator and returns a temporary added matrix result by a float
+        \*param [b]: matrix to be multiplied by
+        **/
+        PXL_Matrix4& operator+(float b);
 		/**
-		\*brief: overrides the multiplication operator to multiply matrix reference
+		\*brief: overrides the multiplication operator and returns a temporary multiplied matrix result
 		\*param [b]: matrix to be multiplied by
 		**/
 		PXL_Matrix4& operator*(const PXL_Matrix4& b);
