@@ -60,8 +60,8 @@ void PXL_Batch::create_batch(PXL_Window* window, PXL_BatchSize max_vertices) {
 	perspective_mat.scale(1.0f / (render_bounds.w / 2), -1.0f / (render_bounds.h / 2));
     perspective_mat.translate(-(render_bounds.w / 2), -(render_bounds.h / 2));
 
-    view_mat = view_mat + 8 * 2 - 4 + perspective_mat;
-    view_mat -= 4;
+    //view_mat = view_mat + 8 * 2 - 4 + perspective_mat;
+    //view_mat -= 4;
 
 	//enable alpha blending
 	glEnable(GL_BLEND);

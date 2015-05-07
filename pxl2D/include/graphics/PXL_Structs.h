@@ -25,12 +25,4 @@ struct PXL_Vec3 {
 	float x = 0, y = 0, z = 0;
 };
 
-struct PXL_Vec4 {
-
-	PXL_Vec4() { }
-	PXL_Vec4(float pos_x, float pos_y, float pos_z, float pos_w) : x(pos_x), y(pos_y), z(pos_z), w(pos_w) { }
-
-	float x = 0, y = 0, z = 0, w = 0;
-};
-
 #endif

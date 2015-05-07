@@ -67,8 +67,13 @@ void PXL_Sprite::render(PXL_Batch* batch) {
 			   z_depth, colour);
 }
 
+PXL_Sprite PXL_Sprite::clone() {
+    return PXL_Sprite(*this);
+}
+
 void PXL_Sprite::free() {
-	texture_set = false;
+    texture_set = false;
+    //delete texture_source;
 }
 
 PXL_Sprite::~PXL_Sprite() {

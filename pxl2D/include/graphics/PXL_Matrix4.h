@@ -80,7 +80,7 @@ class PXL_Matrix4 {
 		/**
 		\*brief: returns a vec3 rotation in the matrix
 		**/
-		PXL_Vec3 get_rotation() { return rotation; }
+		PXL_Vec3 get_rotation() const { return rotation; }
 
 		/**
 		\*brief: scales the matrix on the x, y, z axis
@@ -111,7 +111,7 @@ class PXL_Matrix4 {
 		**/
 		PXL_Vec3 get_scale() {
 			scaled.x = mat[0]; scaled.y = mat[5]; scaled.z = mat[10];
-			return scaled;
+            return scaled;
 		}
 
         /**

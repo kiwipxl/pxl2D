@@ -70,11 +70,11 @@ class PXL_Bitmap {
 		**/
 		void free();
 
-		PXL_uint get_width() { return width; }
-		PXL_uint get_height() { return height; }
-		PXL_Channel get_channel() { return channel; }
-		PXL_uint get_num_channels() { return channel.num_channels; }
-		PXL_ubyte* get_pixels() { return pixels; }
+		PXL_uint get_width() const { return width; }
+		PXL_uint get_height() const { return height; }
+		PXL_Channel get_channel() const { return channel; }
+		PXL_uint get_num_channels() const { return channel.num_channels; }
+		PXL_ubyte* get_pixels() const { return pixels; }
 
 	private:
 		//buffer info

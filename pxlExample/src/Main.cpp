@@ -42,7 +42,9 @@ int main(int argc, char* args[]) {
 		PXL_Vec2 center;
 	};
 
-	Paddle p1paddle;		p1paddle.set_texture(p1paddle_texture);
+    Paddle p1paddle;
+    PXL_Sprite test = p1paddle.clone();
+    p1paddle.set_texture(p1paddle_texture);
 	p1paddle.width = 96;	p1paddle.height = 96;
 	p1paddle.dest.x = window_center.x;
 	p1paddle.dest.y = window_center.y / 2;

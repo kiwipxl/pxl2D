@@ -53,7 +53,9 @@ class PXL_Sprite {
 		/**
 		\*brief: frees all data from the sprite
 		**/
-		virtual void render(PXL_Batch* batch);
+        virtual void render(PXL_Batch* batch);
+
+        PXL_Sprite clone();
 
 		/**
 		\*brief: frees all data from the sprite
