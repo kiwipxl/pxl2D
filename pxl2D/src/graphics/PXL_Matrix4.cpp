@@ -191,11 +191,11 @@ void PXL_Matrix4::set_mat(PXL_float* new_mat) {
 }
 
 PXL_Matrix4& PXL_Matrix4::multiply(const PXL_Matrix4& b) {
-	PXL_Matrix4 n(b);
+    PXL_Matrix4 n(*this);
 	float sum = 0;
 	for (int y = 0; y < 16; ++y) {
 		for (int x = 0; x < 4; ++x) {
-			sum += mat[(4 * x) + (y % 4)] * n.mat[x + (int(y / 4) * 4)];
+			sum += b.mat[(4 * x) + (y % 4)] * mat[x + (int(y / 4) * 4)];
 		}
 		n.mat[y] = sum;
 		sum = 0;
@@ -207,10 +207,22 @@ PXL_Matrix4& PXL_Matrix4::multiply(const PXL_Matrix4& b) {
     return PXL_Matrix4(n);
 }
 
-PXL_Matrix4& PXL_Matrix4::add(const PXL_Matrix4& b) {
-    PXL_Matrix4 n(b);
+PXL_Matrix4& PXL_Matrix4::multiply(float b) {
+    PXL_Matrix4 n(*this);
     for (int y = 0; y < 16; ++y) {
-        n.mat[y] += mat[y];
+        n.mat[y] *= b;
+    }
+    n.position = n.get_position();
+    n.rotation = n.get_rotation();
+    n.scaled = n.get_scale();
+
+    return PXL_Matrix4(n);
+}
+
+PXL_Matrix4& PXL_Matrix4::add(const PXL_Matrix4& b) {
+    PXL_Matrix4 n(*this);
+    for (int y = 0; y < 16; ++y) {
+        n.mat[y] += b.mat[y];
     }
     n.position = n.get_position();
     n.rotation = n.get_rotation();
@@ -253,6 +265,10 @@ PXL_Matrix4& PXL_Matrix4::operator+(float b) {
 
 PXL_Matrix4& PXL_Matrix4::operator*(const PXL_Matrix4& b) {
 	return multiply(b);
+}
+
+PXL_Matrix4& PXL_Matrix4::operator*(float b) {
+    return multiply(b);
 }
 
 PXL_float& PXL_Matrix4::operator[](const int index) {

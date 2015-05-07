@@ -109,6 +109,12 @@ class PXL_Matrix4 {
         PXL_Matrix4& multiply(const PXL_Matrix4& b);
 
         /**
+        \*brief: multiplies this matrix by a float and returns a temporary new result
+        \*param [m]: constant non-pointer matrix4 reference
+        **/
+        PXL_Matrix4& multiply(float b);
+
+        /**
         \*brief: adds another matrix4 (b) by this matrix and returns a temporary new result
         \*param [m]: constant non-pointer matrix4 reference
         **/
@@ -147,14 +153,19 @@ class PXL_Matrix4 {
         PXL_Matrix4& operator+(const PXL_Matrix4& b);
         /**
         \*brief: overrides the addition operator and returns a temporary added matrix result by a float
-        \*param [b]: matrix to be multiplied by
+        \*param [b]: float value to be added by
         **/
         PXL_Matrix4& operator+(float b);
 		/**
 		\*brief: overrides the multiplication operator and returns a temporary multiplied matrix result
 		\*param [b]: matrix to be multiplied by
 		**/
-		PXL_Matrix4& operator*(const PXL_Matrix4& b);
+        PXL_Matrix4& operator*(const PXL_Matrix4& b);
+        /**
+        \*brief: overrides the multiplication operator and returns a temporary multiplied matrix result by a float
+        \*param [b]: float value to be multiplied by
+        **/
+        PXL_Matrix4& operator*(float b);
 		/**
 		\*brief: overrides the [] operator that returns a reference to a matrix value
 		\*param [index]: the index value of the matrix array
