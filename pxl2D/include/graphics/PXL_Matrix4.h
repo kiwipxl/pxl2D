@@ -109,6 +109,12 @@ class PXL_Matrix4 {
         PXL_Matrix4& multiply(const PXL_Matrix4& b);
 
         /**
+        \*brief: adds another matrix4 (b) by this matrix and returns a temporary new result
+        \*param [m]: constant non-pointer matrix4 reference
+        **/
+        PXL_Matrix4& add(const PXL_Matrix4& b);
+
+        /**
         \*brief: clones this matrix4 and returns a new temporary result
         **/
         PXL_Matrix4 clone();
@@ -128,6 +134,11 @@ class PXL_Matrix4 {
         \*param [b]: matrix to set equal to
         **/
         PXL_Matrix4& operator=(PXL_Matrix4& b);
+        /**
+        \*brief: overrides the addition operator to multiply matrix reference
+        \*param [b]: matrix to be multiplied by
+        **/
+        PXL_Matrix4& operator+(const PXL_Matrix4& b);
 		/**
 		\*brief: overrides the multiplication operator to multiply matrix reference
 		\*param [b]: matrix to be multiplied by
