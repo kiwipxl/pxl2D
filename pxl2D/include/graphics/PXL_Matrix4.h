@@ -185,6 +185,26 @@ class PXL_Matrix4 {
         PXL_Matrix4& operator+(float b) { return add(b); }
 
         /**
+        \*brief: overrides the addition equals operator, adds, and returns the result in this matrix
+        \*param [b]: matrix to be to be added by
+        **/
+        PXL_Matrix4& operator+=(const PXL_Matrix4& b) {
+            set_raw_matrix(add(b).get_raw_matrix());
+            update_transform_vectors();
+            return *this;
+        }
+
+        /**
+        \*brief: overrides the addition equals operator, adds, and returns the result in this matrix
+        \*param [b]: float value to be added by
+        **/
+        PXL_Matrix4& operator+=(float b) {
+            set_raw_matrix(add(b).get_raw_matrix());
+            update_transform_vectors();
+            return *this;
+        }
+
+        /**
         \*brief: overrides the subtraction operator and returns the temporary added matrix result
         \*param [b]: matrix to be subtracted by
         **/
@@ -195,6 +215,26 @@ class PXL_Matrix4 {
         \*param [b]: float value to be subtracted by
         **/
         PXL_Matrix4& operator-(float b) { return sub(b); }
+
+        /**
+        \*brief: overrides the subtraction equals operator, subs, and returns the result in this matrix
+        \*param [b]: matrix to be subtracted by
+        **/
+        PXL_Matrix4& operator-=(const PXL_Matrix4& b) {
+            set_raw_matrix(sub(b).get_raw_matrix());
+            update_transform_vectors();
+            return *this;
+        }
+
+        /**
+        \*brief: overrides the subtraction equals operator, subs, and returns the result in this matrix
+        \*param [b]: float value to be subtracted by
+        **/
+        PXL_Matrix4& operator-=(float b) {
+            set_raw_matrix(sub(b).get_raw_matrix());
+            update_transform_vectors();
+            return *this;
+        }
 
 		/**
 		\*brief: overrides the multiplication operator and returns the temporary multiplied matrix result
@@ -209,7 +249,7 @@ class PXL_Matrix4 {
         PXL_Matrix4& operator*(float b) { return mul(b); }
 
         /**
-        \*brief: overrides the multiplication operator and returns the temporary multiplied matrix result
+        \*brief: overrides the multiplication equals operator, multiplies, and returns the result in this matrix
         \*param [b]: matrix to be multiplied by
         **/
         PXL_Matrix4& operator*=(const PXL_Matrix4& b) {
@@ -219,7 +259,7 @@ class PXL_Matrix4 {
         }
 
         /**
-        \*brief: overrides the multiplication operator and returns the temporary multiplied matrix result by a float
+        \*brief: overrides the multiplication equals operator, multiplies, and returns the result in this matrix
         \*param [b]: float value to be multiplied by
         **/
         PXL_Matrix4& operator*=(float b) {
