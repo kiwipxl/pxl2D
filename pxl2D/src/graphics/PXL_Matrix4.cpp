@@ -190,7 +190,7 @@ void PXL_Matrix4::set_mat(PXL_float* new_mat) {
     }
 }
 
-PXL_Matrix4& PXL_Matrix4::multiply(const PXL_Matrix4& b) {
+PXL_Matrix4& PXL_Matrix4::mul(const PXL_Matrix4& b) {
     PXL_Matrix4 n(*this);
 	float sum = 0;
 	for (int y = 0; y < 16; ++y) {
@@ -207,7 +207,7 @@ PXL_Matrix4& PXL_Matrix4::multiply(const PXL_Matrix4& b) {
     return PXL_Matrix4(n);
 }
 
-PXL_Matrix4& PXL_Matrix4::multiply(float b) {
+PXL_Matrix4& PXL_Matrix4::mul(float b) {
     PXL_Matrix4 n(*this);
     for (int y = 0; y < 16; ++y) {
         n.mat[y] *= b;
@@ -253,22 +253,6 @@ PXL_Matrix4& PXL_Matrix4::operator=(PXL_Matrix4& b) {
     rotation = get_rotation();
     scaled = get_scale();
     return *this;
-}
-
-PXL_Matrix4& PXL_Matrix4::operator+(const PXL_Matrix4& b) {
-    return add(b);
-}
-
-PXL_Matrix4& PXL_Matrix4::operator+(float b) {
-    return add(b);
-}
-
-PXL_Matrix4& PXL_Matrix4::operator*(const PXL_Matrix4& b) {
-	return multiply(b);
-}
-
-PXL_Matrix4& PXL_Matrix4::operator*(float b) {
-    return multiply(b);
 }
 
 PXL_float& PXL_Matrix4::operator[](const int index) {
