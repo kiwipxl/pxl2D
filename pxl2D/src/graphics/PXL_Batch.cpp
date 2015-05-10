@@ -26,11 +26,11 @@ void PXL_Batch::create_batch(PXL_Window* window) {
 
 		//set vertex shader attrib pointers
 		glVertexAttribPointer(glGetAttribLocation(PXL_default_shader->get_program_id(), "a_position"),
-			2, GL_FLOAT,            GL_FALSE, 1, (void*)0);
+			2, GL_FLOAT,            GL_FALSE, sizeof(PXL_VertexBatchPoint), (void*)0);
 		glVertexAttribPointer(glGetAttribLocation(PXL_default_shader->get_program_id(), "a_tex_coord"),
-			2, GL_UNSIGNED_SHORT,   GL_TRUE,  1, (void*)8);
+			2, GL_UNSIGNED_SHORT,   GL_TRUE,  sizeof(PXL_VertexBatchPoint), (void*)8);
 		glVertexAttribPointer(glGetAttribLocation(PXL_default_shader->get_program_id(), "a_colour"),
-			4, GL_UNSIGNED_BYTE,    GL_TRUE,  1, (void*)12);
+			4, GL_UNSIGNED_BYTE,    GL_TRUE,  sizeof(PXL_VertexBatchPoint), (void*)12);
 
 		glBindBuffer(GL_ARRAY_BUFFER, NULL);
 
@@ -92,10 +92,15 @@ void PXL_Batch::use_blend_mode(PXL_BlendMode blend_mode) {
 void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_rect, float rotation, PXL_Vec2* origin,
 	PXL_Flip flip, int z_depth, PXL_Colour colour, PXL_ShaderProgram* shader, PXL_BlendMode blend_mode) {
 	if (verify_texture_add(texture, rect)) {
-        if (num_added >= vertices.size()) {
+        if (total_vertices >= vertices.size()) {
             glBindBuffer(GL_ARRAY_BUFFER, vbo_id);
-            glBufferData(GL_ARRAY_BUFFER, (vertices.size() + 1024) * sizeof(PXL_VertexBatchPoint), NULL, GL_STATIC_DRAW);
+            glBufferData(GL_ARRAY_BUFFER, (vertices.size() + 256) * sizeof(PXL_VertexBatchPoint), NULL, GL_STATIC_DRAW);
             vertices.resize(vertices.size() + 256);
+            PXL_VertexBatch* last_batch;
+            for (int n = 0; n < 256; ++n) {
+                if (n % 4 == 0) last_batch = new PXL_VertexBatch();
+                vertices[n + (vertices.size() - 256)].batch = last_batch;
+            }
         }
 
         /*z_depth = 0;
@@ -139,8 +144,8 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 		++c.batch_index;
 		c.data_index += 4;*/
 
-        PXL_VertexBatchPoint* v = &vertices[num_added];
-        PXL_VertexBatch& batch = *vertices[num_added].batch;
+        PXL_VertexBatchPoint* v = &vertices[total_vertices];
+        PXL_VertexBatch& batch = *vertices[total_vertices].batch;
         batch.num_vertices = 4;
         batch.num_indices = 6;
         batch.texture_id = texture.get_id();
@@ -343,7 +348,7 @@ void PXL_Batch::render_all() {
 void PXL_Batch::draw_vbo() {
     //std::random_shuffle(vertices.begin(), vertices.begin() + num_added);
 
-    std::sort(vertices.begin(), vertices.begin() + num_added, 
+    std::sort(vertices.begin(), vertices.begin() + total_vertices, 
         [](PXL_VertexBatchPoint& a, PXL_VertexBatchPoint& b) {
             if (a.batch->z_depth < b.batch->z_depth) return true;
             if (b.batch->z_depth < a.batch->z_depth) return false;
@@ -361,30 +366,30 @@ void PXL_Batch::draw_vbo() {
         }
     );
 
-    //binds vertex buffer
-    glBindBuffer(GL_ARRAY_BUFFER, vbo_id);
-
     //loops through each texture and draws the vertex data with that texture id
-    int vbo_offset = 0;
-    int ibo_offset = 0;
+    int vertex_offset = 0;
+    int indices_offset = 0;
+    int vertex_index = 0;
     int num_vertices = 0;
     int num_indices = 0;
     bool changed = false;
 
-    glBufferData(GL_ARRAY_BUFFER, num_added * sizeof(PXL_VertexBatchPoint), &vertices[0], GL_DYNAMIC_DRAW);
+    //binds vertex buffer
+    glBindBuffer(GL_ARRAY_BUFFER, vbo_id);
+    glBufferData(GL_ARRAY_BUFFER, total_vertices * sizeof(PXL_VertexBatchPoint), &vertices, GL_DYNAMIC_DRAW);
 
     PXL_VertexBatch& v = *vertices[0].batch;
 
 	GLuint prev_id = v.texture_id;
-	glBindTexture(GL_TEXTURE_2D, prev_id);
+	//glBindTexture(GL_TEXTURE_2D, prev_id);
 	PXL_BlendMode prev_blend_mode = v.blend_mode;
-	use_blend_mode(prev_blend_mode);
+	//use_blend_mode(prev_blend_mode);
 	PXL_ShaderProgram* prev_shader = v.shader;
-    use_shader(prev_shader);
+    //use_shader(prev_shader);
 
     for (int n = 0; n < num_added; ++n) {
-		if (n >= num_added) changed = true;
-        else v = *vertices[n].batch;
+		if (n + 4 >= total_vertices) changed = true;
+        else v = *vertices[vertex_index].batch;
 
 		glBindTexture(GL_TEXTURE_2D, prev_id);
 		if (v.texture_id != prev_id) {
@@ -405,16 +410,17 @@ void PXL_Batch::draw_vbo() {
 		}
 
 		if (changed) {
-            glDrawArrays(GL_QUADS, vbo_offset, num_vertices);
+            glDrawArrays(GL_QUADS, vertex_offset, num_vertices);
 
-            vbo_offset += num_vertices;
-			ibo_offset += num_indices;
+            vertex_offset += num_vertices;
+			indices_offset += num_indices;
 			num_vertices = 0;
 			num_indices = 0;
 
 			changed = false;
 		}
-		num_vertices += v.num_vertices;
+        vertex_index += v.num_vertices;
+        num_vertices += v.num_vertices;
 		num_indices += v.num_indices;
 	}
 }
