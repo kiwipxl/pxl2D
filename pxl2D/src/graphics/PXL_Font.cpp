@@ -49,7 +49,7 @@ PXL_Font::PXL_Font(std::string path, int c_max_font_size) {
 			++glyphs_loaded;
 		}
 		//create sheet from all textures added and then clear and dispose the textures
-        //glyph_sheet->create_sheet(PXL_CHANNEL_ALPHA, true, true, true);
+        glyph_sheet->create_sheet(PXL_CHANNEL_ALPHA, true, true, true);
 
 		PXL_print << "loaded font (" << path << ") with " << glyphs_loaded << " glyphs loaded\n";
 	}

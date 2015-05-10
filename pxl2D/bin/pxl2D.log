@@ -1,41 +1,29 @@
-﻿Build started 10/05/2015 9:06:57 PM.
+﻿Build started 10/05/2015 10:09:20 PM.
      1>Project "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\pxl2D.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _LIB /D _MBCS /Gm- /EHsc /MT /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\\" /Fd"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt src\graphics\PXL_Batch.cpp src\graphics\PXL_TextureSheet.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\\" /Fd"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt src\graphics\PXL_Batch.cpp
+     1>cl : Command line warning D9028: minimal rebuild failure, reverting to normal build
          PXL_Batch.cpp
-     1>src\graphics\PXL_Batch.cpp(44): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>src\graphics\PXL_Batch.cpp(94): warning C4018: '>=' : signed/unsigned mismatch
-     1>src\graphics\PXL_Batch.cpp(170): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
-     1>src\graphics\PXL_Batch.cpp(176): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
-     1>src\graphics\PXL_Batch.cpp(180): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
-     1>src\graphics\PXL_Batch.cpp(183): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
-     1>src\graphics\PXL_Batch.cpp(184): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
-     1>src\graphics\PXL_Batch.cpp(189): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>src\graphics\PXL_Batch.cpp(190): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
-     1>src\graphics\PXL_Batch.cpp(192): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
-     1>src\graphics\PXL_Batch.cpp(193): warning C4244: '-=' : conversion from 'float' to 'int', possible loss of data
-     1>src\graphics\PXL_Batch.cpp(211): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>src\graphics\PXL_Batch.cpp(212): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>src\graphics\PXL_Batch.cpp(213): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>src\graphics\PXL_Batch.cpp(214): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>src\graphics\PXL_Batch.cpp(231): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>src\graphics\PXL_Batch.cpp(247): warning C4244: '=' : conversion from 'float' to 'unsigned short', possible loss of data
-     1>src\graphics\PXL_Batch.cpp(248): warning C4244: '=' : conversion from 'float' to 'unsigned short', possible loss of data
-     1>src\graphics\PXL_Batch.cpp(263): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
-     1>src\graphics\PXL_Batch.cpp(273): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>src\graphics\PXL_Batch.cpp(274): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>src\graphics\PXL_Batch.cpp(275): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>src\graphics\PXL_Batch.cpp(276): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>src\graphics\PXL_Batch.cpp(344): warning C4018: '<=' : signed/unsigned mismatch
-     1>src\graphics\PXL_Batch.cpp(365): warning C4018: '<' : signed/unsigned mismatch
-     1>src\graphics\PXL_Batch.cpp(366): warning C4018: '>=' : signed/unsigned mismatch
-     1>src\graphics\PXL_Batch.cpp(412): warning C4018: '<' : signed/unsigned mismatch
-         PXL_TextureSheet.cpp
-     1>src\graphics\PXL_TextureSheet.cpp(51): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>src\graphics\PXL_TextureSheet.cpp(87): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
-     1>src\graphics\PXL_TextureSheet.cpp(88): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(45): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(95): warning C4018: '>=' : signed/unsigned mismatch
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(180): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(186): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(190): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(193): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(194): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(199): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(200): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(202): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(203): warning C4244: '-=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(221): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(222): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(223): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(224): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(257): warning C4244: '=' : conversion from 'float' to 'unsigned short', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(258): warning C4244: '=' : conversion from 'float' to 'unsigned short', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(273): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
        Lib:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\lib\pxl2D.lib" libpng.lib zlib.lib freetype.lib winmm.lib /NOLOGO /LTCG "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Colour.obj"
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\lib\pxl2D.lib" libpng.lib zlib.lib freetype.lib winmm.lib dbghelp.lib /NOLOGO "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Colour.obj"
          "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_GraphicsAPI.obj"
          "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Sprite.obj"
          "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Joystick.obj"
@@ -70,14 +58,22 @@
          "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Win32Window.obj"
      1>zlib.lib(zlib1.dll) : warning LNK4006: _DllGetVersion already defined in libpng.lib(libpng12.dll); second definition ignored
      1>zlib.lib(zlib1.dll) : warning LNK4006: __imp__DllGetVersion already defined in libpng.lib(libpng12.dll); second definition ignored
+     1>zlib.lib(zlib1.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
      1>zlib.lib(zlib1.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in libpng.lib(libpng12.dll); second definition ignored
+     1>zlib.lib(zlib1.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
      1>freetype.lib(freetype6.dll) : warning LNK4006: _DllGetVersion already defined in libpng.lib(libpng12.dll); second definition ignored
      1>freetype.lib(freetype6.dll) : warning LNK4006: __imp__DllGetVersion already defined in libpng.lib(libpng12.dll); second definition ignored
+     1>freetype.lib(freetype6.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
      1>freetype.lib(freetype6.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in libpng.lib(libpng12.dll); second definition ignored
+     1>freetype.lib(freetype6.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
      1>winmm.lib(WINMM.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in libpng.lib(libpng12.dll); second definition ignored
+     1>winmm.lib(WINMM.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
+     1>dbghelp.lib(dbghelp.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in libpng.lib(libpng12.dll); second definition ignored
+     1>dbghelp.lib(dbghelp.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
+     1>PXL_Event.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
          pxl2D.vcxproj -> C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\lib\pxl2D.lib
      1>Done Building Project "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\pxl2D.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:08.56
+Time Elapsed 00:00:02.88

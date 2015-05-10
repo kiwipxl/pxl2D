@@ -160,7 +160,28 @@ private:
 		std::vector<PXL_VertexPoint> data;
 		std::vector<PXL_ushort> indices;
     };
-    std::vector<PXL_VertexPoint> vertices;
+
+    struct PXL_VertexBatchPoint {
+        struct PXL_VertexPos {
+            float x = 0, y = 0;
+        } pos[4];
+        struct PXL_Vertex_UVCoord {
+            PXL_ushort x = 0, y = 0;
+        } uv[4];
+        struct PXL_Vertex_RGBA {
+            PXL_ubyte r = 255, g = 255, b = 255, a = 255;
+        } colour[4];
+
+        //vertex values
+        GLuint texture_id = 0;
+        int z_depth = 0;
+        PXL_ShaderProgram* shader = NULL;
+        PXL_BlendMode blend_mode;
+        PXL_ushort num_vertices;
+        PXL_ushort num_indices;
+    };
+
+    std::vector<PXL_VertexBatchPoint> vertices;
 
 	/** Verifies whether the texture should be added to the batch and returns the result
 	@param rect Used to check the texture position on the screen

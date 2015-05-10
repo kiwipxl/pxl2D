@@ -1,4 +1,5 @@
 #include "graphics/PXL_Batch.h"
+#include <algorithm>
 #include "system/PXL_Window.h"
 #include "system/PXL_Exception.h"
 #include "system/PXL_Debug.h"
@@ -94,18 +95,18 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
         if (num_added >= vertices.size()) {
             glBindBuffer(GL_ARRAY_BUFFER, vbo_id);
             glBufferData(GL_ARRAY_BUFFER, (vertices.size() + 1024) * sizeof(PXL_VertexPoint), NULL, GL_STATIC_DRAW);
-            vertices.reserve(1024);
+            vertices.resize(vertices.size() + 1024);
         }
 
-        z_depth = 0;
+        /*z_depth = 0;
 		VertexContainer& c = vertices[z_depth];
 
 		if (c.batch_index >= c.batches.size()) {
 			c.batches.push_back(PXL_VertexBatch());
 		}
-		PXL_VertexBatch& v_batch = c.batches[c.batch_index];
+		PXL_VertexBatch& v_batch = c.batches[c.batch_index];*/
 
-		v_batch.num_vertices = 4;
+		/*v_batch.num_vertices = 4;
 		v_batch.num_indices = 6;
 		v_batch.texture_id = texture.get_id();
 		v_batch.shader = shader;
@@ -114,8 +115,6 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 
 		min_vertex_index = PXL_min(min_vertex_index, (PXL_uint)z_depth);
 		max_vertex_index = PXL_max(max_vertex_index, (PXL_uint)z_depth);
-
-		++num_added;
 
 		if (c.data_index >= c.data.size()) {
 			c.data.push_back(PXL_VertexPoint());
@@ -138,7 +137,18 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 
 		total_vertices += 4;
 		++c.batch_index;
-		c.data_index += 4;
+		c.data_index += 4;*/
+
+        PXL_VertexBatchPoint& v = vertices[num_added];
+        v.num_vertices = 4;
+        v.num_indices = 6;
+        v.texture_id = texture.get_id();
+        v.shader = shader;
+        v.z_depth = z_depth;
+        v.blend_mode = blend_mode;
+
+        total_vertices += 4;
+        ++num_added;
 
 		/**
 		==================================================================================
@@ -150,7 +160,7 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 		float origin_x = 0; float origin_y = 0;
 		if (origin != NULL) { origin_x = origin->x; origin_y = origin->y; }
 
-		bool modified = false;
+		/*bool modified = false;
 		if (v_batch.rect.x != rect->x || v_batch.rect.y != rect->y ||
 			v_batch.rect.w != rect->w || v_batch.rect.h != rect->h) {
 			modified = true;
@@ -164,8 +174,8 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 			v_batch.rotation = rotation;
 			v_batch.flip = flip;
 			v_batch.origin.x = origin_x; v_batch.origin.y = origin_y;
-		}
-		if (modified) {
+		}*/
+		//if (modified) {
 			//get positions from rect
 			int x = rect->x; int y = rect->y;
 
@@ -193,27 +203,27 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 				scaled_width -= origin_x; scaled_height -= origin_y;
 
 				//set vertex position including scale and rotation
-				v[0].pos.x = x + ((c * -origin_x) - (s * -origin_y));
-				v[0].pos.y = y + ((s * -origin_x) + (c * -origin_y));
+				v.pos[0].x = x + ((c * -origin_x) - (s * -origin_y));
+				v.pos[0].y = y + ((s * -origin_x) + (c * -origin_y));
 
-				v[1].pos.x = x + ((c * scaled_width) - (s * -origin_y));
-				v[1].pos.y = y + ((s * scaled_width) + (c * -origin_y));
+				v.pos[1].x = x + ((c * scaled_width) - (s * -origin_y));
+				v.pos[1].y = y + ((s * scaled_width) + (c * -origin_y));
 
-				v[2].pos.x = x + ((c * scaled_width) - (s * scaled_height));
-				v[2].pos.y = y + ((s * scaled_width) + (c * scaled_height));
+				v.pos[2].x = x + ((c * scaled_width) - (s * scaled_height));
+				v.pos[2].y = y + ((s * scaled_width) + (c * scaled_height));
 
-				v[3].pos.x = x + ((c * -origin_x) - (s * scaled_height));
-				v[3].pos.y = y + ((s * -origin_x) + (c * scaled_height));
+				v.pos[3].x = x + ((c * -origin_x) - (s * scaled_height));
+				v.pos[3].y = y + ((s * -origin_x) + (c * scaled_height));
 
-				v_batch.rotation = rotation;
+				//v_batch.rotation = rotation;
 			}else {
 				//set vertex position including scale
-				v[0].pos.x = x;											v[0].pos.y = y;
-				v[1].pos.x = x + scaled_width;							v[1].pos.y = y;
-				v[2].pos.x = x + scaled_width;							v[2].pos.y = y + scaled_height;
-				v[3].pos.x = x;											v[3].pos.y = y + scaled_height;
+				v.pos[0].x = x;											v.pos[0].y = y;
+				v.pos[1].x = x + scaled_width;							v.pos[1].y = y;
+				v.pos[2].x = x + scaled_width;							v.pos[2].y = y + scaled_height;
+				v.pos[3].x = x;											v.pos[3].y = y + scaled_height;
 			}
-		}
+		//}
 
 		/**
 		==================================================================================
@@ -221,7 +231,7 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 		==================================================================================
 		**/
 		//attempt to optimise by not setting uv values if they have the same value in the vertex batch as the new values
-		modified = false;
+		/*modified = false;
 		if (src_rect == NULL) {
 			if (v_batch.src_rect.x != 0 || v_batch.src_rect.y != 0 ||
 				v_batch.src_rect.w != texture.get_width() || v_batch.src_rect.h != texture.get_height()) {
@@ -237,9 +247,9 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 
 				memcpy(&v_batch.src_rect, src_rect, sizeof(PXL_Rect));
 			}
-		}
+		}*/
 
-		if (modified) {
+		//if (modified) {
 			//default un-normalised uv coords
 			PXL_ushort uv_x = 0; PXL_ushort uv_y = 0; PXL_ushort uv_w = PXL_USHRT_MAX; PXL_ushort uv_h = PXL_USHRT_MAX;
 			if (src_rect != NULL) {
@@ -249,11 +259,11 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 			}
 
 			//set uv coordinates
-			v[0].uv.x = uv_x;										v[0].uv.y = uv_y;
-			v[1].uv.x = uv_x + uv_w;								v[1].uv.y = uv_y;
-			v[2].uv.x = uv_x + uv_w;								v[2].uv.y = uv_y + uv_h;
-			v[3].uv.x = uv_x;										v[3].uv.y = uv_y + uv_h;
-		}
+            v.uv[0].x = uv_x;										v.uv[0].y = uv_y;
+            v.uv[1].x = uv_x + uv_w;								v.uv[1].y = uv_y;
+            v.uv[2].x = uv_x + uv_w;								v.uv[2].y = uv_y + uv_h;
+            v.uv[3].x = uv_x;										v.uv[3].y = uv_y + uv_h;
+		//}
 
 		/**
 		==================================================================================
@@ -262,19 +272,19 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 		**/
 		int i_r = colour.r * 255; int i_g = colour.g * 255; int i_b = colour.b * 255; int i_a = colour.a * 255;
 
-		if (v_batch.colour.r != i_r || v_batch.colour.g != i_g || v_batch.colour.b != i_b || v_batch.colour.a != i_a) {
+		//if (v_batch.colour.r != i_r || v_batch.colour.g != i_g || v_batch.colour.b != i_b || v_batch.colour.a != i_a) {
 			//set vertex colours
 			for (int n = 0; n < 4; ++n) {
-				v[n].colour.r = i_r;
-				v[n].colour.g = i_g;
-				v[n].colour.b = i_b;
-				v[n].colour.a = i_a;
+                v.colour[n].r = i_r;
+                v.colour[n].g = i_g;
+                v.colour[n].b = i_b;
+                v.colour[n].a = i_a;
 			}
-			v_batch.colour.r = i_r;
+			/*v_batch.colour.r = i_r;
 			v_batch.colour.g = i_g;
 			v_batch.colour.b = i_b;
-			v_batch.colour.a = i_a;
-		}
+			v_batch.colour.a = i_a;*/
+		//}
 	}
 }
 
@@ -308,6 +318,7 @@ void PXL_Batch::clear_all() {
 }
 
 void PXL_Batch::render_all() {
+    //if there are no textures to draw or no vertex data then return
     if (num_added != 0) {
         //if a framebuffer is specified, bind to it, if not bind to the default framebuffer
         if (target_frame_buffer != NULL) {
@@ -316,7 +327,7 @@ void PXL_Batch::render_all() {
             glBindFramebuffer(PXL_GL_FRAMEBUFFER_WRITE, 0);
         }
 
-        proj_view_mat = (perspective_mat * view_mat).transpose();
+        //proj_view_mat = (perspective_mat * view_mat).transpose();
 
         glDisable(GL_DEPTH_TEST);
         glEnable(GL_BLEND);
@@ -329,9 +340,6 @@ void PXL_Batch::render_all() {
 }
 
 void PXL_Batch::draw_vbo() {
-	//if there are no textures to draw or no vertex data then return
-	if (num_added == 0) { return; }
-
 	//binds vertex buffer
 	glBindBuffer(GL_ARRAY_BUFFER, vbo_id);
 
@@ -339,10 +347,23 @@ void PXL_Batch::draw_vbo() {
 	int ibo_offset = 0;
 	int num_vertices = 0;
 	int num_indices = 0;
-	bool changed = false;
+    bool changed = false;
+    std::random_shuffle(vertices.begin(), vertices.begin() + num_added);
 
-	for (int i = min_vertex_index; i <= max_vertex_index; ++i) {
-		size_t num_batches = vertices[i].batch_index;
+    std::sort(vertices.begin(), vertices.begin() + num_added, 
+        [](PXL_VertexBatchPoint& a, PXL_VertexBatchPoint& b) {
+            if (a.z_depth < b.z_depth) return true;
+            if (b.z_depth < a.z_depth) return false;
+
+            if (a.texture_id < b.texture_id) return true;
+            if (b.texture_id < b.texture_id) return false;
+
+            return false;
+        }
+    );
+
+    for (int i = 0; i <= vertices.size(); ++i) {
+        size_t num_batches = vertices[i].batch_index;
 		if (num_batches == 0) continue;
 
 		ibo_offset = 0;
@@ -409,10 +430,6 @@ void PXL_Batch::free() {
 
 		//PXL_print << "deleted vbo id: " << vbo_id << "\n";
 
-        for (int n = 0; n < vertices.size(); ++n) {
-			vertices[n].batches.clear();
-			vertices[n].data.clear();
-		}
         vertices.clear();
 
 		batch_created = false;
