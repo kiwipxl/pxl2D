@@ -25,6 +25,7 @@ int main(int argc, char* args[]) {
 	int average_count = 0;
     int seconds_elapsed = 0;
 
+    /*//test time comparisons
     std::vector<int> test;
     int* test2 = new int[10000];
     for (int n = 0; n < 10000; ++n) {
@@ -34,17 +35,18 @@ int main(int argc, char* args[]) {
 
     PXL_Timer time;
     time.start();
-    for (int n = 0; n < 10000; ++n) {
-        test[n];
+    for (int n = 0; n < 100000000; ++n) {
+        test[n % 10000] = n * 2;
     }
     long long result = time.end();
+    std::cout << "r1: " << result << "\n";
 
     time.start();
-    for (int n = 0; n < 10000; ++n) {
-        test2[n];
-        //func();
+    for (int n = 0; n < 100000000; ++n) {
+        test2[n % 10000] = n * 2;
     }
     result = time.end();
+    std::cout << "r2: " << result << "\n";*/
 
 	PXL_Window window(480, 800, "PXL Example Project");
 	PXL_init();

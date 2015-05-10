@@ -18,14 +18,6 @@ enum PXL_Flip {
 	PXL_FLIP_VERTICAL
 };
 
-typedef int PXL_BatchSize;
-
-#define PXL_BATCH_TINY 400 /**> The max batch size of 400 vertices (100 max sprite/quad capacity) **/
-#define PXL_BATCH_SMALL 4000 /**> The max batch size of 4000 vertices (1000 max sprite/quad capacity) **/
-#define PXL_BATCH_MEDIUM 8000 /**> The max batch size of 8000 vertices (2000 max sprite/quad capacity) **/
-#define PXL_BATCH_LARGE 40000 /**> The max batch size of 40,000 vertices (10,000 max sprite/quad capacity) **/
-#define PXL_BATCH_MEGA_LARGE 200000 /**> The max batch size of 200,000 vertices (50,000 max sprite/quad capacity) **/
-
 enum PXL_BlendMode {
 	PXL_BLEND, /**> Applies blending when rendering **/
 	PXL_NO_BLEND, /**> Doesn't blend when rendering **/
@@ -76,7 +68,7 @@ public:
 	@param size the max amount of adds this batch can have
 	**/
 	PXL_Batch() { }
-	PXL_Batch(PXL_Window* window, PXL_BatchSize max_vertices = PXL_BATCH_SMALL);
+	PXL_Batch(PXL_Window* window);
 	~PXL_Batch();
 
 	//batch matrices
@@ -86,7 +78,7 @@ public:
 	/** Creates the batch with the specified max render size
 	@param size the max amount of adds this batch can have and the size of the vbo uploaded
 	**/
-	void create_batch(PXL_Window* window, PXL_BatchSize max_vertices = PXL_BATCH_SMALL);
+	void create_batch(PXL_Window* window);
 
 	/** Renders everything that was added to the batch and clears all data when finished. You
 	can set where the target will render to using set_target with a PXL_FrameBuffer.
@@ -133,36 +125,18 @@ public:
 	**/
 	void free();
 
-	/** Gets the max amount of vertices this batch has the capacity for
-	\return Max vertices amount number
-	**/
-	int get_max_vertices() { return max_vertices_amount; }
-	/** Gets the max amount of quads this batch can add
-	\return Max quad amount number
-	**/
-	int get_max_quads() { return max_quads_amount; }
 	/** Gets the amount of items added to the batch
 	@return The number of added items
 	**/
 	int get_num_added() { return num_added; }
-	/** Gets the highest z depth available for this batch
-	@return The max z depth value
-	**/
-	int get_min_z_depth() { return (-max_quads_amount / 2) + 1; }
-	/** Gets the highest z depth available for this batch
-	@return The max z depth value
-	**/
-	int get_max_z_depth() { return (max_quads_amount / 2) - 1; }
 
 	bool is_created() { return batch_created; }
 
 private:
 	//batch info
-	bool batch_created = false; /**> Defines whether or not the vertex buffer object has been created **/
-	int max_vertices_amount; /**> The max amount of vertices this batch has the capacity for **/
-	int max_quads_amount; /**> The max amount of quads this batch has the capacity for **/
-	int num_added; /**> The current number of added items in this batch **/
-	PXL_FrameBuffer* target_frame_buffer = NULL; /**> The target frame buffer object to use when rendering **/
+	bool batch_created = false;                     /**> Defines whether or not the vertex buffer object has been created **/
+	int num_added;                                  /**> The current number of added items in this batch **/
+	PXL_FrameBuffer* target_frame_buffer = NULL;    /**> The target frame buffer object to use when rendering **/
 	PXL_ShaderProgram* current_shader = NULL;
 	PXL_BlendMode current_blend_mode;
 	PXL_Matrix4 proj_view_mat;
@@ -185,8 +159,8 @@ private:
 		std::vector<PXL_VertexBatch> batches;
 		std::vector<PXL_VertexPoint> data;
 		std::vector<PXL_ushort> indices;
-	};
-	VertexContainer* vertices;
+    };
+    std::vector<VertexContainer> vertices;
 
 	/** Verifies whether the texture should be added to the batch and returns the result
 	@param rect Used to check the texture position on the screen

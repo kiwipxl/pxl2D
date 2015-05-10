@@ -1,22 +1,22 @@
-﻿Build started 10/05/2015 7:31:58 PM.
+﻿Build started 10/05/2015 7:38:37 PM.
      1>Project "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxlExample\pxlExample.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _LIB /D _MBCS /Gm- /EHsc /MT /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxlExample\bin\\" /Fd"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxlExample\bin\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt src\Main.cpp
          Main.cpp
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics/PXL_Sprite.h(74): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics/PXL_Sprite.h(75): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
-     1>src\Main.cpp(61): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>src\Main.cpp(75): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>src\Main.cpp(76): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>src\Main.cpp(80): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>src\Main.cpp(81): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
-     1>src\Main.cpp(193): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
-     1>src\Main.cpp(202): warning C4244: '-=' : conversion from 'float' to 'int', possible loss of data
-     1>src\Main.cpp(203): warning C4244: '-=' : conversion from 'float' to 'int', possible loss of data
+     1>src\Main.cpp(63): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>src\Main.cpp(77): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>src\Main.cpp(78): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>src\Main.cpp(82): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>src\Main.cpp(83): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>src\Main.cpp(195): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
      1>src\Main.cpp(204): warning C4244: '-=' : conversion from 'float' to 'int', possible loss of data
      1>src\Main.cpp(205): warning C4244: '-=' : conversion from 'float' to 'int', possible loss of data
-     1>src\Main.cpp(232): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
-     1>src\Main.cpp(233): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
+     1>src\Main.cpp(206): warning C4244: '-=' : conversion from 'float' to 'int', possible loss of data
+     1>src\Main.cpp(207): warning C4244: '-=' : conversion from 'float' to 'int', possible loss of data
+     1>src\Main.cpp(234): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
+     1>src\Main.cpp(235): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\bin\pxlExample.exe" /INCREMENTAL:NO /NOLOGO Vfw32.lib pxl2D.lib opengl32.lib glew32s.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\bin\pxlExample.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\bin\pxlExample.lib" /MACHINE:X86 /SAFESEH "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxlExample\bin\Main.obj"
          Generating code
@@ -28,4 +28,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:04.63
+Time Elapsed 00:00:03.38

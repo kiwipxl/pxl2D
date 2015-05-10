@@ -3,15 +3,12 @@
 #include "system/PXL_Exception.h"
 #include "system/PXL_Debug.h"
 
-PXL_Batch::PXL_Batch(PXL_Window* window, PXL_BatchSize max_vertices) {
+PXL_Batch::PXL_Batch(PXL_Window* window) {
 	batch_created = false;
-	create_batch(window, max_vertices);
+	create_batch(window);
 }
 
-void PXL_Batch::create_batch(PXL_Window* window, PXL_BatchSize max_vertices) {
-	max_vertices_amount = max_vertices;
-	max_quads_amount = max_vertices_amount / 4;
-
+void PXL_Batch::create_batch(PXL_Window* window) {
 	free();
 
 	{
@@ -19,8 +16,7 @@ void PXL_Batch::create_batch(PXL_Window* window, PXL_BatchSize max_vertices) {
 		PXL_print << "trying to create vbo\n";
 		glGenBuffers(1, &vbo_id);
 		PXL_print << "created vbo id: " << vbo_id << "\n";
-		glBindBuffer(GL_ARRAY_BUFFER, vbo_id);
-		glBufferData(GL_ARRAY_BUFFER, max_vertices_amount * sizeof(PXL_VertexPoint), NULL, GL_STATIC_DRAW);
+        glBindBuffer(GL_ARRAY_BUFFER, vbo_id);
 
 		//enable vertex attrib pointers when rendering
 		glEnableVertexAttribArray(0);
@@ -29,15 +25,13 @@ void PXL_Batch::create_batch(PXL_Window* window, PXL_BatchSize max_vertices) {
 
 		//set vertex shader attrib pointers
 		glVertexAttribPointer(glGetAttribLocation(PXL_default_shader->get_program_id(), "a_position"),
-			2, GL_FLOAT, GL_FALSE, sizeof(PXL_VertexPoint), (void*)0);
+			2, GL_FLOAT,            GL_FALSE,   sizeof(PXL_VertexPoint), (void*)0);
 		glVertexAttribPointer(glGetAttribLocation(PXL_default_shader->get_program_id(), "a_tex_coord"),
-			2, GL_UNSIGNED_SHORT, GL_TRUE, sizeof(PXL_VertexPoint), (void*)8);
+			2, GL_UNSIGNED_SHORT,   GL_TRUE,    sizeof(PXL_VertexPoint), (void*)8);
 		glVertexAttribPointer(glGetAttribLocation(PXL_default_shader->get_program_id(), "a_colour"),
-			4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(PXL_VertexPoint), (void*)12);
+			4, GL_UNSIGNED_BYTE,    GL_TRUE,    sizeof(PXL_VertexPoint), (void*)12);
 
 		glBindBuffer(GL_ARRAY_BUFFER, NULL);
-
-		vertices = new VertexContainer[max_quads_amount];
 
 		batch_created = true;
 	}
@@ -97,17 +91,12 @@ void PXL_Batch::use_blend_mode(PXL_BlendMode blend_mode) {
 void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_rect, float rotation, PXL_Vec2* origin,
 	PXL_Flip flip, int z_depth, PXL_Colour colour, PXL_ShaderProgram* shader, PXL_BlendMode blend_mode) {
 	if (verify_texture_add(texture, rect)) {
-		z_depth += (max_quads_amount - 1) / 2;
-		if (z_depth < 0) {
-			//PXL_show_exception("Z depth value cannot be below half of the max quad batch size (" + std::to_string(-max_quads_amount / 2) + ")", 
-			//	PXL_ERROR_BATCH_ADD_FAILED);
-			z_depth = 0;
-		}else if (z_depth >= max_quads_amount) {
-			//PXL_show_exception("Z depth value cannot be greater than half ot the max quad batch size (" + std::to_string(max_quads_amount / 2) + ")", 
-			//	PXL_ERROR_BATCH_ADD_FAILED);
-			z_depth = max_quads_amount - 1;
-		}
+        if (num_added >= vertices.size()) {
+            //glBindBuffer(GL_ARRAY_BUFFER, vbo_id);
+            //glBufferData(GL_ARRAY_BUFFER, max_vertices_amount * sizeof(PXL_VertexPoint), NULL, GL_STATIC_DRAW);
+        }
 
+        z_depth = 0;
 		VertexContainer& c = vertices[z_depth];
 
 		if (c.batch_index >= c.batches.size()) {
@@ -292,11 +281,6 @@ bool PXL_Batch::verify_texture_add(const PXL_Texture& texture, PXL_Rect* rect) {
 	return true;
 	if (texture.texture_created) {
 		if (rect->x + rect->w > render_bounds.x && rect->y + rect->h > render_bounds.y && rect->x < render_bounds.w && rect->y < render_bounds.h) {
-			if (total_vertices >= max_vertices_amount) {
-				//PXL_show_exception("Hit max batch size at " + std::to_string(max_quads_amount) + " max sprites/quads", PXL_ERROR_BATCH_ADD_FAILED);
-				return false;
-			}
-
 			return true;
 		}
 	}
@@ -424,11 +408,11 @@ void PXL_Batch::free() {
 
 		//PXL_print << "deleted vbo id: " << vbo_id << "\n";
 
-		for (int n = 0; n < max_quads_amount; ++n) {
+        for (int n = 0; n < vertices.size(); ++n) {
 			vertices[n].batches.clear();
 			vertices[n].data.clear();
 		}
-		delete[] vertices;
+        vertices.clear();
 
 		batch_created = false;
 		vbo_id = 0;
