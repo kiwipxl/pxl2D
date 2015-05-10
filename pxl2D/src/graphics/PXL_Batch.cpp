@@ -92,8 +92,9 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 	PXL_Flip flip, int z_depth, PXL_Colour colour, PXL_ShaderProgram* shader, PXL_BlendMode blend_mode) {
 	if (verify_texture_add(texture, rect)) {
         if (num_added >= vertices.size()) {
-            //glBindBuffer(GL_ARRAY_BUFFER, vbo_id);
-            //glBufferData(GL_ARRAY_BUFFER, max_vertices_amount * sizeof(PXL_VertexPoint), NULL, GL_STATIC_DRAW);
+            glBindBuffer(GL_ARRAY_BUFFER, vbo_id);
+            glBufferData(GL_ARRAY_BUFFER, (vertices.size() + 1024) * sizeof(PXL_VertexPoint), NULL, GL_STATIC_DRAW);
+            vertices.reserve(1024);
         }
 
         z_depth = 0;
@@ -404,7 +405,7 @@ void PXL_Batch::draw_vbo() {
 
 void PXL_Batch::free() {
 	if (batch_created) {
-		//glDeleteBuffers(1, &vbo_id);
+		glDeleteBuffers(1, &vbo_id);
 
 		//PXL_print << "deleted vbo id: " << vbo_id << "\n";
 

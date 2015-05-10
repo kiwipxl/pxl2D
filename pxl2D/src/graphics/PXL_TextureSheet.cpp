@@ -9,7 +9,7 @@ PXL_TextureSheet::PXL_TextureSheet() {
 	width = 0;
 	height = 0;
     bg_colour = PXL_COLOUR_TRANSPARENT_BLACK;
-    batch = new PXL_Batch(NULL, PXL_BATCH_TINY);
+    batch = new PXL_Batch(NULL);
 }
 
 void PXL_TextureSheet::create_sheet(PXL_Channel sheet_channel, bool dispose_batch, bool dispose_list, bool clear_list) {

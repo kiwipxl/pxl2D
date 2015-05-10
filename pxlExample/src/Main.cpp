@@ -109,7 +109,7 @@ int main(int argc, char* args[]) {
 
     PXL_print << "loaded fonts. creating batch...\n";
 
-    PXL_Batch batch = PXL_Batch(&window, PXL_BATCH_TINY);
+    PXL_Batch batch = PXL_Batch(&window);
 
 	PXL_print << "created batch. checking joysticks...\n";
 

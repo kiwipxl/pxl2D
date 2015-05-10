@@ -160,7 +160,7 @@ private:
 		std::vector<PXL_VertexPoint> data;
 		std::vector<PXL_ushort> indices;
     };
-    std::vector<VertexContainer> vertices;
+    std::vector<PXL_VertexPoint> vertices;
 
 	/** Verifies whether the texture should be added to the batch and returns the result
 	@param rect Used to check the texture position on the screen
