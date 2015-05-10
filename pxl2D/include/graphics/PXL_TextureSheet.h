@@ -11,7 +11,7 @@ class PXL_TextureSheet : public PXL_Texture {
 		/**
 		\*brief: default constructor
 		**/
-		PXL_TextureSheet(PXL_Window* window = NULL, PXL_BatchSize max_vertices = PXL_BATCH_SMALL);
+		PXL_TextureSheet();
 		/**
 		\*brief: batch deconstructor
 		**/
@@ -50,7 +50,7 @@ class PXL_TextureSheet : public PXL_Texture {
 		void free();
 
 	private:
-		PXL_Batch* batch;
+        PXL_Batch* batch = NULL;
 		std::vector<PXL_Texture*> texture_list;
 };
 

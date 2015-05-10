@@ -13,5 +13,6 @@ void PXL_init() {
 	void android_main(struct android_app* state) {
 		android_state = state;
 		main(NULL, NULL);
+		this_thing();
 	}
 #endif

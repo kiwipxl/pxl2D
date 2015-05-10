@@ -222,8 +222,8 @@
     </IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)lib\glew-1.11.0\include;$(ProjectDir)lib\libpng-1.2.37\include;$(ProjectDir)lib\zlib-1.2.3\include;$(ProjectDir)lib\freetype-2.3.5\include;$(ProjectDir)lib\freetype-2.3.5\include\freetype2;$(ProjectDir)include;$(ProjectDir)include\graphics;$(ProjectDir)include\system;$(ProjectDir)include\physics;$(ProjectDir)include\input;$(ProjectDir)include\physics</IncludePath>
-    <LibraryPath>$(ProjectDir)lib\libpng-1.2.37\lib;$(ProjectDir)lib\zlib-1.2.3\lib;$(ProjectDir)lib\freetype-2.3.5\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)lib\glew-1.11.0\include;$(ProjectDir)lib\libpng\include;$(ProjectDir)lib\zlib-1.2.3\include;$(ProjectDir)lib\freetype\include;$(ProjectDir)lib\freetype\include\freetype;$(ProjectDir)include;$(ProjectDir)include\graphics;$(ProjectDir)include\system;$(ProjectDir)include\physics;$(ProjectDir)include\input</IncludePath>
+    <LibraryPath>$(ProjectDir)lib\libpng\lib;$(ProjectDir)lib\zlib-1.2.3\lib;$(ProjectDir)lib\freetype\lib;$(LibraryPath)</LibraryPath>
     <SourcePath>$(ProjectDir)src;$(ProjectDir)src\graphics;$(ProjectDir)src\system;$(ProjectDir)src\physics;$(ProjectDir)src\input;$(ProjectDir)src\physics;$(SourcePath)</SourcePath>
     <OutDir>$(SolutionDir)lib\</OutDir>
     <IntDir>$(ProjectDir)bin\</IntDir>

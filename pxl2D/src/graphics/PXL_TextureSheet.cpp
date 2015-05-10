@@ -3,20 +3,19 @@
 
 PXL_FrameBuffer* sheet_frame_buffer = NULL;
 
-PXL_TextureSheet::PXL_TextureSheet(PXL_Window* window, PXL_BatchSize max_vertices) {
+PXL_TextureSheet::PXL_TextureSheet() {
 	//initiate sheet
 	texture_created = false;
 	width = 0;
 	height = 0;
-	bg_colour = PXL_COLOUR_TRANSPARENT_BLACK;
-
-	batch = new PXL_Batch(window, max_vertices);
+    bg_colour = PXL_COLOUR_TRANSPARENT_BLACK;
+    batch = new PXL_Batch(NULL, PXL_BATCH_TINY);
 }
 
 void PXL_TextureSheet::create_sheet(PXL_Channel sheet_channel, bool dispose_batch, bool dispose_list, bool clear_list) {
-	if (!batch->is_created()) {
+	if (batch == NULL || !batch->is_created()) {
 		PXL_show_exception("Could not create texture sheet, batch has been disposed", PXL_ERROR_TEXTURE_SHEET_CREATION_FAILED);
-		return;
+        return;
 	}
 
 	if (width == 0 || height == 0) {
@@ -76,8 +75,8 @@ void PXL_TextureSheet::clear() {
 	texture_list.clear();
 }
 
-void PXL_TextureSheet::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, float rotation, PXL_Vec2* origin, 
-						   PXL_Flip flip, int z_depth, PXL_Colour colour, 
+void PXL_TextureSheet::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, float rotation, PXL_Vec2* origin,
+						   PXL_Flip flip, int z_depth, PXL_Colour colour,
 						   PXL_ShaderProgram* shader, PXL_BlendMode blend_mode) {
 	if (!batch->is_created()) {
 		PXL_show_exception("Could not add texture to texture sheet as the batch has been disposed", PXL_ERROR_TEXTURE_SHEET_ADD_FAILED);
@@ -95,7 +94,7 @@ void PXL_TextureSheet::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_r
 void PXL_TextureSheet::free() {
 	if (texture_created) {
 		glDeleteTextures(1, &id);
-		
+
 		batch->free();
 		for (size_t n = 0; n < texture_list.size(); ++n) {
 			delete texture_list[n];
