@@ -38,13 +38,14 @@ struct PXL_VertexPoint {
 
 struct PXL_VertexBatch {
 
-	//vertex values
-	GLuint texture_id = 0;
-	int z_depth = 0;
-	PXL_ShaderProgram* shader = NULL;
-	PXL_BlendMode blend_mode;
-	PXL_ushort num_vertices;
-	PXL_ushort num_indices;
+    //vertex values
+    int z_depth = 0;
+    bool uses_transparency = false;
+    GLuint texture_id = 0;
+    PXL_ShaderProgram* shader = NULL;
+    PXL_BlendMode blend_mode;
+    PXL_ushort num_vertices;
+    PXL_ushort num_indices;
 
 	//transform cache values
 	PXL_Colour colour;
@@ -164,22 +165,15 @@ private:
     struct PXL_VertexBatchPoint {
         struct PXL_VertexPos {
             float x = 0, y = 0;
-        } pos[4];
+        } pos;
         struct PXL_Vertex_UVCoord {
             PXL_ushort x = 0, y = 0;
-        } uv[4];
+        } uv;
         struct PXL_Vertex_RGBA {
             PXL_ubyte r = 255, g = 255, b = 255, a = 255;
-        } colour[4];
+        } colour;
 
-        //vertex values
-        int z_depth = 0;
-        bool uses_transparency = false;
-        GLuint texture_id = 0;
-        PXL_ShaderProgram* shader = NULL;
-        PXL_BlendMode blend_mode;
-        PXL_ushort num_vertices;
-        PXL_ushort num_indices;
+        PXL_VertexBatch* batch;
     };
 
     std::vector<PXL_VertexBatchPoint> vertices;

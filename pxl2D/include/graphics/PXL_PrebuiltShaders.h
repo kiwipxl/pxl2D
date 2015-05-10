@@ -6,6 +6,9 @@
 
 #define GLSL(src) "#version 130\n" #src
 
+//todo: add maybe
+//precision highp float; // Video card drivers require this line to function properly
+
 /**
 	-------------- default vertex shader -------------
 	author: Richman Stewart
@@ -50,7 +53,8 @@ const char* PXL_default_shader_str = GLSL(
 	varying vec2 tex_coord;
 
 	void main() {
-		gl_FragColor = v_colour * texture2D(t0, tex_coord);
+        //gl_FragColor = v_colour * texture2D(t0, tex_coord);
+        gl_FragColor = vec4(1, 0, 0, 1);
 	}
 
 	//[END_FRAGMENT]

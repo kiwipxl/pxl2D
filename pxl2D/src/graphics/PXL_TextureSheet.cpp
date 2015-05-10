@@ -13,7 +13,7 @@ PXL_TextureSheet::PXL_TextureSheet() {
 }
 
 void PXL_TextureSheet::create_sheet(PXL_Channel sheet_channel, bool dispose_batch, bool dispose_list, bool clear_list) {
-	if (batch == NULL || !batch->is_created()) {
+	if (!batch->is_created()) {
 		PXL_show_exception("Could not create texture sheet, batch has been disposed", PXL_ERROR_TEXTURE_SHEET_CREATION_FAILED);
         return;
 	}

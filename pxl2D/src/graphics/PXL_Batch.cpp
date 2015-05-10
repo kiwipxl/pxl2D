@@ -26,11 +26,11 @@ void PXL_Batch::create_batch(PXL_Window* window) {
 
 		//set vertex shader attrib pointers
 		glVertexAttribPointer(glGetAttribLocation(PXL_default_shader->get_program_id(), "a_position"),
-			2, GL_FLOAT,            GL_FALSE,   sizeof(PXL_VertexPoint), (void*)0);
+			2, GL_FLOAT,            GL_FALSE, 1, (void*)0);
 		glVertexAttribPointer(glGetAttribLocation(PXL_default_shader->get_program_id(), "a_tex_coord"),
-			2, GL_UNSIGNED_SHORT,   GL_TRUE,    sizeof(PXL_VertexPoint), (void*)8);
+			2, GL_UNSIGNED_SHORT,   GL_TRUE,  1, (void*)8);
 		glVertexAttribPointer(glGetAttribLocation(PXL_default_shader->get_program_id(), "a_colour"),
-			4, GL_UNSIGNED_BYTE,    GL_TRUE,    sizeof(PXL_VertexPoint), (void*)12);
+			4, GL_UNSIGNED_BYTE,    GL_TRUE,  1, (void*)12);
 
 		glBindBuffer(GL_ARRAY_BUFFER, NULL);
 
@@ -94,8 +94,8 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 	if (verify_texture_add(texture, rect)) {
         if (num_added >= vertices.size()) {
             glBindBuffer(GL_ARRAY_BUFFER, vbo_id);
-            glBufferData(GL_ARRAY_BUFFER, (vertices.size() + 1024) * sizeof(PXL_VertexPoint), NULL, GL_STATIC_DRAW);
-            vertices.resize(vertices.size() + 1024);
+            glBufferData(GL_ARRAY_BUFFER, (vertices.size() + 1024) * sizeof(PXL_VertexBatchPoint), NULL, GL_STATIC_DRAW);
+            vertices.resize(vertices.size() + 256);
         }
 
         /*z_depth = 0;
@@ -139,13 +139,14 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 		++c.batch_index;
 		c.data_index += 4;*/
 
-        PXL_VertexBatchPoint& v = vertices[num_added];
-        v.num_vertices = 4;
-        v.num_indices = 6;
-        v.texture_id = texture.get_id();
-        v.shader = shader;
-        v.z_depth = z_depth;
-        v.blend_mode = blend_mode;
+        PXL_VertexBatchPoint* v = &vertices[num_added];
+        PXL_VertexBatch& batch = *vertices[num_added].batch;
+        batch.num_vertices = 4;
+        batch.num_indices = 6;
+        batch.texture_id = texture.get_id();
+        batch.shader = shader;
+        batch.z_depth = z_depth;
+        batch.blend_mode = blend_mode;
 
         total_vertices += 4;
         ++num_added;
@@ -203,25 +204,25 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 				scaled_width -= origin_x; scaled_height -= origin_y;
 
 				//set vertex position including scale and rotation
-				v.pos[0].x = x + ((c * -origin_x) - (s * -origin_y));
-				v.pos[0].y = y + ((s * -origin_x) + (c * -origin_y));
+                v[0].pos.x = x + ((c * -origin_x) - (s * -origin_y));
+                v[0].pos.y = y + ((s * -origin_x) + (c * -origin_y));
 
-				v.pos[1].x = x + ((c * scaled_width) - (s * -origin_y));
-				v.pos[1].y = y + ((s * scaled_width) + (c * -origin_y));
+                v[1].pos.x = x + ((c * scaled_width) - (s * -origin_y));
+                v[1].pos.y = y + ((s * scaled_width) + (c * -origin_y));
 
-				v.pos[2].x = x + ((c * scaled_width) - (s * scaled_height));
-				v.pos[2].y = y + ((s * scaled_width) + (c * scaled_height));
+                v[2].pos.x = x + ((c * scaled_width) - (s * scaled_height));
+                v[2].pos.y = y + ((s * scaled_width) + (c * scaled_height));
 
-				v.pos[3].x = x + ((c * -origin_x) - (s * scaled_height));
-				v.pos[3].y = y + ((s * -origin_x) + (c * scaled_height));
+                v[3].pos.x = x + ((c * -origin_x) - (s * scaled_height));
+                v[3].pos.y = y + ((s * -origin_x) + (c * scaled_height));
 
 				//v_batch.rotation = rotation;
 			}else {
 				//set vertex position including scale
-				v.pos[0].x = x;											v.pos[0].y = y;
-				v.pos[1].x = x + scaled_width;							v.pos[1].y = y;
-				v.pos[2].x = x + scaled_width;							v.pos[2].y = y + scaled_height;
-				v.pos[3].x = x;											v.pos[3].y = y + scaled_height;
+                v[0].pos.x = x;											v[0].pos.y = y;
+                v[1].pos.x = x + scaled_width;							v[1].pos.y = y;
+                v[2].pos.x = x + scaled_width;							v[2].pos.y = y + scaled_height;
+                v[3].pos.x = x;											v[3].pos.y = y + scaled_height;
 			}
 		//}
 
@@ -259,10 +260,10 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 			}
 
 			//set uv coordinates
-            v.uv[0].x = uv_x;										v.uv[0].y = uv_y;
-            v.uv[1].x = uv_x + uv_w;								v.uv[1].y = uv_y;
-            v.uv[2].x = uv_x + uv_w;								v.uv[2].y = uv_y + uv_h;
-            v.uv[3].x = uv_x;										v.uv[3].y = uv_y + uv_h;
+            v[0].uv.x = uv_x;										v[0].uv.y = uv_y;
+            v[1].uv.x = uv_x + uv_w;								v[1].uv.y = uv_y;
+            v[2].uv.x = uv_x + uv_w;								v[2].uv.y = uv_y + uv_h;
+            v[3].uv.x = uv_x;										v[3].uv.y = uv_y + uv_h;
 		//}
 
 		/**
@@ -275,10 +276,10 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 		//if (v_batch.colour.r != i_r || v_batch.colour.g != i_g || v_batch.colour.b != i_b || v_batch.colour.a != i_a) {
 			//set vertex colours
 			for (int n = 0; n < 4; ++n) {
-                v.colour[n].r = i_r;
-                v.colour[n].g = i_g;
-                v.colour[n].b = i_b;
-                v.colour[n].a = i_a;
+                v[n].colour.r = i_r;
+                v[n].colour.g = i_g;
+                v[n].colour.b = i_b;
+                v[n].colour.a = i_a;
 			}
 			/*v_batch.colour.r = i_r;
 			v_batch.colour.g = i_g;
@@ -327,7 +328,7 @@ void PXL_Batch::render_all() {
             glBindFramebuffer(PXL_GL_FRAMEBUFFER_WRITE, 0);
         }
 
-        //proj_view_mat = (perspective_mat * view_mat).transpose();
+        proj_view_mat = (perspective_mat * view_mat).transpose();
 
         glDisable(GL_DEPTH_TEST);
         glEnable(GL_BLEND);
@@ -340,21 +341,21 @@ void PXL_Batch::render_all() {
 }
 
 void PXL_Batch::draw_vbo() {
-    std::random_shuffle(vertices.begin(), vertices.begin() + num_added);
+    //std::random_shuffle(vertices.begin(), vertices.begin() + num_added);
 
     std::sort(vertices.begin(), vertices.begin() + num_added, 
         [](PXL_VertexBatchPoint& a, PXL_VertexBatchPoint& b) {
-            if (a.z_depth < b.z_depth) return true;
-            if (b.z_depth < a.z_depth) return false;
+            if (a.batch->z_depth < b.batch->z_depth) return true;
+            if (b.batch->z_depth < a.batch->z_depth) return false;
 
-            if (a.uses_transparency < b.uses_transparency) return true;
-            if (b.uses_transparency < b.uses_transparency) return false;
+            //if (a.uses_transparency < b.uses_transparency) return true;
+            //if (b.uses_transparency < b.uses_transparency) return false;
 
-            if (a.texture_id < b.texture_id) return true;
-            if (b.texture_id < b.texture_id) return false;
+            if (a.batch->texture_id < b.batch->texture_id) return true;
+            if (b.batch->texture_id < b.batch->texture_id) return false;
 
-            if (a.shader < b.shader) return true;
-            if (b.shader < a.shader) return false;
+            //if (a.shader < b.shader) return true;
+            //if (b.shader < a.shader) return false;
 
             return false;
         }
@@ -370,20 +371,20 @@ void PXL_Batch::draw_vbo() {
     int num_indices = 0;
     bool changed = false;
 
-    glBufferData(GL_ARRAY_BUFFER, num_added * sizeof(PXL_VertexPoint), &vertices[0], GL_DYNAMIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, num_added * sizeof(PXL_VertexBatchPoint), &vertices[0], GL_DYNAMIC_DRAW);
 
-    PXL_VertexBatchPoint& v = vertices[0];
+    PXL_VertexBatch& v = *vertices[0].batch;
 
 	GLuint prev_id = v.texture_id;
 	glBindTexture(GL_TEXTURE_2D, prev_id);
 	PXL_BlendMode prev_blend_mode = v.blend_mode;
 	use_blend_mode(prev_blend_mode);
 	PXL_ShaderProgram* prev_shader = v.shader;
-	use_shader(prev_shader);
+    use_shader(prev_shader);
 
     for (int n = 0; n < num_added; ++n) {
 		if (n >= num_added) changed = true;
-        else v = vertices[n];
+        else v = *vertices[n].batch;
 
 		glBindTexture(GL_TEXTURE_2D, prev_id);
 		if (v.texture_id != prev_id) {
