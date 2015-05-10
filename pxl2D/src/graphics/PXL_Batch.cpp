@@ -340,14 +340,6 @@ void PXL_Batch::render_all() {
 }
 
 void PXL_Batch::draw_vbo() {
-	//binds vertex buffer
-	glBindBuffer(GL_ARRAY_BUFFER, vbo_id);
-
-	//loops through each texture and draws the vertex data with that texture id
-	int ibo_offset = 0;
-	int num_vertices = 0;
-	int num_indices = 0;
-    bool changed = false;
     std::random_shuffle(vertices.begin(), vertices.begin() + num_added);
 
     std::sort(vertices.begin(), vertices.begin() + num_added, 
@@ -355,72 +347,74 @@ void PXL_Batch::draw_vbo() {
             if (a.z_depth < b.z_depth) return true;
             if (b.z_depth < a.z_depth) return false;
 
+            if (a.uses_transparency < b.uses_transparency) return true;
+            if (b.uses_transparency < b.uses_transparency) return false;
+
             if (a.texture_id < b.texture_id) return true;
             if (b.texture_id < b.texture_id) return false;
+
+            if (a.shader < b.shader) return true;
+            if (b.shader < a.shader) return false;
 
             return false;
         }
     );
 
-    for (int i = 0; i <= vertices.size(); ++i) {
-        size_t num_batches = vertices[i].batch_index;
-		if (num_batches == 0) continue;
+    //binds vertex buffer
+    glBindBuffer(GL_ARRAY_BUFFER, vbo_id);
 
-		ibo_offset = 0;
-		num_vertices = 0;
-		num_indices = 0;
+    //loops through each texture and draws the vertex data with that texture id
+    int vbo_offset = 0;
+    int ibo_offset = 0;
+    int num_vertices = 0;
+    int num_indices = 0;
+    bool changed = false;
 
-		VertexContainer& c = vertices[i];
+    glBufferData(GL_ARRAY_BUFFER, num_added * sizeof(PXL_VertexPoint), &vertices[0], GL_DYNAMIC_DRAW);
 
-		glBufferData(GL_ARRAY_BUFFER, c.data_index * sizeof(PXL_VertexPoint), &c.data[0], GL_DYNAMIC_DRAW);
+    PXL_VertexBatchPoint& v = vertices[0];
 
-		PXL_VertexBatch* v_batch = &c.batches[0];
+	GLuint prev_id = v.texture_id;
+	glBindTexture(GL_TEXTURE_2D, prev_id);
+	PXL_BlendMode prev_blend_mode = v.blend_mode;
+	use_blend_mode(prev_blend_mode);
+	PXL_ShaderProgram* prev_shader = v.shader;
+	use_shader(prev_shader);
 
-		GLuint prev_id = v_batch->texture_id;
+    for (int n = 0; n < num_added; ++n) {
+		if (n >= num_added) changed = true;
+        else v = vertices[n];
+
 		glBindTexture(GL_TEXTURE_2D, prev_id);
-		PXL_BlendMode prev_blend_mode = v_batch->blend_mode;
-		use_blend_mode(prev_blend_mode);
-		PXL_ShaderProgram* prev_shader = v_batch->shader;
-		use_shader(prev_shader);
-
-		for (int n = 0; n < num_batches + 1; ++n) {
-			if (n >= num_batches) changed = true;
-			else v_batch = &c.batches[n];
-
-			glBindTexture(GL_TEXTURE_2D, prev_id);
-			if (v_batch->texture_id != prev_id) {
-				prev_id = v_batch->texture_id;
-				changed = true;
-			}
-
-			use_shader(prev_shader);
-			if (v_batch->shader != prev_shader) {
-				prev_shader = v_batch->shader;
-				changed = true;
-			}
-
-			use_blend_mode(prev_blend_mode);
-			if (v_batch->blend_mode != prev_blend_mode) {
-				prev_blend_mode = v_batch->blend_mode;
-				changed = true;
-			}
-
-			if (changed) {
-				glDrawElements(GL_TRIANGLES, num_vertices * 2, GL_UNSIGNED_SHORT, &c.indices[ibo_offset]);
-
-				ibo_offset += num_indices;
-				num_vertices = 0;
-				num_indices = 0;
-
-				changed = false;
-			}
-			num_vertices += v_batch->num_vertices;
-			num_indices += v_batch->num_indices;
+		if (v.texture_id != prev_id) {
+			prev_id = v.texture_id;
+			changed = true;
 		}
-		c.batch_index = 0;
-		c.data_index = 0;
-		c.indices_index = 0;
-		c.indices_count = 0;
+
+		use_shader(prev_shader);
+		if (v.shader != prev_shader) {
+			prev_shader = v.shader;
+			changed = true;
+		}
+
+		use_blend_mode(prev_blend_mode);
+		if (v.blend_mode != prev_blend_mode) {
+			prev_blend_mode = v.blend_mode;
+			changed = true;
+		}
+
+		if (changed) {
+            glDrawArrays(GL_QUADS, vbo_offset, num_vertices);
+
+            vbo_offset += num_vertices;
+			ibo_offset += num_indices;
+			num_vertices = 0;
+			num_indices = 0;
+
+			changed = false;
+		}
+		num_vertices += v.num_vertices;
+		num_indices += v.num_indices;
 	}
 }
 

@@ -173,8 +173,9 @@ private:
         } colour[4];
 
         //vertex values
-        GLuint texture_id = 0;
         int z_depth = 0;
+        bool uses_transparency = false;
+        GLuint texture_id = 0;
         PXL_ShaderProgram* shader = NULL;
         PXL_BlendMode blend_mode;
         PXL_ushort num_vertices;
