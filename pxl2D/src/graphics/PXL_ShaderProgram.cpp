@@ -23,11 +23,16 @@ PXL_ShaderProgram::PXL_ShaderProgram(std::string vertex_shader, std::string frag
 
 	if (v_success && f_success) {
 		//create program, attach shaders and link the program
-		program_id = glCreateProgram();
+        program_id = glCreateProgram();
 
-		glAttachShader(program_id, vertex_id);
-		glAttachShader(program_id, fragment_id);
-		glLinkProgram(program_id);
+        glBindAttribLocation(program_id, 0, "a_position");
+        glBindAttribLocation(program_id, 1, "a_tex_coord");
+        glBindAttribLocation(program_id, 2, "a_colour");
+
+        glAttachShader(program_id, vertex_id);
+        glAttachShader(program_id, fragment_id);
+
+        glLinkProgram(program_id);
 
 		//check whether program link was successful
 		GLint linked;

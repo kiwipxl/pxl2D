@@ -19,21 +19,8 @@ enum PXL_Flip {
 };
 
 enum PXL_BlendMode {
-	PXL_BLEND, /**> Applies blending when rendering **/
-	PXL_NO_BLEND, /**> Doesn't blend when rendering **/
-};
-
-struct PXL_VertexPoint {
-
-	struct PXL_VertexPos {
-		float x = 0, y = 0;
-	} pos;
-	struct PXL_Vertex_UVCoord {
-		PXL_ushort x = 0, y = 0;
-	} uv;
-	struct PXL_Vertex_RGBA {
-		PXL_ubyte r = 255, g = 255, b = 255, a = 255;
-	} colour;
+    PXL_BLEND, /**> Applies blending when rendering **/
+    PXL_NO_BLEND, /**> Doesn't blend when rendering **/
 };
 
 struct PXL_VertexBatch {
@@ -47,13 +34,28 @@ struct PXL_VertexBatch {
     PXL_ushort num_vertices;
     PXL_ushort num_indices;
 
-	//transform cache values
-	PXL_Colour colour;
-	PXL_Rect rect;
-	PXL_Rect src_rect;
-	PXL_Vec2 origin;
-	float rotation;
-	PXL_Flip flip;
+    //transform cache values
+    PXL_Colour colour;
+    PXL_Rect rect;
+    PXL_Rect src_rect;
+    PXL_Vec2 origin;
+    float rotation;
+    PXL_Flip flip;
+};
+
+struct PXL_VertexPoint {
+
+	struct PXL_VertexPos {
+		float x = 0, y = 0;
+	} pos;
+	struct PXL_Vertex_UVCoord {
+		PXL_ushort x = 0, y = 0;
+	} uv;
+	struct PXL_Vertex_RGBA {
+		PXL_ubyte r = 255, g = 255, b = 255, a = 255;
+    } colour;
+
+    PXL_VertexBatch* batch;
 };
 
 /** The PXL_Batch class handles batch rendering of textures, texture sheets and sprites with transformations.
@@ -152,31 +154,7 @@ private:
 	PXL_uint total_vertices = 0;
 	PXL_uint min_vertices_count;
 
-	struct VertexContainer {
-		PXL_uint batch_index = 0;
-		PXL_uint data_index = 0;
-		PXL_uint indices_index = 0;
-		PXL_uint indices_count = 0;
-		std::vector<PXL_VertexBatch> batches;
-		std::vector<PXL_VertexPoint> data;
-		std::vector<PXL_ushort> indices;
-    };
-
-    struct PXL_VertexBatchPoint {
-        struct PXL_VertexPos {
-            float x = 0, y = 0;
-        } pos;
-        struct PXL_Vertex_UVCoord {
-            PXL_ushort x = 0, y = 0;
-        } uv;
-        struct PXL_Vertex_RGBA {
-            PXL_ubyte r = 255, g = 255, b = 255, a = 255;
-        } colour;
-
-        PXL_VertexBatch* batch;
-    };
-
-    std::vector<PXL_VertexBatchPoint> vertices;
+    std::vector<PXL_VertexPoint> vertices;
 
 	/** Verifies whether the texture should be added to the batch and returns the result
 	@param rect Used to check the texture position on the screen

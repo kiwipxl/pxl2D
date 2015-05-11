@@ -49,7 +49,9 @@ int main(int argc, char* args[]) {
     std::cout << "r2: " << result << "\n";*/
 
 	PXL_Window window(480, 800, "PXL Example Project");
-	PXL_init();
+    PXL_init();
+
+    PXL_Batch batch = PXL_Batch(&window);
 
     PXL_print << "loading assets...\n";
 
@@ -92,7 +94,7 @@ int main(int argc, char* args[]) {
 	puck.width = 64;					puck.height = 64;
 	puck.z_depth = 1;
 
-	PXL_Font square("assets/square.ttf");
+	//PXL_Font square("assets/square.ttf");
 	/*PXL_Font arcade("assets/arcade.ttf");
 	PXL_Text p1score_text(&arcade, "0", window.get_width() - 40, window_center.y - 100, 42);
 	p1score_text.set_origin(PXL_ORIGIN_MID_LEFT);
@@ -108,8 +110,6 @@ int main(int argc, char* args[]) {
 	int p2score = 0;
 
     PXL_print << "loaded fonts. creating batch...\n";
-
-    PXL_Batch batch = PXL_Batch(&window);
 
 	PXL_print << "created batch. checking joysticks...\n";
 

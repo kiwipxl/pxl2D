@@ -23,14 +23,14 @@ PXL_ShaderProgram* PXL_point_light_shader;
 const void PXL_init_shader() {
 	//setup premade pxl glsl shaders
 	PXL_default_shader = PXL_create_shader(PXL_basic_vertex_shader_str, PXL_default_shader_str, "default_vert", "default_frag");
-	PXL_bloom_shader = PXL_create_shader(PXL_basic_vertex_shader_str, PXL_bloom_shader_str, "bloom_vert", "bloom_frag");
-	PXL_repeat_shader = PXL_create_shader(PXL_basic_vertex_shader_str, PXL_repeat_shader_str, "repeat_vert", "repeat_frag");
-	PXL_grayscale_shader = PXL_create_shader(PXL_basic_vertex_shader_str, PXL_grayscale_shader_str, "grayscale_vert", "grayscale_frag");
-	PXL_blur_shader = PXL_create_shader(PXL_basic_vertex_shader_str, PXL_blur_shader_str, "blur_vert", "blur_frag");
-	PXL_outline_shader = PXL_create_shader(PXL_basic_vertex_shader_str, PXL_outline_shader_str, "outline_vert", "outline_frag");
-	PXL_glow_shader = PXL_create_shader(PXL_basic_vertex_shader_str, PXL_glow_shader_str, "glow_vert", "glow_frag");
-	PXL_text_shader = PXL_create_shader(PXL_basic_vertex_shader_str, PXL_text_shader_str, "text_vert", "text_frag");
-	PXL_point_light_shader = PXL_create_shader(PXL_basic_vertex_shader_str, PXL_point_light_shader_str, "point_light_vert", "point_light_frag");
+	PXL_bloom_shader = PXL_create_shader(PXL_basic_vertex_shader_str, PXL_bloom_shader_str, "default_vert", "bloom_frag");
+	PXL_repeat_shader = PXL_create_shader(PXL_basic_vertex_shader_str, PXL_repeat_shader_str, "default_vert", "repeat_frag");
+	PXL_grayscale_shader = PXL_create_shader(PXL_basic_vertex_shader_str, PXL_grayscale_shader_str, "default_vert", "grayscale_frag");
+	PXL_blur_shader = PXL_create_shader(PXL_basic_vertex_shader_str, PXL_blur_shader_str, "default_vert", "blur_frag");
+	PXL_outline_shader = PXL_create_shader(PXL_basic_vertex_shader_str, PXL_outline_shader_str, "default_vert", "outline_frag");
+	PXL_glow_shader = PXL_create_shader(PXL_basic_vertex_shader_str, PXL_glow_shader_str, "default_vert", "glow_frag");
+	PXL_text_shader = PXL_create_shader(PXL_basic_vertex_shader_str, PXL_text_shader_str, "default_vert", "text_frag");
+	PXL_point_light_shader = PXL_create_shader(PXL_basic_vertex_shader_str, PXL_point_light_shader_str, "default_vert", "point_light_frag");
 }
 
 const void PXL_set_default_shader(PXL_Batch* batch) {
