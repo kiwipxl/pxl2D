@@ -25,9 +25,9 @@ void PXL_Batch::create_batch(PXL_Window* window) {
         glEnableVertexAttribArray(2);
 
 		//set vertex shader attrib pointers
-		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, (void*)0);
-		glVertexAttribPointer(1, 2, GL_UNSIGNED_SHORT, GL_TRUE,  0, (void*)8);
-		glVertexAttribPointer(2, 4, GL_UNSIGNED_BYTE, GL_TRUE,  0, (void*)12);
+		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(PXL_VertexPoint), (void*)0);
+		glVertexAttribPointer(1, 2, GL_UNSIGNED_SHORT, GL_TRUE, sizeof(PXL_VertexPoint), (void*)8);
+		glVertexAttribPointer(2, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(PXL_VertexPoint), (void*)12);
 
 		glBindBuffer(GL_ARRAY_BUFFER, NULL);
 
@@ -331,7 +331,7 @@ void PXL_Batch::render_all() {
             glBindFramebuffer(PXL_GL_FRAMEBUFFER_WRITE, 0);
         }
 
-        //proj_view_mat = (perspective_mat * view_mat).transpose();
+        proj_view_mat = (perspective_mat * view_mat).transpose();
 
         glDisable(GL_DEPTH_TEST);
         glEnable(GL_BLEND);
@@ -376,10 +376,6 @@ void PXL_Batch::draw_vbo() {
     glBindBuffer(GL_ARRAY_BUFFER, vbo_id);
     glBufferData(GL_ARRAY_BUFFER, total_vertices * sizeof(PXL_VertexPoint), &vertices[0], GL_DYNAMIC_DRAW);
 
-    PXL_VertexPoint* p = &vertices[0];
-    int s = sizeof(PXL_VertexPoint);
-    int s2 = sizeof(vertices[0]);
-
     PXL_VertexBatch& v = *vertices[0].batch;
 
 	GLuint prev_id = v.texture_id;
@@ -390,7 +386,7 @@ void PXL_Batch::draw_vbo() {
     //use_shader(prev_shader);
 
     for (int n = 0; n < num_added; ++n) {
-		if (n + 4 >= total_vertices) changed = true;
+		if (n >= num_added - 1) changed = true;
         else v = *vertices[vertex_index].batch;
 
 		glBindTexture(GL_TEXTURE_2D, prev_id);

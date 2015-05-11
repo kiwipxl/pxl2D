@@ -1,4 +1,4 @@
-﻿Build started 12/05/2015 1:17:44 AM.
+﻿Build started 12/05/2015 1:44:36 AM.
      1>Project "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\pxl2D.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\\" /Fd"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt src\graphics\PXL_Batch.cpp
@@ -20,7 +20,6 @@
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(261): warning C4244: '=' : conversion from 'float' to 'unsigned short', possible loss of data
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(262): warning C4244: '=' : conversion from 'float' to 'unsigned short', possible loss of data
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(277): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(393): warning C4018: '>=' : signed/unsigned mismatch
        Lib:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\lib\pxl2D.lib" libpng.lib zlib.lib freetype.lib winmm.lib dbghelp.lib /NOLOGO "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Colour.obj"
          "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_GraphicsAPI.obj"
@@ -75,4 +74,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.84
+Time Elapsed 00:00:01.66
