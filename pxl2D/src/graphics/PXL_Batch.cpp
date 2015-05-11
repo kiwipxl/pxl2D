@@ -98,6 +98,7 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
             for (int n = 0; n < PXL_CONFIG_INC_BATCH_RESIZE; ++n) {
                 if (n % 4 == 0) last_batch = new PXL_VertexBatch();
                 vertices[n + prev_size].batch = last_batch;
+                last_batch->num_vertices = 4;
             }
         }
 
@@ -425,10 +426,17 @@ void PXL_Batch::draw_vbo() {
 
 void PXL_Batch::free() {
 	if (batch_created) {
-		glDeleteBuffers(1, &vbo_id);
+        glDeleteBuffers(1, &vbo_id);
 
-		PXL_print << "deleted vbo id: " << vbo_id << "\n";
+        PXL_print << "deleted vbo id: " << vbo_id << "\n";
 
+        total_vertices = 0;
+        int num_vertices = 0;
+        while (total_vertices < vertices.size()) {
+            num_vertices = vertices[total_vertices].batch->num_vertices;
+            delete vertices[total_vertices].batch;
+            total_vertices += num_vertices;
+        }
         vertices.clear();
 
 		batch_created = false;

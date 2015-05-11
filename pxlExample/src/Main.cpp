@@ -49,7 +49,9 @@ int main(int argc, char* args[]) {
     std::cout << "r2: " << result << "\n";*/
 
 	PXL_Window window(480, 800, "PXL Example Project");
-	PXL_init();
+    PXL_init();
+
+    PXL_Batch batch = PXL_Batch(&window);
 
     PXL_print << "loading assets...\n";
 
@@ -93,7 +95,7 @@ int main(int argc, char* args[]) {
 	puck.z_depth = 1;
 
 	PXL_Font square("assets/square.ttf");
-	/*PXL_Font arcade("assets/arcade.ttf");
+	PXL_Font arcade("assets/arcade.ttf");
 	PXL_Text p1score_text(&arcade, "0", window.get_width() - 40, window_center.y - 100, 42);
 	p1score_text.set_origin(PXL_ORIGIN_MID_LEFT);
 	p1score_text.rotation = 90;
@@ -102,14 +104,12 @@ int main(int argc, char* args[]) {
 	PXL_Text p2score_text(&arcade, "0", window.get_width() - 40, window_center.y + 32, 42);
 	p2score_text.set_origin(PXL_ORIGIN_MID_LEFT);
 	p2score_text.rotation = 90;
-	p2score_text.z_depth = 2;*/
+	p2score_text.z_depth = 2;
 
 	int p1score = 0;
 	int p2score = 0;
 
     PXL_print << "loaded fonts. creating batch...\n";
-
-    PXL_Batch batch = PXL_Batch(&window);
 
 	PXL_print << "created batch. checking joysticks...\n";
 
@@ -195,11 +195,11 @@ int main(int argc, char* args[]) {
 		PXL_Rect rect(0, 0, window.get_width(), window.get_height());
 		batch.add(arena_texture, &rect);
 
-		/*p1score_text.colour.set_colour(0, (cos(t / 10) + 1) / 2, 1, 1);
+		p1score_text.colour.set_colour(0, (cos(t / 10) + 1) / 2, 1, 1);
 		p1score_text.render(&batch);
 
 		p2score_text.colour.set_colour(0, (cos(t / 10) + 1) / 2, 1, 1);
-		p2score_text.render(&batch);*/
+		p2score_text.render(&batch);
 
 		p1paddle.x -= (p1paddle.x - p1paddle.dest.x) / 4;
 		p1paddle.y -= (p1paddle.y - p1paddle.dest.y) / 4;
@@ -209,7 +209,7 @@ int main(int argc, char* args[]) {
 		p1paddle.render(&batch);
 		p2paddle.render(&batch);
 
-		/*if (puck.x >= window.get_width() - 64) {	puck_speed.x = -puck_speed.x; puck.x = window.get_width() - 64; }
+		if (puck.x >= window.get_width() - 64) {	puck_speed.x = -puck_speed.x; puck.x = window.get_width() - 64; }
 		if (puck.x <= 64) {							puck_speed.x = -puck_speed.x; puck.x = 64; }
 		if (puck.y >= window.get_height() - 64) {
 			if (puck.x >= window_center.x / 2 && puck.x <= window_center.x + (window_center.x / 2)) {
@@ -229,7 +229,7 @@ int main(int argc, char* args[]) {
 			}else {
 				puck_speed.y = -puck_speed.y;		puck.y = 64;
 			}
-		}*/
+		}
 
 		puck.x += puck_speed.x;
 		puck.y += puck_speed.y;
