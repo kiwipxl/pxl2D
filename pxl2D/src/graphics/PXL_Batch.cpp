@@ -19,9 +19,9 @@ void PXL_Batch::create_batch(PXL_Window* window) {
 		PXL_print << "created vbo id: " << vbo_id << "\n";
         glBindBuffer(GL_ARRAY_BUFFER, vbo_id);
 
-		//enable vertex attrib pointers when rendering
-		glEnableVertexAttribArray(0);
-		glEnableVertexAttribArray(1);
+        //enable vertex attrib pointers when rendering
+        glEnableVertexAttribArray(0);
+        glEnableVertexAttribArray(1);
         glEnableVertexAttribArray(2);
 
 		//set vertex shader attrib pointers
@@ -375,6 +375,17 @@ void PXL_Batch::draw_vbo() {
 
     //binds vertex buffer
     glBindBuffer(GL_ARRAY_BUFFER, vbo_id);
+
+    //enable vertex attrib pointers when rendering
+    glEnableVertexAttribArray(0);
+    glEnableVertexAttribArray(1);
+    glEnableVertexAttribArray(2);
+
+    //set vertex shader attrib pointers
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(PXL_VertexPoint), (void*)0);
+    glVertexAttribPointer(1, 2, GL_UNSIGNED_SHORT, GL_TRUE, sizeof(PXL_VertexPoint), (void*)8);
+    glVertexAttribPointer(2, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(PXL_VertexPoint), (void*)12);
+
     glBufferData(GL_ARRAY_BUFFER, total_vertices * sizeof(PXL_VertexPoint), &vertices[0], GL_DYNAMIC_DRAW);
 
     PXL_VertexBatch& v = *vertices[0].batch;
@@ -426,6 +437,13 @@ void PXL_Batch::draw_vbo() {
 
 void PXL_Batch::free() {
 	if (batch_created) {
+        glBindBuffer(GL_ARRAY_BUFFER, vbo_id);
+
+        //enable vertex attrib pointers when rendering
+        glDisableVertexAttribArray(0);
+        glDisableVertexAttribArray(1);
+        glDisableVertexAttribArray(2);
+
         glDeleteBuffers(1, &vbo_id);
 
         PXL_print << "deleted vbo id: " << vbo_id << "\n";
@@ -437,7 +455,8 @@ void PXL_Batch::free() {
             delete vertices[total_vertices].batch;
             total_vertices += num_vertices;
         }
-        vertices.clear();
+        //clear and set capacity to 0
+        std::vector<PXL_VertexPoint>().swap(vertices);
 
 		batch_created = false;
 		vbo_id = 0;
