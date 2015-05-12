@@ -207,7 +207,9 @@ int main(int argc, char* args[]) {
 		p2paddle.y -= (p2paddle.y - p2paddle.dest.y) / 4;
 
 		p1paddle.render(&batch);
-		p2paddle.render(&batch);
+        p2paddle.render(&batch);
+        //p1paddle.alpha = .5f;
+        //p2paddle.alpha = 1;
 
 		if (puck.x >= window.get_width() - 64) {	puck_speed.x = -puck_speed.x; puck.x = window.get_width() - 64; }
 		if (puck.x <= 64) {							puck_speed.x = -puck_speed.x; puck.x = 64; }

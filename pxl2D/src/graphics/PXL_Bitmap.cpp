@@ -69,7 +69,7 @@ void PXL_Bitmap::fill(PXL_Colour colour) {
 
 bool PXL_Bitmap::check_has_transparency() {
 	//checks whether the specified pixels contain any transparency
-	if (pixels == NULL || channel.channel_index.a != -1) {
+	if (pixels == NULL || channel.channel_index.a == -1) {
 		return false;
 	}else {
 		for (size_t n = 0; n < buffer_size; n += channel.num_channels) {

@@ -16,6 +16,7 @@ bool PXL_Texture::create_texture(std::string file_path) {
 bool PXL_Texture::create_texture(PXL_Bitmap* bitmap) {
 	texture_created = false;
 	if (bitmap != NULL) {
+        has_transparency = bitmap->has_transparency;
 		create_texture(bitmap->get_width(), bitmap->get_height(), bitmap->get_pixels(), bitmap->get_channel());
 		texture_created = true;
 	}else {
