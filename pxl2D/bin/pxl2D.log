@@ -1,25 +1,25 @@
-﻿Build started 12/05/2015 11:04:59 PM.
+﻿Build started 13/05/2015 12:51:05 AM.
      1>Project "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\pxl2D.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\\" /Fd"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt src\graphics\PXL_Batch.cpp
          PXL_Batch.cpp
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(42): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(193): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(199): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(203): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(206): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(194): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(200): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(204): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(207): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(212): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(213): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(215): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(216): warning C4244: '-=' : conversion from 'float' to 'int', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(234): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(208): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(213): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(214): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(216): warning C4244: '+=' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(217): warning C4244: '-=' : conversion from 'float' to 'int', possible loss of data
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(235): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(236): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(237): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(270): warning C4244: '=' : conversion from 'float' to 'unsigned short', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(238): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
      1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(271): warning C4244: '=' : conversion from 'float' to 'unsigned short', possible loss of data
-     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(286): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(272): warning C4244: '=' : conversion from 'float' to 'unsigned short', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_batch.cpp(287): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
        Lib:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\lib\pxl2D.lib" libpng.lib zlib.lib freetype.lib winmm.lib dbghelp.lib /NOLOGO "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Colour.obj"
          "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_GraphicsAPI.obj"
@@ -74,4 +74,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.65
+Time Elapsed 00:00:03.43

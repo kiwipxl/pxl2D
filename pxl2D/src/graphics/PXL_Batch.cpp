@@ -159,6 +159,7 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
             batch.uses_transparency = false;
             batch.blend_mode = PXL_NO_BLEND;
         }
+        batch.add_id = num_added;
 
         total_vertices += 4;
         ++num_added;
@@ -358,17 +359,24 @@ void PXL_Batch::draw_vbo() {
 
     std::sort(vertices.begin(), vertices.begin() + total_vertices, 
         [](PXL_VertexPoint& a, PXL_VertexPoint& b) {
-            if (a.batch->uses_transparency < b.batch->uses_transparency) return true;
-            if (b.batch->uses_transparency < a.batch->uses_transparency) return false;
-
-            if (a.batch->z_depth < b.batch->z_depth) return false;
-            if (b.batch->z_depth < a.batch->z_depth) return true;
-
-            if (a.batch->texture_id < b.batch->texture_id) return true;
-            if (b.batch->texture_id < a.batch->texture_id) return false;
+            if (a.batch->z_depth < b.batch->z_depth) return true;
+            if (b.batch->z_depth < a.batch->z_depth) return false;
 
             if (a.batch->shader < b.batch->shader) return true;
             if (b.batch->shader < a.batch->shader) return false;
+
+            if (a.batch->uses_transparency < b.batch->uses_transparency) return true;
+            if (b.batch->uses_transparency < a.batch->uses_transparency) return false;
+
+            //if a is not transparent, then reverse the order of non transparent vertices
+            //this is because the depth buffer should be drawn in the order the user added to the batch
+            if (!a.batch->uses_transparency) {
+                if (a.batch->add_id < b.batch->add_id) return false;
+                if (b.batch->add_id < a.batch->add_id) return true;
+            }
+
+            if (a.batch->texture_id < b.batch->texture_id) return true;
+            if (b.batch->texture_id < a.batch->texture_id) return false;
 
             return false;
         }
@@ -403,7 +411,8 @@ void PXL_Batch::draw_vbo() {
 	//glBindTexture(GL_TEXTURE_2D, prev_id);
 	PXL_BlendMode prev_blend_mode = v.blend_mode;
 	//use_blend_mode(prev_blend_mode);
-	PXL_ShaderProgram* prev_shader = v.shader;
+    PXL_ShaderProgram* prev_shader = v.shader;
+    int last_z_depth = v.z_depth;
     //use_shader(prev_shader);
 
     for (int n = 0; n <= num_added; ++n) {
@@ -427,6 +436,12 @@ void PXL_Batch::draw_vbo() {
 			prev_blend_mode = v.blend_mode;
 			changed = true;
 		}
+
+        if (v.z_depth != last_z_depth) {
+            //todo: check if depth buffer was altered before clearing
+            glClear(GL_DEPTH_BUFFER_BIT);
+            last_z_depth = v.z_depth;
+        }
 
 		if (changed) {
             glDrawArrays(GL_QUADS, vertex_offset, num_vertices);

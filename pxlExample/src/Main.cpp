@@ -58,7 +58,8 @@ int main(int argc, char* args[]) {
 	PXL_Texture arena_texture;			arena_texture.create_texture("assets/arena.png");
 	PXL_Texture puck_texture;			puck_texture.create_texture("assets/puck.png");
 	PXL_Texture p1paddle_texture;		p1paddle_texture.create_texture("assets/p1paddle.png");
-	PXL_Texture p2paddle_texture;		p2paddle_texture.create_texture("assets/p2paddle.png");
+    PXL_Texture p2paddle_texture;		p2paddle_texture.create_texture("assets/p2paddle.png");
+    PXL_Texture test_cat_texture;       test_cat_texture.create_texture("assets/lol.png");
 
 	PXL_print << "loaded assets. loading fonts...\n";
 
@@ -104,10 +105,12 @@ int main(int argc, char* args[]) {
 	PXL_Text p2score_text(&arcade, "0", window.get_width() - 40, window_center.y + 32, 42);
 	p2score_text.set_origin(PXL_ORIGIN_MID_LEFT);
 	p2score_text.rotation = 90;
-	p2score_text.z_depth = 2;
+    p2score_text.z_depth = 2;
 
 	int p1score = 0;
-	int p2score = 0;
+    int p2score = 0;
+
+    PXL_Sprite test_cat(test_cat_texture);
 
     PXL_print << "loaded fonts. creating batch...\n";
 
@@ -190,10 +193,12 @@ int main(int argc, char* args[]) {
 
 		t += .5f;
 		PXL_set_clear_colour(0, 0, 0, 1);
-		PXL_clear();
+        PXL_clear();
+
+        test_cat.render(&batch);
 
 		PXL_Rect rect(0, 0, window.get_width(), window.get_height());
-		batch.add(arena_texture, &rect);
+        batch.add(arena_texture, &rect);
 
 		p1score_text.colour.set_colour(0, (cos(t / 10) + 1) / 2, 1, 1);
 		p1score_text.render(&batch);
@@ -208,8 +213,18 @@ int main(int argc, char* args[]) {
 
 		p1paddle.render(&batch);
         p2paddle.render(&batch);
-        //p1paddle.alpha = .5f;
-        //p2paddle.alpha = 1;
+        p1paddle.render(&batch);
+        p1paddle.z_depth = 0;
+        p2paddle.z_depth = 0;
+        p1paddle.colour.a = .5f;
+        p2paddle.colour.a = .8f;
+
+        test_cat.x = 120;
+        test_cat.y = 80;
+        test_cat.z_depth = 0;
+        test_cat.width = 200;
+        test_cat.height = 140;
+        test_cat.render(&batch);
 
 		if (puck.x >= window.get_width() - 64) {	puck_speed.x = -puck_speed.x; puck.x = window.get_width() - 64; }
 		if (puck.x <= 64) {							puck_speed.x = -puck_speed.x; puck.x = 64; }

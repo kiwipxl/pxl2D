@@ -33,6 +33,7 @@ struct PXL_VertexBatch {
     PXL_BlendMode blend_mode;
     PXL_ushort num_vertices;
     PXL_ushort num_indices;
+    int add_id = 0;
 
     //transform cache values
     PXL_Colour colour;
