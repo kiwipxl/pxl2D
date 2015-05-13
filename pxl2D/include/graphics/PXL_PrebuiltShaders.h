@@ -20,19 +20,21 @@
 const char* PXL_basic_vertex_shader_str = GLSL(
 	//[START_VERTEX]
 
-	attribute vec2 a_position;
+	attribute vec3 a_position;
 	attribute vec2 a_tex_coord;
-	attribute vec4 a_colour;
+    attribute vec4 a_colour;
 
-	uniform mat4 matrix;
+    uniform mat4 matrix;
 
 	varying vec4 v_colour;
-	varying vec2 tex_coord;
+    varying vec2 tex_coord;
+    varying float z_depth;
 
 	void main() {
 		v_colour = a_colour;
-		tex_coord = a_tex_coord;
-		gl_Position = matrix * vec4(a_position, 0, 1);
+        tex_coord = a_tex_coord;
+        z_depth = a_position.z;
+        gl_Position = matrix * vec4(a_position.x, a_position.y, 0, 1);
 	}
 
 	//[END_VERTEX]
@@ -45,16 +47,18 @@ const char* PXL_basic_vertex_shader_str = GLSL(
 	the vertex colour with a texel
 **/
 const char* PXL_default_shader_str = GLSL(
-	//[START_FRAGMENT]
+    //[START_FRAGMENT]
 
-	uniform sampler2D t0;
-	
+    uniform sampler2D t0;
+
 	varying vec4 v_colour;
-	varying vec2 tex_coord;
+    varying vec2 tex_coord;
+    varying float z_depth;
 
 	void main() {
         gl_FragColor = v_colour * texture2D(t0, tex_coord);
         //gl_FragColor = vec4(1, 0, 0, 1);
+        gl_FragDepth = z_depth;
 	}
 
 	//[END_FRAGMENT]

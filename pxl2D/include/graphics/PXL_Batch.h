@@ -47,7 +47,7 @@ struct PXL_VertexBatch {
 struct PXL_VertexPoint {
 
 	struct PXL_VertexPos {
-		float x = 0, y = 0;
+        float x = 0, y = 0, z = 0;
 	} pos;
 	struct PXL_Vertex_UVCoord {
 		PXL_ushort x = 0, y = 0;

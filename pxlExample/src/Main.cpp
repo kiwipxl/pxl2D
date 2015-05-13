@@ -195,36 +195,51 @@ int main(int argc, char* args[]) {
 		PXL_set_clear_colour(0, 0, 0, 1);
         PXL_clear();
 
-        test_cat.render(&batch);
+        PXL_Rect rect(0, 0, 0, 0);
 
-		PXL_Rect rect(0, 0, window.get_width(), window.get_height());
+        rect.w = window.get_width();
+        rect.h = window.get_height();
         batch.add(arena_texture, &rect);
 
+        rect.w = 400;
+        rect.h = 40;
+        batch.add(arena_texture, &rect, NULL, 0, 0, PXL_FLIP_NONE, 0);
+
+        rect.w = 200;
+        rect.h = 120;
+        batch.add(arena_texture, &rect, NULL, 0, 0, PXL_FLIP_NONE, 0);
+
 		p1score_text.colour.set_colour(0, (cos(t / 10) + 1) / 2, 1, 1);
-		p1score_text.render(&batch);
+		//p1score_text.render(&batch);
 
 		p2score_text.colour.set_colour(0, (cos(t / 10) + 1) / 2, 1, 1);
-		p2score_text.render(&batch);
+		//p2score_text.render(&batch);
 
 		p1paddle.x -= (p1paddle.x - p1paddle.dest.x) / 4;
 		p1paddle.y -= (p1paddle.y - p1paddle.dest.y) / 4;
 		p2paddle.x -= (p2paddle.x - p2paddle.dest.x) / 4;
 		p2paddle.y -= (p2paddle.y - p2paddle.dest.y) / 4;
 
-		p1paddle.render(&batch);
-        p2paddle.render(&batch);
-        p1paddle.render(&batch);
+		//p1paddle.render(&batch);
+        //p2paddle.render(&batch);
+        //p1paddle.render(&batch);
         p1paddle.z_depth = 0;
         p2paddle.z_depth = 0;
         p1paddle.colour.a = .5f;
         p2paddle.colour.a = .8f;
+
+        rect.x = 40;
+        rect.y = test_cat.y;
+        rect.w = 400;
+        rect.h = 100;
+        //batch.add(arena_texture, &rect);
 
         test_cat.x = 120;
         test_cat.y = 80;
         test_cat.z_depth = 0;
         test_cat.width = 200;
         test_cat.height = 140;
-        test_cat.render(&batch);
+        //test_cat.render(&batch);
 
 		if (puck.x >= window.get_width() - 64) {	puck_speed.x = -puck_speed.x; puck.x = window.get_width() - 64; }
 		if (puck.x <= 64) {							puck_speed.x = -puck_speed.x; puck.x = 64; }
@@ -264,7 +279,7 @@ int main(int argc, char* args[]) {
 			puck_speed.y -= (p2paddle.y - puck.y) / 4;
 		}
 
-		puck.render(&batch);
+		//puck.render(&batch);
 
 		batch.render_all();
 

@@ -14,22 +14,7 @@ void PXL_Batch::create_batch(PXL_Window* window) {
 
 	{
 		//create the vbo
-        PXL_print << "trying to create vbo\n";
         glGenBuffers(1, &vbo_id);
-		PXL_print << "created vbo id: " << vbo_id << "\n";
-        glBindBuffer(GL_ARRAY_BUFFER, vbo_id);
-
-        //enable vertex attrib pointers when rendering
-        glEnableVertexAttribArray(0);
-        glEnableVertexAttribArray(1);
-        glEnableVertexAttribArray(2);
-
-		//set vertex shader attrib pointers
-		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(PXL_VertexPoint), (void*)0);
-		glVertexAttribPointer(1, 2, GL_UNSIGNED_SHORT, GL_TRUE, sizeof(PXL_VertexPoint), (void*)8);
-		glVertexAttribPointer(2, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(PXL_VertexPoint), (void*)12);
-
-		glBindBuffer(GL_ARRAY_BUFFER, NULL);
 
 		batch_created = true;
 	}
@@ -55,8 +40,8 @@ void PXL_Batch::create_batch(PXL_Window* window) {
     //view_mat = view_mat + 8 * 2 - 4 + perspective_mat;
     //view_mat -= 4;
 
-	//enable alpha blending
-	glDisable(GL_CULL_FACE);
+    glDisable(GL_CULL_FACE);
+    glEnable(GL_DEPTH_TEST);
 }
 
 void PXL_Batch::use_shader(PXL_ShaderProgram* shader) {
@@ -78,10 +63,11 @@ void PXL_Batch::use_blend_mode(PXL_BlendMode blend_mode) {
         current_blend_mode = blend_mode;
 		if (current_blend_mode == PXL_BLEND) {
             glEnable(GL_BLEND);
-            glDisable(GL_DEPTH_TEST);
+            glDepthMask(false);
             glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		}else if (current_blend_mode == PXL_NO_BLEND) {
             glDisable(GL_BLEND);
+            glDepthMask(true);
             glEnable(GL_DEPTH_TEST);
 		}
 	}
@@ -155,11 +141,12 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
         if (texture.has_transparency) {
             batch.uses_transparency = true;
             batch.blend_mode = PXL_BLEND;
+            batch.add_id = num_added;
         }else {
             batch.uses_transparency = false;
             batch.blend_mode = PXL_NO_BLEND;
+            batch.add_id = num_added;
         }
-        batch.add_id = num_added;
 
         total_vertices += 4;
         ++num_added;
@@ -237,6 +224,11 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
                 v[2].pos.x = x + scaled_width;							v[2].pos.y = y + scaled_height;
                 v[3].pos.x = x;											v[3].pos.y = y + scaled_height;
 			}
+            float depth = float(10000000 - num_added) / float(10000000);
+            v[0].pos.z = depth;
+            v[1].pos.z = depth;
+            v[2].pos.z = depth;
+            v[3].pos.z = depth;
 		//}
 
 		/**
@@ -344,7 +336,7 @@ void PXL_Batch::render_all() {
         proj_view_mat = (perspective_mat * view_mat).transpose();
 
         //clear depth buffer
-        PXL_set_clear_depth(1);
+        PXL_set_clear_depth(1.0f);
         glClear(GL_DEPTH_BUFFER_BIT);
 
         draw_vbo();
@@ -357,30 +349,30 @@ void PXL_Batch::render_all() {
 void PXL_Batch::draw_vbo() {
     //std::random_shuffle(vertices.begin(), vertices.begin() + num_added);
 
-    std::sort(vertices.begin(), vertices.begin() + total_vertices, 
-        [](PXL_VertexPoint& a, PXL_VertexPoint& b) {
-            if (a.batch->z_depth < b.batch->z_depth) return true;
-            if (b.batch->z_depth < a.batch->z_depth) return false;
+    //std::sort(vertices.begin(), vertices.begin() + total_vertices, 
+    //    [](PXL_VertexPoint& a, PXL_VertexPoint& b) {
+    //        if (a.batch->z_depth < b.batch->z_depth) return true;
+    //        if (b.batch->z_depth < a.batch->z_depth) return false;
 
-            if (a.batch->shader < b.batch->shader) return true;
-            if (b.batch->shader < a.batch->shader) return false;
+    //        if (a.batch->shader < b.batch->shader) return true;
+    //        if (b.batch->shader < a.batch->shader) return false;
 
-            if (a.batch->uses_transparency < b.batch->uses_transparency) return true;
-            if (b.batch->uses_transparency < a.batch->uses_transparency) return false;
+    //        if (a.batch->uses_transparency < b.batch->uses_transparency) return true;
+    //        if (b.batch->uses_transparency < a.batch->uses_transparency) return false;
 
-            //if a is not transparent, then reverse the order of non transparent vertices
-            //this is because the depth buffer should be drawn in the order the user added to the batch
-            if (!a.batch->uses_transparency) {
-                if (a.batch->add_id < b.batch->add_id) return false;
-                if (b.batch->add_id < a.batch->add_id) return true;
-            }
+    //        //if a is not transparent, then reverse the order of non transparent vertices
+    //        //this is because the depth buffer should be drawn in the order the user added to the batch
+    //        if (!a.batch->uses_transparency) {
+    //            if (a.batch->add_id < b.batch->add_id) return false;
+    //            if (b.batch->add_id < a.batch->add_id) return true;
+    //        }
 
-            if (a.batch->texture_id < b.batch->texture_id) return true;
-            if (b.batch->texture_id < a.batch->texture_id) return false;
+    //        if (a.batch->texture_id < b.batch->texture_id) return true;
+    //        if (b.batch->texture_id < a.batch->texture_id) return false;
 
-            return false;
-        }
-    );
+    //        return false;
+    //    }
+    //);
 
     //loops through each texture and draws the vertex data with that texture id
     int vertex_offset = 0;
@@ -399,9 +391,9 @@ void PXL_Batch::draw_vbo() {
     glEnableVertexAttribArray(2);
 
     //set vertex shader attrib pointers
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(PXL_VertexPoint), (void*)0);
-    glVertexAttribPointer(1, 2, GL_UNSIGNED_SHORT, GL_TRUE, sizeof(PXL_VertexPoint), (void*)8);
-    glVertexAttribPointer(2, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(PXL_VertexPoint), (void*)12);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(PXL_VertexPoint), (void*)0);
+    glVertexAttribPointer(1, 2, GL_UNSIGNED_SHORT, GL_TRUE, sizeof(PXL_VertexPoint), (void*)12);
+    glVertexAttribPointer(2, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(PXL_VertexPoint), (void*)16);
 
     glBufferData(GL_ARRAY_BUFFER, total_vertices * sizeof(PXL_VertexPoint), &vertices[0], GL_DYNAMIC_DRAW);
 
@@ -469,8 +461,6 @@ void PXL_Batch::free() {
         glDisableVertexAttribArray(2);
 
         glDeleteBuffers(1, &vbo_id);
-
-        PXL_print << "deleted vbo id: " << vbo_id << "\n";
 
         total_vertices = 0;
         int num_vertices = 0;
