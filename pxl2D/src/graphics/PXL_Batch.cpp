@@ -225,7 +225,7 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
                 v[2].pos.x = x + scaled_width;							v[2].pos.y = y + scaled_height;
                 v[3].pos.x = x;											v[3].pos.y = y + scaled_height;
 			}
-            float depth = (float(num_added + ((z_depth + 500) * (FLT_MAX / 1000))) / FLT_MAX);
+            float depth = (float(num_added) / FLT_MAX);
             v[0].pos.z = depth;
             v[1].pos.z = depth;
             v[2].pos.z = depth;
@@ -395,10 +395,18 @@ void PXL_Batch::draw_vbo() {
 	//use_blend_mode(prev_blend_mode);
     PXL_ShaderProgram* prev_shader = v.shader;
     //use_shader(prev_shader);
+    int prev_z_depth = v.z_depth;
+    float z_depth_offset = 0;
+    int num_adds_per_depth = 0;
 
     for (int n = 0; n <= num_added; ++n) {
 		if (n >= num_added) changed = true;
         else v = *vertices[vertex_index].batch;
+
+        //todo: make z_depth a uniform rather than attribute
+        for (int i = 0; i < v.num_vertices; ++i) {
+            vertices[vertex_index + i].pos.z += z_depth_offset;
+        }
 
 		glBindTexture(GL_TEXTURE_2D, prev_id);
 		if (v.texture_id != prev_id) {
@@ -418,6 +426,12 @@ void PXL_Batch::draw_vbo() {
 			changed = true;
 		}
 
+        if (v.z_depth != prev_z_depth) {
+            prev_z_depth = v.z_depth;
+            z_depth_offset = float(num_adds_per_depth) / FLT_MAX;
+            num_adds_per_depth = 0;
+        }
+
 		if (changed) {
             glDrawArrays(GL_QUADS, vertex_offset, num_vertices);
 
@@ -430,7 +444,8 @@ void PXL_Batch::draw_vbo() {
 		}
         vertex_index += v.num_vertices;
         num_vertices += v.num_vertices;
-		num_indices += v.num_indices;
+        num_indices += v.num_indices;
+        ++num_adds_per_depth;
 	}
 
     glDisable(GL_DEPTH_TEST);
