@@ -210,10 +210,10 @@ int main(int argc, char* args[]) {
         batch.add(arena_texture, &rect, NULL, 0, 0, PXL_FLIP_NONE, 0);
 
 		p1score_text.colour.set_colour(0, (cos(t / 10) + 1) / 2, 1, 1);
-		//p1score_text.render(&batch);
+		p1score_text.render(&batch);
 
 		p2score_text.colour.set_colour(0, (cos(t / 10) + 1) / 2, 1, 1);
-		//p2score_text.render(&batch);
+		p2score_text.render(&batch);
 
 		p1paddle.x -= (p1paddle.x - p1paddle.dest.x) / 4;
 		p1paddle.y -= (p1paddle.y - p1paddle.dest.y) / 4;
@@ -230,12 +230,12 @@ int main(int argc, char* args[]) {
         p2paddle.render(&batch);
         p1paddle.z_depth = 1;
         p2paddle.z_depth = 1;
-        p1paddle.colour.a = .5f;
+        p1paddle.colour.a = 1;
         p2paddle.colour.a = 1;
 
         test_cat.x = 120;
         test_cat.y = 80 + (cos(t / 10) * 200);
-        test_cat.z_depth = 0;
+        test_cat.z_depth = 1;
         test_cat.width = 200;
         test_cat.height = 140;
         test_cat.render(&batch);

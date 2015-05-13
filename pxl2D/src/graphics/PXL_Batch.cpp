@@ -42,6 +42,9 @@ void PXL_Batch::create_batch(PXL_Window* window) {
 
     glDisable(GL_CULL_FACE);
     glEnable(GL_DEPTH_TEST);
+
+    //flat identifiers in shaders (non interpolated) use the first inputted vertex to pass to the fragment shader
+    glProvokingVertex(GL_FIRST_VERTEX_CONVENTION);
 }
 
 void PXL_Batch::use_shader(PXL_ShaderProgram* shader) {
@@ -353,7 +356,7 @@ void PXL_Batch::render_all() {
 }
 
 void PXL_Batch::draw_vbo() {
-    //std::random_shuffle(vertices.begin(), vertices.begin() + num_added);
+    int a = 5;
 
     std::sort(vertices.begin(), vertices.begin() + total_vertices, 
         [](PXL_VertexPoint& a, PXL_VertexPoint& b) {
@@ -362,6 +365,9 @@ void PXL_Batch::draw_vbo() {
 
             if (a.batch->uses_transparency < b.batch->uses_transparency) return true;
             if (b.batch->uses_transparency < a.batch->uses_transparency) return false;
+
+            if (a.batch->add_id < b.batch->add_id) return true;
+            if (b.batch->add_id < a.batch->add_id) return false;
 
             return false;
         }
@@ -385,13 +391,10 @@ void PXL_Batch::draw_vbo() {
 
         if (v->z_depth != prev_z_depth) {
             prev_z_depth = v->z_depth;
-            z_depth_offset = float(num_adds_per_depth) / 10000000.0f;
-            num_adds_per_depth = 0;
+            z_depth_offset = float(n) / 10000000.0f;
         }
-
-        for (int i = 0; i < v->num_vertices; ++i) {
-            vertices[vertex_index + i].pos.z -= z_depth_offset;
-        }
+        
+        vertices[vertex_index].pos.z -= z_depth_offset;
 
         vertex_index += v->num_vertices;
         ++num_adds_per_depth;
