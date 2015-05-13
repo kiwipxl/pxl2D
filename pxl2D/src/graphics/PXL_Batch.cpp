@@ -225,7 +225,7 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
                 v[2].pos.x = x + scaled_width;							v[2].pos.y = y + scaled_height;
                 v[3].pos.x = x;											v[3].pos.y = y + scaled_height;
 			}
-            float depth = (float(num_added + (z_depth * (FLT_MAX / 1000))) / FLT_MAX);
+            float depth = (float(num_added + ((z_depth + 500) * (FLT_MAX / 1000))) / FLT_MAX);
             v[0].pos.z = depth;
             v[1].pos.z = depth;
             v[2].pos.z = depth;
@@ -357,8 +357,8 @@ void PXL_Batch::draw_vbo() {
             if (a.batch->z_depth < b.batch->z_depth) return true;
             if (b.batch->z_depth < a.batch->z_depth) return false;
 
-            //if (a.batch->add_id < b.batch->add_id) return true;
-            //if (b.batch->add_id < a.batch->add_id) return false;
+            if (a.batch->uses_transparency < b.batch->uses_transparency) return true;
+            if (b.batch->uses_transparency < a.batch->uses_transparency) return false;
 
             return false;
         }
