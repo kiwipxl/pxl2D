@@ -4,10 +4,7 @@
 #include <string>
 #include <iostream>
 
-#define GLSL(src) "#version 130\n" #src
-
-//todo: add maybe
-//precision highp float; // Video card drivers require this line to function properly
+#define GLSL(src) "#version 130\nprecision mediump float;\n" #src
 
 /**
 	-------------- default vertex shader -------------
@@ -20,9 +17,9 @@
 const char* PXL_basic_vertex_shader_str = GLSL(
 	//[START_VERTEX]
 
-	attribute vec3 a_position;
-	attribute vec2 a_tex_coord;
-    attribute vec4 a_colour;
+	attribute mediump vec3 a_position;
+	attribute mediump vec2 a_tex_coord;
+    attribute lowp vec4 a_colour;
 
     uniform mat4 matrix;
 

@@ -64,12 +64,12 @@ void PXL_Batch::use_blend_mode(PXL_BlendMode blend_mode) {
 		if (current_blend_mode == PXL_BLEND) {
             glEnable(GL_BLEND);
             glDepthMask(GL_FALSE);
-            glDepthFunc(GL_LESS);
+            glDepthFunc(GL_GEQUAL);
             glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		}else if (current_blend_mode == PXL_NO_BLEND) {
             glDisable(GL_BLEND);
             glDepthMask(GL_TRUE);
-            glDepthFunc(GL_LESS);
+            glDepthFunc(GL_GEQUAL);
 		}
 	}
 }
@@ -225,7 +225,7 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
                 v[2].pos.x = x + scaled_width;							v[2].pos.y = y + scaled_height;
                 v[3].pos.x = x;											v[3].pos.y = y + scaled_height;
 			}
-            float depth = 1.0f - (float(num_added) / 10000000.0f);
+            float depth = (float(num_added + (z_depth * (FLT_MAX / 1000))) / FLT_MAX);
             v[0].pos.z = depth;
             v[1].pos.z = depth;
             v[2].pos.z = depth;
@@ -354,8 +354,8 @@ void PXL_Batch::draw_vbo() {
 
     std::sort(vertices.begin(), vertices.begin() + total_vertices, 
         [](PXL_VertexPoint& a, PXL_VertexPoint& b) {
-            if (a.batch->uses_transparency < b.batch->uses_transparency) return true;
-            if (b.batch->uses_transparency < a.batch->uses_transparency) return false;
+            if (a.batch->z_depth < b.batch->z_depth) return true;
+            if (b.batch->z_depth < a.batch->z_depth) return false;
 
             //if (a.batch->add_id < b.batch->add_id) return true;
             //if (b.batch->add_id < a.batch->add_id) return false;
@@ -394,7 +394,6 @@ void PXL_Batch::draw_vbo() {
 	PXL_BlendMode prev_blend_mode = v.blend_mode;
 	//use_blend_mode(prev_blend_mode);
     PXL_ShaderProgram* prev_shader = v.shader;
-    int last_z_depth = v.z_depth;
     //use_shader(prev_shader);
 
     for (int n = 0; n <= num_added; ++n) {
@@ -419,12 +418,6 @@ void PXL_Batch::draw_vbo() {
 			changed = true;
 		}
 
-        if (v.z_depth != last_z_depth) {
-            //todo: check if depth buffer was altered before clearing
-            //glClear(GL_DEPTH_BUFFER_BIT);
-            last_z_depth = v.z_depth;
-        }
-
 		if (changed) {
             glDrawArrays(GL_QUADS, vertex_offset, num_vertices);
 
@@ -439,6 +432,8 @@ void PXL_Batch::draw_vbo() {
         num_vertices += v.num_vertices;
 		num_indices += v.num_indices;
 	}
+
+    glDisable(GL_DEPTH_TEST);
 }
 
 void PXL_Batch::free() {

@@ -228,13 +228,13 @@ int main(int argc, char* args[]) {
 
         p1paddle.render(&batch);
         p2paddle.render(&batch);
-        p1paddle.z_depth = 0;
-        p2paddle.z_depth = 0;
-        //p1paddle.colour.a = .8f;
-        //p2paddle.colour.a = .2f;
+        p1paddle.z_depth = 1;
+        p2paddle.z_depth = 1;
+        p1paddle.colour.a = .4f;
+        p2paddle.colour.a = .2f;
 
         test_cat.x = 120;
-        test_cat.y = 80 + (cos(t / 4) * 200);
+        //test_cat.y = 80 + (cos(t / 4) * 200);
         test_cat.z_depth = 0;
         test_cat.width = 200;
         test_cat.height = 140;
