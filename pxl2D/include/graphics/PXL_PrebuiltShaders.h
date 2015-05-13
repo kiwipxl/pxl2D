@@ -57,7 +57,6 @@ const char* PXL_default_shader_str = GLSL(
 
 	void main() {
         gl_FragColor = v_colour * texture2D(t0, tex_coord);
-        //gl_FragColor = vec4(1, 0, 0, 1);
         gl_FragDepth = z_depth;
 	}
 
@@ -410,10 +409,12 @@ const char* PXL_text_shader_str = GLSL(
 	uniform sampler2D t0;
 	
 	varying vec4 v_colour;
-	varying vec2 tex_coord;
+    varying vec2 tex_coord;
+    varying float z_depth;
 
 	void main() {
-		gl_FragColor = vec4(v_colour.rgb, texture2D(t0, tex_coord).a);
+        gl_FragColor = vec4(v_colour.rgb, texture2D(t0, tex_coord).a);
+        gl_FragDepth = z_depth;
 	}
 
 	//[END_FRAGMENT]

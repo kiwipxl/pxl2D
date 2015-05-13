@@ -220,26 +220,25 @@ int main(int argc, char* args[]) {
 		p2paddle.x -= (p2paddle.x - p2paddle.dest.x) / 4;
 		p2paddle.y -= (p2paddle.y - p2paddle.dest.y) / 4;
 
-		//p1paddle.render(&batch);
-        //p2paddle.render(&batch);
-        //p1paddle.render(&batch);
-        p1paddle.z_depth = 0;
-        p2paddle.z_depth = 0;
-        p1paddle.colour.a = .5f;
-        p2paddle.colour.a = .8f;
-
         rect.x = 40;
-        rect.y = test_cat.y;
+        rect.y = 80;
         rect.w = 400;
         rect.h = 100;
-        //batch.add(arena_texture, &rect);
+        batch.add(test_cat_texture, &rect);
+
+        p1paddle.render(&batch);
+        p2paddle.render(&batch);
+        p1paddle.z_depth = 0;
+        p2paddle.z_depth = 0;
+        //p1paddle.colour.a = .8f;
+        //p2paddle.colour.a = .2f;
 
         test_cat.x = 120;
-        test_cat.y = 80;
+        test_cat.y = 80 + (cos(t / 4) * 200);
         test_cat.z_depth = 0;
         test_cat.width = 200;
         test_cat.height = 140;
-        //test_cat.render(&batch);
+        test_cat.render(&batch);
 
 		if (puck.x >= window.get_width() - 64) {	puck_speed.x = -puck_speed.x; puck.x = window.get_width() - 64; }
 		if (puck.x <= 64) {							puck_speed.x = -puck_speed.x; puck.x = 64; }
