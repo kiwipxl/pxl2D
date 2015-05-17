@@ -70,7 +70,7 @@ void PXL_Batch::use_blend_mode(PXL_BlendMode blend_mode) {
             glDepthFunc(GL_LESS);
             glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		}else if (current_blend_mode == PXL_NO_BLEND) {
-            glDisable(GL_BLEND);
+            glEnable(GL_BLEND);
             glDepthMask(GL_TRUE);
             glDepthFunc(GL_LESS);
 		}
@@ -142,7 +142,7 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
         batch.shader = shader;
         batch.z_depth = z_depth;
         batch.blend_mode = blend_mode;
-        if (texture.has_transparency) {
+        if (texture.has_transparency || colour.a != 1.0f) {
             batch.uses_transparency = true;
             batch.blend_mode = PXL_BLEND;
             batch.add_id = num_added;
@@ -165,21 +165,6 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 		float origin_x = 0; float origin_y = 0;
 		if (origin != NULL) { origin_x = origin->x; origin_y = origin->y; }
 
-		/*bool modified = false;
-		if (v_batch.rect.x != rect->x || v_batch.rect.y != rect->y ||
-			v_batch.rect.w != rect->w || v_batch.rect.h != rect->h) {
-			modified = true;
-
-			memcpy(&v_batch.rect, rect, sizeof(PXL_Rect));
-		}
-		if (v_batch.rotation != rotation || v_batch.flip != flip ||
-			v_batch.origin.x != origin_x || v_batch.origin.y != origin_y) {
-			modified = true;
-
-			v_batch.rotation = rotation;
-			v_batch.flip = flip;
-			v_batch.origin.x = origin_x; v_batch.origin.y = origin_y;
-		}*/
 		//if (modified) {
 			//get positions from rect
 			int x = rect->x; int y = rect->y;
@@ -219,8 +204,6 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 
                 v[3].pos.x = x + ((c * -origin_x) - (s * scaled_height));
                 v[3].pos.y = y + ((s * -origin_x) + (c * scaled_height));
-
-				//v_batch.rotation = rotation;
 			}else {
 				//set vertex position including scale
                 v[0].pos.x = x;											v[0].pos.y = y;
@@ -229,12 +212,9 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
                 v[3].pos.x = x;											v[3].pos.y = y + scaled_height;
 			}
             unsigned int c = 10000000;
-            unsigned int t = (500) * (c / 1000.0f);
+            unsigned int t = 500 * (c / 1000.0f);
             float depth = (float(-num_added + t) / c);
             v[0].pos.z = depth;
-            v[1].pos.z = depth;
-            v[2].pos.z = depth;
-            v[3].pos.z = depth;
 		//}
 
 		/**
@@ -242,25 +222,6 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 		                            Set UV vertex coords
 		==================================================================================
 		**/
-		//attempt to optimise by not setting uv values if they have the same value in the vertex batch as the new values
-		/*modified = false;
-		if (src_rect == NULL) {
-			if (v_batch.src_rect.x != 0 || v_batch.src_rect.y != 0 ||
-				v_batch.src_rect.w != texture.get_width() || v_batch.src_rect.h != texture.get_height()) {
-				modified = true;
-
-				v_batch.src_rect.x = 0; v_batch.src_rect.y = 0;
-				v_batch.src_rect.w = texture.get_width(); v_batch.src_rect.h = texture.get_height();
-			}
-		}else {
-			if (v_batch.src_rect.x != src_rect->x || v_batch.src_rect.y != src_rect->y ||
-				v_batch.src_rect.w != src_rect->w || v_batch.src_rect.h != src_rect->h) {
-				modified = true;
-
-				memcpy(&v_batch.src_rect, src_rect, sizeof(PXL_Rect));
-			}
-		}*/
-
 		//if (modified) {
 			//default un-normalised uv coords
 			PXL_ushort uv_x = 0; PXL_ushort uv_y = 0; PXL_ushort uv_w = PXL_USHRT_MAX; PXL_ushort uv_h = PXL_USHRT_MAX;
@@ -284,19 +245,13 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 		**/
 		int i_r = colour.r * 255; int i_g = colour.g * 255; int i_b = colour.b * 255; int i_a = colour.a * 255;
 
-		//if (v_batch.colour.r != i_r || v_batch.colour.g != i_g || v_batch.colour.b != i_b || v_batch.colour.a != i_a) {
-			//set vertex colours
-			for (int n = 0; n < 4; ++n) {
-                v[n].colour.r = i_r;
-                v[n].colour.g = i_g;
-                v[n].colour.b = i_b;
-                v[n].colour.a = i_a;
-			}
-			/*v_batch.colour.r = i_r;
-			v_batch.colour.g = i_g;
-			v_batch.colour.b = i_b;
-			v_batch.colour.a = i_a;*/
-		//}
+		//set vertex colours
+		for (int n = 0; n < 4; ++n) {
+            v[n].colour.r = i_r;
+            v[n].colour.g = i_g;
+            v[n].colour.b = i_b;
+            v[n].colour.a = i_a;
+		}
 	}
 }
 
@@ -356,51 +311,47 @@ void PXL_Batch::render_all() {
 }
 
 void PXL_Batch::draw_vbo() {
-    int a = 5;
+    //loops through each texture and draws the vertex data with that texture id
+    int vertex_offset = 0;
+    int indices_offset = 0;
+    int vertex_index = total_vertices - vertices[total_vertices - 1].batch->num_vertices;
+    int num_vertices = 0;
+    int num_indices = 0;
+    bool changed = false;
+    PXL_VertexBatch* v;
 
-    std::sort(vertices.begin(), vertices.begin() + total_vertices, 
-        [](PXL_VertexPoint& a, PXL_VertexPoint& b) {
-            if (a.batch->z_depth < b.batch->z_depth) return true;
-            if (b.batch->z_depth < a.batch->z_depth) return false;
+    int prev_z_depth;
+    float z_depth_offset = 0;
+    int num_adds_per_depth = 0;
 
+    //temporary z_depth offset loop
+    for (int n = 0; n < num_added; ++n) {
+        v = vertices[n * 4].batch;
+        num_adds_per_depth = 0;
+        prev_z_depth = v->z_depth;
+        for (int i = 0; i < num_added; ++i) {
+            if (vertices[vertex_index].batch->z_depth == v->z_depth) {
+                ++num_adds_per_depth;
+            }
+        }
+        z_depth_offset = num_adds_per_depth / 10000000.0f;
+        vertices[n * 4].pos.z -= z_depth_offset;
+    }
+
+    std::stable_sort(vertices.begin(), vertices.begin() + total_vertices, 
+        [](const PXL_VertexPoint& a, const PXL_VertexPoint& b) {
             if (a.batch->uses_transparency < b.batch->uses_transparency) return true;
             if (b.batch->uses_transparency < a.batch->uses_transparency) return false;
 
-            if (a.batch->add_id < b.batch->add_id) return true;
-            if (b.batch->add_id < a.batch->add_id) return false;
+            if (a.batch->z_depth < b.batch->z_depth) return false;
+            if (b.batch->z_depth < a.batch->z_depth) return true;
+
+            //if (a.batch->add_id < b.batch->add_id) return false;
+            //if (b.batch->add_id < a.batch->add_id) return true;
 
             return false;
         }
     );
-
-    //loops through each texture and draws the vertex data with that texture id
-    PXL_VertexBatch* v = vertices[0].batch;
-    int vertex_offset = 0;
-    int indices_offset = 0;
-    int vertex_index = 0;
-    int num_vertices = 0;
-    int num_indices = 0;
-    bool changed = false;
-
-    int prev_z_depth = v->z_depth;
-    float z_depth_offset = 0;
-    int num_adds_per_depth = 0;
-
-    for (int n = 0; n < num_added; ++n) {
-        v = vertices[vertex_index].batch;
-
-        if (v->z_depth != prev_z_depth) {
-            prev_z_depth = v->z_depth;
-            z_depth_offset = float(n) / 10000000.0f;
-        }
-        
-        vertices[vertex_index].pos.z -= z_depth_offset;
-
-        vertex_index += v->num_vertices;
-        ++num_adds_per_depth;
-    }
-    v = vertices[0].batch;
-    vertex_index = 0;
 
     //binds vertex buffer
     glBindBuffer(GL_ARRAY_BUFFER, vbo_id);
@@ -416,6 +367,9 @@ void PXL_Batch::draw_vbo() {
     glVertexAttribPointer(2, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(PXL_VertexPoint), (void*)16);
 
     glBufferData(GL_ARRAY_BUFFER, total_vertices * sizeof(PXL_VertexPoint), &vertices[0], GL_DYNAMIC_DRAW);
+
+    v = vertices[0].batch;
+    vertex_index = 0;
 
 	GLuint prev_id = v->texture_id;
 	//glBindTexture(GL_TEXTURE_2D, prev_id);

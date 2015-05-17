@@ -68,7 +68,9 @@ void PXL_TextureSheet::create_sheet(PXL_Channel sheet_channel, bool dispose_batc
 		}
 	}
 
-	if (clear_list) clear();
+    if (clear_list) clear();
+
+    check_has_transparency();
 }
 
 void PXL_TextureSheet::clear() {

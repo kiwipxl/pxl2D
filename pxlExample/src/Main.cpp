@@ -93,7 +93,7 @@ int main(int argc, char* args[]) {
 	PXL_Vec2 puck_speed;
 	puck.x = window.get_width() / 2;	puck.y = window.get_height() / 2;
 	puck.width = 64;					puck.height = 64;
-    puck.z_depth = 0;
+    puck.z_depth = 1;
 
 	PXL_Font square("assets/square.ttf");
 	PXL_Font arcade("assets/arcade.ttf");
@@ -209,12 +209,6 @@ int main(int argc, char* args[]) {
         rect.h = 120;
         batch.add(arena_texture, &rect, NULL, 0, 0, PXL_FLIP_NONE, 0);
 
-		p1score_text.colour.set_colour(0, (cos(t / 10) + 1) / 2, 1, 1);
-		p1score_text.render(&batch);
-
-		p2score_text.colour.set_colour(0, (cos(t / 10) + 1) / 2, 1, 1);
-		p2score_text.render(&batch);
-
 		p1paddle.x -= (p1paddle.x - p1paddle.dest.x) / 4;
 		p1paddle.y -= (p1paddle.y - p1paddle.dest.y) / 4;
 		p2paddle.x -= (p2paddle.x - p2paddle.dest.x) / 4;
@@ -238,6 +232,7 @@ int main(int argc, char* args[]) {
         test_cat.z_depth = 1;
         test_cat.width = 200;
         test_cat.height = 140;
+        test_cat.colour.a = 1;
         test_cat.render(&batch);
 
 		if (puck.x >= window.get_width() - 64) {	puck_speed.x = -puck_speed.x; puck.x = window.get_width() - 64; }
@@ -265,7 +260,7 @@ int main(int argc, char* args[]) {
 		puck.x += puck_speed.x;
 		puck.y += puck_speed.y;
 		puck_speed.x = puck_speed.x * .95f;
-		puck_speed.y = puck_speed.y * .95f;
+        puck_speed.y = puck_speed.y * .95f;
 
 		float p1dist = sqrt(pow(float(p1paddle.x - puck.x), 2) + pow(float(p1paddle.y - puck.y), 2));
 		if (p1dist <= 80) {
@@ -278,7 +273,13 @@ int main(int argc, char* args[]) {
 			puck_speed.y -= (p2paddle.y - puck.y) / 4;
 		}
 
-		puck.render(&batch);
+        puck.render(&batch);
+
+        p1score_text.colour.set_colour(0, (cos(t / 10) + 1) / 2, 1, 1);
+        p1score_text.render(&batch);
+
+        p2score_text.colour.set_colour(0, (cos(t / 10) + 1) / 2, 1, 1);
+        p2score_text.render(&batch);
 
 		batch.render_all();
 

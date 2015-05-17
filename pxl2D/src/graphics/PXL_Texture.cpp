@@ -57,7 +57,8 @@ void PXL_Texture::bind() {
 
 PXL_ubyte* PXL_Texture::get_pixels() {
 	if (texture_created) {
-		bind();
+        bind();
+        //todo: potential memory leak, must fix
 		PXL_ubyte* pixels = new PXL_ubyte[(width * height) * channel.num_channels];
 		glReadPixels(0, 0, width, height, channel.gl_pixel_mode, GL_UNSIGNED_BYTE, pixels);
 		//todo: glgetteximage not supported by gles2
@@ -71,6 +72,24 @@ void PXL_Texture::set_filters(PXL_TextureFilter min_filter, PXL_TextureFilter ma
 	bind();
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, min_filter);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, max_filter);
+}
+
+bool PXL_Texture::check_has_transparency() {
+    //checks whether the specified pixels contain any transparency
+    /*PXL_ubyte* pixels = get_pixels();
+    if (pixels == NULL || channel.channel_index.a == -1) {
+        delete[] pixels;
+        return false;
+    }else {
+        for (size_t n = 0; n < (width * height) * channel.num_channels; n += channel.num_channels) {
+            if (pixels[n + channel.channel_index.a] == 0) {
+                has_transparency = true;
+                delete[] pixels;
+                return true;
+            }
+        }
+    }*/
+    return true;
 }
 
 void PXL_Texture::free() {
