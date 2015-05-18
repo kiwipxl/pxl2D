@@ -162,6 +162,7 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
         batch.shader = shader;
         batch.z_depth = z_depth;
         batch.blend_mode = blend_mode;
+        batch.add_id = num_added;
 
         total_vertices += 4;
         ++num_added;
@@ -224,7 +225,7 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 			}
             unsigned int c = 10000000;
             unsigned int t = 500 * (c / 1000.0f);
-            float depth = (float(-num_added + t) / c);
+            float depth = (float((-num_added - (z_depth * 100)) + t) / c);
             v[0].pos.z = depth;
 		//}
 
@@ -325,35 +326,29 @@ void PXL_Batch::render_all() {
 }
 
 void PXL_Batch::draw_vbo() {
-    //int prev_z_depth;
-    //float z_depth_offset = 0;
-    //int num_adds_per_depth = 0;
+    /*int prev_z_depth;
+    PXL_VertexBatch* b;
+    for (int n = 0; n < num_added; ++n) {
+        b = vertices[n * 4].batch;
+        num_adds_per_depth = 0;
+        prev_z_depth = v->z_depth;
+        if (vertices[vertex_index].batch->z_depth == v->z_depth) {
+            ++num_adds_per_depth;
+        }
+        z_depth_offset = num_adds_per_depth / 10000000.0f;
+        vertices[n * 4].pos.z -= z_depth_offset;
+    }*/
 
-    ////temporary z_depth offset loop
-    //for (int n = 0; n < num_added; ++n) {
-    //    v = vertices[n * 4].batch;
-    //    num_adds_per_depth = 0;
-    //    prev_z_depth = v->z_depth;
-    //    for (int i = 0; i < num_added; ++i) {
-    //        if (vertices[vertex_index].batch->z_depth == v->z_depth) {
-    //            ++num_adds_per_depth;
-    //        }
-    //    }
-    //    z_depth_offset = num_adds_per_depth / 10000000.0f;
-    //    vertices[n * 4].pos.z -= z_depth_offset;
-    //}
-
-    //todo: sort transparent vertices but not opaque
-    //std::qsort(&vertices[0], total_vertices, sizeof(PXL_VertexPoint), 
+    //std::stable_sort(transparent_vertices.begin(), transparent_vertices.begin() + total_transparent_vertices, 
     //    [](const PXL_VertexPoint& a, const PXL_VertexPoint& b) {
-    //        if (a.batch->uses_transparency < b.batch->uses_transparency) return false;
-    //        if (b.batch->uses_transparency < a.batch->uses_transparency) return true;
+    //        //if (a.batch->uses_transparency < b.batch->uses_transparency) return false;
+    //        //if (b.batch->uses_transparency < a.batch->uses_transparency) return true;
 
-    //        //if (a.batch->z_depth < b.batch->z_depth) return false;
-    //        //if (b.batch->z_depth < a.batch->z_depth) return true;
+    //        //if (a.batch->z_depth < b.batch->z_depth) return true;
+    //        //if (b.batch->z_depth < a.batch->z_depth) return false;
 
-    //        //if (a.batch->add_id < b.batch->add_id) return false;
-    //        //if (b.batch->add_id < a.batch->add_id) return true;
+    //        if (a.batch->add_id < b.batch->add_id) return false;
+    //        if (b.batch->add_id < a.batch->add_id) return true;
 
     //        return false;
     //    }
@@ -379,9 +374,11 @@ void PXL_Batch::draw_vbo() {
 }
 
 void PXL_Batch::render_vertex_list(std::vector<PXL_VertexPoint>& vertices, PXL_uint total_vertex_count, PXL_uint num_batches) {
+    bool reverse_render = &vertices == &opaque_vertices;
+
     glBufferData(GL_ARRAY_BUFFER, total_vertex_count * sizeof(PXL_VertexPoint), &vertices[0], GL_DYNAMIC_DRAW);
 
-    int vertex_index = total_vertex_count - 4;
+    int vertex_index = reverse_render ? total_vertex_count - 4 : 0;
     int vertex_offset = vertex_index;
     PXL_VertexBatch* v = vertices[vertex_index].batch;
     int indices_offset = 0;
@@ -420,16 +417,20 @@ void PXL_Batch::render_vertex_list(std::vector<PXL_VertexPoint>& vertices, PXL_u
 
         if (changed) {
             //todo: better offset calculation
-            glDrawArrays(GL_QUADS, vertex_offset - (num_vertices - v->num_vertices), num_vertices);
-
-            vertex_offset -= num_vertices;
-            indices_offset -= num_indices;
+            glDrawArrays(GL_QUADS, vertex_offset - (reverse_render ? (num_vertices - v->num_vertices) : 0), num_vertices);
+            if (reverse_render) {
+                vertex_offset -= num_vertices;
+                indices_offset -= num_indices;
+            }else {
+                vertex_offset += num_vertices;
+                indices_offset += num_indices;
+            }
             num_vertices = 0;
             num_indices = 0;
 
             changed = false;
         }
-        vertex_index -= v->num_vertices;
+        vertex_index -= reverse_render ? v->num_vertices : -v->num_vertices;
         num_vertices += v->num_vertices;
         num_indices += v->num_indices;
     }

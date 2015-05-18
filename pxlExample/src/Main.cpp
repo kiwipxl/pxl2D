@@ -262,6 +262,12 @@ int main(int argc, char* args[]) {
 		puck_speed.x = puck_speed.x * .95f;
         puck_speed.y = puck_speed.y * .95f;
 
+        p1score_text.colour.set_colour(0, (cos(t / 10) + 1) / 2, 1, 1);
+        p1score_text.render(&batch);
+
+        p2score_text.colour.set_colour(0, (cos(t / 10) + 1) / 2, 1, 1);
+        p2score_text.render(&batch);
+
 		float p1dist = sqrt(pow(float(p1paddle.x - puck.x), 2) + pow(float(p1paddle.y - puck.y), 2));
 		if (p1dist <= 80) {
 			puck_speed.x -= (p1paddle.x - puck.x) / 4;
@@ -274,12 +280,6 @@ int main(int argc, char* args[]) {
 		}
 
         puck.render(&batch);
-
-        p1score_text.colour.set_colour(0, (cos(t / 10) + 1) / 2, 1, 1);
-        p1score_text.render(&batch);
-
-        p2score_text.colour.set_colour(0, (cos(t / 10) + 1) / 2, 1, 1);
-        p2score_text.render(&batch);
 
 		batch.render_all();
 
