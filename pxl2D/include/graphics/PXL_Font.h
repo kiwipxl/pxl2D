@@ -44,9 +44,9 @@ class PXL_Font {
 		bool font_loaded;
 		FT_Face f;
 		PXL_Rect* glyph_rects;
-		PXL_uint max_font_size;
-		PXL_uint max_char_width = 0;
-		PXL_uint max_char_height = 0;
+		uint32 max_font_size;
+		uint32 max_char_width = 0;
+		uint32 max_char_height = 0;
 
 		PXL_TextureSheet* glyph_sheet; /**> Texture sheet containing all glyphs in this font **/
 };

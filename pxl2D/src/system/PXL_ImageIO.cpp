@@ -139,7 +139,7 @@ PXL_Bitmap* PXL_load_png(std::string file_name, PXL_Bitmap* bitmap) {
 
 	bitmap->create_bitmap(png_width, png_height, PXL_COLOR_BLACK, channel);
 
-	const PXL_uint row_length = bitmap->get_width() * ((bit_depth * channels) / 8);
+	const uint32 row_length = bitmap->get_width() * ((bit_depth * channels) / 8);
 	png_bytep* row_pointers = new png_bytep[bitmap->get_height()];
 	for (size_t y = 0; y < bitmap->get_height(); ++y) {
 		row_pointers[y] = (png_bytep)(bitmap->get_pixels() + (y * row_length));

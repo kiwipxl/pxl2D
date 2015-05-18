@@ -29,13 +29,13 @@ void PXL_Bitmap::create_bitmap(int bitmap_width, int bitmap_height, PXL_Colour f
 	row_size = width * channel.num_channels;
 	buffer_size = row_size * height;
 
-	pixels = new PXL_ubyte[buffer_size];
+	pixels = new int8[buffer_size];
 
 	fill(fill_colour);
 	check_has_transparency();
 }
 
-void PXL_Bitmap::create_bitmap(int bitmap_width, int bitmap_height, PXL_ubyte* pixel_buffer, PXL_Channel pixel_channel) {
+void PXL_Bitmap::create_bitmap(int bitmap_width, int bitmap_height, int8* pixel_buffer, PXL_Channel pixel_channel) {
 	free();
 
 	buffer_loaded = true;

@@ -5,11 +5,11 @@
 
 std::vector<PXL_Joystick*> joysticks;
 
-PXL_uint PXL_num_joysticks() {
+uint32 PXL_num_joysticks() {
 	return joysticks.size();
 }
 
-PXL_Joystick* PXL_get_joystick(PXL_uint joystick_index) {
+PXL_Joystick* PXL_get_joystick(uint32 joystick_index) {
 	if (joystick_index >= joysticks.size()) {
 		PXL_show_exception("Joystick id specified is out of bounds of joysticks list");
 		return NULL;
@@ -22,15 +22,15 @@ PXL_Joystick* PXL_get_joystick(PXL_uint joystick_index) {
 	#include <Windows.h>
 	#include <RegStr.h>
 
-	PXL_byte* get_joystick_name(PXL_uint device_id, JOYCAPS joy_caps) {
+	int8* get_joystick_name(uint32 device_id, JOYCAPS joy_caps) {
 		HKEY key_handle;
 		HKEY sub_key_handle;
 		DWORD reg_size;
 
-		PXL_byte reg_path[256];
-		PXL_byte reg_value[256];
-		PXL_byte reg_name[256];
-		PXL_byte* name;
+		int8 reg_path[256];
+		int8 reg_value[256];
+		int8 reg_name[256];
+		int8* name;
 
 		//set joy config reg path, reg key and the current joystick settings reg folder
 		sprintf(reg_path, "%s\\%s\\%s", REGSTR_PATH_JOYCONFIG, joy_caps.szRegKey, REGSTR_KEY_JOYCURR);
@@ -87,8 +87,8 @@ PXL_Joystick* PXL_get_joystick(PXL_uint joystick_index) {
 	void PXL_joystick_init() {
 		JOYINFOEX joy_info;
 		JOYCAPS joy_caps;
-		PXL_uint num_devices = joyGetNumDevs();
-		PXL_uint device_id;
+		uint32 num_devices = joyGetNumDevs();
+		uint32 device_id;
 
 		for (size_t n = 0; n < num_devices; ++n) {
 			if (joyGetPosEx(n, &joy_info) == JOYERR_NOERROR) {

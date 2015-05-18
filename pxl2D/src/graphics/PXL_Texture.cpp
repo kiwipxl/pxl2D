@@ -25,7 +25,7 @@ bool PXL_Texture::create_texture(PXL_Bitmap* bitmap) {
 	return texture_created;
 }
 
-bool PXL_Texture::create_texture(int w, int h, PXL_ubyte* pixels, PXL_Channel pixel_channel) {
+bool PXL_Texture::create_texture(int w, int h, int8* pixels, PXL_Channel pixel_channel) {
 	if (w <= 0 || h <= 0) {
 		PXL_show_exception("Could not create texture, width/height are less than 0", PXL_ERROR_TEXTURE_CREATION_FAILED);
 		return false;
@@ -55,11 +55,11 @@ void PXL_Texture::bind() {
 	glBindTexture(GL_TEXTURE_2D, id);
 }
 
-PXL_ubyte* PXL_Texture::get_pixels() {
+int8* PXL_Texture::get_pixels() {
 	if (texture_created) {
         bind();
         //todo: potential memory leak, must fix
-		PXL_ubyte* pixels = new PXL_ubyte[(width * height) * channel.num_channels];
+		int8* pixels = new int8[(width * height) * channel.num_channels];
 		glReadPixels(0, 0, width, height, channel.gl_pixel_mode, GL_UNSIGNED_BYTE, pixels);
 		//todo: glgetteximage not supported by gles2
 		//glGetTexImage(GL_TEXTURE_2D, 0, channel.gl_pixel_mode, GL_UNSIGNED_BYTE, pixels);
@@ -76,7 +76,7 @@ void PXL_Texture::set_filters(PXL_TextureFilter min_filter, PXL_TextureFilter ma
 
 bool PXL_Texture::check_has_transparency() {
     //checks whether the specified pixels contain any transparency
-    /*PXL_ubyte* pixels = get_pixels();
+    /*int8* pixels = get_pixels();
     if (pixels == NULL || channel.channel_index.a == -1) {
         delete[] pixels;
         return false;

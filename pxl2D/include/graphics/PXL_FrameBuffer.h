@@ -59,7 +59,7 @@ class PXL_FrameBuffer {
 		/** Gets the raw pixel array contents stored in the GPU
 		\return A raw pixel byte array
 		**/
-		PXL_ubyte* get_pixels();
+		int8* get_pixels();
 		/** Gets the frame_buffer width
 		\return The width of the frame_buffer
 		**/

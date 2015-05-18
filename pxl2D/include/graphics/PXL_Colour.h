@@ -9,12 +9,12 @@ struct PXL_Colour {
 
 	PXL_Colour() { }
 	PXL_Colour(float red, float green, float blue, float alpha = 1);
-	PXL_Colour(PXL_uint colour);
+	PXL_Colour(uint32 colour);
 
 	float r = 1, g = 1, b = 1, a = 1;
 
 	void set_colour(float red, float green, float blue, float alpha = 1);
-	void set_colour(PXL_uint colour);
+	void set_colour(uint32 colour);
 
 	void clamp(float min = 0, float max = 1, bool clamp_alpha = true);
 

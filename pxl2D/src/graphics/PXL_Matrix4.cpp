@@ -20,7 +20,7 @@ PXL_Matrix4& PXL_Matrix4::identity() {
 }
 
 PXL_Matrix4& PXL_Matrix4::transpose() {
-    PXL_float temp = mat[4];
+    float temp = mat[4];
     mat[4] = mat[1];
     mat[1] = temp;
 
@@ -184,7 +184,7 @@ PXL_Matrix4& PXL_Matrix4::scale_z(float scale) {
 	return *this;
 }
 
-void PXL_Matrix4::set_raw_matrix(PXL_float* raw_matrix) {
+void PXL_Matrix4::set_raw_matrix(float* raw_matrix) {
     for (int n = 0; n < 16; ++n) {
         mat[n] = raw_matrix[n];
     }
@@ -272,7 +272,7 @@ PXL_Matrix4& PXL_Matrix4::operator=(PXL_Matrix4& b) {
     return *this;
 }
 
-PXL_float& PXL_Matrix4::operator[](const int index) {
+float& PXL_Matrix4::operator[](const int index) {
 	return mat[index];
 }
 

@@ -1,19 +1,19 @@
 #ifndef _PXL_API_H
 #define _PXL_API_H
 
-#define PXL_byte char
-#define PXL_ubyte unsigned char
+typedef char int8;
+typedef unsigned char uint8;
 
-#define PXL_short short
-#define PXL_ushort unsigned short
+typedef short int16;
+typedef unsigned short uint16;
 
-#define PXL_int int
-#define PXL_uint unsigned int
+typedef int int32;
+typedef unsigned int uint32;
 
-#define PXL_long long
-#define PXL_ulong unsigned long
+typedef long int64;
+typedef unsigned long uint64;
 
-#define PXL_float float
+//#define float   float
 
 #define PXL_SHRT_MIN    (-32768)						/* minimum (signed) short value */
 #define PXL_SHRT_MAX      32767							/* maximum (signed) short value */

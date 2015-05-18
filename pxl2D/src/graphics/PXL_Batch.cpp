@@ -16,6 +16,8 @@ void PXL_Batch::create_batch(PXL_Window* window) {
 		//create the vbo
         glGenBuffers(1, &vbo_id);
 
+        z_depth_counters = new uint16[200000];
+
 		batch_created = true;
 	}
 
@@ -70,7 +72,7 @@ void PXL_Batch::use_blend_mode(PXL_BlendMode blend_mode) {
             glDepthFunc(GL_LESS);
             glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		}else if (current_blend_mode == PXL_NO_BLEND) {
-            glEnable(GL_BLEND);
+            glDisable(GL_BLEND);
             glDepthMask(GL_TRUE);
             glDepthFunc(GL_LESS);
 		}
@@ -111,8 +113,8 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 		v_batch.z_depth = z_depth;
 		v_batch.blend_mode = blend_mode;
 
-		min_vertex_index = PXL_min(min_vertex_index, (PXL_uint)z_depth);
-		max_vertex_index = PXL_max(max_vertex_index, (PXL_uint)z_depth);
+		min_vertex_index = PXL_min(min_vertex_index, (uint32)z_depth);
+		max_vertex_index = PXL_max(max_vertex_index, (uint32)z_depth);
 
 		if (c.data_index >= c.data.size()) {
 			c.data.push_back(PXL_VertexPoint());
@@ -163,6 +165,8 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
         batch.z_depth = z_depth;
         batch.blend_mode = blend_mode;
         batch.add_id = num_added;
+
+        ++z_depth_counters[z_depth + 10000];
 
         total_vertices += 4;
         ++num_added;
@@ -223,10 +227,6 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
                 v[2].pos.x = x + scaled_width;							v[2].pos.y = y + scaled_height;
                 v[3].pos.x = x;											v[3].pos.y = y + scaled_height;
 			}
-            unsigned int c = 10000000;
-            unsigned int t = 500 * (c / 1000.0f);
-            float depth = (float((-num_added - (z_depth * 100)) + t) / c);
-            v[0].pos.z = depth;
 		//}
 
 		/**
@@ -236,7 +236,7 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 		**/
 		//if (modified) {
 			//default un-normalised uv coords
-			PXL_ushort uv_x = 0; PXL_ushort uv_y = 0; PXL_ushort uv_w = PXL_USHRT_MAX; PXL_ushort uv_h = PXL_USHRT_MAX;
+            uint16 uv_x = 0, uv_y = 0; uint16 uv_w = PXL_USHRT_MAX, uv_h = PXL_USHRT_MAX;
 			if (src_rect != NULL) {
 				//calculate uv x, y, w, h by the src rect
 				uv_x = (src_rect->x / texture.get_width()) * PXL_USHRT_MAX; uv_y = (src_rect->y / texture.get_height()) * PXL_USHRT_MAX;
@@ -326,18 +326,23 @@ void PXL_Batch::render_all() {
 }
 
 void PXL_Batch::draw_vbo() {
-    /*int prev_z_depth;
-    PXL_VertexBatch* b;
-    for (int n = 0; n < num_added; ++n) {
-        b = vertices[n * 4].batch;
-        num_adds_per_depth = 0;
-        prev_z_depth = v->z_depth;
-        if (vertices[vertex_index].batch->z_depth == v->z_depth) {
-            ++num_adds_per_depth;
-        }
-        z_depth_offset = num_adds_per_depth / 10000000.0f;
-        vertices[n * 4].pos.z -= z_depth_offset;
-    }*/
+    int vertex_index = 0;
+    PXL_VertexPoint* v;
+    uint32 max_half = (255 * 255 * 255) / 2;
+    for (int n = 0; n < num_transparent_added; ++n) {
+        v = &transparent_vertices[vertex_index];
+        float depth = (float((z_depth_counters[v->batch->z_depth + 10000]) + max_half) / (255 * 255 * 255));
+        v->pos.z = depth;
+        vertex_index += v->batch->num_vertices;
+    }
+    
+    vertex_index = 0;
+    for (int n = 0; n < num_opaque_added; ++n) {
+        v = &opaque_vertices[vertex_index];
+        float depth = (float(-n + (z_depth_counters[v->batch->z_depth + 10000]) + max_half) / (255 * 255 * 255));
+        v->pos.z = depth;
+        vertex_index += v->batch->num_vertices;
+    }
 
     //std::stable_sort(transparent_vertices.begin(), transparent_vertices.begin() + total_transparent_vertices, 
     //    [](const PXL_VertexPoint& a, const PXL_VertexPoint& b) {
@@ -373,7 +378,7 @@ void PXL_Batch::draw_vbo() {
     glDisable(GL_DEPTH_TEST);
 }
 
-void PXL_Batch::render_vertex_list(std::vector<PXL_VertexPoint>& vertices, PXL_uint total_vertex_count, PXL_uint num_batches) {
+void PXL_Batch::render_vertex_list(std::vector<PXL_VertexPoint>& vertices, uint32 total_vertex_count, uint32 num_batches) {
     bool reverse_render = &vertices == &opaque_vertices;
 
     glBufferData(GL_ARRAY_BUFFER, total_vertex_count * sizeof(PXL_VertexPoint), &vertices[0], GL_DYNAMIC_DRAW);

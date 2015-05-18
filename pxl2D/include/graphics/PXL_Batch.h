@@ -31,8 +31,8 @@ struct PXL_VertexBatch {
     GLuint texture_id = 0;
     PXL_ShaderProgram* shader = NULL;
     PXL_BlendMode blend_mode;
-    PXL_ushort num_vertices;
-    PXL_ushort num_indices;
+    uint16 num_vertices;
+    uint16 num_indices;
     int add_id = 0;
 
     //transform cache values
@@ -50,10 +50,10 @@ struct PXL_VertexPoint {
         float x = 0, y = 0, z = 0;
 	} pos;
 	struct PXL_Vertex_UVCoord {
-		PXL_ushort x = 0, y = 0;
+        uint16 x = 0, y = 0;
 	} uv;
 	struct PXL_Vertex_RGBA {
-		PXL_ubyte r = 255, g = 255, b = 255, a = 255;
+		int8 r = 255, g = 255, b = 255, a = 255;
     } colour;
 
     PXL_VertexBatch* batch;
@@ -152,12 +152,14 @@ private:
 	//vertex data
 	GLuint vbo_id; /**> The id associated with the vertex buffer object **/
 	GLuint vao_id;
-	PXL_uint min_vertex_index = 0;
-	PXL_uint max_vertex_index = 0;
-    PXL_uint total_vertices = 0;
-    PXL_uint total_opaque_vertices = 0;
-    PXL_uint total_transparent_vertices = 0;
-	PXL_uint min_vertices_count;
+	uint32 min_vertex_index = 0;
+	uint32 max_vertex_index = 0;
+    uint32 total_vertices = 0;
+    uint32 total_opaque_vertices = 0;
+    uint32 total_transparent_vertices = 0;
+    uint32 min_vertices_count;
+
+    uint16* z_depth_counters;
 
     std::vector<PXL_VertexPoint> opaque_vertices;
     std::vector<PXL_VertexPoint> transparent_vertices;
@@ -167,7 +169,7 @@ private:
 	**/
     bool verify_texture_add(const PXL_Texture& texture, PXL_Rect* rect);
 
-    void render_vertex_list(std::vector<PXL_VertexPoint>& vertices, PXL_uint total_vertex_count, PXL_uint num_batches);
+    void render_vertex_list(std::vector<PXL_VertexPoint>& vertices, uint32 total_vertex_count, uint32 num_batches);
 
 	/** Draws each item in the vertex batches list
 	**/

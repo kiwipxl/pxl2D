@@ -9,15 +9,15 @@
 
 struct PXL_Channel {
 
-	PXL_uint num_channels;
-	PXL_uint gl_pixel_mode;
+	uint32 num_channels;
+	uint32 gl_pixel_mode;
 
 	struct PXL_ChannelIndex {
 
 		PXL_ChannelIndex() { }
-		PXL_ChannelIndex(PXL_short c_r, PXL_short c_g, PXL_short c_b, PXL_short c_a) : r(c_r), g(c_g), b(c_b), a(c_a) { }
+		PXL_ChannelIndex(short c_r, short c_g, short c_b, short c_a) : r(c_r), g(c_g), b(c_b), a(c_a) { }
 
-		PXL_short r = 0, g = 0, b = 0, a = 0;
+		short r = 0, g = 0, b = 0, a = 0;
 
 	} channel_index;
 };
@@ -61,7 +61,7 @@ class PXL_Bitmap {
 		\*param [height]: the height of the image
 		\*param [buffer]: an array of pixels for the image
 		**/
-		void create_bitmap(int width, int height, PXL_ubyte* pixel_buffer, PXL_Channel pixel_channel);
+		void create_bitmap(int width, int height, int8* pixel_buffer, PXL_Channel pixel_channel);
 
 		void fill(PXL_Colour colour);
 
@@ -70,20 +70,20 @@ class PXL_Bitmap {
 		**/
 		void free();
 
-		PXL_uint get_width() const { return width; }
-		PXL_uint get_height() const { return height; }
+		uint32 get_width() const { return width; }
+		uint32 get_height() const { return height; }
 		PXL_Channel get_channel() const { return channel; }
-		PXL_uint get_num_channels() const { return channel.num_channels; }
-		PXL_ubyte* get_pixels() const { return pixels; }
+		uint32 get_num_channels() const { return channel.num_channels; }
+		int8* get_pixels() const { return pixels; }
 
 	private:
 		//buffer info
 		bool buffer_loaded;
-		PXL_uint width;
-		PXL_uint height;
-		PXL_ubyte* pixels;
-		PXL_uint buffer_size;
-		PXL_uint row_size;
+		uint32 width;
+		uint32 height;
+		int8* pixels;
+		uint32 buffer_size;
+		uint32 row_size;
 		PXL_Channel channel;
 
 		bool check_has_transparency();

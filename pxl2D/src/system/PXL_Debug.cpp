@@ -9,9 +9,9 @@
 
 	const std::string PXL_stack_trace(int num_traces) {
 		#if defined(_DEBUG)
-			PXL_uint i;
-			DWORD* stacks = new DWORD[num_traces];
-			PXL_ushort frames_captured;
+			uint32 i;
+            DWORD* stacks = new DWORD[num_traces];
+            uint16 frames_captured;
 			SYMBOL_INFO* symbol;
 			HANDLE process;
 

@@ -1,7 +1,7 @@
 #include "graphics/PXL_Text.h"
 #include "system/PXL_Debug.h"
 
-PXL_Text::PXL_Text(PXL_Font* f_font, std::string f_text, int f_pos_x, int f_pos_y, short f_size) {
+PXL_Text::PXL_Text(PXL_Font* f_font, std::string f_text, int f_pos_x, int f_pos_y, uint16 f_size) {
 	font = f_font;
 	text = f_text;
 	size = f_size;
@@ -12,7 +12,7 @@ PXL_Text::PXL_Text(PXL_Font* f_font, std::string f_text, int f_pos_x, int f_pos_
 	set_scale(1, 1);
 }
 
-bool PXL_Text::set_char_pos(PXL_byte symbol, int start_x) {
+bool PXL_Text::set_char_pos(int8 symbol, int start_x) {
 	src_rect = font->get_glyph_rects()[font->get_glyph_index(symbol)];
 	rect.w = src_rect.w * font_scale.x;
 	rect.h = src_rect.h * font_scale.y;

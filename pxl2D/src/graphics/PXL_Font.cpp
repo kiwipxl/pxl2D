@@ -26,7 +26,7 @@ PXL_Font::PXL_Font(std::string path, int c_max_font_size) {
 			if (f->glyph->bitmap.width == 0 || f->glyph->bitmap.rows == 0) { continue; }
 
 			int size = f->glyph->bitmap.width * f->glyph->bitmap.rows;
-			PXL_ubyte* pixels = new PXL_ubyte[size];
+			int8* pixels = new int8[size];
 			memcpy(pixels, f->glyph->bitmap.buffer, size);
 			PXL_Bitmap bitmap;
 			bitmap.create_bitmap(f->glyph->bitmap.width, f->glyph->bitmap.rows, pixels, PXL_CHANNEL_ALPHA);

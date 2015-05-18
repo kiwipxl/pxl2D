@@ -158,13 +158,13 @@ class PXL_Matrix4 {
 		/**
 		\*brief: returns the raw internal matrix data
 		**/
-		PXL_float* get_raw_matrix() { return mat; }
+		float* get_raw_matrix() { return mat; }
 
 		/**
 		\*brief: sets the internal matrix data to the new specified raw matrix
 		\*param [raw_matrix]: raw 4x4 matrix data array
 		**/
-        void set_raw_matrix(PXL_float* raw_matrix);
+        void set_raw_matrix(float* raw_matrix);
 
         /**
         \*brief: overrides the equal operator, sets this matrix to the operand and return this matrix
@@ -272,11 +272,11 @@ class PXL_Matrix4 {
 		\*brief: overrides the [] operator that returns the reference to a matrix value
 		\*param [index]: the index value of the matrix array
 		**/
-		PXL_float& operator[](int index);
+		float& operator[](int index);
 
 	private:
 		//matrix data
-		PXL_float mat[16];
+		float mat[16];
 
 		//matrix info
 		PXL_Vec3 position;

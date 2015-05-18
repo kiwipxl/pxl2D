@@ -10,7 +10,7 @@ struct KeyEvent {
 
 extern KeyEvent* PXL_keys;
 
-typedef PXL_uint PXL_KeyCode;
+typedef uint32 PXL_KeyCode;
 
 extern bool PXL_key_down(PXL_KeyCode key_code);
 extern bool PXL_key_up(PXL_KeyCode key_code);

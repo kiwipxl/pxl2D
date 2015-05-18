@@ -75,13 +75,13 @@ class PXL_Event {
 		PXL_Event() { }
 
 		PXL_TouchEvent touch_event;
-		PXL_ulong jbuttons;
-		PXL_ulong jnum_buttons;
-		PXL_ulong mouse_x;
-		PXL_ulong mouse_y;
-		PXL_uint key_code;
-		PXL_uint type; /**> The message value **/
-		PXL_ulong time; /**> The time value for when this event was posted **/
+		uint64 jbuttons;
+		uint64 jnum_buttons;
+		uint64 mouse_x;
+		uint64 mouse_y;
+		uint32 key_code;
+		uint32 type; /**> The message value **/
+		uint64 time; /**> The time value for when this event was posted **/
 };
 
 #endif

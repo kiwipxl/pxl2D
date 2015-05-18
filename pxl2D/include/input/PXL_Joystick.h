@@ -6,10 +6,10 @@
 
 struct PXL_Joystick {
 
-	PXL_uint device_id;
+	uint32 device_id;
 	std::string name;
-	PXL_uint num_buttons;
-	PXL_uint num_axes;
+	uint32 num_buttons;
+	uint32 num_axes;
 
 	bool activate();
 	void deactivate();
@@ -17,7 +17,7 @@ struct PXL_Joystick {
 
 extern void PXL_joystick_init();
 
-extern PXL_uint PXL_num_joysticks();
-extern PXL_Joystick* PXL_get_joystick(PXL_uint joystick_index);
+extern uint32 PXL_num_joysticks();
+extern PXL_Joystick* PXL_get_joystick(uint32 joystick_index);
 
 #endif

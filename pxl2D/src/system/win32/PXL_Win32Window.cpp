@@ -17,7 +17,7 @@ int context_attribs[] = {
 LRESULT CALLBACK win_proc(HWND handle, UINT msg, WPARAM w_param, LPARAM l_param);
 
 bool init_dummy_window = true;
-PXL_uint class_id = 0;
+uint32 class_id = 0;
 
 /**----------------------------------------------------------------------------
 						Window class handling

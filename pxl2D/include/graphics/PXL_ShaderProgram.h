@@ -23,23 +23,23 @@ class PXL_ShaderProgram {
 		/**
 		\*brief: gets the program id
 		**/
-		PXL_uint get_program_id() { return program_id; }
-		PXL_uint get_matrix_loc() { return matrix_loc; }
-		PXL_uint get_uniform_location(int index) { return locations[index]; }
-		PXL_uint add_uniform_location(std::string uniform_name);
+		uint32 get_program_id() { return program_id; }
+		uint32 get_matrix_loc() { return matrix_loc; }
+		uint32 get_uniform_location(int index) { return locations[index]; }
+		uint32 add_uniform_location(std::string uniform_name);
 
 		void print_program_log(GLuint program_id);
 		void print_shader_log(GLuint shader_id);
 
 	private:
 		//shaderprogram ids
-		PXL_uint vertex_id;
-		PXL_uint fragment_id;
-		PXL_uint program_id;
+		uint32 vertex_id;
+		uint32 fragment_id;
+		uint32 program_id;
 
 		//cached locations
-		PXL_uint matrix_loc;
-		std::vector<PXL_uint> locations;
+		uint32 matrix_loc;
+		std::vector<uint32> locations;
 
 		/**
 		\*brief: takes in a shader id and attempts to compile it
@@ -47,13 +47,13 @@ class PXL_ShaderProgram {
 		\*param [shader_type]: the type of shader, being either GL_VERTEX_SHADER or GL_FRAGMENT_SHADER
 		\*param [shader_name]: the name of the shader to compile
 		**/
-		bool compile(PXL_uint shader_id, int shader_type, std::string shader_name);
+		bool compile(uint32 shader_id, int shader_type, std::string shader_name);
 
 		/**
 		\*brief: gathers any logs from the shader and prints it if there is
 		\*param [shader_id]: the shader id
 		**/
-		void log(PXL_uint shader_id);
+		void log(uint32 shader_id);
 };
 
 #endif

@@ -15,7 +15,7 @@ class PXL_Text : public PXL_Sprite {
 		\*brief: text constructor
 		**/
 		PXL_Text(PXL_Font* f_font, std::string f_text, 
-				 int f_pos_x = 0, int f_pos_y = 0, short f_size = 24);
+				 int f_pos_x = 0, int f_pos_y = 0, uint16 f_size = 24);
 		/**
 		\*brief: text deconstructor
 		**/
@@ -85,7 +85,7 @@ class PXL_Text : public PXL_Sprite {
 		short spacing_kerning = 0;		/*> The number that specifies the spacing between spaces */
 		short vertical_kerning = 4;		/*> The number that specifies the spacing for new lines */
 
-		bool set_char_pos(PXL_byte symbol, int start_x);
+		bool set_char_pos(int8 symbol, int start_x);
 
 		void set_font_scale() {
 			font_scale.x = (size / float(font->get_max_font_size())) * text_scale.x;

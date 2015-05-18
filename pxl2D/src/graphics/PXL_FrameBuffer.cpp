@@ -90,7 +90,7 @@ void PXL_FrameBuffer::blit(PXL_FrameBuffer* dest_frame_buffer, PXL_Rect* rect, P
 	//glBindFramebuffer(PXL_GL_FRAMEBUFFER_READ, id);
 	//glBindFramebuffer(PXL_GL_FRAMEBUFFER_WRITE, draw_id);
 
-	//PXL_ubyte* pixels = new PXL_ubyte[size];
+	//int8* pixels = new int8[size];
 	//glReadPixels(frame_rect.x, frame_rect.y, frame_rect.w, frame_rect.h, GL_RGBA, GL_UNSIGNED_BYTE, pixels);
 	//todo: blit frame buffer in gles2
 	/*glBlitFramebuffer(frame_src_rect.x, frame_src_rect.y, frame_src_rect.w, frame_src_rect.h, 
@@ -112,7 +112,7 @@ void PXL_FrameBuffer::bind_texture() {
 	texture->bind();
 }
 
-PXL_ubyte* PXL_FrameBuffer::get_pixels() {
+int8* PXL_FrameBuffer::get_pixels() {
 	return texture->get_pixels();
 }
 
