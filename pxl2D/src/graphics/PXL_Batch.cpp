@@ -16,8 +16,6 @@ void PXL_Batch::create_batch(PXL_Window* window) {
 		//create the vbo
         glGenBuffers(1, &vbo_id);
 
-        z_depth_counters = new uint16[200000];
-
 		batch_created = true;
 	}
 
@@ -97,6 +95,8 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 	if (verify_texture_add(texture, rect)) {
         if (total_opaque_vertices >= opaque_vertices.size()) resize_vertices(opaque_vertices);
         if (total_transparent_vertices >= transparent_vertices.size()) resize_vertices(transparent_vertices);
+        uint16 z_depth_index = z_depth + (PXL_USHRT_MAX / 2);
+        if (z_depth_index >= z_depth_counters.size()) z_depth_counters.resize(z_depth_index + 1);
 
         /*z_depth = 0;
 		VertexContainer& c = vertices[z_depth];
@@ -162,11 +162,11 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
         batch.num_indices = 6;
         batch.texture_id = texture.get_id();
         batch.shader = shader;
-        batch.z_depth = z_depth;
+        batch.z_depth = z_depth_index;
         batch.blend_mode = blend_mode;
         batch.add_id = num_added;
 
-        ++z_depth_counters[z_depth + 10000];
+        ++z_depth_counters[z_depth_index];
 
         total_vertices += 4;
         ++num_added;
@@ -328,10 +328,10 @@ void PXL_Batch::render_all() {
 void PXL_Batch::draw_vbo() {
     int vertex_index = 0;
     PXL_VertexPoint* v;
-    uint32 max_half = (255 * 255 * 255) / 2;
+    uint32 max_half = PXL_U24_BIT_MAX / 2;
     for (int n = 0; n < num_transparent_added; ++n) {
         v = &transparent_vertices[vertex_index];
-        float depth = (float((z_depth_counters[v->batch->z_depth + 10000]) + max_half) / (255 * 255 * 255));
+        float depth = (float((z_depth_counters[v->batch->z_depth]) + max_half) / PXL_U24_BIT_MAX);
         v->pos.z = depth;
         vertex_index += v->batch->num_vertices;
     }
@@ -339,7 +339,7 @@ void PXL_Batch::draw_vbo() {
     vertex_index = 0;
     for (int n = 0; n < num_opaque_added; ++n) {
         v = &opaque_vertices[vertex_index];
-        float depth = (float(-n + (z_depth_counters[v->batch->z_depth + 10000]) + max_half) / (255 * 255 * 255));
+        float depth = (float(-n + (z_depth_counters[v->batch->z_depth]) + max_half) / PXL_U24_BIT_MAX);
         v->pos.z = depth;
         vertex_index += v->batch->num_vertices;
     }

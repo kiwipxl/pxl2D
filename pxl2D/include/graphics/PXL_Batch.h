@@ -158,8 +158,8 @@ private:
     uint32 total_opaque_vertices = 0;
     uint32 total_transparent_vertices = 0;
     uint32 min_vertices_count;
-
-    uint16* z_depth_counters;
+    
+    std::vector<uint16> z_depth_counters;
 
     std::vector<PXL_VertexPoint> opaque_vertices;
     std::vector<PXL_VertexPoint> transparent_vertices;

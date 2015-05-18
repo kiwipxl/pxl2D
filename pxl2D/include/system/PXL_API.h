@@ -13,8 +13,7 @@ typedef unsigned int uint32;
 typedef long int64;
 typedef unsigned long uint64;
 
-//#define float   float
-
+//todo: convert these names into 8, 16, 24, 32 bit + unsigned
 #define PXL_SHRT_MIN    (-32768)						/* minimum (signed) short value */
 #define PXL_SHRT_MAX      32767							/* maximum (signed) short value */
 #define PXL_USHRT_MAX     0xffff						/* maximum unsigned short value */
@@ -27,6 +26,8 @@ typedef unsigned long uint64;
 #define PXL_LLONG_MAX     9223372036854775807i64		/* maximum signed long long int value */
 #define PXL_LLONG_MIN   (-9223372036854775807i64 - 1)	/* minimum signed long long int value */
 #define PXL_ULLONG_MAX    0xffffffffffffffffui64		/* maximum unsigned long long int value */
+
+#define PXL_U24_BIT_MAX (255 * 255 * 255)
 
 #if defined(__ANDROID__)
 	#define PXL_PLATFORM_ANDROID
