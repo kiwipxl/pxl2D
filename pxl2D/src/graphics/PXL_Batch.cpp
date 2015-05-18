@@ -77,21 +77,24 @@ void PXL_Batch::use_blend_mode(PXL_BlendMode blend_mode) {
 	}
 }
 
+void resize_vertices(std::vector<PXL_VertexPoint>& vertices) {
+    int prev_size = vertices.size();
+
+    vertices.resize(prev_size + PXL_CONFIG_INC_BATCH_RESIZE);
+
+    PXL_VertexBatch* last_batch;
+    for (int n = 0; n < PXL_CONFIG_INC_BATCH_RESIZE; ++n) {
+        if (n % 4 == 0) last_batch = new PXL_VertexBatch();
+        vertices[n + prev_size].batch = last_batch;
+        last_batch->num_vertices = 4;
+    }
+}
+
 void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_rect, float rotation, PXL_Vec2* origin,
 	PXL_Flip flip, int z_depth, PXL_Colour colour, PXL_ShaderProgram* shader, PXL_BlendMode blend_mode) {
 	if (verify_texture_add(texture, rect)) {
-        if (total_vertices >= vertices.size()) {
-            int prev_size = vertices.size();
-
-            vertices.resize(prev_size + PXL_CONFIG_INC_BATCH_RESIZE);
-
-            PXL_VertexBatch* last_batch;
-            for (int n = 0; n < PXL_CONFIG_INC_BATCH_RESIZE; ++n) {
-                if (n % 4 == 0) last_batch = new PXL_VertexBatch();
-                vertices[n + prev_size].batch = last_batch;
-                last_batch->num_vertices = 4;
-            }
-        }
+        if (total_opaque_vertices >= opaque_vertices.size()) resize_vertices(opaque_vertices);
+        if (total_transparent_vertices >= transparent_vertices.size()) resize_vertices(transparent_vertices);
 
         /*z_depth = 0;
 		VertexContainer& c = vertices[z_depth];
@@ -134,23 +137,31 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 		++c.batch_index;
 		c.data_index += 4;*/
 
-        PXL_VertexPoint* v = &vertices[total_vertices];
-        PXL_VertexBatch& batch = *vertices[total_vertices].batch;
+        if (texture.has_transparency || colour.a != 1.0f) {
+            blend_mode = PXL_BLEND;
+        }else {
+            blend_mode = PXL_NO_BLEND;
+        }
+
+        PXL_VertexPoint* v;
+        if (blend_mode == PXL_BLEND) {
+            v = &transparent_vertices[total_transparent_vertices];
+            v->batch->uses_transparency = true;
+            total_transparent_vertices += 4;
+            ++num_transparent_added;
+        }else {
+            v = &opaque_vertices[total_opaque_vertices];
+            v->batch->uses_transparency = false;
+            total_opaque_vertices += 4;
+            ++num_opaque_added;
+        }
+        PXL_VertexBatch& batch = *v->batch;
         batch.num_vertices = 4;
         batch.num_indices = 6;
         batch.texture_id = texture.get_id();
         batch.shader = shader;
         batch.z_depth = z_depth;
         batch.blend_mode = blend_mode;
-        if (texture.has_transparency || colour.a != 1.0f) {
-            batch.uses_transparency = true;
-            batch.blend_mode = PXL_BLEND;
-            batch.add_id = num_added;
-        }else {
-            batch.uses_transparency = false;
-            batch.blend_mode = PXL_NO_BLEND;
-            batch.add_id = num_added;
-        }
 
         total_vertices += 4;
         ++num_added;
@@ -277,10 +288,13 @@ void PXL_Batch::set_window_target(PXL_Window* window) {
 
 void PXL_Batch::clear_all() {
     total_vertices = 0;
+    total_opaque_vertices = 0;
+    total_transparent_vertices = 0;
     num_added = 0;
+    num_opaque_added = 0;
+    num_transparent_added = 0;
     min_vertex_index = UINT_MAX;
     max_vertex_index = 0;
-    total_vertices = 0;
     min_vertices_count = 0;
 }
 
@@ -311,47 +325,39 @@ void PXL_Batch::render_all() {
 }
 
 void PXL_Batch::draw_vbo() {
-    //loops through each texture and draws the vertex data with that texture id
-    int vertex_offset = 0;
-    int indices_offset = 0;
-    int vertex_index = total_vertices - vertices[total_vertices - 1].batch->num_vertices;
-    int num_vertices = 0;
-    int num_indices = 0;
-    bool changed = false;
-    PXL_VertexBatch* v;
+    //int prev_z_depth;
+    //float z_depth_offset = 0;
+    //int num_adds_per_depth = 0;
 
-    int prev_z_depth;
-    float z_depth_offset = 0;
-    int num_adds_per_depth = 0;
+    ////temporary z_depth offset loop
+    //for (int n = 0; n < num_added; ++n) {
+    //    v = vertices[n * 4].batch;
+    //    num_adds_per_depth = 0;
+    //    prev_z_depth = v->z_depth;
+    //    for (int i = 0; i < num_added; ++i) {
+    //        if (vertices[vertex_index].batch->z_depth == v->z_depth) {
+    //            ++num_adds_per_depth;
+    //        }
+    //    }
+    //    z_depth_offset = num_adds_per_depth / 10000000.0f;
+    //    vertices[n * 4].pos.z -= z_depth_offset;
+    //}
 
-    //temporary z_depth offset loop
-    for (int n = 0; n < num_added; ++n) {
-        v = vertices[n * 4].batch;
-        num_adds_per_depth = 0;
-        prev_z_depth = v->z_depth;
-        for (int i = 0; i < num_added; ++i) {
-            if (vertices[vertex_index].batch->z_depth == v->z_depth) {
-                ++num_adds_per_depth;
-            }
-        }
-        z_depth_offset = num_adds_per_depth / 10000000.0f;
-        vertices[n * 4].pos.z -= z_depth_offset;
-    }
+    //todo: sort transparent vertices but not opaque
+    //std::qsort(&vertices[0], total_vertices, sizeof(PXL_VertexPoint), 
+    //    [](const PXL_VertexPoint& a, const PXL_VertexPoint& b) {
+    //        if (a.batch->uses_transparency < b.batch->uses_transparency) return false;
+    //        if (b.batch->uses_transparency < a.batch->uses_transparency) return true;
 
-    std::stable_sort(vertices.begin(), vertices.begin() + total_vertices, 
-        [](const PXL_VertexPoint& a, const PXL_VertexPoint& b) {
-            if (a.batch->uses_transparency < b.batch->uses_transparency) return true;
-            if (b.batch->uses_transparency < a.batch->uses_transparency) return false;
+    //        //if (a.batch->z_depth < b.batch->z_depth) return false;
+    //        //if (b.batch->z_depth < a.batch->z_depth) return true;
 
-            if (a.batch->z_depth < b.batch->z_depth) return false;
-            if (b.batch->z_depth < a.batch->z_depth) return true;
+    //        //if (a.batch->add_id < b.batch->add_id) return false;
+    //        //if (b.batch->add_id < a.batch->add_id) return true;
 
-            //if (a.batch->add_id < b.batch->add_id) return false;
-            //if (b.batch->add_id < a.batch->add_id) return true;
-
-            return false;
-        }
-    );
+    //        return false;
+    //    }
+    //);
 
     //binds vertex buffer
     glBindBuffer(GL_ARRAY_BUFFER, vbo_id);
@@ -366,56 +372,79 @@ void PXL_Batch::draw_vbo() {
     glVertexAttribPointer(1, 2, GL_UNSIGNED_SHORT, GL_TRUE, sizeof(PXL_VertexPoint), (void*)12);
     glVertexAttribPointer(2, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(PXL_VertexPoint), (void*)16);
 
-    glBufferData(GL_ARRAY_BUFFER, total_vertices * sizeof(PXL_VertexPoint), &vertices[0], GL_DYNAMIC_DRAW);
+    render_vertex_list(opaque_vertices, total_opaque_vertices, num_opaque_added);
+    render_vertex_list(transparent_vertices, total_transparent_vertices, num_transparent_added);
 
-    v = vertices[0].batch;
-    vertex_index = 0;
+    glDisable(GL_DEPTH_TEST);
+}
 
-	GLuint prev_id = v->texture_id;
-	//glBindTexture(GL_TEXTURE_2D, prev_id);
-	PXL_BlendMode prev_blend_mode = v->blend_mode;
-	//use_blend_mode(prev_blend_mode);
+void PXL_Batch::render_vertex_list(std::vector<PXL_VertexPoint>& vertices, PXL_uint total_vertex_count, PXL_uint num_batches) {
+    glBufferData(GL_ARRAY_BUFFER, total_vertex_count * sizeof(PXL_VertexPoint), &vertices[0], GL_DYNAMIC_DRAW);
+
+    int vertex_index = total_vertex_count - 4;
+    int vertex_offset = vertex_index;
+    PXL_VertexBatch* v = vertices[vertex_index].batch;
+    int indices_offset = 0;
+    int num_vertices = 0;
+    int num_indices = 0;
+    bool changed = false;
+
+    GLuint prev_id = v->texture_id;
+    //glBindTexture(GL_TEXTURE_2D, prev_id);
+    PXL_BlendMode prev_blend_mode = v->blend_mode;
+    //use_blend_mode(prev_blend_mode);
     PXL_ShaderProgram* prev_shader = v->shader;
     //use_shader(prev_shader);
 
-    for (int n = 0; n <= num_added; ++n) {
-		if (n >= num_added) changed = true;
+    for (int n = 0; n <= num_batches; ++n) {
+        if (n >= num_batches) changed = true;
         else v = vertices[vertex_index].batch;
 
-		glBindTexture(GL_TEXTURE_2D, prev_id);
-		if (v->texture_id != prev_id) {
-			prev_id = v->texture_id;
-			changed = true;
-		}
+        glBindTexture(GL_TEXTURE_2D, prev_id);
+        if (v->texture_id != prev_id) {
+            prev_id = v->texture_id;
+            changed = true;
+        }
 
-		use_shader(prev_shader);
-		if (v->shader != prev_shader) {
-			prev_shader = v->shader;
-			changed = true;
-		}
+        use_shader(prev_shader);
+        if (v->shader != prev_shader) {
+            prev_shader = v->shader;
+            changed = true;
+        }
 
         use_blend_mode(prev_blend_mode);
-		if (v->blend_mode != prev_blend_mode) {
-			prev_blend_mode = v->blend_mode;
-			changed = true;
-		}
+        if (v->blend_mode != prev_blend_mode) {
+            prev_blend_mode = v->blend_mode;
+            changed = true;
+        }
 
-		if (changed) {
-            glDrawArrays(GL_QUADS, vertex_offset, num_vertices);
+        if (changed) {
+            //todo: better offset calculation
+            glDrawArrays(GL_QUADS, vertex_offset - (num_vertices - v->num_vertices), num_vertices);
 
-            vertex_offset += num_vertices;
-			indices_offset += num_indices;
-			num_vertices = 0;
-			num_indices = 0;
+            vertex_offset -= num_vertices;
+            indices_offset -= num_indices;
+            num_vertices = 0;
+            num_indices = 0;
 
-			changed = false;
-		}
-        vertex_index += v->num_vertices;
+            changed = false;
+        }
+        vertex_index -= v->num_vertices;
         num_vertices += v->num_vertices;
         num_indices += v->num_indices;
-	}
+    }
+}
 
-    glDisable(GL_DEPTH_TEST);
+void delete_vertices(std::vector<PXL_VertexPoint>& vertices) {
+    int vertex_count = 0;
+    int num_vertices = 0;
+    while (vertex_count < vertices.size()) {
+        num_vertices = vertices[vertex_count].batch->num_vertices;
+        delete vertices[vertex_count].batch;
+        vertex_count += num_vertices;
+    }
+    //clear and set capacity to 0
+    std::vector<PXL_VertexPoint>().swap(vertices);
 }
 
 void PXL_Batch::free() {
@@ -429,15 +458,8 @@ void PXL_Batch::free() {
 
         glDeleteBuffers(1, &vbo_id);
 
-        total_vertices = 0;
-        int num_vertices = 0;
-        while (total_vertices < vertices.size()) {
-            num_vertices = vertices[total_vertices].batch->num_vertices;
-            delete vertices[total_vertices].batch;
-            total_vertices += num_vertices;
-        }
-        //clear and set capacity to 0
-        std::vector<PXL_VertexPoint>().swap(vertices);
+        delete_vertices(opaque_vertices);
+        delete_vertices(transparent_vertices);
 
 		batch_created = false;
 		vbo_id = 0;

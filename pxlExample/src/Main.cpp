@@ -232,7 +232,7 @@ int main(int argc, char* args[]) {
         test_cat.z_depth = 1;
         test_cat.width = 200;
         test_cat.height = 140;
-        test_cat.colour.a = 1;
+        test_cat.colour.a = .4f;
         test_cat.render(&batch);
 
 		if (puck.x >= window.get_width() - 64) {	puck_speed.x = -puck_speed.x; puck.x = window.get_width() - 64; }

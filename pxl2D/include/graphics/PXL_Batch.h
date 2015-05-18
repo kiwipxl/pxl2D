@@ -140,6 +140,8 @@ private:
 	//batch info
 	bool batch_created = false;                     /**> Defines whether or not the vertex buffer object has been created **/
 	int num_added;                                  /**> The current number of added items in this batch **/
+    int num_opaque_added;
+    int num_transparent_added;
 	PXL_FrameBuffer* target_frame_buffer = NULL;    /**> The target frame buffer object to use when rendering **/
 	PXL_ShaderProgram* current_shader = NULL;
 	PXL_BlendMode current_blend_mode;
@@ -152,15 +154,20 @@ private:
 	GLuint vao_id;
 	PXL_uint min_vertex_index = 0;
 	PXL_uint max_vertex_index = 0;
-	PXL_uint total_vertices = 0;
+    PXL_uint total_vertices = 0;
+    PXL_uint total_opaque_vertices = 0;
+    PXL_uint total_transparent_vertices = 0;
 	PXL_uint min_vertices_count;
 
-    std::vector<PXL_VertexPoint> vertices;
+    std::vector<PXL_VertexPoint> opaque_vertices;
+    std::vector<PXL_VertexPoint> transparent_vertices;
 
 	/** Verifies whether the texture should be added to the batch and returns the result
 	@param rect Used to check the texture position on the screen
 	**/
-	bool verify_texture_add(const PXL_Texture& texture, PXL_Rect* rect);
+    bool verify_texture_add(const PXL_Texture& texture, PXL_Rect* rect);
+
+    void render_vertex_list(std::vector<PXL_VertexPoint>& vertices, PXL_uint total_vertex_count, PXL_uint num_batches);
 
 	/** Draws each item in the vertex batches list
 	**/
