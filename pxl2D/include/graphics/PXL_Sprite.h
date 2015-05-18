@@ -32,10 +32,10 @@ class PXL_Sprite {
 		/**
 		\*brief: sprite deconstructor
 		**/
-		~PXL_Sprite();
-
-		int x = 0;
-		int y = 0;
+        ~PXL_Sprite();
+        
+        float x = 0;
+        float y = 0;
 		float width = 0; /*> The width boundaries of the sprite */
 		float height = 0; /*> The height boundaries of the sprite */
 		PXL_Rect src_rect; /*> The spriteure source rendering boundaries */

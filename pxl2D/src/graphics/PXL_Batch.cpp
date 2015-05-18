@@ -331,7 +331,7 @@ void PXL_Batch::draw_vbo() {
     uint32 max_half = PXL_U24_BIT_MAX / 2;
     for (int n = 0; n < num_transparent_added; ++n) {
         v = &transparent_vertices[vertex_index];
-        float depth = (float((z_depth_counters[v->batch->z_depth]) + max_half) / PXL_U24_BIT_MAX);
+        float depth = (float((-z_depth_counters[v->batch->z_depth]) + max_half) / PXL_U24_BIT_MAX);
         v->pos.z = depth;
         vertex_index += v->batch->num_vertices;
     }
@@ -381,7 +381,7 @@ void PXL_Batch::draw_vbo() {
 void PXL_Batch::render_vertex_list(std::vector<PXL_VertexPoint>& vertices, uint32 total_vertex_count, uint32 num_batches) {
     bool reverse_render = &vertices == &opaque_vertices;
 
-    glBufferData(GL_ARRAY_BUFFER, total_vertex_count * sizeof(PXL_VertexPoint), &vertices[0], GL_DYNAMIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, total_vertex_count * sizeof(PXL_VertexPoint), &vertices[0], GL_STREAM_DRAW);
 
     int vertex_index = reverse_render ? total_vertex_count - 4 : 0;
     int vertex_offset = vertex_index;

@@ -1,4 +1,5 @@
 #include <PXL.h>
+#include <ctime>
 
 //temporary to_string function until one has been added to pxl
 template <typename T> std::string to_string(const T& n) {
@@ -12,7 +13,7 @@ const inline void func() {
 }
 
 int main(int argc, char* args[]) {
-	//srand(time(NULL));
+	srand(time(NULL));
 
 	float t = 0;
 	float fps = 60;
@@ -70,7 +71,27 @@ int main(int argc, char* args[]) {
 		PXL_Vec2 dest;
 		int touchid;
 		PXL_Vec2 center;
-	};
+    };
+
+    struct Particle : public PXL_Sprite {
+
+        PXL_Vec2 vel;
+    };
+
+    std::vector<Particle> particles;
+
+    for (int n = 0; n < 40000; ++n) {
+        Particle p;
+        p.set_texture(test_cat_texture);
+        p.width = 32;
+        p.height = 32;
+        p.vel.x = (float(std::rand()) / float(RAND_MAX)) - (float(std::rand()) / float(RAND_MAX));
+        p.vel.y = (float(std::rand()) / float(RAND_MAX)) - (float(std::rand()) / float(RAND_MAX));
+        p.x = window.get_width() / 2;
+        p.y = window.get_height() / 2;
+        p.z_depth = 1;
+        particles.push_back(p);
+    }
 
     Paddle p1paddle;
     p1paddle.set_texture(p1paddle_texture);
@@ -234,6 +255,12 @@ int main(int argc, char* args[]) {
         test_cat.height = 140;
         test_cat.colour.a = .4f;
         test_cat.render(&batch);
+
+        for (int n = 0; n < particles.size(); ++n) {
+            particles[n].x += particles[n].vel.x;
+            particles[n].y += particles[n].vel.y;
+            particles[n].render(&batch);
+        }
 
 		if (puck.x >= window.get_width() - 64) {	puck_speed.x = -puck_speed.x; puck.x = window.get_width() - 64; }
 		if (puck.x <= 64) {							puck_speed.x = -puck_speed.x; puck.x = 64; }
