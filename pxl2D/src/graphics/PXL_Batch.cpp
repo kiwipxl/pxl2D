@@ -5,7 +5,8 @@
 #include "system/PXL_Debug.h"
 
 //cpp constants (hidden from public)
-#define MIN_DEPTH_CHANGE (1.0f / PXL_24U_MAX);      //the minimum depth value that can be added/subbed in a float
+#define MIN_DEPTH_CHANGE (1.0f / PXL_24U_MAX);                          //the minimum depth value that can be added/subbed in a float
+#define BUFFER_INDEX_OFFSET(offset) (static_cast<char*>(0) + offset)    //somehow calculates a valid buffer indices offset. godamnit opengl
 
 PXL_Batch::PXL_Batch(PXL_Window* window) {
     batch_created = false;
@@ -18,6 +19,7 @@ void PXL_Batch::create_batch(PXL_Window* window) {
     {
         //create the vbo
         glGenBuffers(1, &vbo_id);
+        glGenBuffers(1, &ibo_id);
 
         batch_created = true;
     }
@@ -393,6 +395,9 @@ void PXL_Batch::draw_vbo() {
 
     glBufferData(GL_ARRAY_BUFFER, total_vertices * sizeof(PXL_VertexPoint), &vertices[0], GL_DYNAMIC_DRAW);
 
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo_id);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, total_indices * sizeof(uint32), &indices[0], GL_DYNAMIC_DRAW);
+
     v = vertices[0].batch;
     vertex_index = 0;
 
@@ -426,7 +431,7 @@ void PXL_Batch::draw_vbo() {
         }
 
         if (changed) {
-            glDrawArrays(GL_QUADS, vertex_offset, num_vertices);
+            glDrawElements(GL_TRIANGLES, num_vertices * 2, GL_UNSIGNED_INT, BUFFER_INDEX_OFFSET(indices_offset * sizeof(uint32)));
 
             vertex_offset += num_vertices;
             indices_offset += num_indices;

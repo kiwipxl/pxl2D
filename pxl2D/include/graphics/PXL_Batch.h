@@ -151,6 +151,8 @@ private:
 	//vertex data
     GLuint vbo_id; /**> The id associated with the vertex buffer object **/
     GLuint vao_id;
+    GLuint ibo_id;
+
     uint32 total_vertices = 0;
     uint32 total_opq_vertices = 0;
     uint32 total_indices = 0;
