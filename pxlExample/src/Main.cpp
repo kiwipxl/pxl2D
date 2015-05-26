@@ -90,7 +90,6 @@ int main(int argc, char* args[]) {
         p.x = window.get_width() / 2;
         p.y = window.get_height() / 2;
         p.z_depth = 0;
-        p.colour.a = .4f;
         particles.push_back(p);
     }
 

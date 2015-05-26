@@ -332,8 +332,9 @@ void PXL_Batch::draw_vbo() {
         }
     );
 
-    if (num_added < 40) {
-    vertex_index = 0;
+    //algorithm that calculates the depth buffer value for each vertex batch.
+    //primarily used for z depths. basically, the order in which the vertex is in, the higher/lower the
+    //depth buffer value will be (which is why z depth is sorted in order above)
     PXL_VertexPoint* vi1 = &vertices[total_opq_vertices - 1];
     vi1 -= vi1->batch->num_vertices - 1;
     PXL_VertexPoint* vi2 = &vertices[total_vertices - 1];
@@ -345,36 +346,28 @@ void PXL_Batch::draw_vbo() {
     unsigned int t = 500 * (c / 1000.0f);
     float depth = 1.0f - (1.0f / c);
     //todo: do test to see if c is ever repeating
-    for (int n = 0; n < num_added + 1; ++n) {
+    for (int n = 0; n < num_added; ++n) {
+        bool set_vi1_depth = false;
         if (vi2 <= vih) {
-            vi1->pos.z = depth;
-            vi1 -= 4;
-            //vi1 -= --((--vi1)->batch->num_vertices);
+            set_vi1_depth = true;
         }else if (vi1 < &vertices[0]) {
-            vi2->pos.z = depth;
-            vi2 -= 4;
-            //vi2 -= --((--vi2)->batch->num_vertices);
+            set_vi1_depth = false;
         }else if (vi1->batch->z_depth == vi2->batch->z_depth) {
-            if (vi1->batch->add_id < vi2->batch->add_id) {
-                vi1->pos.z = depth;
-                vi1 -= 4;
-                //vi1 -= --((--vi1)->batch->num_vertices);
-            }else if (vi1->batch->add_id > vi2->batch->add_id) {
-                vi2->pos.z = depth;
-                vi2 -= 4;
-                //vi2 -= --((--vi2)->batch->num_vertices);
-            }
-        }else if (vi1->batch->z_depth < vi2->batch->z_depth) {
+            set_vi1_depth = vi1->batch->add_id < vi2->batch->add_id;
+        }else {
+            set_vi1_depth = vi1->batch->z_depth < vi2->batch->z_depth;
+        }
+
+        if (set_vi1_depth) {
             vi1->pos.z = depth;
-            vi1 -= 4;
-            //vi1 -= --((--vi1)->batch->num_vertices);
+            //move vertex index 1 up to the next vertex batch. if the index is out of bounds, only move by 1
+            vi1 -= (vi1 <= &vertices[0]) ? 1 : (vi1 - 1)->batch->num_vertices;
         }else {
             vi2->pos.z = depth;
-            vi2 -= 4;
-            //vi2 -= --((--vi2)->batch->num_vertices);
+            //move vertex index 2 up to the next vertex batch. if the index is out of bounds, only move by 1
+            vi2 -= (vi2 <= vih) ? 1 : (vi2 - 1)->batch->num_vertices;
         }
         depth -= 1.0f / c;
-    }
     }
 
     //binds vertex buffer
