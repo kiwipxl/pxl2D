@@ -2,6 +2,7 @@
 #define _PXL_BATCH_H
 
 #include <vector>
+#include <memory>
 #include "graphics/PXL_Bitmap.h"
 #include "graphics/PXL_Texture.h"
 #include "graphics/PXL_Matrix4.h"
@@ -53,7 +54,7 @@ struct PXL_VertexPoint {
         uint16 x = 0, y = 0;
 	} uv;
 	struct PXL_Vertex_RGBA {
-		int8 r = 255, g = 255, b = 255, a = 255;
+        uint8 r = 255, g = 255, b = 255, a = 255;
     } colour;
 
     PXL_VertexBatch* batch;
@@ -140,8 +141,6 @@ private:
 	//batch info
 	bool batch_created = false;                     /**> Defines whether or not the vertex buffer object has been created **/
 	int num_added;                                  /**> The current number of added items in this batch **/
-    int num_opaque_added;
-    int num_transparent_added;
 	PXL_FrameBuffer* target_frame_buffer = NULL;    /**> The target frame buffer object to use when rendering **/
 	PXL_ShaderProgram* current_shader = NULL;
 	PXL_BlendMode current_blend_mode;
@@ -150,26 +149,17 @@ private:
 	PXL_Rect render_bounds;
 
 	//vertex data
-	GLuint vbo_id; /**> The id associated with the vertex buffer object **/
-	GLuint vao_id;
-	uint32 min_vertex_index = 0;
-	uint32 max_vertex_index = 0;
+    GLuint vbo_id; /**> The id associated with the vertex buffer object **/
+    GLuint vao_id;
     uint32 total_vertices = 0;
-    uint32 total_opaque_vertices = 0;
-    uint32 total_transparent_vertices = 0;
-    uint32 min_vertices_count;
-    
-    std::vector<uint16> z_depth_counters;
+    uint32 total_opq_vertices = 0;
 
-    std::vector<PXL_VertexPoint> opaque_vertices;
-    std::vector<PXL_VertexPoint> transparent_vertices;
+    std::vector<PXL_VertexPoint> vertices;
 
 	/** Verifies whether the texture should be added to the batch and returns the result
 	@param rect Used to check the texture position on the screen
 	**/
-    bool verify_texture_add(const PXL_Texture& texture, PXL_Rect* rect);
-
-    void render_vertex_list(std::vector<PXL_VertexPoint>& vertices, uint32 total_vertex_count, uint32 num_batches);
+	bool verify_texture_add(const PXL_Texture& texture, PXL_Rect* rect);
 
 	/** Draws each item in the vertex batches list
 	**/
