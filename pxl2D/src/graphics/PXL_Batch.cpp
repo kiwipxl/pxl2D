@@ -4,6 +4,9 @@
 #include "system/PXL_Exception.h"
 #include "system/PXL_Debug.h"
 
+//cpp constants (hidden from public)
+#define MIN_DEPTH_CHANGE (1.0f / PXL_24U_MAX);      //the minimum depth value that can be added/subbed in a float
+
 PXL_Batch::PXL_Batch(PXL_Window* window) {
     batch_created = false;
     create_batch(window);
@@ -209,10 +212,6 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
             v[2].pos.x = x + scaled_width;							v[2].pos.y = y + scaled_height;
             v[3].pos.x = x;											v[3].pos.y = y + scaled_height;
         }
-        unsigned int c = 10000000;
-        unsigned int t = 500 * (c / 1000.0f);
-        float depth = (float(-num_added + t) / c);
-        v[0].pos.z = depth;
 
         /**
         ==================================================================================
@@ -312,6 +311,7 @@ void PXL_Batch::draw_vbo() {
     bool changed = false;
     PXL_VertexBatch* v;
 
+    //todo: replace this sort with tim sort or merge sort
     std::stable_sort(vertices.begin(), vertices.begin() + total_vertices,
         [](const PXL_VertexPoint& a, const PXL_VertexPoint& b) {
             if (a.batch->uses_transparency < b.batch->uses_transparency) return true;
@@ -342,9 +342,7 @@ void PXL_Batch::draw_vbo() {
     PXL_VertexPoint* vih = &vertices[total_opq_vertices - 1];
     vih -= vih->batch->num_vertices - 1;
 
-    unsigned int c = 10000000;
-    unsigned int t = 500 * (c / 1000.0f);
-    float depth = 1.0f - (1.0f / c);
+    float depth = 1.0f - MIN_DEPTH_CHANGE;
     //todo: do test to see if c is ever repeating
     for (int n = 0; n < num_added; ++n) {
         bool set_vi1_depth = false;
@@ -367,7 +365,7 @@ void PXL_Batch::draw_vbo() {
             //move vertex index 2 up to the next vertex batch. if the index is out of bounds, only move by 1
             vi2 -= (vi2 <= vih) ? 1 : (vi2 - 1)->batch->num_vertices;
         }
-        depth -= 1.0f / c;
+        depth -= MIN_DEPTH_CHANGE;
     }
 
     //binds vertex buffer

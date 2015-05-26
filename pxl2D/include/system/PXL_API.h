@@ -27,7 +27,8 @@ typedef unsigned long uint64;
 #define PXL_LLONG_MIN   (-9223372036854775807i64 - 1)	/* minimum signed long long int value */
 #define PXL_ULLONG_MAX    0xffffffffffffffffui64		/* maximum unsigned long long int value */
 
-#define PXL_U24_BIT_MAX (255 * 255 * 255)
+#define PXL_24U_MAX (256 * 256 * 256)
+#define PXL_24_MAX PXL_24U_MAX >> 1;
 
 #if defined(__ANDROID__)
 	#define PXL_PLATFORM_ANDROID
