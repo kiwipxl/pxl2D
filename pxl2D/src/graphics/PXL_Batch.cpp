@@ -148,25 +148,24 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
         batch.shader = shader;
         batch.z_depth = z_depth;
         batch.blend_mode = blend_mode;
+        batch.add_id = num_added;
         if (texture.has_transparency || colour.a != 1.0f) {
             batch.uses_transparency = true;
             batch.blend_mode = PXL_BLEND;
-            batch.add_id = num_added;
         }else {
             batch.uses_transparency = false;
             batch.blend_mode = PXL_NO_BLEND;
-            batch.add_id = num_added;
             total_opq_vertices += 4;
         }
 
-        total_vertices += 4;
-        ++num_added;
-
-        int i = indices_count;
+        uint32 i = indices_count;
         indices[total_indices] = i;			indices[total_indices + 1] = i + 1;		indices[total_indices + 2] = i + 2;
         indices[total_indices + 3] = i;		indices[total_indices + 4] = i + 3;		indices[total_indices + 5] = i + 2;
         total_indices += 6;
         indices_count += 4;
+
+        total_vertices += 4;
+        ++num_added;
 
         /**
         ==================================================================================
@@ -431,7 +430,7 @@ void PXL_Batch::draw_vbo() {
         }
 
         if (changed) {
-            glDrawElements(GL_TRIANGLES, num_vertices * 2, GL_UNSIGNED_INT, BUFFER_INDEX_OFFSET(indices_offset * sizeof(uint32)));
+            glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, BUFFER_INDEX_OFFSET(indices_offset * sizeof(uint32)));
 
             vertex_offset += num_vertices;
             indices_offset += num_indices;
