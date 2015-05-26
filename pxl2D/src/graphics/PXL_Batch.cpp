@@ -87,16 +87,19 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
         if (total_vertices >= vertices.size()) {
             int prev_size = vertices.size();
 
-            vertices.resize(prev_size + PXL_CONFIG_INC_BATCH_RESIZE);
+            vertices.resize(prev_size + PXL_CONFIG_BATCH_VERTEX_RESIZE);
 
             PXL_VertexBatch* last_batch;
-            for (int n = 0; n < PXL_CONFIG_INC_BATCH_RESIZE; ++n) {
+            for (int n = 0; n < PXL_CONFIG_BATCH_VERTEX_RESIZE; ++n) {
                 if (n % 4 == 0) {
                     last_batch = new PXL_VertexBatch();
                     last_batch->num_vertices = 4;
                 }
                 vertices[n + prev_size].batch = last_batch;
             }
+        }
+        if (total_indices >= indices.size()) {
+            indices.resize(indices.size() + PXL_CONFIG_BATCH_INDICES_RESIZE);
         }
 
         /*z_depth = 0;
@@ -156,6 +159,12 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 
         total_vertices += 4;
         ++num_added;
+
+        int i = indices_count;
+        indices[total_indices] = i;			indices[total_indices + 1] = i + 1;		indices[total_indices + 2] = i + 2;
+        indices[total_indices + 3] = i;		indices[total_indices + 4] = i + 3;		indices[total_indices + 5] = i + 2;
+        total_indices += 6;
+        indices_count += 4;
 
         /**
         ==================================================================================
@@ -272,6 +281,8 @@ void PXL_Batch::set_window_target(PXL_Window* window) {
 void PXL_Batch::clear_all() {
     total_vertices = 0;
     total_opq_vertices = 0;
+    total_indices = 0;
+    indices_count = 0;
     num_added = 0;
 }
 
@@ -343,7 +354,6 @@ void PXL_Batch::draw_vbo() {
     vih -= vih->batch->num_vertices - 1;
 
     float depth = 1.0f - MIN_DEPTH_CHANGE;
-    //todo: do test to see if c is ever repeating
     for (int n = 0; n < num_added; ++n) {
         bool set_vi1_depth = false;
         if (vi2 <= vih) {

@@ -153,8 +153,11 @@ private:
     GLuint vao_id;
     uint32 total_vertices = 0;
     uint32 total_opq_vertices = 0;
+    uint32 total_indices = 0;
+    uint32 indices_count = 0;
 
     std::vector<PXL_VertexPoint> vertices;
+    std::vector<uint32> indices;
 
 	/** Verifies whether the texture should be added to the batch and returns the result
 	@param rect Used to check the texture position on the screen

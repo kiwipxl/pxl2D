@@ -12,7 +12,8 @@
 #define PXL_CONFIG_SHOW_STACK_TRACE					1			/**< Defines whether or not to show stack traces on exception messages **/
 
 //batch config
-#define PXL_CONFIG_INC_BATCH_RESIZE                 64         /**< Incremental batch resize - the amount to resize and allocate if a batch add goes over the batch capacity vector **/
+#define PXL_CONFIG_BATCH_VERTEX_RESIZE                 64           /**< Incremental vertex batch resize - the amount to resize and allocate if a new add goes over the vertex batch capacity vector **/
+#define PXL_CONFIG_BATCH_INDICES_RESIZE                48           /**< Incremental indices batch resize - the amount to resize and allocate if a new add goes over the indices capacity vector **/
 
 /** -------------------------------------------------------
 					PXL error codes
