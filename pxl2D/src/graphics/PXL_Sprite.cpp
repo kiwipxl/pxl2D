@@ -27,8 +27,7 @@ void PXL_Sprite::render(PXL_Batch* batch) {
 	rect.y = y;
 	rect.w = width; rect.h = height;
 
-	batch->add(*texture_source, &rect, &src_rect, rotation, &rotation_origin.get_vec(), &scale_origin.get_vec(), PXL_FLIP_NONE, 
-			   z_depth, colour);
+	batch->add(*texture_source, &rect, &src_rect, rotation, &rotation_origin.get_vec(), &scale_origin.get_vec(), z_depth, colour);
 }
 
 PXL_Sprite PXL_Sprite::clone() {

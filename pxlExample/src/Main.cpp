@@ -224,11 +224,11 @@ int main(int argc, char* args[]) {
 
         rect.w = 400;
         rect.h = 40;
-        batch.add(arena_texture, &rect, NULL, NULL, NULL, NULL, PXL_FLIP_NONE, 0);
+		batch.add(arena_texture, &rect);
 
         rect.w = 200;
         rect.h = 120;
-		batch.add(arena_texture, &rect, NULL, NULL, NULL, NULL, PXL_FLIP_NONE, 0);
+		batch.add(arena_texture, &rect);
 
 		p1paddle.x -= (p1paddle.x - p1paddle.dest.x) / 4;
 		p1paddle.y -= (p1paddle.y - p1paddle.dest.y) / 4;

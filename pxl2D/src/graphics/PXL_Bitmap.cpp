@@ -75,6 +75,8 @@ void PXL_Bitmap::fill(PXL_Colour colour) {
 void PXL_Bitmap::fill(PXL_Gradient gradient) {
 	if (pixels == NULL) return;
 
+	//todo: make this function cleaner with colour operators (c1 - c2 for example)
+
 	//multiplies the input colour by 255 (as it's a 0-1 range float)
 	PXL_Colour c1 = gradient.g1 * 255;
 	PXL_Colour c2 = gradient.g2 * 255;

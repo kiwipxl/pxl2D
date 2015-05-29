@@ -61,8 +61,7 @@ void PXL_Text::render(PXL_Batch* batch) {
 		}
 
 		temp_origin.x = (x + origin.x) - rect.x; temp_origin.y = (y + origin.y) - rect.y;
-		batch->add(*font->get_glyph_sheet(), &rect, &src_rect, rotation, &temp_origin, NULL, PXL_FLIP_NONE, 
-				   z_depth, colour, PXL_text_shader);
+		batch->add(*font->get_glyph_sheet(), &rect, &src_rect, rotation, &temp_origin, NULL, z_depth, colour, PXL_text_shader);
 		rect.x += offset_x;
 	}
 }

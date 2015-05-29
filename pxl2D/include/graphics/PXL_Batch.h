@@ -13,12 +13,6 @@
 #include "system/PXL_API.h"
 #include "system/PXL_Window.h"
 
-enum PXL_Flip {
-	PXL_FLIP_NONE,
-	PXL_FLIP_HORIZONTAL,
-	PXL_FLIP_VERTICAL
-};
-
 enum PXL_BlendMode {
     PXL_BLEND, /**> Applies blending when rendering **/
     PXL_NO_BLEND, /**> Doesn't blend when rendering **/
@@ -42,7 +36,6 @@ struct PXL_VertexBatch {
     PXL_Rect src_rect;
     PXL_Vec2 origin;
     float rotation;
-    PXL_Flip flip;
 };
 
 struct PXL_VertexPoint {
@@ -124,8 +117,7 @@ public:
 	@param shader The shader to use when rendering this texture. Use NULL to use the default shader
 	**/
 	void add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_rect = NULL, 
-		float rotation = 0, PXL_Vec2* rotation_origin = NULL, PXL_Vec2* scale_origin = NULL, 
-		PXL_Flip flip = PXL_FLIP_NONE, int z_depth = 0,
+		float rotation = 0, PXL_Vec2* rotation_origin = NULL, PXL_Vec2* scale_origin = NULL, int z_depth = 0,
 		PXL_Colour colour = PXL_COLOUR_WHITE, PXL_ShaderProgram* shader = NULL, PXL_BlendMode blend_mode = PXL_BLEND);
 
 	/** Deletes everything made in this batch
