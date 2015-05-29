@@ -61,9 +61,19 @@ class PXL_Bitmap {
 		\*param [height]: the height of the image
 		\*param [buffer]: an array of pixels for the image
 		**/
+		void create_bitmap(int width, int height, PXL_Gradient gradient_fill, PXL_Channel pixel_channel);
+		/**
+		\*brief: constructs the bitmap with specified values
+		\*param [width]: the width of the image
+		\*param [height]: the height of the image
+		\*param [buffer]: an array of pixels for the image
+		**/
 		void create_bitmap(int width, int height, uint8* pixel_buffer, PXL_Channel pixel_channel);
+		
+		inline void set_attribs(int bitmap_width, int bitmap_height, PXL_Channel pixel_channel);
 
 		void fill(PXL_Colour colour);
+		void fill(PXL_Gradient gradient);
 
 		/**
 		\*brief: frees all data from the bitmap
