@@ -35,7 +35,7 @@ class PXL_Texture {
 		@param pixel_mode The pixel type of the pixel data (default is R, G, B, A)
 		**/
 		bool create_texture(PXL_Bitmap* bitmap);
-		bool create_texture(int w, int h, int8* pixels, PXL_Channel pixel_channel = PXL_CHANNEL_RGBA);
+		bool create_texture(int w, int h, uint8* pixels, PXL_Channel pixel_channel = PXL_CHANNEL_RGBA);
 
 		void bind();
 

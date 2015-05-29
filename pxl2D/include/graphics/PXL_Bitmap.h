@@ -61,7 +61,7 @@ class PXL_Bitmap {
 		\*param [height]: the height of the image
 		\*param [buffer]: an array of pixels for the image
 		**/
-		void create_bitmap(int width, int height, int8* pixel_buffer, PXL_Channel pixel_channel);
+		void create_bitmap(int width, int height, uint8* pixel_buffer, PXL_Channel pixel_channel);
 
 		void fill(PXL_Colour colour);
 
@@ -74,14 +74,14 @@ class PXL_Bitmap {
 		uint32 get_height() const { return height; }
 		PXL_Channel get_channel() const { return channel; }
 		uint32 get_num_channels() const { return channel.num_channels; }
-		int8* get_pixels() const { return pixels; }
+		uint8* get_pixels() const { return pixels; }
 
 	private:
 		//buffer info
 		bool buffer_loaded;
 		uint32 width;
 		uint32 height;
-		int8* pixels;
+		uint8* pixels;
 		uint32 buffer_size;
 		uint32 row_size;
 		PXL_Channel channel;

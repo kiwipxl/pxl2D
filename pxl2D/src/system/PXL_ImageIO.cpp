@@ -156,7 +156,7 @@ PXL_Bitmap* PXL_load_png(std::string file_name, PXL_Bitmap* bitmap) {
 }
 
 void read_png(png_structp png_pointer, png_bytep data, png_size_t length) {
-	file.read((char*)data, length);
+	file.read((int8*)data, length);
 }
 
 bool png_validate(std::ifstream& file) {

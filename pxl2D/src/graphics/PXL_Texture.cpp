@@ -25,7 +25,7 @@ bool PXL_Texture::create_texture(PXL_Bitmap* bitmap) {
 	return texture_created;
 }
 
-bool PXL_Texture::create_texture(int w, int h, int8* pixels, PXL_Channel pixel_channel) {
+bool PXL_Texture::create_texture(int w, int h, uint8* pixels, PXL_Channel pixel_channel) {
 	if (w <= 0 || h <= 0) {
 		PXL_show_exception("Could not create texture, width/height are less than 0", PXL_ERROR_TEXTURE_CREATION_FAILED);
 		return false;

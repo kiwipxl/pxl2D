@@ -279,24 +279,6 @@ void PXL_Batch::render_all() {
     clear_all();
 }
 
-bool inline pivot_cmp(const PXL_VertexBatch* i, const PXL_VertexBatch* pivot) {
-	if (i->uses_transparency < pivot->uses_transparency) return true;
-	if (pivot->uses_transparency < i->uses_transparency) return false;
-
-	if (i->z_depth < pivot->z_depth) return false;
-	if (pivot->z_depth < i->z_depth) return true;
-
-	if (!i->uses_transparency) {
-		if (i->add_id < pivot->add_id) return false;
-		if (pivot->add_id < i->add_id) return true;
-	}else {
-		if (i->add_id < pivot->add_id) return true;
-		if (pivot->add_id < i->add_id) return false;
-	}
-
-	return false;
-}
-
 void PXL_Batch::draw_vbo() {
     //loops through each texture and draws the vertex data with that texture id
     int vertex_offset = 0;

@@ -29,13 +29,13 @@ void PXL_Bitmap::create_bitmap(int bitmap_width, int bitmap_height, PXL_Colour f
 	row_size = width * channel.num_channels;
 	buffer_size = row_size * height;
 
-	pixels = new int8[buffer_size];
+	pixels = new uint8[buffer_size];
 
 	fill(fill_colour);
 	check_has_transparency();
 }
 
-void PXL_Bitmap::create_bitmap(int bitmap_width, int bitmap_height, int8* pixel_buffer, PXL_Channel pixel_channel) {
+void PXL_Bitmap::create_bitmap(int bitmap_width, int bitmap_height, uint8* pixel_buffer, PXL_Channel pixel_channel) {
 	free();
 
 	buffer_loaded = true;
@@ -63,6 +63,7 @@ void PXL_Bitmap::fill(PXL_Colour colour) {
 			if (channel.channel_index.g != -1) pixels[x + row_y + channel.channel_index.g] = rgba.g;
 			if (channel.channel_index.b != -1) pixels[x + row_y + channel.channel_index.b] = rgba.b;
 			if (channel.channel_index.a != -1) pixels[x + row_y + channel.channel_index.a] = rgba.a;
+			//todo: check for pixel transparency here to remove the need for 2 pixel loops
 		}
 	}
 }
@@ -73,7 +74,7 @@ bool PXL_Bitmap::check_has_transparency() {
 		return false;
 	}else {
 		for (size_t n = 0; n < buffer_size; n += channel.num_channels) {
-			if (pixels[n + channel.channel_index.a] == 0) {
+			if (pixels[n + channel.channel_index.a] != 255) {
 				has_transparency = true;
 				return true;
 			}
