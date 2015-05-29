@@ -112,8 +112,8 @@ void PXL_FrameBuffer::bind_texture() {
 	texture->bind();
 }
 
-int8* PXL_FrameBuffer::get_pixels() {
-	return texture->get_pixels();
+uint8* PXL_FrameBuffer::get_pixels() {
+	return texture->get_vram_pixels();
 }
 
 void PXL_FrameBuffer::free() {

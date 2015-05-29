@@ -6,9 +6,13 @@ PXL_Texture::PXL_Texture() {
 }
 
 bool PXL_Texture::create_texture(std::string file_path) {
+	//creates a bitmap from the specified file path and checks if it is valid
 	PXL_Bitmap bitmap;
 	if (bitmap.create_bitmap(file_path)) {
-		return create_texture(&bitmap);
+		//if valid, create the texture from the bitmap and delete it afterwards
+		bool success = create_texture(&bitmap);
+		delete &bitmap;
+		return success;
 	}
 	return false;
 }
@@ -51,15 +55,21 @@ bool PXL_Texture::create_texture(int w, int h, uint8* pixels, PXL_Channel pixel_
 	return true;
 }
 
+void PXL_Texture::update_data(uint8* pixels) {
+	bind();
+	glPixelStorei(GL_UNPACK_ALIGNMENT, channel.num_channels);
+	glTexImage2D(GL_TEXTURE_2D, 0, channel.gl_pixel_mode, width, height, 0, channel.gl_pixel_mode, GL_UNSIGNED_BYTE, pixels);
+}
+
 void PXL_Texture::bind() {
 	glBindTexture(GL_TEXTURE_2D, id);
 }
 
-int8* PXL_Texture::get_pixels() {
+uint8* PXL_Texture::get_vram_pixels() {
 	if (texture_created) {
         bind();
         //todo: potential memory leak, must fix
-		int8* pixels = new int8[(width * height) * channel.num_channels];
+		uint8* pixels = new uint8[(width * height) * channel.num_channels];
 		glReadPixels(0, 0, width, height, channel.gl_pixel_mode, GL_UNSIGNED_BYTE, pixels);
 		//todo: glgetteximage not supported by gles2
 		//glGetTexImage(GL_TEXTURE_2D, 0, channel.gl_pixel_mode, GL_UNSIGNED_BYTE, pixels);

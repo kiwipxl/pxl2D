@@ -45,16 +45,18 @@ class PXL_Texture {
 		**/
         void set_filters(PXL_TextureFilter min_filter = PXL_GL_LINEAR, PXL_TextureFilter max_filter = PXL_GL_LINEAR);
         
-        bool check_has_transparency();
+		bool check_has_transparency();
+		
+		void update_data(uint8* pixels);
 
 		/** Deletes all texture information
 		**/
 		void free();
 
-		/** Gets the raw pixel array contents stored in the GPU
+		/** Gets the raw pixel array contents stored in the GPU VRAM
 		\return A raw pixel byte array
 		**/
-		int8* get_pixels();
+		uint8* get_vram_pixels();
 		/** Gets the texture width
 		\return The width of the texture
 		**/
