@@ -34,7 +34,7 @@ struct PXL_VertexBatch {
     PXL_BlendMode blend_mode;
     uint16 num_vertices;
     uint16 num_indices;
-    int add_id = 0;
+	uint32 add_id = 0;
 
     //transform cache values
     PXL_Colour colour;
@@ -57,7 +57,8 @@ struct PXL_VertexPoint {
         uint8 r = 255, g = 255, b = 255, a = 255;
     } colour;
 
-    PXL_VertexBatch* batch;
+	PXL_VertexBatch* batch;
+	uint32 order = 0;
 };
 
 /** The PXL_Batch class handles batch rendering of textures, texture sheets and sprites with transformations.
@@ -146,7 +147,7 @@ private:
 	PXL_BlendMode current_blend_mode;
 	PXL_Matrix4 proj_view_mat;
 	PXL_Window* target_window;
-	PXL_Rect render_bounds;
+    PXL_Rect render_bounds;
 
 	//vertex data
     GLuint vbo_id; /**> The id associated with the vertex buffer object **/
@@ -164,7 +165,7 @@ private:
 	/** Verifies whether the texture should be added to the batch and returns the result
 	@param rect Used to check the texture position on the screen
 	**/
-	bool verify_texture_add(const PXL_Texture& texture, PXL_Rect* rect);
+	inline bool verify_texture_add(const PXL_Texture& texture, PXL_Rect* rect);
 
 	/** Draws each item in the vertex batches list
 	**/

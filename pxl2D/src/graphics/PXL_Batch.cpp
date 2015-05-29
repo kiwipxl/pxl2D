@@ -6,7 +6,6 @@
 
 //cpp constants (hidden from public)
 #define MIN_DEPTH_CHANGE (1.0f / PXL_24U_MAX);                          //the minimum depth value that can be added/subbed in a float
-#define BUFFER_INDEX_OFFSET(offset) (static_cast<char*>(0) + offset)    //somehow calculates a valid buffer indices offset. godamnit opengl
 
 PXL_Batch::PXL_Batch(PXL_Window* window) {
     batch_created = false;
@@ -71,7 +70,7 @@ void PXL_Batch::use_blend_mode(PXL_BlendMode blend_mode) {
     if (current_blend_mode != blend_mode) {
         current_blend_mode = blend_mode;
         if (current_blend_mode == PXL_BLEND) {
-            glEnable(GL_BLEND);
+			glEnable(GL_BLEND);
             glDepthMask(GL_FALSE);
             glDepthFunc(GL_LESS);
             glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -104,51 +103,15 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
             indices.resize(indices.size() + PXL_CONFIG_BATCH_INDICES_RESIZE);
         }
 
-        /*z_depth = 0;
-        VertexContainer& c = vertices[z_depth];
-        if (c.batch_index >= c.batches.size()) {
-        c.batches.push_back(PXL_VertexBatch());
-        }
-        PXL_VertexBatch& v_batch = c.batches[c.batch_index];*/
-
-        /*v_batch.num_vertices = 4;
-        v_batch.num_indices = 6;
-        v_batch.texture_id = texture.get_id();
-        v_batch.shader = shader;
-        v_batch.z_depth = z_depth;
-        v_batch.blend_mode = blend_mode;
-        min_vertex_index = PXL_min(min_vertex_index, (PXL_uint)z_depth);
-        max_vertex_index = PXL_max(max_vertex_index, (PXL_uint)z_depth);
-        if (c.data_index >= c.data.size()) {
-        c.data.push_back(PXL_VertexPoint());
-        c.data.push_back(PXL_VertexPoint());
-        c.data.push_back(PXL_VertexPoint());
-        c.data.push_back(PXL_VertexPoint());
-        }
-        PXL_VertexPoint* v = &c.data[c.data_index];
-        if (c.indices_index >= c.indices.size()) {
-        for (int n = 0; n < 6; ++n) {
-        c.indices.push_back(0);
-        }
-        }
-        int i = c.indices_count;
-        c.indices[c.indices_index] = i;			c.indices[c.indices_index + 1] = i + 1;		c.indices[c.indices_index + 2] = i + 2;
-        c.indices[c.indices_index + 3] = i;		c.indices[c.indices_index + 4] = i + 3;		c.indices[c.indices_index + 5] = i + 2;
-        c.indices_index += 6;
-        c.indices_count += 4;
-        total_vertices += 4;
-        ++c.batch_index;
-        c.data_index += 4;*/
-
         PXL_VertexPoint* v = &vertices[total_vertices];
-        PXL_VertexBatch& batch = *vertices[total_vertices].batch;
+        PXL_VertexBatch& batch = *v->batch;
         batch.num_vertices = 4;
         batch.num_indices = 6;
         batch.texture_id = texture.get_id();
         batch.shader = shader;
         batch.z_depth = z_depth;
         batch.blend_mode = blend_mode;
-        batch.add_id = num_added;
+		batch.add_id = num_added;
         if (texture.has_transparency || colour.a != 1.0f) {
             batch.uses_transparency = true;
             batch.blend_mode = PXL_BLEND;
@@ -165,7 +128,7 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
         indices_count += 4;
 
         total_vertices += 4;
-        ++num_added;
+		++num_added;
 
         /**
         ==================================================================================
@@ -222,6 +185,10 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
             v[2].pos.x = x + scaled_width;							v[2].pos.y = y + scaled_height;
             v[3].pos.x = x;											v[3].pos.y = y + scaled_height;
         }
+		v[0].order = total_vertices + 3;
+		v[1].order = total_vertices + 2;
+		v[2].order = total_vertices + 1;
+		v[3].order = total_vertices;
 
         /**
         ==================================================================================
@@ -259,8 +226,7 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
     }
 }
 
-bool PXL_Batch::verify_texture_add(const PXL_Texture& texture, PXL_Rect* rect) {
-    return true;
+inline bool PXL_Batch::verify_texture_add(const PXL_Texture& texture, PXL_Rect* rect) {
     if (texture.texture_created) {
         if (rect->x + rect->w > render_bounds.x && rect->y + rect->h > render_bounds.y && rect->x < render_bounds.w && rect->y < render_bounds.h) {
             return true;
@@ -313,51 +279,76 @@ void PXL_Batch::render_all() {
     clear_all();
 }
 
+bool inline pivot_cmp(const PXL_VertexBatch* i, const PXL_VertexBatch* pivot) {
+	if (i->uses_transparency < pivot->uses_transparency) return true;
+	if (pivot->uses_transparency < i->uses_transparency) return false;
+
+	if (i->z_depth < pivot->z_depth) return false;
+	if (pivot->z_depth < i->z_depth) return true;
+
+	if (!i->uses_transparency) {
+		if (i->add_id < pivot->add_id) return false;
+		if (pivot->add_id < i->add_id) return true;
+	}else {
+		if (i->add_id < pivot->add_id) return true;
+		if (pivot->add_id < i->add_id) return false;
+	}
+
+	return false;
+}
+
 void PXL_Batch::draw_vbo() {
     //loops through each texture and draws the vertex data with that texture id
     int vertex_offset = 0;
     int indices_offset = 0;
-    int vertex_index = total_vertices - vertices[total_vertices - 1].batch->num_vertices;
+	int vertex_index = 0;
     int num_vertices = 0;
     int num_indices = 0;
     bool changed = false;
-    PXL_VertexBatch* v;
+	PXL_VertexBatch* v;
 
-    //todo: replace this sort with tim sort or merge sort
     std::stable_sort(vertices.begin(), vertices.begin() + total_vertices,
-        [](const PXL_VertexPoint& a, const PXL_VertexPoint& b) {
-            if (a.batch->uses_transparency < b.batch->uses_transparency) return true;
-            if (b.batch->uses_transparency < a.batch->uses_transparency) return false;
+    [](const PXL_VertexPoint& a, const PXL_VertexPoint& b) {
+        if (a.batch->uses_transparency < b.batch->uses_transparency) return true;
+        if (a.batch->uses_transparency > b.batch->uses_transparency) return false;
 
-            if (a.batch->z_depth < b.batch->z_depth) return false;
-            if (b.batch->z_depth < a.batch->z_depth) return true;
+        if (a.batch->z_depth < b.batch->z_depth) return false;
+        if (a.batch->z_depth > b.batch->z_depth) return true;
 
-            if (!a.batch->uses_transparency) {
-                if (a.batch->add_id < b.batch->add_id) return false;
-                if (b.batch->add_id < a.batch->add_id) return true;
-            }else {
-                if (a.batch->add_id < b.batch->add_id) return true;
-                if (b.batch->add_id < a.batch->add_id) return false;
-            }
-
-            return false;
+        if (!a.batch->uses_transparency) {
+            if (a.batch->add_id < b.batch->add_id) return false;
+            if (a.batch->add_id > b.batch->add_id) return true;
+        }else {
+            if (a.batch->add_id < b.batch->add_id) return true;
+            if (a.batch->add_id > b.batch->add_id) return false;
         }
-    );
+
+        return false;
+	});
 
     //algorithm that calculates the depth buffer value for each vertex batch.
     //primarily used for z depths. basically, the order in which the vertex is in, the higher/lower the
     //depth buffer value will be (which is why z depth is sorted in order above)
-    PXL_VertexPoint* vi1 = &vertices[total_opq_vertices - 1];
-    vi1 -= vi1->batch->num_vertices - 1;
-    PXL_VertexPoint* vi2 = &vertices[total_vertices - 1];
-    vi2 -= vi2->batch->num_vertices - 1;
-    PXL_VertexPoint* vih = &vertices[total_opq_vertices - 1];
-    vih -= vih->batch->num_vertices - 1;
+	PXL_VertexPoint* vi1 = nullptr;
+	if (total_opq_vertices > 0) {
+		vi1 = &vertices[total_opq_vertices - 1];
+		vi1 -= vi1->batch->num_vertices - 1;
+	}
+	PXL_VertexPoint* vi2 = nullptr;
+	if (total_vertices > 0) {
+		vi2 = &vertices[total_vertices - 1];
+		vi2 -= vi2->batch->num_vertices - 1;
+	}
+	PXL_VertexPoint* vih = vi1;
 
     float depth = 1.0f - MIN_DEPTH_CHANGE;
     for (int n = 0; n < num_added; ++n) {
-        bool set_vi1_depth = false;
-        if (vi2 <= vih) {
+		bool set_vi1_depth = false;
+		if (vi2 == nullptr) {
+			set_vi1_depth = true;
+		}else if (vi1 == nullptr) {
+			set_vi1_depth = false;
+		}else if (vi2 <= vih) {
             set_vi1_depth = true;
         }else if (vi1 < &vertices[0]) {
             set_vi1_depth = false;
@@ -374,7 +365,7 @@ void PXL_Batch::draw_vbo() {
         }else {
             vi2->pos.z = depth;
             //move vertex index 2 up to the next vertex batch. if the index is out of bounds, only move by 1
-            vi2 -= (vi2 <= vih) ? 1 : (vi2 - 1)->batch->num_vertices;
+            vi2 -= (vih == nullptr || vi2 <= vih) ? 1 : (vi2 - 1)->batch->num_vertices;
         }
         depth -= MIN_DEPTH_CHANGE;
     }
@@ -395,10 +386,10 @@ void PXL_Batch::draw_vbo() {
     glBufferData(GL_ARRAY_BUFFER, total_vertices * sizeof(PXL_VertexPoint), &vertices[0], GL_DYNAMIC_DRAW);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo_id);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, total_indices * sizeof(uint32), &indices[0], GL_DYNAMIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, total_indices * sizeof(uint32), &indices[0], GL_DYNAMIC_DRAW);
 
     v = vertices[0].batch;
-    vertex_index = 0;
+	vertex_index = 0;
 
     GLuint prev_id = v->texture_id;
     //glBindTexture(GL_TEXTURE_2D, prev_id);
@@ -430,7 +421,7 @@ void PXL_Batch::draw_vbo() {
         }
 
         if (changed) {
-            glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, BUFFER_INDEX_OFFSET(indices_offset * sizeof(uint32)));
+            glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, (void*)(indices_offset * sizeof(uint32)));
 
             vertex_offset += num_vertices;
             indices_offset += num_indices;

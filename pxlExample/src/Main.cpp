@@ -80,7 +80,7 @@ int main(int argc, char* args[]) {
 
     std::vector<Particle> particles;
 
-    for (int n = 0; n < 4; ++n) {
+	for (int n = 0; n < 100000; ++n) {
         Particle p;
         p.set_texture(test_cat_texture);
         p.width = 32;
@@ -257,8 +257,8 @@ int main(int argc, char* args[]) {
         test_cat.render(&batch);
 
         for (int n = 0; n < particles.size(); ++n) {
-            particles[n].x += particles[n].vel.x;
-            particles[n].y += particles[n].vel.y;
+            //particles[n].x += particles[n].vel.x;
+            //particles[n].y += particles[n].vel.y;
             particles[n].render(&batch);
         }
 
