@@ -62,7 +62,11 @@ void PXL_Sprite::set_origin(const PXL_Origin origin_point) {
 
 void PXL_Sprite::render(PXL_Batch* batch) {
     //todo: check if texture is null before rendering, otherwise will crash
-	rect.x = x; rect.y = y;
+	rect.x = x;
+	rect.y = y;
+	if (origin.x != 0) rect.x += ((texture_source->get_width() - width) / (texture_source->get_width() / origin.x));
+	if (origin.y != 0) rect.y += ((texture_source->get_height() - height) / (texture_source->get_height() / origin.y));
+	
 	rect.w = width; rect.h = height;
 	batch->add(*texture_source, &rect, &src_rect, rotation, &origin, PXL_FLIP_NONE, 
 			   z_depth, colour);
