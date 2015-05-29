@@ -44,6 +44,7 @@
   <ItemGroup>
     <ClCompile Include="src\graphics\PXL_Colour.cpp" />
     <ClCompile Include="src\graphics\PXL_GraphicsAPI.cpp" />
+    <ClCompile Include="src\graphics\PXL_Origin.cpp" />
     <ClCompile Include="src\graphics\PXL_Sprite.cpp" />
     <ClCompile Include="src\input\PXL_Joystick.cpp" />
     <ClCompile Include="src\input\PXL_Keyboard.cpp" />
@@ -79,6 +80,7 @@
   <ItemGroup>
     <ClInclude Include="include\graphics\PXL_Colour.h" />
     <ClInclude Include="include\graphics\PXL_GraphicsAPI.h" />
+    <ClInclude Include="include\graphics\PXL_Origin.h" />
     <ClInclude Include="include\graphics\PXL_PrebuiltShaders.h" />
     <ClInclude Include="include\graphics\PXL_ShaderProgram - Copy.h" />
     <ClInclude Include="include\graphics\PXL_Sprite.h" />

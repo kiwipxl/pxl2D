@@ -1,7 +1,7 @@
 #include "graphics/PXL_Text.h"
 #include "system/PXL_Debug.h"
 
-PXL_Text::PXL_Text(PXL_Font* f_font, std::string f_text, int f_pos_x, int f_pos_y, uint16 f_size) {
+PXL_Text::PXL_Text(PXL_Font* f_font, std::string f_text, int f_pos_x, int f_pos_y, uint16 f_size) : scale_origin(this) {
 	font = f_font;
 	text = f_text;
 	size = f_size;
@@ -28,58 +28,6 @@ bool PXL_Text::set_char_pos(int8 symbol, int start_x) {
 	}
 
 	return false;
-}
-
-void PXL_Text::set_origin(float x, float y) {
-	origin_type = PXL_ORIGIN_CUSTOM;
-	origin.x = x; origin.y = y;
-}
-
-void PXL_Text::set_origin(const PXL_Origin origin_point) {
-	origin_type = origin_point;
-
-	rect.x = 0; rect.y = 0;
-	width = 0; height = 0;
-	for (size_t n = 0; n < text.length(); ++n) {
-		bool special_symbol_found = set_char_pos(text[n], 0);
-		width = PXL_max(width, rect.x);
-		height = PXL_max(height, rect.y);
-		if (special_symbol_found) { continue; }
-		rect.x += rect.w + kerning;
-	}
-
-	height += font->get_max_char_height() * font_scale.y;
-	if (clamp_max_size) { width = PXL_min(width, max_width); height = PXL_min(height, max_height); }
-
-	switch (origin_point) {
-		case PXL_ORIGIN_TOP_LEFT:
-			origin.x = 0; origin.y = 0;
-			break;
-		case PXL_ORIGIN_TOP_CENTER:
-			origin.x = width / 2; origin.y = 0;
-			break;
-		case PXL_ORIGIN_TOP_RIGHT:
-			origin.x = width; origin.y = 0;
-			break;
-		case PXL_ORIGIN_MID_LEFT:
-			origin.x = 0; origin.y = height / 2;
-			break;
-		case PXL_ORIGIN_CENTER:
-			origin.x = width / 2; origin.y = height / 2;
-			break;
-		case PXL_ORIGIN_MID_RIGHT:
-			origin.x = width; origin.y = height / 2;
-			break;
-		case PXL_ORIGIN_BOT_LEFT:
-			origin.x = 0; origin.y = height;
-			break;
-		case PXL_ORIGIN_BOT_CENTER:
-			origin.x = width / 2; origin.y = height;
-			break;
-		case PXL_ORIGIN_BOT_RIGHT:
-			origin.x = width; origin.y = height;
-			break;
-	}
 }
 
 void PXL_Text::render(PXL_Batch* batch) {

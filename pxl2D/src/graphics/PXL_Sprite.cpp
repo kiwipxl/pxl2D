@@ -1,19 +1,13 @@
 #include "graphics/PXL_Sprite.h"
 #include <iostream>
 
-PXL_Sprite::PXL_Sprite() {
-	init();
-}
-
-PXL_Sprite::PXL_Sprite(const PXL_Texture& source) {
-	set_texture(source);
-	init();
-}
-
-void PXL_Sprite::init() {
+PXL_Sprite::PXL_Sprite() : rotation_origin(this), scale_origin(this) {
 	scale.x = scale.y = 1;
-	rotation_origin = PXL_Origin(this);
-	scale_origin = PXL_Origin(this);
+}
+
+PXL_Sprite::PXL_Sprite(const PXL_Texture& source) : rotation_origin(this), scale_origin(this) {
+	set_texture(source);
+	scale.x = scale.y = 1;
 }
 
 void PXL_Sprite::set_texture(const PXL_Texture& source) {
