@@ -67,19 +67,19 @@ void PXL_Batch::use_shader(PXL_ShaderProgram* shader) {
 }
 
 void PXL_Batch::use_blend_mode(PXL_BlendMode blend_mode) {
-    if (current_blend_mode != blend_mode) {
+    //if (current_blend_mode != blend_mode) {
         current_blend_mode = blend_mode;
         if (current_blend_mode == PXL_BLEND) {
 			glEnable(GL_BLEND);
             glDepthMask(GL_FALSE);
             glDepthFunc(GL_LESS);
-            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         }else if (current_blend_mode == PXL_NO_BLEND) {
-            glEnable(GL_BLEND);
+			glDisable(GL_BLEND);
             glDepthMask(GL_TRUE);
             glDepthFunc(GL_LESS);
         }
-    }
+    //}
 }
 
 void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_rect, float rotation, PXL_Vec2* origin,
@@ -374,11 +374,11 @@ void PXL_Batch::draw_vbo() {
 	vertex_index = 0;
 
     GLuint prev_id = v->texture_id;
-    //glBindTexture(GL_TEXTURE_2D, prev_id);
+    glBindTexture(GL_TEXTURE_2D, prev_id);
     PXL_BlendMode prev_blend_mode = v->blend_mode;
-    //use_blend_mode(prev_blend_mode);
+    use_blend_mode(prev_blend_mode);
     PXL_ShaderProgram* prev_shader = v->shader;
-    //use_shader(prev_shader);
+    use_shader(prev_shader);
 
     for (int n = 0; n <= num_added; ++n) {
         if (n >= num_added) changed = true;

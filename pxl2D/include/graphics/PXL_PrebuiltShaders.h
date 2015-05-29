@@ -53,7 +53,7 @@ const char* PXL_default_shader_str = GLSL(
     flat in float z_depth;
 
 	void main() {
-        gl_FragColor = v_colour * texture2D(t0, tex_coord);
+		gl_FragColor = v_colour * texture2D(t0, tex_coord);
         gl_FragDepth = z_depth;
 	}
 
