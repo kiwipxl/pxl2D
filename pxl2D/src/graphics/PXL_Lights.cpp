@@ -73,7 +73,7 @@ const void PXL_render_point_lights(PXL_Batch* batch, int z_depth) {
 	rect.x = 0; rect.y = 0; rect.w = 1024; rect.h = 768;
 	PXL_Rect src_rect;
 	src_rect.x = 0; src_rect.y = 0; src_rect.w = 1024; src_rect.h = 768;
-	batch->add(*screen_texture, &rect, &src_rect, 0, 0, PXL_FLIP_NONE, z_depth, PXL_COLOUR_WHITE, PXL_point_light_shader);
+	batch->add(*screen_texture, &rect, &src_rect, NULL, NULL, NULL, PXL_FLIP_NONE, z_depth, PXL_COLOUR_WHITE, PXL_point_light_shader);
 }
 
 const void PXL_remove_point_light(PXL_PointLight* light, bool delete_pointer) {

@@ -77,7 +77,8 @@ void PXL_TextureSheet::clear() {
 	texture_list.clear();
 }
 
-void PXL_TextureSheet::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, float rotation, PXL_Vec2* origin,
+void PXL_TextureSheet::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_rect, 
+						   float rotation, PXL_Vec2* rotation_origin, PXL_Vec2* scale_origin,
 						   PXL_Flip flip, int z_depth, PXL_Colour colour,
 						   PXL_ShaderProgram* shader, PXL_BlendMode blend_mode) {
 	if (!batch->is_created()) {
@@ -85,7 +86,7 @@ void PXL_TextureSheet::add(PXL_Texture* texture, PXL_Rect* rect, PXL_Rect* src_r
 		return;
 	}
 
-	batch->add(*texture, rect, src_rect, rotation, origin, flip, z_depth, colour, shader, blend_mode);
+	batch->add(*texture, rect, src_rect, rotation, rotation_origin, scale_origin, flip, z_depth, colour, shader, blend_mode);
 	int w = rect->x + rect->w;
 	int h = rect->y + rect->h;
 	if (w > width) { width = w; }

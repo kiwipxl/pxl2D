@@ -123,9 +123,10 @@ public:
 	@param flip defines the flip transformation for the texture
 	@param shader The shader to use when rendering this texture. Use NULL to use the default shader
 	**/
-	void add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_rect = NULL, float rotation = 0, PXL_Vec2* origin = NULL,
-		PXL_Flip flip = PXL_FLIP_NONE, int z_depth = 0, PXL_Colour colour = PXL_COLOUR_WHITE,
-		PXL_ShaderProgram* shader = NULL, PXL_BlendMode blend_mode = PXL_BLEND);
+	void add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_rect = NULL, 
+		float rotation = 0, PXL_Vec2* rotation_origin = NULL, PXL_Vec2* scale_origin = NULL, 
+		PXL_Flip flip = PXL_FLIP_NONE, int z_depth = 0,
+		PXL_Colour colour = PXL_COLOUR_WHITE, PXL_ShaderProgram* shader = NULL, PXL_BlendMode blend_mode = PXL_BLEND);
 
 	/** Deletes everything made in this batch
 	**/

@@ -82,7 +82,8 @@ void PXL_Batch::use_blend_mode(PXL_BlendMode blend_mode) {
     //}
 }
 
-void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_rect, float rotation, PXL_Vec2* origin,
+void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_rect, 
+	float rotation, PXL_Vec2* rotation_origin, PXL_Vec2* scale_origin,
     PXL_Flip flip, int z_depth, PXL_Colour colour, PXL_ShaderProgram* shader, PXL_BlendMode blend_mode) {
     if (verify_texture_add(texture, rect)) {
         if (total_vertices >= vertices.size()) {
@@ -136,9 +137,12 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
         ==================================================================================
         **/
         //set vertex pos, uvs and colours
-        //set origin
-        float origin_x = 0; float origin_y = 0;
-        if (origin != NULL) { origin_x = origin->x; origin_y = origin->y; }
+        //set rotation origin
+		PXL_Vec2 r_origin;
+		if (rotation_origin != NULL) { r_origin.x = rotation_origin->x; r_origin.y = rotation_origin->y; }
+		//set scale origin
+		PXL_Vec2 s_origin;
+		if (scale_origin != NULL) { s_origin.x = scale_origin->x; s_origin.y = scale_origin->y; }
 
         //get positions from rect
         int x = rect->x; int y = rect->y;
@@ -147,12 +151,14 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
         float scale_x = rect->w / texture.get_width(); float scale_y = rect->h / texture.get_height();
         if (flip == PXL_FLIP_HORIZONTAL) {
             scale_x = -scale_x;
-            x += rect->w;
-            origin_x -= rect->w;
+			x += rect->w;
+			s_origin.x -= rect->w;
+			r_origin.x -= rect->w;
         }else if (flip == PXL_FLIP_VERTICAL) {
             scale_y = -scale_y;
-            y += rect->h;
-            origin_y -= rect->h;
+			y += rect->h;
+			s_origin.x -= rect->h;
+			r_origin.x -= rect->h;
         }
         int scaled_width = texture.get_width() * scale_x;
         int scaled_height = texture.get_height() * scale_y;
@@ -163,21 +169,21 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
             rotation = rotation / PXL_radian;
             float c = PXL_fast_cos(rotation); float s = PXL_fast_sin(rotation);
 
-            x += origin_x; y += origin_y;
-            scaled_width -= origin_x; scaled_height -= origin_y;
+			x += r_origin.x; y += r_origin.y;
+			scaled_width -= r_origin.x; scaled_height -= r_origin.y;
 
             //set vertex position including scale and rotation
-            v[0].pos.x = x + ((c * -origin_x) - (s * -origin_y));
-            v[0].pos.y = y + ((s * -origin_x) + (c * -origin_y));
+            v[0].pos.x = x + ((c * -r_origin.x) - (s * -r_origin.y));
+            v[0].pos.y = y + ((s * -r_origin.x) + (c * -r_origin.y));
 
-            v[1].pos.x = x + ((c * scaled_width) - (s * -origin_y));
-            v[1].pos.y = y + ((s * scaled_width) + (c * -origin_y));
+            v[1].pos.x = x + ((c * scaled_width) - (s * -r_origin.y));
+            v[1].pos.y = y + ((s * scaled_width) + (c * -r_origin.y));
 
             v[2].pos.x = x + ((c * scaled_width) - (s * scaled_height));
             v[2].pos.y = y + ((s * scaled_width) + (c * scaled_height));
 
-            v[3].pos.x = x + ((c * -origin_x) - (s * scaled_height));
-            v[3].pos.y = y + ((s * -origin_x) + (c * scaled_height));
+            v[3].pos.x = x + ((c * -r_origin.x) - (s * scaled_height));
+            v[3].pos.y = y + ((s * -r_origin.x) + (c * scaled_height));
         }else {
             //set vertex position including scale
             v[0].pos.x = x;											v[0].pos.y = y;

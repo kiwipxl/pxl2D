@@ -68,7 +68,7 @@ void PXL_Sprite::render(PXL_Batch* batch) {
 	if (origin.y != 0) rect.y += ((texture_source->get_height() - height) / (texture_source->get_height() / origin.y));
 	
 	rect.w = width; rect.h = height;
-	batch->add(*texture_source, &rect, &src_rect, rotation, &origin, PXL_FLIP_NONE, 
+	batch->add(*texture_source, &rect, &src_rect, rotation, &origin, NULL, PXL_FLIP_NONE, 
 			   z_depth, colour);
 }
 
