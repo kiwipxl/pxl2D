@@ -29,17 +29,14 @@ class PXL_Text : public PXL_Sprite {
 		bool clamp_max_size = true;
 
 		void scale(float scale_x, float scale_y) {
-			text_scale.x += scale_x; text_scale.y += scale_y; set_origin(origin_type); set_font_scale();
+			text_scale.x += scale_x; text_scale.y += scale_y; scale_origin.set(scale_origin.get_type()); set_font_scale();
 		}
 		void set_scale(float scale_x, float scale_y) {
-			text_scale.x = scale_x; text_scale.y = scale_y; set_origin(origin_type); set_font_scale();
+			text_scale.x = scale_x; text_scale.y = scale_y; scale_origin.set(scale_origin.get_type()); set_font_scale();
 		}
 		PXL_Vec2 get_scale() {
 			return text_scale;
 		}
-
-		void set_origin(float x = 0, float y = 0);
-		void set_origin(const PXL_Origin origin_point = PXL_ORIGIN_TOP_LEFT);
 
 		void set_text(std::string new_text = "") { text = new_text; set_origin(origin_type); }
 		std::string get_text() { return text; }
