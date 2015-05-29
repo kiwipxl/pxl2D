@@ -161,7 +161,11 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
 			r_origin.x -= rect->h;
         }
         int scaled_width = texture.get_width() * scale_x;
-        int scaled_height = texture.get_height() * scale_y;
+		int scaled_height = texture.get_height() * scale_y;
+
+		//apply scale origin offset
+		if (s_origin.x != 0) x += ((texture.get_width() - rect->w) / (texture.get_width() / s_origin.x));
+		if (s_origin.y != 0) y += ((texture.get_height() - rect->h) / (texture.get_height() / s_origin.y));
 
         //apply rotation
         if (rotation != 0) {
@@ -189,7 +193,7 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
             v[0].pos.x = x;											v[0].pos.y = y;
             v[1].pos.x = x + scaled_width;							v[1].pos.y = y;
             v[2].pos.x = x + scaled_width;							v[2].pos.y = y + scaled_height;
-            v[3].pos.x = x;											v[3].pos.y = y + scaled_height;
+			v[3].pos.x = x;											v[3].pos.y = y + scaled_height;
         }
 		v[0].order = total_vertices + 3;
 		v[1].order = total_vertices + 2;

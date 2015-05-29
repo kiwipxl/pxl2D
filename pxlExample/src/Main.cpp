@@ -119,12 +119,12 @@ int main(int argc, char* args[]) {
 	PXL_Font square("assets/square.ttf");
 	PXL_Font arcade("assets/arcade.ttf");
 	PXL_Text p1score_text(&arcade, "0", window.get_width() - 40, window_center.y - 100, 42);
-	p1score_text.rotation_origin.set(PXL_ORIGIN_MID_LEFT);
+	p1score_text.rotation_origin.update(PXL_ORIGIN_MID_LEFT);
 	p1score_text.rotation = 90;
 	p1score_text.z_depth = 2;
 
 	PXL_Text p2score_text(&arcade, "0", window.get_width() - 40, window_center.y + 32, 42);
-	p2score_text.rotation_origin.set(PXL_ORIGIN_MID_LEFT);
+	p2score_text.rotation_origin.update(PXL_ORIGIN_MID_LEFT);
 	p2score_text.rotation = 90;
     p2score_text.z_depth = 2;
 

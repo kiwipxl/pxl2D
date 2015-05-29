@@ -108,7 +108,7 @@ class PXL_Text : public PXL_Sprite {
 			if (clamp_max_size) { width = PXL_min(width, max_width); height = PXL_min(height, max_height); }
 
 			//set scale origin based on the current scale origin type
-			scale_origin.set(scale_origin.get_type());
+			scale_origin.update(scale_origin.get_type());
 		}
 };
 

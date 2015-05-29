@@ -1,9 +1,75 @@
-﻿Build started 30/05/2015 12:06:07 AM.
+﻿Build started 30/05/2015 12:27:05 AM.
      1>Project "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\pxl2D.vcxproj" on node 2 (Build target(s)).
-     1>Lib:
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\\" /Fd"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt src\PXL.cpp src\PXL_Graphics.cpp src\graphics\PXL_Text.cpp
+         PXL_Text.cpp
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(56): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(57): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_text.cpp(8): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_text.cpp(9): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_text.cpp(23): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_text.cpp(34): warning C4244: '=' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\src\graphics\pxl_text.cpp(40): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+         PXL_Graphics.cpp
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(56): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(57): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
+         PXL.cpp
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(56): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
+     1>c:\users\flynnuser\desktop\development\c++ projects\pxl2d\pxl2d\include\graphics\pxl_sprite.h(57): warning C4244: 'return' : conversion from 'int' to 'float', possible loss of data
+         Generating Code...
+       Lib:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\lib\pxl2D.lib" libpng.lib zlib.lib freetype.lib winmm.lib dbghelp.lib /NOLOGO "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Colour.obj"
+         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_GraphicsAPI.obj"
+         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Origin.obj"
+         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Sprite.obj"
+         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Joystick.obj"
+         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Keyboard.obj"
+         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Collision.obj"
+         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL.obj"
+         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Batch.obj"
+         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Bitmap.obj"
+         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Font.obj"
+         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_FontUtils.obj"
+         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_FrameBuffer.obj"
+         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Lights.obj"
+         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Matrix4.obj"
+         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Text.obj"
+         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Texture.obj"
+         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_ShaderUtils.obj"
+         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_ShaderProgram.obj"
+         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_TextureSheet.obj"
+         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Graphics.obj"
+         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Input.obj"
+         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Physics.obj"
+         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_System.obj"
+         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_AndroidWindow.obj"
+         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_LinuxWindow.obj"
+         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Debug.obj"
+         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Event.obj"
+         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Exception.obj"
+         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_ImageIO.obj"
+         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_IO.obj"
+         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Math.obj"
+         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Timer.obj"
+         "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\bin\PXL_Win32Window.obj"
+     1>zlib.lib(zlib1.dll) : warning LNK4006: _DllGetVersion already defined in libpng.lib(libpng12.dll); second definition ignored
+     1>zlib.lib(zlib1.dll) : warning LNK4006: __imp__DllGetVersion already defined in libpng.lib(libpng12.dll); second definition ignored
+     1>zlib.lib(zlib1.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
+     1>zlib.lib(zlib1.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in libpng.lib(libpng12.dll); second definition ignored
+     1>zlib.lib(zlib1.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
+     1>freetype.lib(freetype6.dll) : warning LNK4006: _DllGetVersion already defined in libpng.lib(libpng12.dll); second definition ignored
+     1>freetype.lib(freetype6.dll) : warning LNK4006: __imp__DllGetVersion already defined in libpng.lib(libpng12.dll); second definition ignored
+     1>freetype.lib(freetype6.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
+     1>freetype.lib(freetype6.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in libpng.lib(libpng12.dll); second definition ignored
+     1>freetype.lib(freetype6.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
+     1>winmm.lib(WINMM.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in libpng.lib(libpng12.dll); second definition ignored
+     1>winmm.lib(WINMM.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
+     1>dbghelp.lib(dbghelp.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in libpng.lib(libpng12.dll); second definition ignored
+     1>dbghelp.lib(dbghelp.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
+     1>PXL_Event.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
          pxl2D.vcxproj -> C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\lib\pxl2D.lib
      1>Done Building Project "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxl2D\pxl2D.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.14
+Time Elapsed 00:00:06.53
