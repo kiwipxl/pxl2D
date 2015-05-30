@@ -139,10 +139,10 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
         //set vertex pos, uvs and colours
         //set rotation origin
 		PXL_Vec2 r_origin;
-		if (rotation_origin != NULL) { r_origin.x = rotation_origin->x; r_origin.y = rotation_origin->y; }
+		if (rotation_origin != NULL) r_origin = *rotation_origin;
 		//set scale origin
 		PXL_Vec2 s_origin;
-		if (scale_origin != NULL) { s_origin.x = scale_origin->x; s_origin.y = scale_origin->y; }
+		if (scale_origin != NULL) s_origin = *scale_origin;
 
 		//copy rect contents into temp rect
 		PXL_Rect r = *rect;
@@ -158,7 +158,7 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
             float c = PXL_fast_cos(rotation); float s = PXL_fast_sin(rotation);
 
 			r.x += r_origin.x; r.y += r_origin.y;
-			r.w -= r_origin.x; r.x -= r_origin.y;
+			r.w -= r_origin.x; r.h -= r_origin.y;
 
             //set vertex position including scale and rotation
             v[0].pos.x = r.x + ((c * -r_origin.x) - (s * -r_origin.y));
