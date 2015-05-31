@@ -23,8 +23,8 @@ void PXL_Sprite::set_texture(const PXL_Texture& source) {
 
 void PXL_Sprite::render(PXL_Batch* batch) {
 	if (scale_origin.get_type() != PXL_ORIGIN_CUSTOM_GLOBAL) {
-		scale_origin.offset(x, y);
-		rotation_origin.offset(x, y);
+		scale_origin.x = scale_origin.get_relative_point().x + x;
+		scale_origin.y = scale_origin.get_relative_point().y + y;
 	}
     //todo: check if texture is null before rendering, otherwise will crash
 	rect.x = x;
