@@ -26,7 +26,11 @@ void PXL_Sprite::render(PXL_Batch* batch) {
 		scale_origin.x = scale_origin.get_relative_point().x + x;
 		scale_origin.y = scale_origin.get_relative_point().y + y;
 	}
-    //todo: check if texture is null before rendering, otherwise will crash
+	if (rotation_origin.get_type() != PXL_ORIGIN_CUSTOM_GLOBAL) {
+		rotation_origin.x = rotation_origin.get_relative_point().x + x;
+		rotation_origin.y = rotation_origin.get_relative_point().y + y;
+	}
+	//todo: check if texture is null before rendering, otherwise will crash
 	rect.x = x;
 	rect.y = y;
 	rect.w = width; rect.h = height;

@@ -160,8 +160,9 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
         if (rotation != 0) {
             //set rotation to degrees rather than radians
             rotation = rotation / PXL_radian;
-            float c = PXL_fast_cos(rotation); float s = PXL_fast_sin(rotation);
+			float c = PXL_fast_cos(rotation); float s = PXL_fast_sin(rotation);
 
+			r_origin.x -= r.x; r_origin.y -= r.y;
 			r.x += r_origin.x; r.y += r_origin.y;
 			r.w -= r_origin.x; r.h -= r_origin.y;
 
