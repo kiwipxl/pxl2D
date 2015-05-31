@@ -137,19 +137,24 @@ void PXL_Batch::add(const PXL_Texture& texture, PXL_Rect* rect, PXL_Rect* src_re
         ==================================================================================
         **/
         //set vertex pos, uvs and colours
+		//copy rect contents into temp rect
+		PXL_Rect r = *rect;
+
         //set rotation origin
 		PXL_Vec2 r_origin;
 		if (rotation_origin != NULL) r_origin = *rotation_origin;
 		//set scale origin
 		PXL_Vec2 s_origin;
-		if (scale_origin != NULL) s_origin = *scale_origin;
-
-		//copy rect contents into temp rect
-		PXL_Rect r = *rect;
-
-		//apply scale origin offset
-		if (s_origin.x != 0) r.x += ((texture.get_width() - rect->w) / (texture.get_width() / s_origin.x));
-		if (s_origin.y != 0) r.y += ((texture.get_height() - rect->h) / (texture.get_height() / s_origin.y));
+		if (scale_origin != NULL) {
+			s_origin = *scale_origin;
+			//apply scale origin offset
+			s_origin.x -= rect->x;
+			s_origin.y -= rect->y;
+			if (s_origin.x != 0 && s_origin.y != 0) {
+				r.x += ((texture.get_width() - rect->w) / (texture.get_width() / s_origin.x));
+				r.y += ((texture.get_height() - rect->h) / (texture.get_height() / s_origin.y));
+			}
+		}
 
         //apply rotation
         if (rotation != 0) {

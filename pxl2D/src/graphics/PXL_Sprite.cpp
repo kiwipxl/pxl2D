@@ -22,12 +22,15 @@ void PXL_Sprite::set_texture(const PXL_Texture& source) {
 }
 
 void PXL_Sprite::render(PXL_Batch* batch) {
+	if (scale_origin.get_type() != PXL_ORIGIN_CUSTOM_GLOBAL) {
+		scale_origin.offset(x, y);
+		rotation_origin.offset(x, y);
+	}
     //todo: check if texture is null before rendering, otherwise will crash
 	rect.x = x;
 	rect.y = y;
 	rect.w = width; rect.h = height;
-
-	batch->add(*texture_source, &rect, &src_rect, rotation, &rotation_origin.get_vec(), &scale_origin.get_vec(), z_depth, colour);
+	batch->add(*texture_source, &rect, &src_rect, rotation, &rotation_origin, &scale_origin, z_depth, colour);
 }
 
 PXL_Sprite PXL_Sprite::clone() {
