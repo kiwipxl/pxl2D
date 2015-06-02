@@ -46,6 +46,7 @@ class PXL_Sprite {
 		**/
 		virtual void free();
 
+		const PXL_Texture* get_texture() { return texture_source; }
 		void set_texture(const PXL_Texture& source);
 
 	protected:

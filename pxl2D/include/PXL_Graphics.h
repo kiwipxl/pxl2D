@@ -10,6 +10,7 @@
 #include "graphics/PXL_FrameBuffer.h"
 #include "graphics/PXL_Colour.h"
 #include "graphics/PXL_Sprite.h"
+#include "graphics/PXL_SpriteContainer.h"
 
 /** Initialises PXL graphics
 **/

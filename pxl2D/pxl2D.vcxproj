@@ -46,6 +46,7 @@
     <ClCompile Include="src\graphics\PXL_GraphicsAPI.cpp" />
     <ClCompile Include="src\graphics\PXL_Origin.cpp" />
     <ClCompile Include="src\graphics\PXL_Sprite.cpp" />
+    <ClCompile Include="src\graphics\PXL_SpriteContainer.cpp" />
     <ClCompile Include="src\input\PXL_Joystick.cpp" />
     <ClCompile Include="src\input\PXL_Keyboard.cpp" />
     <ClCompile Include="src\physics\PXL_Collision.cpp" />
@@ -84,6 +85,7 @@
     <ClInclude Include="include\graphics\PXL_PrebuiltShaders.h" />
     <ClInclude Include="include\graphics\PXL_ShaderProgram - Copy.h" />
     <ClInclude Include="include\graphics\PXL_Sprite.h" />
+    <ClInclude Include="include\graphics\PXL_SpriteContainer.h" />
     <ClInclude Include="include\input\PXL_Joystick.h" />
     <ClInclude Include="include\input\PXL_Keyboard.h" />
     <ClInclude Include="include\physics\PXL_Collision.h" />

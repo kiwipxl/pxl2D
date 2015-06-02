@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pxl2D", "pxl2D\pxl2D.vcxproj", "{7F4BAC6B-9372-4E84-8723-216A860B7548}"
 EndProject
@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "pxlExample", "pxlExample\px
 	ProjectSection(ProjectDependencies) = postProject
 		{7F4BAC6B-9372-4E84-8723-216A860B7548} = {7F4BAC6B-9372-4E84-8723-216A860B7548}
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mining-game", "..\mining-game\mining-game.vcxproj", "{A724105F-B279-4CE2-984A-6FC7B3ED2D27}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,6 +32,12 @@ Global
 		{9E9A4CA8-CB50-4ED6-80BC-CC56A5453D71}.Release|Tegra-Android.ActiveCfg = Release|Win32
 		{9E9A4CA8-CB50-4ED6-80BC-CC56A5453D71}.Release|Win32.ActiveCfg = Release|Win32
 		{9E9A4CA8-CB50-4ED6-80BC-CC56A5453D71}.Release|Win32.Build.0 = Release|Win32
+		{A724105F-B279-4CE2-984A-6FC7B3ED2D27}.Debug|Tegra-Android.ActiveCfg = Debug|Win32
+		{A724105F-B279-4CE2-984A-6FC7B3ED2D27}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A724105F-B279-4CE2-984A-6FC7B3ED2D27}.Debug|Win32.Build.0 = Debug|Win32
+		{A724105F-B279-4CE2-984A-6FC7B3ED2D27}.Release|Tegra-Android.ActiveCfg = Release|Win32
+		{A724105F-B279-4CE2-984A-6FC7B3ED2D27}.Release|Win32.ActiveCfg = Release|Win32
+		{A724105F-B279-4CE2-984A-6FC7B3ED2D27}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
