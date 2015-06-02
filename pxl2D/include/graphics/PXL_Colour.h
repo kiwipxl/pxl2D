@@ -20,20 +20,68 @@ struct PXL_Colour {
 
 	PXL_Colour operator*(const PXL_Colour& op) {
 		PXL_Colour n;
-		n.r = r * op.r;
-		n.g = g * op.g;
-		n.b = b * op.g;
-		n.a = a * op.a;
+		n.r = r * op.r; n.g = g * op.g; n.b = b * op.g; n.a = a * op.a;
 		return PXL_Colour(n);
 	}
 
 	PXL_Colour operator*(const int op) {
 		PXL_Colour n;
-		n.r = r * op;
-		n.g = g * op;
-		n.b = b * op;
-		n.a = a * op;
+		n.r = r * op; n.g = g * op; n.b = b * op; n.a = a * op;
 		return PXL_Colour(n);
+	}
+
+	const PXL_Colour& operator*=(const PXL_Colour& op) {
+		r *= op.r; g *= op.g; b *= op.g; a *= op.a;
+		return *this;
+	}
+	
+	const PXL_Colour& operator*=(const int op) {
+		r *= op; g *= op; b *= op; a *= op;
+		return *this;
+	}
+
+	PXL_Colour operator+(const PXL_Colour& op) {
+		PXL_Colour n;
+		n.r = r + op.r; n.g = g + op.g; n.b = b + op.g; n.a = a + op.a;
+		return PXL_Colour(n);
+	}
+
+	PXL_Colour operator+(const int op) {
+		PXL_Colour n;
+		n.r = r + op; n.g = g + op; n.b = b + op; n.a = a + op;
+		return PXL_Colour(n);
+	}
+
+	const PXL_Colour& operator+=(const PXL_Colour& op) {
+		r += op.r; g += op.g; b += op.g; a += op.a;
+		return *this;
+	}
+
+	const PXL_Colour& operator+=(const int op) {
+		r += op; g += op; b += op; a += op;
+		return *this;
+	}
+
+	PXL_Colour operator-(const PXL_Colour& op) {
+		PXL_Colour n;
+		n.r = r - op.r; n.g = g - op.g; n.b = b - op.g; n.a = a - op.a;
+		return PXL_Colour(n);
+	}
+
+	PXL_Colour operator-(const int op) {
+		PXL_Colour n;
+		n.r = r - op; n.g = g - op; n.b = b - op; n.a = a - op;
+		return PXL_Colour(n);
+	}
+
+	const PXL_Colour& operator-=(const PXL_Colour& op) {
+		r -= op.r; g -= op.g; b -= op.g; a -= op.a;
+		return *this;
+	}
+
+	const PXL_Colour& operator-=(const int op) {
+		r -= op; g -= op; b -= op; a -= op;
+		return *this;
 	}
 };
 
