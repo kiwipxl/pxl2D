@@ -1,13 +1,156 @@
-﻿Build started 2/06/2015 3:06:58 PM.
-     1>Project "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxlExample\pxlExample.vcxproj" on node 2 (Build target(s)).
-     1>Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\bin\pxlExample.exe" /INCREMENTAL:NO /NOLOGO Vfw32.lib pxl2D.lib opengl32.lib glew32s.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\bin\pxlExample.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\bin\pxlExample.lib" /MACHINE:X86 "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxlExample\bin\Main.obj"
-     1>Main.obj : warning LNK4075: ignoring '/EDITANDCONTINUE' due to '/OPT:LBR' specification
-     1>LINK : warning LNK4098: defaultlib 'LIBCMT' conflicts with use of other libs; use /NODEFAULTLIB:library
-     1>glew32s.lib(glew.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'glew32s.lib(glew.obj)' or at 'C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\bin\vc120.pdb'; linking object as if no debug info
-         pxlExample.vcxproj -> C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\bin\pxlExample.exe
-     1>Done Building Project "C:\Users\FlynnUser\Desktop\Development\C++ Projects\pxl2D\pxlExample\pxlExample.vcxproj" (Build target(s)).
+﻿Build started 24-Jun-16 1:35:41 PM.
+     1>Project "D:\Development\C++\pxl2D\pxlExample\pxlExample.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D GLEW_STATIC /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"D:\Development\C++\pxl2D\pxlExample\bin\\" /Fd"D:\Development\C++\pxl2D\pxlExample\bin\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt src\Main.cpp
+         Main.cpp
+     1>d:\development\c++\pxl2d\pxl2d\include\graphics\graphicsapi.h(7): warning C4005: 'GLEW_STATIC': macro redefinition
+         d:\development\c++\pxl2d\pxl2d\include\graphics\graphicsapi.h(7): note: command-line arguments:  see previous definition of 'GLEW_STATIC'
+     1>d:\development\c++\pxl2d\pxl2d\include\system\exception.h(14): error C2061: syntax error: identifier 'ErrorCode'
+     1>d:\development\c++\pxl2d\pxl2d\include\system\exception.h(16): error C2061: syntax error: identifier 'ErrorCode'
+     1>d:\development\c++\pxl2d\pxl2d\include\system\windowimpl.h(21): error C3646: 'hwnd': unknown override specifier
+     1>d:\development\c++\pxl2d\pxl2d\include\system\windowimpl.h(21): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>d:\development\c++\pxl2d\pxl2d\include\system\win32\win32window.h(21): error C2504: 'WindowImpl': base class undefined
+     1>d:\development\c++\pxl2d\pxl2d\include\system\win32\win32window.h(32): error C2079: 'pxl::system::pxl::system::Win32Window::device_context_handle' uses undefined class 'pxl::system::HDC'
+     1>d:\development\c++\pxl2d\pxl2d\include\system\win32\win32window.h(33): error C2079: 'pxl::system::pxl::system::Win32Window::gl_render_context_handle' uses undefined class 'pxl::system::HGLRC'
+     1>d:\development\c++\pxl2d\pxl2d\include\system\win32\win32window.h(34): error C2079: 'pxl::system::pxl::system::Win32Window::instance_handle' uses undefined class 'pxl::system::HINSTANCE'
+     1>d:\development\c++\pxl2d\pxl2d\include\system\win32\win32window.h(35): error C2079: 'pxl::system::pxl::system::Win32Window::win_class' uses undefined class 'pxl::system::WNDCLASS'
+     1>d:\development\c++\pxl2d\pxl2d\include\system\win32\win32window.h(36): error C3646: 'win_handle': unknown override specifier
+     1>d:\development\c++\pxl2d\pxl2d\include\system\win32\win32window.h(36): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>d:\development\c++\pxl2d\pxl2d\include\system\win32\win32window.h(57): error C3646: 'msg': unknown override specifier
+     1>d:\development\c++\pxl2d\pxl2d\include\system\win32\win32window.h(57): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>d:\development\c++\pxl2d\pxl2d\include\system\window.h(11): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>d:\development\c++\pxl2d\pxl2d\include\system\window.h(11): error C2146: syntax error: missing ';' before identifier 'WinImplClass'
+     1>d:\development\c++\pxl2d\pxl2d\include\system\window.h(23): error C2516: 'pxl::system::WinImplClass': is not a legal base class
+         d:\development\c++\pxl2d\pxl2d\include\system\window.h(11): note: see declaration of 'pxl::system::WinImplClass'
+     1>d:\development\c++\pxl2d\pxl2d\include\system\window.h(34): error C3861: 'create_window': identifier not found
+     1>d:\development\c++\pxl2d\pxl2d\include\system\window.h(40): error C2660: 'free': function does not take 0 arguments
+     1>d:\development\c++\pxl2d\pxl2d\include\graphics\sprite.h(60): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+     1>d:\development\c++\pxl2d\pxl2d\include\graphics\sprite.h(61): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+     1>d:\development\c++\pxl2d\pxl2d\include\graphics\text.h(112): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>c:\program files (x86)\windows kits\8.1\include\shared\minwindef.h(242): error C2040: 'pxl::system::HINSTANCE': 'pxl::system::HINSTANCE__ *' differs in levels of indirection from 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\shared\windef.h(80): error C2040: 'pxl::system::HDC': 'pxl::system::HDC__ *' differs in levels of indirection from 'pxl::system::HDC'
+     1>c:\program files (x86)\windows kits\8.1\include\shared\windef.h(82): error C2040: 'pxl::system::HGLRC': 'pxl::system::HGLRC__ *' differs in levels of indirection from 'pxl::system::HGLRC'
+     1>c:\program files (x86)\windows kits\8.1\include\um\minwinbase.h(249): error C2079: 'pxl::system::_REASON_CONTEXT::<unnamed-tag>::LocalizedReasonModule' uses undefined class 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\libloaderapi.h(278): error C2526: 'GetModuleHandleA': C linkage function cannot return C++ class 'pxl::system::HINSTANCE'
+         d:\development\c++\pxl2d\pxl2d\include\system\win32\win32window.h(10): note: see declaration of 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\libloaderapi.h(287): error C2526: 'GetModuleHandleW': C linkage function cannot return C++ class 'pxl::system::HINSTANCE'
+         d:\development\c++\pxl2d\pxl2d\include\system\win32\win32window.h(10): note: see declaration of 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\libloaderapi.h(381): error C2526: 'LoadLibraryExA': C linkage function cannot return C++ class 'pxl::system::HINSTANCE'
+         d:\development\c++\pxl2d\pxl2d\include\system\win32\win32window.h(10): note: see declaration of 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\libloaderapi.h(391): error C2526: 'LoadLibraryExW': C linkage function cannot return C++ class 'pxl::system::HINSTANCE'
+         d:\development\c++\pxl2d\pxl2d\include\system\win32\win32window.h(10): note: see declaration of 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\winbase.h(3181): error C2526: 'LoadLibraryA': C linkage function cannot return C++ class 'pxl::system::HINSTANCE'
+         d:\development\c++\pxl2d\pxl2d\include\system\win32\win32window.h(10): note: see declaration of 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\winbase.h(3188): error C2526: 'LoadLibraryW': C linkage function cannot return C++ class 'pxl::system::HINSTANCE'
+         d:\development\c++\pxl2d\pxl2d\include\system\win32\win32window.h(10): note: see declaration of 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\winbase.h(3210): error C2526: 'LoadPackagedLibrary': C linkage function cannot return C++ class 'pxl::system::HINSTANCE'
+         d:\development\c++\pxl2d\pxl2d\include\system\win32\win32window.h(10): note: see declaration of 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\winbase.h(7691): error C2079: 'pxl::system::tagACTCTXA::hModule' uses undefined class 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\winbase.h(7702): error C2079: 'pxl::system::tagACTCTXW::hModule' uses undefined class 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\wingdi.h(3631): error C2526: 'CreateCompatibleDC': C linkage function cannot return C++ class 'pxl::system::HDC'
+         d:\development\c++\pxl2d\pxl2d\include\system\win32\win32window.h(8): note: see declaration of 'pxl::system::HDC'
+     1>c:\program files (x86)\windows kits\8.1\include\um\wingdi.h(3632): error C2526: 'CreateDCA': C linkage function cannot return C++ class 'pxl::system::HDC'
+         d:\development\c++\pxl2d\pxl2d\include\system\win32\win32window.h(8): note: see declaration of 'pxl::system::HDC'
+     1>c:\program files (x86)\windows kits\8.1\include\um\wingdi.h(3633): error C2526: 'CreateDCW': C linkage function cannot return C++ class 'pxl::system::HDC'
+         d:\development\c++\pxl2d\pxl2d\include\system\win32\win32window.h(8): note: see declaration of 'pxl::system::HDC'
+     1>c:\program files (x86)\windows kits\8.1\include\um\wingdi.h(3664): error C2526: 'CreateICA': C linkage function cannot return C++ class 'pxl::system::HDC'
+         d:\development\c++\pxl2d\pxl2d\include\system\win32\win32window.h(8): note: see declaration of 'pxl::system::HDC'
+     1>c:\program files (x86)\windows kits\8.1\include\um\wingdi.h(3665): error C2526: 'CreateICW': C linkage function cannot return C++ class 'pxl::system::HDC'
+         d:\development\c++\pxl2d\pxl2d\include\system\win32\win32window.h(8): note: see declaration of 'pxl::system::HDC'
+     1>c:\program files (x86)\windows kits\8.1\include\um\wingdi.h(3671): error C2526: 'CreateMetaFileA': C linkage function cannot return C++ class 'pxl::system::HDC'
+         d:\development\c++\pxl2d\pxl2d\include\system\win32\win32window.h(8): note: see declaration of 'pxl::system::HDC'
+     1>c:\program files (x86)\windows kits\8.1\include\um\wingdi.h(3672): error C2526: 'CreateMetaFileW': C linkage function cannot return C++ class 'pxl::system::HDC'
+         d:\development\c++\pxl2d\pxl2d\include\system\win32\win32window.h(8): note: see declaration of 'pxl::system::HDC'
+     1>c:\program files (x86)\windows kits\8.1\include\um\wingdi.h(4387): error C2526: 'ResetDCA': C linkage function cannot return C++ class 'pxl::system::HDC'
+         d:\development\c++\pxl2d\pxl2d\include\system\win32\win32window.h(8): note: see declaration of 'pxl::system::HDC'
+     1>c:\program files (x86)\windows kits\8.1\include\um\wingdi.h(4388): error C2526: 'ResetDCW': C linkage function cannot return C++ class 'pxl::system::HDC'
+         d:\development\c++\pxl2d\pxl2d\include\system\win32\win32window.h(8): note: see declaration of 'pxl::system::HDC'
+     1>c:\program files (x86)\windows kits\8.1\include\um\wingdi.h(4672): error C2526: 'CreateEnhMetaFileA': C linkage function cannot return C++ class 'pxl::system::HDC'
+         d:\development\c++\pxl2d\pxl2d\include\system\win32\win32window.h(8): note: see declaration of 'pxl::system::HDC'
+     1>c:\program files (x86)\windows kits\8.1\include\um\wingdi.h(4673): error C2526: 'CreateEnhMetaFileW': C linkage function cannot return C++ class 'pxl::system::HDC'
+         d:\development\c++\pxl2d\pxl2d\include\system\win32\win32window.h(8): note: see declaration of 'pxl::system::HDC'
+     1>c:\program files (x86)\windows kits\8.1\include\um\wingdi.h(6074): error C2526: 'wglCreateContext': C linkage function cannot return C++ class 'pxl::system::HGLRC'
+         d:\development\c++\pxl2d\pxl2d\include\system\win32\win32window.h(9): note: see declaration of 'pxl::system::HGLRC'
+     1>c:\program files (x86)\windows kits\8.1\include\um\wingdi.h(6075): error C2526: 'wglCreateLayerContext': C linkage function cannot return C++ class 'pxl::system::HGLRC'
+         d:\development\c++\pxl2d\pxl2d\include\system\win32\win32window.h(9): note: see declaration of 'pxl::system::HGLRC'
+     1>c:\program files (x86)\windows kits\8.1\include\um\wingdi.h(6077): error C2526: 'wglGetCurrentContext': C linkage function cannot return C++ class 'pxl::system::HGLRC'
+         d:\development\c++\pxl2d\pxl2d\include\system\win32\win32window.h(9): note: see declaration of 'pxl::system::HGLRC'
+     1>c:\program files (x86)\windows kits\8.1\include\um\wingdi.h(6078): error C2526: 'wglGetCurrentDC': C linkage function cannot return C++ class 'pxl::system::HDC'
+         d:\development\c++\pxl2d\pxl2d\include\system\win32\win32window.h(8): note: see declaration of 'pxl::system::HDC'
+     1>c:\program files (x86)\windows kits\8.1\include\um\wingdi.h(6205): error C2079: 'pxl::system::_WGLSWAP::hdc' uses undefined class 'pxl::system::HDC'
+     1>c:\program files (x86)\windows kits\8.1\include\um\winuser.h(1680): error C2079: 'pxl::system::tagWNDCLASSEXA::hInstance' uses undefined class 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\winuser.h(1696): error C2079: 'pxl::system::tagWNDCLASSEXW::hInstance' uses undefined class 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\winuser.h(1723): error C2079: 'pxl::system::tagWNDCLASSA::hInstance' uses undefined class 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\winuser.h(1735): error C2079: 'pxl::system::tagWNDCLASSW::hInstance' uses undefined class 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\winuser.h(1748): error C2371: 'pxl::system::WNDCLASS': redefinition; different basic types
+         d:\development\c++\pxl2d\pxl2d\include\system\win32\win32window.h(11): note: see declaration of 'pxl::system::WNDCLASS'
+     1>c:\program files (x86)\windows kits\8.1\include\um\winuser.h(3074): error C2079: 'pxl::system::tagPAINTSTRUCT::hdc' uses undefined class 'pxl::system::HDC'
+     1>c:\program files (x86)\windows kits\8.1\include\um\winuser.h(3084): error C2079: 'pxl::system::tagCREATESTRUCTA::hInstance' uses undefined class 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\winuser.h(3098): error C2079: 'pxl::system::tagCREATESTRUCTW::hInstance' uses undefined class 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\winuser.h(3235): error C2079: 'pxl::system::tagDRAWITEMSTRUCT::hDC' uses undefined class 'pxl::system::HDC'
+     1>c:\program files (x86)\windows kits\8.1\include\um\winuser.h(4365): error C2079: 'pxl::system::tagUPDATELAYEREDWINDOWINFO::hdcDst' uses undefined class 'pxl::system::HDC'
+     1>c:\program files (x86)\windows kits\8.1\include\um\winuser.h(4368): error C2079: 'pxl::system::tagUPDATELAYEREDWINDOWINFO::hdcSrc' uses undefined class 'pxl::system::HDC'
+     1>c:\program files (x86)\windows kits\8.1\include\um\winuser.h(8066): error C2526: 'GetDC': C linkage function cannot return C++ class 'pxl::system::HDC'
+         d:\development\c++\pxl2d\pxl2d\include\system\win32\win32window.h(8): note: see declaration of 'pxl::system::HDC'
+     1>c:\program files (x86)\windows kits\8.1\include\um\winuser.h(8074): error C2526: 'GetDCEx': C linkage function cannot return C++ class 'pxl::system::HDC'
+         d:\development\c++\pxl2d\pxl2d\include\system\win32\win32window.h(8): note: see declaration of 'pxl::system::HDC'
+     1>c:\program files (x86)\windows kits\8.1\include\um\winuser.h(8103): error C2526: 'GetWindowDC': C linkage function cannot return C++ class 'pxl::system::HDC'
+         d:\development\c++\pxl2d\pxl2d\include\system\win32\win32window.h(8): note: see declaration of 'pxl::system::HDC'
+     1>c:\program files (x86)\windows kits\8.1\include\um\winuser.h(8117): error C2526: 'BeginPaint': C linkage function cannot return C++ class 'pxl::system::HDC'
+         d:\development\c++\pxl2d\pxl2d\include\system\win32\win32window.h(8): note: see declaration of 'pxl::system::HDC'
+     1>c:\program files (x86)\windows kits\8.1\include\um\winuser.h(8764): error C2079: 'pxl::system::tagMSGBOXPARAMSA::hInstance' uses undefined class 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\winuser.h(8777): error C2079: 'pxl::system::tagMSGBOXPARAMSW::hInstance' uses undefined class 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\mciapi.h(1203): error C2079: 'pxl::system::tagMCI_ANIM_UPDATE_PARMS::hDC' uses undefined class 'pxl::system::HDC'
+     1>c:\program files (x86)\windows kits\8.1\include\um\mmiscapi.h(152): error C2526: 'DrvGetModuleHandle': C linkage function cannot return C++ class 'pxl::system::HINSTANCE'
+         d:\development\c++\pxl2d\pxl2d\include\system\win32\win32window.h(10): note: see declaration of 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\mmiscapi.h(159): error C2526: 'GetDriverModuleHandle': C linkage function cannot return C++ class 'pxl::system::HINSTANCE'
+         d:\development\c++\pxl2d\pxl2d\include\system\win32\win32window.h(10): note: see declaration of 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\shellapi.h(78): error C2526: 'ShellExecuteA': C linkage function cannot return C++ class 'pxl::system::HINSTANCE'
+         d:\development\c++\pxl2d\pxl2d\include\system\win32\win32window.h(10): note: see declaration of 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\shellapi.h(80): error C2526: 'ShellExecuteW': C linkage function cannot return C++ class 'pxl::system::HINSTANCE'
+         d:\development\c++\pxl2d\pxl2d\include\system\win32\win32window.h(10): note: see declaration of 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\shellapi.h(87): error C2526: 'FindExecutableA': C linkage function cannot return C++ class 'pxl::system::HINSTANCE'
+         d:\development\c++\pxl2d\pxl2d\include\system\win32\win32window.h(10): note: see declaration of 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\shellapi.h(89): error C2526: 'FindExecutableW': C linkage function cannot return C++ class 'pxl::system::HINSTANCE'
+         d:\development\c++\pxl2d\pxl2d\include\system\win32\win32window.h(10): note: see declaration of 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\shellapi.h(445): error C2079: 'pxl::system::_SHELLEXECUTEINFOA::hInstApp' uses undefined class 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\shellapi.h(469): error C2079: 'pxl::system::_SHELLEXECUTEINFOW::hInstApp' uses undefined class 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\prsht.h(196): error C2079: 'pxl::system::_PROPSHEETPAGEA_V1::hInstance' uses undefined class 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\prsht.h(202): error C2079: 'pxl::system::_PROPSHEETPAGEA_V2::hInstance' uses undefined class 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\prsht.h(211): error C2079: 'pxl::system::_PROPSHEETPAGEA_V3::hInstance' uses undefined class 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\prsht.h(223): error C2079: 'pxl::system::_PROPSHEETPAGEA::hInstance' uses undefined class 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\prsht.h(242): error C2079: 'pxl::system::_PROPSHEETPAGEW_V1::hInstance' uses undefined class 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\prsht.h(248): error C2079: 'pxl::system::_PROPSHEETPAGEW_V2::hInstance' uses undefined class 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\prsht.h(257): error C2079: 'pxl::system::_PROPSHEETPAGEW_V3::hInstance' uses undefined class 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\prsht.h(269): error C2079: 'pxl::system::_PROPSHEETPAGEW::hInstance' uses undefined class 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\prsht.h(471): error C2079: 'pxl::system::_PROPSHEETHEADERA_V1::hInstance' uses undefined class 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\prsht.h(477): error C2079: 'pxl::system::_PROPSHEETHEADERA_V2::hInstance' uses undefined class 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\prsht.h(518): error C2079: 'pxl::system::_PROPSHEETHEADERW_V1::hInstance' uses undefined class 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\prsht.h(524): error C2079: 'pxl::system::_PROPSHEETHEADERW_V2::hInstance' uses undefined class 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\objbase.h(155): error C2526: 'CoLoadLibrary': C linkage function cannot return C++ class 'pxl::system::HINSTANCE'
+         d:\development\c++\pxl2d\pxl2d\include\system\win32\win32window.h(10): note: see declaration of 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\commdlg.h(118): error C2079: 'pxl::system::tagOFN_NT4A::hInstance' uses undefined class 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\commdlg.h(140): error C2079: 'pxl::system::tagOFN_NT4W::hInstance' uses undefined class 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\commdlg.h(170): error C2079: 'pxl::system::tagOFNA::hInstance' uses undefined class 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\commdlg.h(201): error C2079: 'pxl::system::tagOFNW::hInstance' uses undefined class 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\commdlg.h(556): error C2079: 'pxl::system::tagFINDREPLACEA::hInstance' uses undefined class 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\commdlg.h(570): error C2079: 'pxl::system::tagFINDREPLACEW::hInstance' uses undefined class 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\commdlg.h(643): error C2079: 'pxl::system::tagCHOOSEFONTA::hDC' uses undefined class 'pxl::system::HDC'
+     1>c:\program files (x86)\windows kits\8.1\include\um\commdlg.h(651): error C2079: 'pxl::system::tagCHOOSEFONTA::hInstance' uses undefined class 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\commdlg.h(666): error C2079: 'pxl::system::tagCHOOSEFONTW::hDC' uses undefined class 'pxl::system::HDC'
+     1>c:\program files (x86)\windows kits\8.1\include\um\commdlg.h(674): error C2079: 'pxl::system::tagCHOOSEFONTW::hInstance' uses undefined class 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\commdlg.h(834): error C2079: 'pxl::system::tagPDA::hDC' uses undefined class 'pxl::system::HDC'
+     1>c:\program files (x86)\windows kits\8.1\include\um\commdlg.h(841): error C2079: 'pxl::system::tagPDA::hInstance' uses undefined class 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\commdlg.h(855): error C2079: 'pxl::system::tagPDW::hDC' uses undefined class 'pxl::system::HDC'
+     1>c:\program files (x86)\windows kits\8.1\include\um\commdlg.h(862): error C2079: 'pxl::system::tagPDW::hInstance' uses undefined class 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\commdlg.h(989): error C2079: 'pxl::system::tagPDEXA::hDC' uses undefined class 'pxl::system::HDC'
+     1>c:\program files (x86)\windows kits\8.1\include\um\commdlg.h(999): error C2079: 'pxl::system::tagPDEXA::hInstance' uses undefined class 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\commdlg.h(1015): error C2079: 'pxl::system::tagPDEXW::hDC' uses undefined class 'pxl::system::HDC'
+     1>c:\program files (x86)\windows kits\8.1\include\um\commdlg.h(1025): error C2079: 'pxl::system::tagPDEXW::hInstance' uses undefined class 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\commdlg.h(1152): error C2079: 'pxl::system::tagPSDA::hInstance' uses undefined class 'pxl::system::HINSTANCE'
+     1>c:\program files (x86)\windows kits\8.1\include\um\commdlg.h(1152): fatal error C1003: error count exceeds 100; stopping compilation
+     1>Done Building Project "D:\Development\C++\pxl2D\pxlExample\pxlExample.vcxproj" (Build target(s)) -- FAILED.
 
-Build succeeded.
+Build FAILED.
 
-Time Elapsed 00:00:11.25
+Time Elapsed 00:00:00.69

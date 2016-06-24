@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Label="NsightTegraProject">
     <NsightTegraProjectRevisionNumber>9</NsightTegraProjectRevisionNumber>
   </PropertyGroup>
@@ -42,108 +42,104 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\graphics\PXL_Colour.cpp" />
-    <ClCompile Include="src\graphics\PXL_GraphicsAPI.cpp" />
-    <ClCompile Include="src\graphics\PXL_Origin.cpp" />
-    <ClCompile Include="src\graphics\PXL_Sprite.cpp" />
-    <ClCompile Include="src\graphics\PXL_SpriteContainer.cpp" />
-    <ClCompile Include="src\input\PXL_Joystick.cpp" />
-    <ClCompile Include="src\input\PXL_Keyboard.cpp" />
-    <ClCompile Include="src\physics\PXL_Collision.cpp" />
+    <ClCompile Include="src\graphics\Batch.cpp" />
+    <ClCompile Include="src\graphics\Bitmap.cpp" />
+    <ClCompile Include="src\graphics\Colour.cpp" />
+    <ClCompile Include="src\graphics\Font.cpp" />
+    <ClCompile Include="src\graphics\FontUtils.cpp" />
+    <ClCompile Include="src\graphics\FrameBuffer.cpp" />
+    <ClCompile Include="src\graphics\GraphicsAPI.cpp" />
+    <ClCompile Include="src\graphics\Lights.cpp" />
+    <ClCompile Include="src\graphics\Matrix4.cpp" />
+    <ClCompile Include="src\graphics\ShaderProgram.cpp" />
+    <ClCompile Include="src\graphics\ShaderUtils.cpp" />
+    <ClCompile Include="src\graphics\Sprite.cpp" />
+    <ClCompile Include="src\graphics\Text.cpp" />
+    <ClCompile Include="src\graphics\Texture.cpp" />
+    <ClCompile Include="src\graphics\TextureSheet.cpp" />
+    <ClCompile Include="src\input\Joystick.cpp" />
+    <ClCompile Include="src\input\Keyboard.cpp" />
+    <ClCompile Include="src\physics\Collision.cpp" />
     <ClCompile Include="src\PXL.cpp" />
-    <ClCompile Include="src\graphics\PXL_Batch.cpp" />
-    <ClCompile Include="src\graphics\PXL_Bitmap.cpp" />
-    <ClCompile Include="src\graphics\PXL_Font.cpp" />
-    <ClCompile Include="src\graphics\PXL_FontUtils.cpp" />
-    <ClCompile Include="src\graphics\PXL_FrameBuffer.cpp" />
-    <ClCompile Include="src\graphics\PXL_Lights.cpp" />
-    <ClCompile Include="src\graphics\PXL_Matrix4.cpp" />
-    <ClCompile Include="src\graphics\PXL_Text.cpp" />
-    <ClCompile Include="src\graphics\PXL_Texture.cpp" />
-    <ClCompile Include="src\graphics\PXL_ShaderUtils.cpp" />
-    <ClCompile Include="src\graphics\PXL_ShaderProgram.cpp" />
-    <ClCompile Include="src\graphics\PXL_TextureSheet.cpp" />
-    <ClCompile Include="src\PXL_Graphics.cpp" />
-    <ClCompile Include="src\PXL_Input.cpp" />
-    <ClCompile Include="src\PXL_Physics.cpp" />
-    <ClCompile Include="src\PXL_System.cpp" />
-    <ClCompile Include="src\system\android\PXL_AndroidWindow.cpp" />
-    <ClCompile Include="src\system\linux\PXL_LinuxWindow.cpp" />
-    <ClCompile Include="src\system\PXL_Debug.cpp" />
-    <ClCompile Include="src\system\PXL_Event.cpp" />
-    <ClCompile Include="src\system\PXL_Exception.cpp" />
-    <ClCompile Include="src\system\PXL_ImageIO.cpp" />
-    <ClCompile Include="src\system\PXL_IO.cpp" />
-    <ClCompile Include="src\system\PXL_Math.cpp" />
-    <ClCompile Include="src\system\PXL_Timer.cpp" />
-    <ClCompile Include="src\system\win32\PXL_Win32Window.cpp" />
+    <ClCompile Include="src\Graphics.cpp" />
+    <ClCompile Include="src\Input.cpp" />
+    <ClCompile Include="src\Physics.cpp" />
+    <ClCompile Include="src\System.cpp" />
+    <ClCompile Include="src\system\android\AndroidWindow.cpp" />
+    <ClCompile Include="src\system\linux\LinuxWindow.cpp" />
+    <ClCompile Include="src\system\Debug.cpp" />
+    <ClCompile Include="src\system\Event.cpp" />
+    <ClCompile Include="src\system\Exception.cpp" />
+    <ClCompile Include="src\system\ImageIO.cpp" />
+    <ClCompile Include="src\system\IO.cpp" />
+    <ClCompile Include="src\system\Math.cpp" />
+    <ClCompile Include="src\system\Timer.cpp" />
+    <ClCompile Include="src\system\win32\Win32Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\graphics\PXL_Colour.h" />
-    <ClInclude Include="include\graphics\PXL_GraphicsAPI.h" />
-    <ClInclude Include="include\graphics\PXL_Origin.h" />
-    <ClInclude Include="include\graphics\PXL_PrebuiltShaders.h" />
-    <ClInclude Include="include\graphics\PXL_ShaderProgram - Copy.h" />
-    <ClInclude Include="include\graphics\PXL_Sprite.h" />
-    <ClInclude Include="include\graphics\PXL_SpriteContainer.h" />
-    <ClInclude Include="include\input\PXL_Joystick.h" />
-    <ClInclude Include="include\input\PXL_Keyboard.h" />
-    <ClInclude Include="include\physics\PXL_Collision.h" />
+    <ClInclude Include="include\Graphics.h" />
+    <ClInclude Include="include\graphics\Batch.h" />
+    <ClInclude Include="include\graphics\Bitmap.h" />
+    <ClInclude Include="include\graphics\Colour.h" />
+    <ClInclude Include="include\graphics\Font.h" />
+    <ClInclude Include="include\graphics\FrameBuffer.h" />
+    <ClInclude Include="include\graphics\GraphicsAPI.h" />
+    <ClInclude Include="include\graphics\Matrix4.h" />
+    <ClInclude Include="include\graphics\PrebuiltShaders.h" />
+    <ClInclude Include="include\graphics\ShaderUtils.h" />
+    <ClInclude Include="include\graphics\Sprite.h" />
+    <ClInclude Include="include\graphics\Structs.h" />
+    <ClInclude Include="include\graphics\Texture.h" />
+    <ClInclude Include="include\graphics\TextureSheet.h" />
+    <ClInclude Include="include\input\Joystick.h" />
+    <ClInclude Include="include\input\Keyboard.h" />
+    <ClInclude Include="include\physics\Collision.h" />
     <ClInclude Include="include\PXL.h" />
-    <ClInclude Include="include\graphics\PXL_Batch.h" />
-    <ClInclude Include="include\graphics\PXL_Bitmap.h" />
-    <ClInclude Include="include\graphics\PXL_Font.h" />
-    <ClInclude Include="include\graphics\PXL_FontUtils.h" />
-    <ClInclude Include="include\graphics\PXL_FrameBuffer.h" />
-    <ClInclude Include="include\graphics\PXL_Lights.h" />
-    <ClInclude Include="include\graphics\PXL_Matrix4.h" />
-    <ClInclude Include="include\graphics\PXL_Text.h" />
-    <ClInclude Include="include\graphics\PXL_Texture.h" />
-    <ClInclude Include="include\graphics\PXL_Structs.h" />
-    <ClInclude Include="include\graphics\PXL_ShaderUtils.h" />
-    <ClInclude Include="include\graphics\PXL_ShaderProgram.h" />
-    <ClInclude Include="include\graphics\PXL_TextureSheet.h" />
-    <ClInclude Include="include\PXL_Graphics.h" />
-    <ClInclude Include="include\PXL_Input.h" />
-    <ClInclude Include="include\PXL_Physics.h" />
-    <ClInclude Include="include\PXL_System.h" />
-    <ClInclude Include="include\system\android\PXL_AndroidWindow.h" />
-    <ClInclude Include="include\system\linux\PXL_LinuxWindow.h" />
-    <ClInclude Include="include\system\PXL_API.h" />
-    <ClInclude Include="include\system\PXL_Config.h" />
-    <ClInclude Include="include\system\PXL_Debug.h" />
-    <ClInclude Include="include\system\PXL_Event.h" />
-    <ClInclude Include="include\system\PXL_Exception.h" />
-    <ClInclude Include="include\system\PXL_ImageIO.h" />
-    <ClInclude Include="include\system\PXL_IO.h" />
-    <ClInclude Include="include\system\PXL_Math.h" />
-    <ClInclude Include="include\system\PXL_Timer.h" />
-    <ClInclude Include="include\system\PXL_Window.h" />
-    <ClInclude Include="include\system\PXL_WindowImpl.h" />
-    <ClInclude Include="include\system\win32\PXL_Win32Window.h" />
+    <ClInclude Include="include\graphics\FontUtils.h" />
+    <ClInclude Include="include\graphics\Lights.h" />
+    <ClInclude Include="include\graphics\Text.h" />
+    <ClInclude Include="include\graphics\ShaderProgram.h" />
+    <ClInclude Include="include\Input.h" />
+    <ClInclude Include="include\Physics.h" />
+    <ClInclude Include="include\System.h" />
+    <ClInclude Include="include\system\android\AndroidWindow.h" />
+    <ClInclude Include="include\API.h" />
+    <ClInclude Include="include\system\Debug.h" />
+    <ClInclude Include="include\system\Exception.h" />
+    <ClInclude Include="include\system\linux\LinuxWindow.h" />
+    <ClInclude Include="include\system\Math.h" />
+    <ClInclude Include="include\system\Config.h" />
+    <ClInclude Include="include\system\Event.h" />
+    <ClInclude Include="include\system\ImageIO.h" />
+    <ClInclude Include="include\system\IO.h" />
+    <ClInclude Include="include\system\Timer.h" />
+    <ClInclude Include="include\system\WindowImpl.h" />
+    <ClInclude Include="include\system\win32\Win32Window.h" />
+    <ClInclude Include="include\system\Window.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7F4BAC6B-9372-4E84-8723-216A860B7548}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>pixel2Dstaticlib</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Android'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
     <AndroidAPILevel>android-21</AndroidAPILevel>
     <AndroidArch>armv5te</AndroidArch>
@@ -153,33 +149,33 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Android'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
     <AndroidNativeAPI>UseTarget</AndroidNativeAPI>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='test|Win32'">
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='test|Android'" Label="Configuration">
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='test|Tegra-Android'">
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <AndroidNativeAPI>UseTarget</AndroidNativeAPI>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />

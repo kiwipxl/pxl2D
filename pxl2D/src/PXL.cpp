@@ -1,18 +1,21 @@
 #include "PXL.h"
 
-void PXL_init() {
-	PXL_print << "PXL is initialising...\n";
-	PXL_system_init();
-	PXL_graphics_init();
-	PXL_physics_init();
-	PXL_input_init();
-	PXL_print << "PXL initialised successfully!\n";
-}
+namespace pxl {
 
-#if defined(PXL_PLATFORM_ANDROID)
-	void android_main(struct android_app* state) {
-		android_state = state;
-		main(NULL, NULL);
-		this_thing();
-	}
-#endif
+    void init() {
+	    system::print << "PXL is initialising...\n";
+	    system_init();
+	    graphics_init();
+	    physics_init();
+	    input_init();
+        system::print << "PXL initialised successfully!\n";
+    }
+
+    #if defined(PLATFORM_ANDROID)
+	    void android_main(struct android_app* state) {
+		    android_state = state;
+		    main(NULL, NULL);
+		    this_thing();
+	    }
+    #endif
+};
