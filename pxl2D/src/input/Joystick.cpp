@@ -1,5 +1,15 @@
 #include "input/Joystick.h"
+
+#if defined(PLATFORM_WIN32)
+    #define NOMINMAX //macro to not have the windows header define min/max so it doesn't interfere
+    #include <Windows.h>
+    #undef ABSOLUTE
+    #undef RELATIVE
+    #include <RegStr.h>
+#endif
+
 #include <vector>
+
 #include "input/Keyboard.h"
 #include "system/Exception.h"
 
@@ -13,7 +23,7 @@ namespace pxl { namespace input {
 
     Joystick* get_joystick(uint32 joystick_index) {
 	    if (joystick_index >= joysticks.size()) {
-            system::show_exception("Joystick id specified is out of bounds of joysticks list");
+            sys::show_exception("Joystick id specified is out of bounds of joysticks list");
 		    return NULL;
 	    }else {
 		    return joysticks[joystick_index];
@@ -21,8 +31,6 @@ namespace pxl { namespace input {
     }
 
     #if defined(PLATFORM_WIN32)
-	    #include <Windows.h>
-	    #include <RegStr.h>
 
 	    int8* get_joystick_name(uint32 device_id, JOYCAPS joy_caps) {
 		    HKEY key_handle;

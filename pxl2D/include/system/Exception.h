@@ -1,10 +1,10 @@
 #ifndef _EXCEPTION_H
 #define _EXCEPTION_H
 
-namespace pxl { namespace system {
+#include "system/Config.h"
+#include <string>
 
-    #include "system/Config.h"
-    #include <string>
+namespace pxl { namespace sys {
 
     enum ExceptionType {
 	    EXCEPTION_CONSOLE = 1, 

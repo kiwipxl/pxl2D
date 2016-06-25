@@ -1,9 +1,9 @@
 #ifndef _CONFIG_H
 #define _CONFIG_H
 
-namespace pxl { namespace system {
-    
-    #include <string>
+#include <string>
+
+namespace pxl { namespace sys {
 
     /** -------------------------------------------------------
 					    PXL config defines

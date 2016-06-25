@@ -1,5 +1,5 @@
-#ifndef _H
-#define _H
+#ifndef _PXL_H
+#define _PXL_H
 
 #include "Graphics.h"
 #include "System.h"

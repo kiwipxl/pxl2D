@@ -5,7 +5,7 @@
 #include <iostream>
 #include "graphics/Bitmap.h"
 
-namespace pxl { namespace system {
+namespace pxl { namespace sys {
 
     extern void init_assets();
 

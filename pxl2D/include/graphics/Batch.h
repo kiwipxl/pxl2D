@@ -69,7 +69,7 @@ namespace pxl { namespace graphics {
 	    @param size the max amount of adds this batch can have
 	    **/
 	    Batch() { }
-	    Batch(system::Window* window);
+	    Batch(sys::Window* window);
 	    ~Batch();
 
 	    //batch matrices
@@ -79,7 +79,7 @@ namespace pxl { namespace graphics {
 	    /** Creates the batch with the specified max render size
 	    @param size the max amount of adds this batch can have and the size of the vbo uploaded
 	    **/
-	    void create_batch(system::Window* window);
+	    void create_batch(sys::Window* window);
 
 	    /** Renders everything that was added to the batch and clears all data when finished. You
 	    can set where the target will render to using set_target with a FrameBuffer.
@@ -106,7 +106,7 @@ namespace pxl { namespace graphics {
 	    **/
 	    void set_render_target(FrameBuffer* buffer = NULL);
 
-	    void set_window_target(system::Window* window);
+	    void set_window_target(sys::Window* window);
 
 	    /** Adds the specified texture to the batch render queue and transforms it with all specified parameters
 	    @param texture The texture to add to the batch
@@ -141,7 +141,7 @@ namespace pxl { namespace graphics {
 	    ShaderProgram* current_shader = NULL;
 	    BlendMode current_blend_mode;
 	    Matrix4 proj_view_mat;
-        system::Window* target_window;
+        sys::Window* target_window;
         Rect render_bounds;
 
 	    //vertex data

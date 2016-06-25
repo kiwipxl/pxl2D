@@ -5,20 +5,17 @@
 
 #if defined(PLATFORM_WIN32)
 
-class HDC;
-class HGLRC;
-class HINSTANCE;
-class WNDCLASS;
+#include <string>
+#include <vector>
 
-namespace pxl { namespace system {
+#include "system/Event.h"
+#include "system/WindowBase.h"
 
-    #include <string>
-    #include <vector>
+#include <windows.h>
 
-    #include "system/Event.h"
-    #include "system/WindowImpl.h"
+namespace pxl { namespace sys {
 
-    class Win32Window : public WindowImpl {
+    class Win32Window : public WindowBase {
 
 	    public:
             Win32Window() { }
@@ -41,16 +38,16 @@ namespace pxl { namespace system {
 		    \*brief: loads a window from the specified path
 		    \*param [path]: the path and file name for the window to load
 		    **/
-		    virtual void create_window(int win_width, int win_height, std::string win_title);
+            WindowBase& create(int win_width, int win_height, std::string win_title) override;
 
-		    virtual bool poll_event(Event& e);
+		    bool poll_event(Event& e) override;
 
 		    /**
 		    \*brief: frees all data from the window
 		    **/
-		    virtual void free();
+		    void free() override;
 
-		    virtual void display();
+		    void display() override;
 
 	    private:
 		    //window info

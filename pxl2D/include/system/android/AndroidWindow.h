@@ -1,17 +1,17 @@
 #ifndef _ANDROIDWINDOW_H
 #define _ANDROIDWINDOW_H
 
+#if defined(PLATFORM_ANDROID)
+
 #include "graphics/GraphicsAPI.h"
 
-namespace pxl { namespace system {
+#include <string>
+#include <vector>
+#include "system/Event.h"
+#include "system/WindowBase.h"
+#include "API.h"
 
-    #if defined(PLATFORM_ANDROID)
-
-    #include <string>
-    #include <vector>
-    #include "system/Event.h"
-    #include "system/WindowImpl.h"
-    #include "API.h"
+namespace pxl { namespace sys {
 
     struct android_app;
     struct ASensorManager;
@@ -52,7 +52,7 @@ namespace pxl { namespace system {
 
     extern struct android_app* android_state;
 
-    class AndroidWindow : public WindowImpl {
+    class AndroidWindow : public WindowBase {
 
 	    public:
 		    AndroidWindow();
@@ -65,21 +65,21 @@ namespace pxl { namespace system {
 		    \*brief: loads a window from the specified path
 		    \*param [path]: the path and file name for the window to load
 		    **/
-		    virtual void create_window(int window_width, int window_height, std::string title);
+            WindowBase& create(int window_width, int window_height, std::string title) override;
 
-		    virtual bool poll_event(Event& e);
+		    bool poll_event(Event& e) override;
 
 		    /**
 		    \*brief: frees all data from the window
 		    **/
-		    virtual void free();
+		    void free() override;
 
-		    virtual void display();
+		    void display() override;
 
 	    private:
 		    //window info
     };
 
-    #endif
 }};
+#endif
 #endif

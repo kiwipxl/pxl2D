@@ -5,7 +5,7 @@
 #include "system/Exception.h"
 #include "system/Debug.h"
 
-namespace pxl { namespace system {
+namespace pxl { namespace sys {
 
     std::string read_file_contents(std::string file_name) {
 	    std::ifstream file(file_name.c_str(), std::ifstream::in);

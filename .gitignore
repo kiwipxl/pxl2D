@@ -1,0 +1,4 @@
+*.obj
+*.suo
+.vs*
+pxl2D/bin

@@ -10,17 +10,17 @@ namespace pxl { namespace graphics {
 		    glewExperimental = true;
             GLenum error;
             if ((error = glewInit()) != GL_NO_ERROR) {
-                system::force_show_exception("Could not initialise GLEW. Error: " + (std::string)(char*)glewGetErrorString(error));
+                sys::force_show_exception("Could not initialise GLEW. Error: " + (std::string)(char*)glewGetErrorString(error));
             }
-            system::print << "glew initiated\n";
+            sys::print << "glew initiated\n";
 		    int min;
 		    glGetIntegerv(GL_MINOR_VERSION, &min);
 		    int target;
 		    glGetIntegerv(GL_MAJOR_VERSION, &target);
-            system::print << "gl version: " << glGetString(GL_VERSION) << ", min: " << min << ", target: " << target << "\n";
-            system::print << "glsl version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << "\n";
-            system::print << "vendor: " << glGetString(GL_VENDOR) << "\n";
-            system::print << "renderer: " << glGetString(GL_RENDERER) << "\n";
+            sys::print << "gl version: " << glGetString(GL_VERSION) << ", min: " << min << ", target: " << target << "\n";
+            sys::print << "glsl version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << "\n";
+            sys::print << "vendor: " << glGetString(GL_VENDOR) << "\n";
+            sys::print << "renderer: " << glGetString(GL_RENDERER) << "\n";
 	    #endif
     }
 

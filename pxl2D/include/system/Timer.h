@@ -4,7 +4,7 @@
 #include <vector>
 #include "API.h"
 
-namespace pxl { namespace system {
+namespace pxl { namespace sys {
 
     #if defined(PLATFORM_WIN32)
 	    #include <Windows.h>

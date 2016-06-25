@@ -2,7 +2,7 @@
 
 namespace pxl {
 
-    using namespace system;
+    using namespace sys;
 
     void system_init() {
         math::init();

@@ -16,12 +16,12 @@ namespace pxl { namespace graphics {
 
     void TextureSheet::create_sheet(Channel sheet_channel, bool dispose_batch, bool dispose_list, bool clear_list) {
 	    if (!batch->is_created()) {
-            system::show_exception("Could not create texture sheet, batch has been disposed", ERROR_TEXTURE_SHEET_CREATION_FAILED);
+            sys::show_exception("Could not create texture sheet, batch has been disposed", ERROR_TEXTURE_SHEET_CREATION_FAILED);
             return;
 	    }
 
 	    if (width == 0 || height == 0) {
-            system::show_exception("Could not create texture sheet, width/height are less than 0", ERROR_TEXTURE_SHEET_CREATION_FAILED);
+            sys::show_exception("Could not create texture sheet, width/height are less than 0", ERROR_TEXTURE_SHEET_CREATION_FAILED);
 		    return;
 	    }
 
@@ -30,7 +30,7 @@ namespace pxl { namespace graphics {
 		    sheet_frame_buffer = new FrameBuffer(1, 1);
 	    }
         
-        system::print << "width: " << width << ", height: " << height << "\n";
+        sys::print << "width: " << width << ", height: " << height << "\n";
 
 	    int viewport_size[4];
 	    glGetIntegerv(GL_VIEWPORT, viewport_size);
@@ -84,7 +84,7 @@ namespace pxl { namespace graphics {
 						       int z_depth, Colour colour,
 						       ShaderProgram* shader, BlendMode blend_mode) {
 	    if (!batch->is_created()) {
-            system::show_exception("Could not add texture to texture sheet as the batch has been disposed", ERROR_TEXTURE_SHEET_ADD_FAILED);
+            sys::show_exception("Could not add texture to texture sheet as the batch has been disposed", ERROR_TEXTURE_SHEET_ADD_FAILED);
 		    return;
 	    }
 

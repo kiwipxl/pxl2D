@@ -1,7 +1,7 @@
 #include "system/Timer.h"
 #include <iostream>
 
-namespace pxl { namespace system {
+namespace pxl { namespace sys {
 
     Timer timer;
 

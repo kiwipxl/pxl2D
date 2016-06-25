@@ -1,7 +1,7 @@
 #include "system/Debug.h"
 #include <string>
 
-namespace pxl { namespace system {
+namespace pxl { namespace sys {
 
     #if defined(PLATFORM_WIN32)
 	    #include <Windows.h>

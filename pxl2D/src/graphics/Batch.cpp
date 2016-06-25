@@ -9,12 +9,12 @@ namespace pxl { namespace graphics {
     //cpp constants (hidden from public)
     #define MIN_DEPTH_CHANGE (1.0f / PXL_24U_MAX);                          //the minimum depth value that can be added/subbed in a float
 
-    Batch::Batch(system::Window* window) {
+    Batch::Batch(sys::Window* window) {
         batch_created = false;
         create_batch(window);
     }
 
-    void Batch::create_batch(system::Window* window) {
+    void Batch::create_batch(sys::Window* window) {
         free();
 
         {
@@ -243,7 +243,7 @@ namespace pxl { namespace graphics {
         target_frame_buffer = f;
     }
 
-    void Batch::set_window_target(system::Window* window) {
+    void Batch::set_window_target(sys::Window* window) {
         target_window = window;
     }
 

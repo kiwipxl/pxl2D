@@ -2,18 +2,21 @@
 
 #if defined(PLATFORM_WIN32)
 
-#include <wglew.h>
 #define NOMINMAX //macro to not have the windows header define min/max so it doesn't interfere
 #include <Windows.h>
 #undef ABSOLUTE
 #undef RELATIVE
 
 #include "input/Keyboard.h"
+#include "input/Joystick.h"
 #include "system/Exception.h"
 #include "system/Debug.h"
+#include "graphics/GraphicsAPI.h"
 
-namespace pxl { namespace system {
+namespace pxl { namespace sys {
 
+    #include <wglew.h>
+    
     int context_attribs[] = {
 	    WGL_CONTEXT_MAJOR_VERSION_ARB, 3,
 	    WGL_CONTEXT_MINOR_VERSION_ARB, 1,
@@ -85,8 +88,8 @@ namespace pxl { namespace system {
 		    force_show_exception("Failed to activate an openGL rendering context. Error: " + get_last_error());
 	    }
     }
-
-    void Win32Window::create_window(int win_width, int win_height, std::string win_title) {
+    
+    WindowBase& Win32Window::create(int win_width, int win_height, std::string win_title) {
 	    free();
 
 	    width = win_width;
@@ -113,7 +116,7 @@ namespace pxl { namespace system {
 		    force_show_exception("Window creation failed! Error: " + get_last_error());
 	    }
 
-	    hwnd = win_handle;
+	    //hwnd = win_handle;
 
 	    create_context();
 
@@ -121,9 +124,9 @@ namespace pxl { namespace system {
 
 	    if (init_dummy_window) {
 		    init_dummy_window = false;
-		    glew_init();
+		    graphics::glew_init();
 		    free();
-		    create_window(win_width, win_height, win_title);
+            create(win_width, win_height, win_title);
 
 		    int min;
 		    glGetIntegerv(GL_MINOR_VERSION, &min);
@@ -131,11 +134,13 @@ namespace pxl { namespace system {
 		    glGetIntegerv(GL_MAJOR_VERSION, &target);
 		    std::cout << "updated gl version: " << glGetString(GL_VERSION) << ", min: " << min << ", target: " << target << "\n";
 		    std::cout << "updated glsl version: " << glGetString(GL_SHADING_LANGUAGE_VERSION) << "\n";
-		    return;
+		    return *this;
 	    }else {
 		    ShowWindow(win_handle, SW_SHOW);
 		    UpdateWindow(win_handle);
 	    }
+
+        return *this;
     }
 
     void Win32Window::display() {
@@ -176,12 +181,12 @@ namespace pxl { namespace system {
 			    break;
 		    case EVENT_KEYDOWN:
 			    if (w_param < 255) {
-				    keys[w_param].key_down = true;
+				    input::keys[w_param].key_down = true;
 			    }
 			    break;
 		    case EVENT_KEYUP:
 			    if (w_param < 255) {
-				    keys[w_param].key_down = false;
+                    input::keys[w_param].key_down = false;
 			    }
 			    break;
 		    case 1200:
@@ -195,14 +200,14 @@ namespace pxl { namespace system {
 
     bool Win32Window::poll_event(Event& e) {
 	    if (PeekMessage(&msg, win_handle, 0, 0, PM_REMOVE) > 0) {
-		    if (num_joysticks() > 0) {
-			    get_joystick(0);
-			    JOYINFOEX joy_info;
+		   /* if (input::num_joysticks() > 0) {
+                input::get_joystick(0);
+                JOYINFOEX joy_info;
 			    joy_info.dwFlags = JOY_RETURNALL;
-			    joyGetPosEx(1, &joy_info);
+                joyGetPosEx(1, &joy_info);
 			    e.jbuttons = joy_info.dwButtons;
 			    e.jnum_buttons = joy_info.dwButtonNumber;
-		    }
+		    }*/
 
 		    e.mouse_x = LOWORD(msg.lParam);
 		    e.mouse_y = HIWORD(msg.lParam);

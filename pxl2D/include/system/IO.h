@@ -3,7 +3,7 @@
 
 #include <string>
 
-namespace pxl { namespace system {
+namespace pxl { namespace sys {
 
     //loads file contents
     //todo: can maybe have pxl_file which contains more information such as file name, contents, size, ect

@@ -11,7 +11,7 @@ namespace pxl { namespace graphics {
     bool Bitmap::create_bitmap(std::string path) {
 	    free();
 
-	    buffer_loaded = system::load_png(path, this);
+	    buffer_loaded = sys::load_png(path, this);
 
 	    check_has_transparency();
 

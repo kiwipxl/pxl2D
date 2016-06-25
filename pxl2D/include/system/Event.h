@@ -1,12 +1,12 @@
 #ifndef _EVENT_H
 #define _EVENT_H
 
-namespace pxl { namespace system {
+#include <vector>
+#include "API.h"
+#include "input/Joystick.h"
+#include "graphics/Structs.h"
 
-    #include <vector>
-    #include "API.h"
-    #include "input/Joystick.h"
-    #include "graphics/Structs.h"
+namespace pxl { namespace sys {
 
     #if defined(PLATFORM_WIN32)
 	    #define EVENT_NULL			0

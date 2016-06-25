@@ -75,6 +75,7 @@
     <ClCompile Include="src\system\Math.cpp" />
     <ClCompile Include="src\system\Timer.cpp" />
     <ClCompile Include="src\system\win32\Win32Window.cpp" />
+    <ClCompile Include="src\system\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Graphics.h" />
@@ -113,9 +114,9 @@
     <ClInclude Include="include\system\ImageIO.h" />
     <ClInclude Include="include\system\IO.h" />
     <ClInclude Include="include\system\Timer.h" />
-    <ClInclude Include="include\system\WindowImpl.h" />
-    <ClInclude Include="include\system\win32\Win32Window.h" />
     <ClInclude Include="include\system\Window.h" />
+    <ClInclude Include="include\system\WindowBase.h" />
+    <ClInclude Include="include\system\win32\Win32Window.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7F4BAC6B-9372-4E84-8723-216A860B7548}</ProjectGuid>
@@ -127,7 +128,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v140_xp</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Android'" Label="Configuration">

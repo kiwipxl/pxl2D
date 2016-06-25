@@ -99,9 +99,9 @@ namespace pxl { namespace graphics {
 		    std::string fragment_file = program_str.substr(start_f + strlen(start_f_header) + 1, end_f - (start_f + strlen(start_f_header) + 1));
 		    return new ShaderProgram(vertex_file, fragment_file, program_name + " - vertex", program_name + " - fragment");
 	    }else {
-            system::show_exception("Headers not found when loading (" + program_name + "). Custom program shaders use " +
+            sys::show_exception("Headers not found when loading (" + program_name + "). Custom program shaders use " +
 			    start_v_header + " at the beginning of a vertex shader and " + end_v_header + " at the end. Fragment " +
-			    "shaders use " + start_f_header + " and " + end_f_header, ERROR_MISSING_SHADER_HEADERS, system::EXCEPTION_CONSOLE, false);
+			    "shaders use " + start_f_header + " and " + end_f_header, ERROR_MISSING_SHADER_HEADERS, sys::EXCEPTION_CONSOLE, false);
 	    }
 	    return NULL;
     }
@@ -130,14 +130,14 @@ namespace pxl { namespace graphics {
 				    buffer[size] = '\0';
 				    return buffer;
 			    }else {
-                    system::show_exception("(" + file_name + ") could not be read successfully", ERROR_INVALID_FILE, system::EXCEPTION_CONSOLE, false);
+                    sys::show_exception("(" + file_name + ") could not be read successfully", ERROR_INVALID_FILE, sys::EXCEPTION_CONSOLE, false);
 				    delete[] buffer;
 			    }
 		    }else {
-                system::show_exception("(" + file_name + ") does not contain any content when read", ERROR_EMPTY_FILE, system::EXCEPTION_CONSOLE, false);
+                sys::show_exception("(" + file_name + ") does not contain any content when read", ERROR_EMPTY_FILE, sys::EXCEPTION_CONSOLE, false);
 		    }
 	    }else {
-            system::show_exception("Couldn't load file (" + file_name + "). It may not exist", ERROR_INVALID_FILE, system::EXCEPTION_CONSOLE, false);
+            sys::show_exception("Couldn't load file (" + file_name + "). It may not exist", ERROR_INVALID_FILE, sys::EXCEPTION_CONSOLE, false);
 	    }
 	    return "";
     }

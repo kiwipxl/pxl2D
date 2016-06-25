@@ -87,7 +87,7 @@ namespace pxl { namespace graphics {
 
 	    glBindTexture(GL_TEXTURE_2D, dest_frame_buffer->get_texture_id());
 	    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, dest_frame_buffer->get_pixels());
-	    print << "pixels: " << dest_frame_buffer->get_pixels() << "\n";
+        sys::print << "pixels: " << dest_frame_buffer->get_pixels() << "\n";
 
 	    //glBindFramebuffer(GL_FRAMEBUFFER_READ, id);
 	    //glBindFramebuffer(GL_FRAMEBUFFER_WRITE, draw_id);

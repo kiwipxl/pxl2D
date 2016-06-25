@@ -7,13 +7,13 @@
 #include "graphics/Font.h"
 #include "system/Exception.h"
 
-FT_Library FT_lib;
-
 namespace pxl { namespace graphics {
+
+    FT_Library FT_lib;
 
     void init_font() {
 	    if (FT_Init_FreeType(&FT_lib)) {
-            system::show_exception("An error occurred while loading the freetype library");
+            sys::show_exception("An error occurred while loading the freetype library");
 	    }else {
 		    std::cout << "freetype library loaded successfully\n";
 	    }

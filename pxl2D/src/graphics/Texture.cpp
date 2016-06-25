@@ -27,14 +27,14 @@ namespace pxl { namespace graphics {
 		    create_texture(bitmap->get_width(), bitmap->get_height(), bitmap->get_pixels(), bitmap->get_channel());
 		    texture_created = true;
 	    }else {
-            system::show_exception("Could not create texture, specified bitmap is NULL", ERROR_TEXTURE_CREATION_FAILED);
+            sys::show_exception("Could not create texture, specified bitmap is NULL", ERROR_TEXTURE_CREATION_FAILED);
 	    }
 	    return texture_created;
     }
 
     bool Texture::create_texture(int w, int h, uint8* pixels, Channel pixel_channel) {
 	    if (w <= 0 || h <= 0) {
-            system::show_exception("Could not create texture, width/height are less than 0", ERROR_TEXTURE_CREATION_FAILED);
+            sys::show_exception("Could not create texture, width/height are less than 0", ERROR_TEXTURE_CREATION_FAILED);
 		    return false;
 	    }
 

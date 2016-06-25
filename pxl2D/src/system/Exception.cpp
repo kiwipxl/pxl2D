@@ -1,14 +1,17 @@
 #include "system/Exception.h"
+
+#define NOMINMAX //macro to not have the windows header define min/max so it doesn't interfere
+#include <Windows.h>
+#undef ABSOLUTE
+#undef RELATIVE
+#include <string>
+
 #include "system/Config.h"
 #include "system/Debug.h"
 
-#if defined(PLATFORM_WIN32)
-	#include <Windows.h>
-#endif
+namespace pxl { namespace sys {
 
-namespace pxl { namespace system {
-
-    extern bool show_exception(std::string exception_message, ErrorCode error_string, ExceptionType type, bool exit) {
+    bool show_exception(std::string exception_message, ErrorCode error_string, ExceptionType type, bool exit) {
 	    //#if (defined(DEBUG) && CONFIG_SHOW_EXCEPTIONS_IN_DEBUG) || (defined(RELEASE) && CONFIG_SHOW_EXCEPTIONS_IN_RELEASE)
 		    force_show_exception(exception_message, error_string, type, exit);
 		    return true;
@@ -16,7 +19,7 @@ namespace pxl { namespace system {
 	    return false;
     }
 
-    extern void force_show_exception(std::string exception_message, ErrorCode error_string, ExceptionType type, bool exit) {
+    void force_show_exception(std::string exception_message, ErrorCode error_string, ExceptionType type, bool exit) {
 	    std::string msg = CONFIG_EXCEPTION_TITLE;
 	    msg += " : " + exception_message;
 	    if (error_string != "") {

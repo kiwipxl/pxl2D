@@ -4,9 +4,10 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+
 #include "API.h"
 
-namespace pxl { namespace system {
+namespace pxl { namespace sys {
 
     class PrintDebugger {
 

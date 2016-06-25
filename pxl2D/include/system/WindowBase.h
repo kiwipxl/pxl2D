@@ -1,13 +1,13 @@
-#ifndef _WINDOW_IMPL_H
-#define _WINDOW_IMPL_H
+#ifndef _WINDOW_BASE_H
+#define _WINDOW_BASE_H
 
 #include <string>
 #include "system/Event.h"
 #include "API.h"
 
-namespace pxl { namespace system {
+namespace pxl { namespace sys {
 
-    class WindowImpl {
+    class WindowBase {
 
 	    public:
 		    bool window_created = false;
@@ -18,16 +18,12 @@ namespace pxl { namespace system {
 		    //temporary code
 		    //todo: make cross-platform window handle
 		    #if defined(PLATFORM_WIN32)
-			    HWND hwnd;
+			    //HWND hwnd;
 		    #endif
 
-		    /**
-		    \*brief: loads a window from the specified path
-		    \*param [path]: the path and file name for the window to load
-		    **/
-		    virtual void create_window(int window_width, int window_height, std::string title) = 0;
+            virtual WindowBase& create(int window_width, int window_height, std::string title) = 0;
 
-		    virtual bool poll_event(Event& e) = 0;
+            virtual bool poll_event(Event& e) = 0;
 
 		    virtual void display() = 0;
 

@@ -10,7 +10,7 @@ namespace pxl { namespace graphics {
     Font::Font(std::string path, int c_max_font_size) {
         FT_Face a;
 	    max_font_size = c_max_font_size;
-        system::print << "attempting to load font...\n";
+        sys::print << "attempting to load font...\n";
 	    if (!FT_New_Face(FT_lib, path.c_str(), 0, &a)) {
 		    FT_Set_Pixel_Sizes(f, max_font_size, 0);
 
@@ -54,7 +54,7 @@ namespace pxl { namespace graphics {
 		    //create sheet from all textures added and then clear and dispose the textures
             glyph_sheet->create_sheet(CHANNEL_ALPHA, true, true, true);
 
-		    system::print << "loaded font (" << path << ") with " << glyphs_loaded << " glyphs loaded\n";
+		    sys::print << "loaded font (" << path << ") with " << glyphs_loaded << " glyphs loaded\n";
 	    }
     }
 

@@ -7,15 +7,17 @@
 #include "system/Exception.h"
 #include "system/Debug.h"
 
-namespace pxl { namespace system {
+namespace pxl { namespace sys {
 
     /**----------------------------------------------------------------------------
 						    Window class handling
     ----------------------------------------------------------------------------**/
 
-    void LinuxWindow::create_window(int window_width, int window_height, std::string title) {
+    WindowBase& LinuxWindow::create(int window_width, int window_height, std::string title) {
 	    width = window_width;
 	    height = window_height;
+
+        return *this;
     }
 
     void LinuxWindow::display() {

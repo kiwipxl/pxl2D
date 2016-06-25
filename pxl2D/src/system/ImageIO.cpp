@@ -18,7 +18,7 @@
 #include "system/android/AndroidWindow.h"
 #include "system/IO.h"
 
-namespace pxl { namespace system {
+namespace pxl { namespace sys {
     
     const char* cache_dir;
 

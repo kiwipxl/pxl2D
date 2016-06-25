@@ -40,10 +40,10 @@ namespace pxl { namespace graphics {
 		    GLint linked;
 		    glGetProgramiv(program_id, GL_LINK_STATUS, &linked);
 		    if (linked) {
-                system::print << "shader (" << v_shader_name << ", " << f_shader_name << ") linked successfully\n";
+                sys::print << "shader (" << v_shader_name << ", " << f_shader_name << ") linked successfully\n";
 			    matrix_loc = glGetUniformLocation(program_id, "matrix");
 		    }else {
-                system::show_exception("shader (" + v_shader_name + ", " + f_shader_name + ") link failed", ERROR_SHADER_LINK_FAILED, system::EXCEPTION_CONSOLE, false);
+                sys::show_exception("shader (" + v_shader_name + ", " + f_shader_name + ") link failed", ERROR_SHADER_LINK_FAILED, sys::EXCEPTION_CONSOLE, false);
 			    print_program_log(program_id);
 		    }
 
@@ -60,17 +60,17 @@ namespace pxl { namespace graphics {
 	    GLint compiled;
 	    glGetShaderiv(shader_id, GL_COMPILE_STATUS, &compiled);
 	    if (compiled) {
-            system::print << "shader (" << shader_name << ") compiled successfully\n";
+            sys::print << "shader (" << shader_name << ") compiled successfully\n";
 	    }else {
 		    switch (shader_type) {
 			    case GL_VERTEX_SHADER:
-                    system::show_exception("Vertex shader(" + shader_name + ") failed to compile", ERROR_SHADER_COMPILE_FAILED, system::EXCEPTION_CONSOLE, false);
+                    sys::show_exception("Vertex shader(" + shader_name + ") failed to compile", ERROR_SHADER_COMPILE_FAILED, sys::EXCEPTION_CONSOLE, false);
 				    break;
 			    case GL_FRAGMENT_SHADER:
-                    system::show_exception("Fragment shader (" + shader_name + ") failed to compile", ERROR_SHADER_COMPILE_FAILED, system::EXCEPTION_CONSOLE, false);
+                    sys::show_exception("Fragment shader (" + shader_name + ") failed to compile", ERROR_SHADER_COMPILE_FAILED, sys::EXCEPTION_CONSOLE, false);
 				    break;
 			    default:
-                    system::show_exception("Unknown shader (" + shader_name + ") failed to compile", ERROR_SHADER_COMPILE_FAILED, system::EXCEPTION_CONSOLE, false);
+                    sys::show_exception("Unknown shader (" + shader_name + ") failed to compile", ERROR_SHADER_COMPILE_FAILED, sys::EXCEPTION_CONSOLE, false);
 				    break;
 		    }
 		    print_shader_log(shader_id);
@@ -81,32 +81,32 @@ namespace pxl { namespace graphics {
     void ShaderProgram::print_program_log(GLuint program_id) {
 	    GLint log_len;
 	    glGetProgramiv(program_id, GL_INFO_LOG_LENGTH, &log_len);
-        system::print << "[program log]: ";
+        sys::print << "[program log]: ";
 	    if (log_len > 1) {
 		    GLchar* new_log = new GLchar[log_len];
 
 		    glGetProgramInfoLog(program_id, log_len, 0, new_log);
 
-            system::print << new_log << "\n";
+            sys::print << new_log << "\n";
 		    delete new_log;
 	    }else {
-            system::print << "empty\n";
+            sys::print << "empty\n";
 	    }
     }
 
     void ShaderProgram::print_shader_log(GLuint shader_id) {
 	    GLint log_len;
 	    glGetShaderiv(shader_id, GL_INFO_LOG_LENGTH, &log_len);
-        system::print << "[compiler log]: ";
+        sys::print << "[compiler log]: ";
 	    if (log_len > 1) {
 		    GLchar* new_log = new GLchar[log_len];
 
 		    glGetShaderInfoLog(shader_id, log_len, 0, new_log);
 
-            system::print << new_log << "\n";
+            sys::print << new_log << "\n";
 		    delete new_log;
 	    }else {
-            system::print << "empty\n";
+            sys::print << "empty\n";
 	    }
     }
 

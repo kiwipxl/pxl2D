@@ -17,7 +17,7 @@
 #include "system/Exception.h"
 #include "system/Debug.h"
 
-namespace pxl { namespace system {
+namespace pxl { namespace sys {
 
     //defines to make classes a little more readable
     #define AndroidApp android_app
@@ -236,8 +236,8 @@ namespace pxl { namespace system {
     AndroidWindow::AndroidWindow() {
 
     }
-
-    void AndroidWindow::create_window(int window_width, int window_height, std::string title) {
+    
+    WindowBase& AndroidWindow::create(int window_width, int window_height, std::string title) {
 	    free();
 
 	    window = this;
@@ -273,6 +273,8 @@ namespace pxl { namespace system {
 		    poll_event(e);
 	    }
 	    print << "starting...\n";
+
+        return *this;
     }
 
     void AndroidWindow::display() {

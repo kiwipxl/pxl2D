@@ -3,12 +3,12 @@
 namespace pxl {
 
     void init() {
-	    system::print << "PXL is initialising...\n";
+	    sys::print << "PXL is initialising...\n";
 	    system_init();
 	    graphics_init();
 	    physics_init();
 	    input_init();
-        system::print << "PXL initialised successfully!\n";
+        sys::print << "PXL initialised successfully!\n";
     }
 
     #if defined(PLATFORM_ANDROID)
