@@ -1,6 +1,5 @@
 #include "graphics/Batch.h"
 #include <algorithm>
-#include "system/Window.h"
 #include "system/Exception.h"
 #include "system/Debug.h"
 
@@ -30,7 +29,7 @@ namespace pxl { namespace graphics {
         if (window != NULL) {
             set_window_target(window);
             render_bounds.x = 0;					render_bounds.y = 0;
-            render_bounds.w = window->get_width();	render_bounds.h = window->get_height();
+            render_bounds.w = window->getWidth();	render_bounds.h = window->getHeight();
         }
         else {
             render_bounds.x = 0;					render_bounds.y = 0;

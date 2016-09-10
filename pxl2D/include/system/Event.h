@@ -3,7 +3,6 @@
 
 #include <vector>
 #include "API.h"
-#include "input/Joystick.h"
 #include "graphics/Structs.h"
 
 namespace pxl { namespace sys {
@@ -21,8 +20,10 @@ namespace pxl { namespace sys {
 	    #define EVENT_ACTIVATE		0x0006
 	    #define EVENT_SETFOCUS		0x0007
         
-	    #define EVENT_TOUCH 0
-	
+	    #define EVENT_TOUCH         0
+
+        #define EVENT_MOUSE_MOVE    512
+        
     #elif defined(PLATFORM_ANDROID)
 	    #define EVENT_UNKNOWN 0
 	    #define EVENT_CLOSE 1

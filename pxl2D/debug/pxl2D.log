@@ -1,0 +1,63 @@
+﻿Build started 11-Sep-16 8:03:18 AM.
+     1>Project "D:\Development\C++\pxl2D\pxl2D\pxl2D.vcxproj" on node 2 (Build target(s)).
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(367,5): warning MSB8004: Intermediate Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Intermediate Directory.
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(368,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _USING_V110_SDK71_ /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"debug\\" /Fd"debug\pxl2D.pdb" /Gd /TP /analyze- /errorReport:prompt src\graphics\Batch.cpp
+         Batch.cpp
+     1>d:\development\c++\pxl2d\pxl2d\src\graphics\batch.cpp(32): warning C4244: '=': conversion from 'pxl::uint32' to 'float', possible loss of data
+     1>d:\development\c++\pxl2d\pxl2d\src\graphics\batch.cpp(164): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+     1>d:\development\c++\pxl2d\pxl2d\src\graphics\batch.cpp(203): warning C4244: '=': conversion from 'float' to 'pxl::uint16', possible loss of data
+     1>d:\development\c++\pxl2d\pxl2d\src\graphics\batch.cpp(204): warning C4244: '=': conversion from 'float' to 'pxl::uint16', possible loss of data
+     1>d:\development\c++\pxl2d\pxl2d\src\graphics\batch.cpp(218): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+       Lib:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\Lib.exe /OUT:"D:\Development\C++\Platformer\\debug\pxl2D.lib" libpng.lib zlib.lib freetype.lib winmm.lib dbghelp.lib glfw3.lib /NOLOGO debug\Batch.obj
+         debug\Bitmap.obj
+         debug\Colour.obj
+         debug\Font.obj
+         debug\FontUtils.obj
+         debug\FrameBuffer.obj
+         debug\GraphicsAPI.obj
+         debug\Lights.obj
+         debug\Matrix4.obj
+         debug\ShaderProgram.obj
+         debug\ShaderUtils.obj
+         debug\Sprite.obj
+         debug\Text.obj
+         debug\Texture.obj
+         debug\TextureSheet.obj
+         debug\Collision.obj
+         debug\PXL.obj
+         debug\Graphics.obj
+         debug\Input.obj
+         debug\Physics.obj
+         debug\System.obj
+         debug\Debug.obj
+         debug\Event.obj
+         debug\Exception.obj
+         debug\ImageIO.obj
+         debug\IO.obj
+         debug\Math.obj
+         debug\Timer.obj
+         debug\Window.obj
+     1>zlib.lib(zlib1.dll) : warning LNK4006: _DllGetVersion already defined in libpng.lib(libpng12.dll); second definition ignored
+     1>zlib.lib(zlib1.dll) : warning LNK4006: __imp__DllGetVersion already defined in libpng.lib(libpng12.dll); second definition ignored
+     1>zlib.lib(zlib1.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
+     1>zlib.lib(zlib1.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in libpng.lib(libpng12.dll); second definition ignored
+     1>zlib.lib(zlib1.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
+     1>freetype.lib(freetype6.dll) : warning LNK4006: _DllGetVersion already defined in libpng.lib(libpng12.dll); second definition ignored
+     1>freetype.lib(freetype6.dll) : warning LNK4006: __imp__DllGetVersion already defined in libpng.lib(libpng12.dll); second definition ignored
+     1>freetype.lib(freetype6.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
+     1>freetype.lib(freetype6.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in libpng.lib(libpng12.dll); second definition ignored
+     1>freetype.lib(freetype6.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
+     1>winmm.lib(WINMM.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in libpng.lib(libpng12.dll); second definition ignored
+     1>winmm.lib(WINMM.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
+     1>dbghelp.lib(dbghelp.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in libpng.lib(libpng12.dll); second definition ignored
+     1>dbghelp.lib(dbghelp.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
+     1>Event.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
+         pxl2D.vcxproj -> D:\Development\C++\Platformer\\debug\pxl2D.lib
+     1>Done Building Project "D:\Development\C++\pxl2D\pxl2D\pxl2D.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.72

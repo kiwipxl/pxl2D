@@ -1,30 +1,42 @@
-#ifndef _WINDOW_H
-#define _WINDOW_H
+#ifndef _WINDOW_H_
+#define _WINDOW_H_
 
-#include <string>
-#include "system/Event.h"
-#include "system/WindowBase.h"
+/*
+* abstracts away the GLFWwindow type from the engine user. This is because, if we wanted
+* to change our implementation later to not use glfw, we only need to implement it inside this
+* window class.
+*
+* note: we can grab the handle object for glfw functions that are not interfaced here
+*/
+
+#include "graphics/GraphicsAPI.h"
 #include "API.h"
 
 namespace pxl { namespace sys {
 
     class Window {
 
-	    public:
-            Window(int window_width, int window_height, std::string title);
-            ~Window();
+    public:
+        Window(GLFWwindow* _handle) {
+            handle = _handle;
+        }
 
-            bool poll_event(Event& e) { return base->poll_event(e); }
-            void display() { base->display(); }
-            void free() { base->free(); }
+        uint32 getWidth() {
+            int width;
+            glfwGetWindowSize(handle, &width, NULL);
+            return width;
+        }
 
-            int get_width() { return base->get_width(); }
-            int get_height() { return base->get_height(); }
-            std::string get_title() { return base->get_title(); }
+        uint32 getHeight() {
+            int height;
+            glfwGetWindowSize(handle, NULL, &height);
+            return height;
+        }
 
-        private:
-            WindowBase* base;
+        GLFWwindow* handle;
     };
+
+    extern Window* createWindow(uint32 width, uint32 height, const char* title, GLFWmonitor* monitor);
 }};
 
 #endif

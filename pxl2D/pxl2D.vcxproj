@@ -4,40 +4,20 @@
     <NsightTegraProjectRevisionNumber>9</NsightTegraProjectRevisionNumber>
   </PropertyGroup>
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug|Android">
+    <ProjectConfiguration Include="Debug/x64">
       <Configuration>Debug</Configuration>
-      <Platform>Android</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug|Tegra-Android">
-      <Configuration>Debug</Configuration>
-      <Platform>Tegra-Android</Platform>
+      <Platform>x64</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|Android">
+    <ProjectConfiguration Include="Release/x64">
       <Configuration>Release</Configuration>
-      <Platform>Android</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|Tegra-Android">
-      <Configuration>Release</Configuration>
-      <Platform>Tegra-Android</Platform>
+      <Platform>x64</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="test|Android">
-      <Configuration>test</Configuration>
-      <Platform>Android</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="test|Tegra-Android">
-      <Configuration>test</Configuration>
-      <Platform>Tegra-Android</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="test|Win32">
-      <Configuration>test</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
@@ -57,16 +37,12 @@
     <ClCompile Include="src\graphics\Text.cpp" />
     <ClCompile Include="src\graphics\Texture.cpp" />
     <ClCompile Include="src\graphics\TextureSheet.cpp" />
-    <ClCompile Include="src\input\Joystick.cpp" />
-    <ClCompile Include="src\input\Keyboard.cpp" />
     <ClCompile Include="src\physics\Collision.cpp" />
     <ClCompile Include="src\PXL.cpp" />
     <ClCompile Include="src\Graphics.cpp" />
     <ClCompile Include="src\Input.cpp" />
     <ClCompile Include="src\Physics.cpp" />
     <ClCompile Include="src\System.cpp" />
-    <ClCompile Include="src\system\android\AndroidWindow.cpp" />
-    <ClCompile Include="src\system\linux\LinuxWindow.cpp" />
     <ClCompile Include="src\system\Debug.cpp" />
     <ClCompile Include="src\system\Event.cpp" />
     <ClCompile Include="src\system\Exception.cpp" />
@@ -74,7 +50,6 @@
     <ClCompile Include="src\system\IO.cpp" />
     <ClCompile Include="src\system\Math.cpp" />
     <ClCompile Include="src\system\Timer.cpp" />
-    <ClCompile Include="src\system\win32\Win32Window.cpp" />
     <ClCompile Include="src\system\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -92,8 +67,7 @@
     <ClInclude Include="include\graphics\Structs.h" />
     <ClInclude Include="include\graphics\Texture.h" />
     <ClInclude Include="include\graphics\TextureSheet.h" />
-    <ClInclude Include="include\input\Joystick.h" />
-    <ClInclude Include="include\input\Keyboard.h" />
+    <ClInclude Include="include\system\Window.h" />
     <ClInclude Include="include\physics\Collision.h" />
     <ClInclude Include="include\PXL.h" />
     <ClInclude Include="include\graphics\FontUtils.h" />
@@ -114,8 +88,6 @@
     <ClInclude Include="include\system\ImageIO.h" />
     <ClInclude Include="include\system\IO.h" />
     <ClInclude Include="include\system\Timer.h" />
-    <ClInclude Include="include\system\Window.h" />
-    <ClInclude Include="include\system\WindowBase.h" />
     <ClInclude Include="include\system\win32\Win32Window.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -179,6 +151,10 @@
     <PlatformToolset>v140</PlatformToolset>
     <AndroidNativeAPI>UseTarget</AndroidNativeAPI>
   </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
@@ -202,12 +178,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)lib\glew-1.11.0\include;$(ProjectDir)lib\libpng\include;$(ProjectDir)lib\zlib-1.2.3\include;$(ProjectDir)lib\freetype\include;$(ProjectDir)lib\freetype\include\freetype2;$(ProjectDir)include;$(ProjectDir)include\graphics;$(ProjectDir)include\system;$(ProjectDir)include\physics;$(ProjectDir)include\input</IncludePath>
-    <OutDir>$(SolutionDir)lib\</OutDir>
-    <TargetName>pxl2D</TargetName>
-    <IntDir>$(ProjectDir)bin\</IntDir>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);D:\cpplibs\glew-2.0.0\include\GL;D:\cpplibs\libpng\include;D:\cpplibs\zlib-1.2.3\include;D:\cpplibs\freetype\include;D:\cpplibs\freetype\include\freetype2;D:\cpplibs\glfw\include;$(ProjectDir)include;$(ProjectDir)include\graphics;$(ProjectDir)include\system;$(ProjectDir)include\physics;$(ProjectDir)include\input</IncludePath>
+    <OutDir>$(SolutionDir)\debug</OutDir>
+    <TargetName>$(ProjectName)</TargetName>
+    <IntDir>debug</IntDir>
     <SourcePath>$(ProjectDir)src;$(ProjectDir)src\graphics;$(ProjectDir)src\system;$(ProjectDir)src\physics;$(ProjectDir)src\input;$(SourcePath)</SourcePath>
-    <LibraryPath>$(ProjectDir)lib\libpng\lib;$(ProjectDir)lib\zlib-1.2.3\lib;$(ProjectDir)lib\freetype\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>D:\cpplibs\libpng\lib;D:\cpplibs\zlib-1.2.3\lib;D:\cpplibs\freetype\lib\x86;D:\cpplibs\glfw\lib\x86;D:\cpplibs\glew-2.0.0\lib\Release\Win32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Android'">
     <SourcePath>$(ProjectDir)src;$(ProjectDir)src\graphics;$(ProjectDir)src\system;$(ProjectDir)src\physics;$(ProjectDir)src\input;$(SourcePath)</SourcePath>
@@ -239,6 +215,11 @@
     <LibraryPath>$(ProjectDir)lib\libpng-1.2.37\lib;$(ProjectDir)lib\zlib-1.2.3\lib;$(ProjectDir)lib\freetype-2.3.5\lib;$(LibraryPath)</LibraryPath>
     <SourcePath>$(ProjectDir)src;$(ProjectDir)src\graphics;$(ProjectDir)src\system;$(ProjectDir)src\physics;$(ProjectDir)src\input;$(ProjectDir)src\physics;$(SourcePath)</SourcePath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)\debug</OutDir>
+    <IntDir>debug</IntDir>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)lib\glew-1.11.0\include;$(ProjectDir)lib\libpng\include;$(ProjectDir)lib\zlib-1.2.3\include;$(ProjectDir)lib\freetype\include;$(ProjectDir)lib\freetype\include\freetype2;$(ProjectDir)include;$(ProjectDir)include\graphics;$(ProjectDir)include\system;$(ProjectDir)include\physics;$(ProjectDir)include\input</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <PrecompiledHeader>
@@ -257,7 +238,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>libpng.lib;zlib.lib;freetype.lib;winmm.lib;dbghelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libpng.lib;zlib.lib;freetype.lib;winmm.lib;dbghelp.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Android'">

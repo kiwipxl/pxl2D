@@ -10,8 +10,8 @@
 #include "graphics/ShaderUtils.h"
 #include "graphics/ShaderProgram.h"
 #include "graphics/FrameBuffer.h"
-#include "API.h"
 #include "system/Window.h"
+#include "API.h"
 
 namespace pxl { namespace graphics {
 

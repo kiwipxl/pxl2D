@@ -1,7 +1,6 @@
 #ifndef _SYSTEM_H
 #define _SYSTEM_H
 
-#include "system/Window.h"
 #include "system/Math.h"
 #include "system/Timer.h"
 #include "system/Exception.h"

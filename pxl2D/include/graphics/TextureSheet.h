@@ -3,7 +3,6 @@
 
 #include <vector>
 #include "graphics/Batch.h"
-#include "system/Window.h"
 
 namespace pxl { namespace graphics {
 

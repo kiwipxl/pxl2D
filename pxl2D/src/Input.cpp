@@ -2,9 +2,7 @@
 
 namespace pxl {
 
-    using namespace input;
-
     void input_init() {
-	    joystick_init();
+
     }
 };
