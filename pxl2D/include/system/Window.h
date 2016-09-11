@@ -9,7 +9,6 @@
 * note: we can grab the handle object for glfw functions that are not interfaced here
 */
 
-#include "graphics/GraphicsAPI.h"
 #include "API.h"
 
 namespace pxl { namespace sys {
@@ -21,17 +20,8 @@ namespace pxl { namespace sys {
             handle = _handle;
         }
 
-        uint32 getWidth() {
-            int width;
-            glfwGetWindowSize(handle, &width, NULL);
-            return width;
-        }
-
-        uint32 getHeight() {
-            int height;
-            glfwGetWindowSize(handle, NULL, &height);
-            return height;
-        }
+        uint32 getWidth();
+        uint32 getHeight();
 
         GLFWwindow* handle;
     };

@@ -16,7 +16,7 @@ namespace pxl { namespace graphics {
 	    passing the vertex colour and tex coords
 	    to the fragment shader
     **/
-    const char* basic_vertex_shader_str = GLSL(
+    extern const char* basic_vertex_shader_str = GLSL(
 	    //[START_VERTEX]
 
 	    attribute mediump vec3 a_position;
@@ -45,7 +45,7 @@ namespace pxl { namespace graphics {
 	    simple default fragment shader that multiplies
 	    the vertex colour with a texel
     **/
-    const char* default_shader_str = GLSL(
+    extern const char* default_shader_str = GLSL(
         //[START_FRAGMENT]
 
         uniform sampler2D t0;
@@ -77,7 +77,7 @@ namespace pxl { namespace graphics {
 	    outline_intensity - bloom intensity
 
     **/
-    const char* bloom_shader_str = GLSL(
+    extern const char* bloom_shader_str = GLSL(
         //[START_FRAGMENT]
 
         varying vec4 v_colour;
@@ -128,7 +128,7 @@ namespace pxl { namespace graphics {
 		    blur_size - blur spread amount
 
     **/
-    const char* blur_shader_str = GLSL(
+    extern const char* blur_shader_str = GLSL(
         //[START_FRAGMENT]
 
         varying vec4 v_colour;
@@ -171,7 +171,7 @@ namespace pxl { namespace graphics {
 	    conversion weights
 
     **/
-    const char* grayscale_shader_str = GLSL(
+    extern const char* grayscale_shader_str = GLSL(
         //[START_FRAGMENT]
 
         varying vec4 v_colour;
@@ -204,7 +204,7 @@ namespace pxl { namespace graphics {
 	    outline_intensity - glow intensity
 
     **/
-    const char* glow_shader_str = GLSL(
+    extern const char* glow_shader_str = GLSL(
         //[START_FRAGMENT]
 
         varying vec4 v_colour;
@@ -262,7 +262,7 @@ namespace pxl { namespace graphics {
 	    outline_colour - colour of the outline
 
     **/
-    const char* outline_shader_str = GLSL(
+    extern const char* outline_shader_str = GLSL(
         //[START_FRAGMENT]
 
         varying vec4 v_colour;
@@ -321,7 +321,7 @@ namespace pxl { namespace graphics {
 	    the texture horizontally and vertically
 
     **/
-    const char* point_light_shader_str = GLSL(
+    extern const char* point_light_shader_str = GLSL(
         //[START_FRAGMENT]
 
         varying vec4 v_colour;
@@ -371,7 +371,7 @@ namespace pxl { namespace graphics {
 	    the texture horizontally and vertically
 
     **/
-    const char* repeat_shader_str = GLSL(
+    extern const char* repeat_shader_str = GLSL(
         //[START_FRAGMENT]
 
         varying vec4 v_colour;
@@ -402,7 +402,7 @@ namespace pxl { namespace graphics {
 	    the texture horizontally and vertically
 
     **/
-    const char* text_shader_str = GLSL(
+    extern const char* text_shader_str = GLSL(
 	    //[START_FRAGMENT]
 
 	    uniform sampler2D t0;

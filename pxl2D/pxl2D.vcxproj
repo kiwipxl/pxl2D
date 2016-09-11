@@ -67,28 +67,25 @@
     <ClInclude Include="include\graphics\Structs.h" />
     <ClInclude Include="include\graphics\Texture.h" />
     <ClInclude Include="include\graphics\TextureSheet.h" />
-    <ClInclude Include="include\system\Window.h" />
-    <ClInclude Include="include\physics\Collision.h" />
-    <ClInclude Include="include\PXL.h" />
     <ClInclude Include="include\graphics\FontUtils.h" />
     <ClInclude Include="include\graphics\Lights.h" />
     <ClInclude Include="include\graphics\Text.h" />
     <ClInclude Include="include\graphics\ShaderProgram.h" />
+    <ClInclude Include="include\physics\Collision.h" />
+    <ClInclude Include="include\PXL.h" />
     <ClInclude Include="include\Input.h" />
     <ClInclude Include="include\Physics.h" />
     <ClInclude Include="include\System.h" />
-    <ClInclude Include="include\system\android\AndroidWindow.h" />
     <ClInclude Include="include\API.h" />
     <ClInclude Include="include\system\Debug.h" />
     <ClInclude Include="include\system\Exception.h" />
-    <ClInclude Include="include\system\linux\LinuxWindow.h" />
     <ClInclude Include="include\system\Math.h" />
     <ClInclude Include="include\system\Config.h" />
     <ClInclude Include="include\system\Event.h" />
     <ClInclude Include="include\system\ImageIO.h" />
     <ClInclude Include="include\system\IO.h" />
     <ClInclude Include="include\system\Timer.h" />
-    <ClInclude Include="include\system\win32\Win32Window.h" />
+    <ClInclude Include="include\system\Window.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7F4BAC6B-9372-4E84-8723-216A860B7548}</ProjectGuid>
@@ -100,7 +97,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140_xp</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Android'" Label="Configuration">
@@ -179,7 +176,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);D:\cpplibs\glew-2.0.0\include\GL;D:\cpplibs\libpng\include;D:\cpplibs\zlib-1.2.3\include;D:\cpplibs\freetype\include;D:\cpplibs\freetype\include\freetype2;D:\cpplibs\glfw\include;$(ProjectDir)include;$(ProjectDir)include\graphics;$(ProjectDir)include\system;$(ProjectDir)include\physics;$(ProjectDir)include\input</IncludePath>
-    <OutDir>$(SolutionDir)\debug</OutDir>
+    <OutDir>D:\Development\C++\pxl2D\lib</OutDir>
     <TargetName>$(ProjectName)</TargetName>
     <IntDir>debug</IntDir>
     <SourcePath>$(ProjectDir)src;$(ProjectDir)src\graphics;$(ProjectDir)src\system;$(ProjectDir)src\physics;$(ProjectDir)src\input;$(SourcePath)</SourcePath>
@@ -238,7 +235,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>libpng.lib;zlib.lib;freetype.lib;winmm.lib;dbghelp.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Android'">

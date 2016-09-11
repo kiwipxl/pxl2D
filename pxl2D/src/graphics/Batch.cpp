@@ -246,7 +246,6 @@ namespace pxl { namespace graphics {
         target_window = window;
     }
 
-
     void Batch::clear_all() {
         total_vertices = 0;
         total_opq_vertices = 0;

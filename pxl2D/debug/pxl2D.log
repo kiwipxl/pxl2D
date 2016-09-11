@@ -1,17 +1,60 @@
-﻿Build started 11-Sep-16 8:03:18 AM.
+﻿Build started 11-Sep-16 11:01:27 PM.
      1>Project "D:\Development\C++\pxl2D\pxl2D\pxl2D.vcxproj" on node 2 (Build target(s)).
      1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(367,5): warning MSB8004: Intermediate Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Intermediate Directory.
      1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(368,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _USING_V110_SDK71_ /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"debug\\" /Fd"debug\pxl2D.pdb" /Gd /TP /analyze- /errorReport:prompt src\graphics\Batch.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _LIB /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"debug\\" /Fd"debug\pxl2D.pdb" /Gd /TP /analyze- /errorReport:prompt src\Graphics.cpp src\PXL.cpp src\graphics\Batch.cpp src\graphics\Font.cpp src\graphics\FontUtils.cpp src\graphics\Lights.cpp src\graphics\ShaderUtils.cpp src\graphics\Sprite.cpp src\graphics\Text.cpp src\graphics\TextureSheet.cpp
+         Graphics.cpp
+     1>d:\development\c++\pxl2d\pxl2d\include\graphics\sprite.h(60): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+     1>d:\development\c++\pxl2d\pxl2d\include\graphics\sprite.h(61): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+     1>d:\development\c++\pxl2d\pxl2d\include\graphics\text.h(112): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+         Generating Code...
+         Compiling...
+         TextureSheet.cpp
+     1>d:\development\c++\pxl2d\pxl2d\src\graphics\texturesheet.cpp(53): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+     1>d:\development\c++\pxl2d\pxl2d\src\graphics\texturesheet.cpp(92): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+     1>d:\development\c++\pxl2d\pxl2d\src\graphics\texturesheet.cpp(93): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+         Text.cpp
+     1>d:\development\c++\pxl2d\pxl2d\include\graphics\sprite.h(60): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+     1>d:\development\c++\pxl2d\pxl2d\include\graphics\sprite.h(61): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+     1>d:\development\c++\pxl2d\pxl2d\include\graphics\text.h(112): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>d:\development\c++\pxl2d\pxl2d\src\graphics\text.cpp(14): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+     1>d:\development\c++\pxl2d\pxl2d\src\graphics\text.cpp(15): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+     1>d:\development\c++\pxl2d\pxl2d\src\graphics\text.cpp(35): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+     1>d:\development\c++\pxl2d\pxl2d\src\graphics\text.cpp(46): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+     1>d:\development\c++\pxl2d\pxl2d\src\graphics\text.cpp(52): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+         Sprite.cpp
+     1>d:\development\c++\pxl2d\pxl2d\include\graphics\sprite.h(60): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+     1>d:\development\c++\pxl2d\pxl2d\include\graphics\sprite.h(61): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+         ShaderUtils.cpp
+     1>d:\development\c++\pxl2d\pxl2d\src\graphics\shaderutils.cpp(125): warning C4244: 'initializing': conversion from 'std::streamsize' to 'unsigned int', possible loss of data
+         Lights.cpp
+     1>d:\development\c++\pxl2d\pxl2d\src\graphics\lights.cpp(28): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+     1>d:\development\c++\pxl2d\pxl2d\src\graphics\lights.cpp(59): warning C4018: '<': signed/unsigned mismatch
+         FontUtils.cpp
+         Font.cpp
+     1>d:\development\c++\pxl2d\pxl2d\src\graphics\font.cpp(37): warning C4244: 'argument': conversion from 'pxl::uint32' to 'float', possible loss of data
+     1>d:\development\c++\pxl2d\pxl2d\src\graphics\font.cpp(37): warning C4244: '=': conversion from 'float' to 'pxl::uint32', possible loss of data
+     1>d:\development\c++\pxl2d\pxl2d\src\graphics\font.cpp(38): warning C4244: 'argument': conversion from 'pxl::uint32' to 'float', possible loss of data
+     1>d:\development\c++\pxl2d\pxl2d\src\graphics\font.cpp(38): warning C4244: '=': conversion from 'float' to 'pxl::uint32', possible loss of data
+     1>d:\development\c++\pxl2d\pxl2d\src\graphics\font.cpp(40): warning C4244: '=': conversion from 'pxl::uint32' to 'float', possible loss of data
+     1>d:\development\c++\pxl2d\pxl2d\src\graphics\font.cpp(41): warning C4244: '=': conversion from 'pxl::uint32' to 'float', possible loss of data
+     1>d:\development\c++\pxl2d\pxl2d\src\graphics\font.cpp(50): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
          Batch.cpp
      1>d:\development\c++\pxl2d\pxl2d\src\graphics\batch.cpp(32): warning C4244: '=': conversion from 'pxl::uint32' to 'float', possible loss of data
      1>d:\development\c++\pxl2d\pxl2d\src\graphics\batch.cpp(164): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
      1>d:\development\c++\pxl2d\pxl2d\src\graphics\batch.cpp(203): warning C4244: '=': conversion from 'float' to 'pxl::uint16', possible loss of data
      1>d:\development\c++\pxl2d\pxl2d\src\graphics\batch.cpp(204): warning C4244: '=': conversion from 'float' to 'pxl::uint16', possible loss of data
      1>d:\development\c++\pxl2d\pxl2d\src\graphics\batch.cpp(218): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+         PXL.cpp
+     1>d:\development\c++\pxl2d\pxl2d\include\graphics\sprite.h(60): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+     1>d:\development\c++\pxl2d\pxl2d\include\graphics\sprite.h(61): warning C4244: 'return': conversion from 'int' to 'float', possible loss of data
+     1>d:\development\c++\pxl2d\pxl2d\include\graphics\text.h(112): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>c:\program files (x86)\windows kits\8.1\include\shared\minwindef.h(130): warning C4005: 'APIENTRY': macro redefinition
+         d:\cpplibs\glfw\include\glfw\glfw3.h(98): note: see previous definition of 'APIENTRY'
+         Generating Code...
        Lib:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\Lib.exe /OUT:"D:\Development\C++\Platformer\\debug\pxl2D.lib" libpng.lib zlib.lib freetype.lib winmm.lib dbghelp.lib glfw3.lib /NOLOGO debug\Batch.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\Lib.exe /OUT:"D:\Development\C++\pxl2D\lib\pxl2D.lib" /NOLOGO debug\Batch.obj
          debug\Bitmap.obj
          debug\Colour.obj
          debug\Font.obj
@@ -40,24 +83,100 @@
          debug\Math.obj
          debug\Timer.obj
          debug\Window.obj
-     1>zlib.lib(zlib1.dll) : warning LNK4006: _DllGetVersion already defined in libpng.lib(libpng12.dll); second definition ignored
-     1>zlib.lib(zlib1.dll) : warning LNK4006: __imp__DllGetVersion already defined in libpng.lib(libpng12.dll); second definition ignored
-     1>zlib.lib(zlib1.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
-     1>zlib.lib(zlib1.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in libpng.lib(libpng12.dll); second definition ignored
-     1>zlib.lib(zlib1.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
-     1>freetype.lib(freetype6.dll) : warning LNK4006: _DllGetVersion already defined in libpng.lib(libpng12.dll); second definition ignored
-     1>freetype.lib(freetype6.dll) : warning LNK4006: __imp__DllGetVersion already defined in libpng.lib(libpng12.dll); second definition ignored
-     1>freetype.lib(freetype6.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
-     1>freetype.lib(freetype6.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in libpng.lib(libpng12.dll); second definition ignored
-     1>freetype.lib(freetype6.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
-     1>winmm.lib(WINMM.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in libpng.lib(libpng12.dll); second definition ignored
-     1>winmm.lib(WINMM.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
-     1>dbghelp.lib(dbghelp.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in libpng.lib(libpng12.dll); second definition ignored
-     1>dbghelp.lib(dbghelp.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
      1>Event.obj : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
-         pxl2D.vcxproj -> D:\Development\C++\Platformer\\debug\pxl2D.lib
+     1>PXL.obj : warning LNK4006: "char const * const pxl::graphics::basic_vertex_shader_str" (?basic_vertex_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>PXL.obj : warning LNK4006: "char const * const pxl::graphics::default_shader_str" (?default_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>PXL.obj : warning LNK4006: "char const * const pxl::graphics::bloom_shader_str" (?bloom_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>PXL.obj : warning LNK4006: "char const * const pxl::graphics::blur_shader_str" (?blur_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>PXL.obj : warning LNK4006: "char const * const pxl::graphics::grayscale_shader_str" (?grayscale_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>PXL.obj : warning LNK4006: "char const * const pxl::graphics::glow_shader_str" (?glow_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>PXL.obj : warning LNK4006: "char const * const pxl::graphics::outline_shader_str" (?outline_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>PXL.obj : warning LNK4006: "char const * const pxl::graphics::point_light_shader_str" (?point_light_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>PXL.obj : warning LNK4006: "char const * const pxl::graphics::repeat_shader_str" (?repeat_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>PXL.obj : warning LNK4006: "char const * const pxl::graphics::text_shader_str" (?text_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>TextureSheet.obj : warning LNK4006: "char const * const pxl::graphics::basic_vertex_shader_str" (?basic_vertex_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>TextureSheet.obj : warning LNK4006: "char const * const pxl::graphics::default_shader_str" (?default_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>TextureSheet.obj : warning LNK4006: "char const * const pxl::graphics::bloom_shader_str" (?bloom_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>TextureSheet.obj : warning LNK4006: "char const * const pxl::graphics::blur_shader_str" (?blur_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>TextureSheet.obj : warning LNK4006: "char const * const pxl::graphics::grayscale_shader_str" (?grayscale_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>TextureSheet.obj : warning LNK4006: "char const * const pxl::graphics::glow_shader_str" (?glow_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>TextureSheet.obj : warning LNK4006: "char const * const pxl::graphics::outline_shader_str" (?outline_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>TextureSheet.obj : warning LNK4006: "char const * const pxl::graphics::point_light_shader_str" (?point_light_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>TextureSheet.obj : warning LNK4006: "char const * const pxl::graphics::repeat_shader_str" (?repeat_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>TextureSheet.obj : warning LNK4006: "char const * const pxl::graphics::text_shader_str" (?text_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Text.obj : warning LNK4006: "char const * const pxl::graphics::basic_vertex_shader_str" (?basic_vertex_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Text.obj : warning LNK4006: "char const * const pxl::graphics::default_shader_str" (?default_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Text.obj : warning LNK4006: "char const * const pxl::graphics::bloom_shader_str" (?bloom_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Text.obj : warning LNK4006: "char const * const pxl::graphics::blur_shader_str" (?blur_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Text.obj : warning LNK4006: "char const * const pxl::graphics::grayscale_shader_str" (?grayscale_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Text.obj : warning LNK4006: "char const * const pxl::graphics::glow_shader_str" (?glow_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Text.obj : warning LNK4006: "char const * const pxl::graphics::outline_shader_str" (?outline_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Text.obj : warning LNK4006: "char const * const pxl::graphics::point_light_shader_str" (?point_light_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Text.obj : warning LNK4006: "char const * const pxl::graphics::repeat_shader_str" (?repeat_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Text.obj : warning LNK4006: "char const * const pxl::graphics::text_shader_str" (?text_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Sprite.obj : warning LNK4006: "char const * const pxl::graphics::basic_vertex_shader_str" (?basic_vertex_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Sprite.obj : warning LNK4006: "char const * const pxl::graphics::default_shader_str" (?default_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Sprite.obj : warning LNK4006: "char const * const pxl::graphics::bloom_shader_str" (?bloom_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Sprite.obj : warning LNK4006: "char const * const pxl::graphics::blur_shader_str" (?blur_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Sprite.obj : warning LNK4006: "char const * const pxl::graphics::grayscale_shader_str" (?grayscale_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Sprite.obj : warning LNK4006: "char const * const pxl::graphics::glow_shader_str" (?glow_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Sprite.obj : warning LNK4006: "char const * const pxl::graphics::outline_shader_str" (?outline_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Sprite.obj : warning LNK4006: "char const * const pxl::graphics::point_light_shader_str" (?point_light_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Sprite.obj : warning LNK4006: "char const * const pxl::graphics::repeat_shader_str" (?repeat_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Sprite.obj : warning LNK4006: "char const * const pxl::graphics::text_shader_str" (?text_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>ShaderUtils.obj : warning LNK4006: "char const * const pxl::graphics::basic_vertex_shader_str" (?basic_vertex_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>ShaderUtils.obj : warning LNK4006: "char const * const pxl::graphics::default_shader_str" (?default_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>ShaderUtils.obj : warning LNK4006: "char const * const pxl::graphics::bloom_shader_str" (?bloom_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>ShaderUtils.obj : warning LNK4006: "char const * const pxl::graphics::blur_shader_str" (?blur_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>ShaderUtils.obj : warning LNK4006: "char const * const pxl::graphics::grayscale_shader_str" (?grayscale_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>ShaderUtils.obj : warning LNK4006: "char const * const pxl::graphics::glow_shader_str" (?glow_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>ShaderUtils.obj : warning LNK4006: "char const * const pxl::graphics::outline_shader_str" (?outline_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>ShaderUtils.obj : warning LNK4006: "char const * const pxl::graphics::point_light_shader_str" (?point_light_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>ShaderUtils.obj : warning LNK4006: "char const * const pxl::graphics::repeat_shader_str" (?repeat_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>ShaderUtils.obj : warning LNK4006: "char const * const pxl::graphics::text_shader_str" (?text_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Lights.obj : warning LNK4006: "char const * const pxl::graphics::basic_vertex_shader_str" (?basic_vertex_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Lights.obj : warning LNK4006: "char const * const pxl::graphics::default_shader_str" (?default_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Lights.obj : warning LNK4006: "char const * const pxl::graphics::bloom_shader_str" (?bloom_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Lights.obj : warning LNK4006: "char const * const pxl::graphics::blur_shader_str" (?blur_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Lights.obj : warning LNK4006: "char const * const pxl::graphics::grayscale_shader_str" (?grayscale_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Lights.obj : warning LNK4006: "char const * const pxl::graphics::glow_shader_str" (?glow_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Lights.obj : warning LNK4006: "char const * const pxl::graphics::outline_shader_str" (?outline_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Lights.obj : warning LNK4006: "char const * const pxl::graphics::point_light_shader_str" (?point_light_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Lights.obj : warning LNK4006: "char const * const pxl::graphics::repeat_shader_str" (?repeat_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Lights.obj : warning LNK4006: "char const * const pxl::graphics::text_shader_str" (?text_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>FontUtils.obj : warning LNK4006: "char const * const pxl::graphics::basic_vertex_shader_str" (?basic_vertex_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>FontUtils.obj : warning LNK4006: "char const * const pxl::graphics::default_shader_str" (?default_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>FontUtils.obj : warning LNK4006: "char const * const pxl::graphics::bloom_shader_str" (?bloom_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>FontUtils.obj : warning LNK4006: "char const * const pxl::graphics::blur_shader_str" (?blur_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>FontUtils.obj : warning LNK4006: "char const * const pxl::graphics::grayscale_shader_str" (?grayscale_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>FontUtils.obj : warning LNK4006: "char const * const pxl::graphics::glow_shader_str" (?glow_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>FontUtils.obj : warning LNK4006: "char const * const pxl::graphics::outline_shader_str" (?outline_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>FontUtils.obj : warning LNK4006: "char const * const pxl::graphics::point_light_shader_str" (?point_light_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>FontUtils.obj : warning LNK4006: "char const * const pxl::graphics::repeat_shader_str" (?repeat_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>FontUtils.obj : warning LNK4006: "char const * const pxl::graphics::text_shader_str" (?text_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Font.obj : warning LNK4006: "char const * const pxl::graphics::basic_vertex_shader_str" (?basic_vertex_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Font.obj : warning LNK4006: "char const * const pxl::graphics::default_shader_str" (?default_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Font.obj : warning LNK4006: "char const * const pxl::graphics::bloom_shader_str" (?bloom_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Font.obj : warning LNK4006: "char const * const pxl::graphics::blur_shader_str" (?blur_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Font.obj : warning LNK4006: "char const * const pxl::graphics::grayscale_shader_str" (?grayscale_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Font.obj : warning LNK4006: "char const * const pxl::graphics::glow_shader_str" (?glow_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Font.obj : warning LNK4006: "char const * const pxl::graphics::outline_shader_str" (?outline_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Font.obj : warning LNK4006: "char const * const pxl::graphics::point_light_shader_str" (?point_light_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Font.obj : warning LNK4006: "char const * const pxl::graphics::repeat_shader_str" (?repeat_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Font.obj : warning LNK4006: "char const * const pxl::graphics::text_shader_str" (?text_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Batch.obj : warning LNK4006: "char const * const pxl::graphics::basic_vertex_shader_str" (?basic_vertex_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Batch.obj : warning LNK4006: "char const * const pxl::graphics::default_shader_str" (?default_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Batch.obj : warning LNK4006: "char const * const pxl::graphics::bloom_shader_str" (?bloom_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Batch.obj : warning LNK4006: "char const * const pxl::graphics::blur_shader_str" (?blur_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Batch.obj : warning LNK4006: "char const * const pxl::graphics::grayscale_shader_str" (?grayscale_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Batch.obj : warning LNK4006: "char const * const pxl::graphics::glow_shader_str" (?glow_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Batch.obj : warning LNK4006: "char const * const pxl::graphics::outline_shader_str" (?outline_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Batch.obj : warning LNK4006: "char const * const pxl::graphics::point_light_shader_str" (?point_light_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Batch.obj : warning LNK4006: "char const * const pxl::graphics::repeat_shader_str" (?repeat_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+     1>Batch.obj : warning LNK4006: "char const * const pxl::graphics::text_shader_str" (?text_shader_str@graphics@pxl@@3PBDB) already defined in Graphics.obj; second definition ignored
+         pxl2D.vcxproj -> D:\Development\C++\pxl2D\lib\pxl2D.lib
      1>Done Building Project "D:\Development\C++\pxl2D\pxl2D\pxl2D.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.72
+Time Elapsed 00:00:04.28

@@ -1,4 +1,5 @@
 #include "system/Timer.h"
+
 #include <iostream>
 
 namespace pxl { namespace sys {
@@ -13,17 +14,21 @@ namespace pxl { namespace sys {
 	    return timer.end();
     }
 
-    #if defined(PLATFORM_WIN32)
-	    void sleep(int ms) {
-		    timeBeginPeriod(1);
-		    Sleep(ms);
-	    }
+    void Timer::start() {
+        QueryPerformanceFrequency(&freq);
+        QueryPerformanceCounter(&start_time);
+    }
 
-    #elif defined(PLATFORM_ANDROID)
-	    #include <unistd.h>
+    long Timer::end() {
+        QueryPerformanceCounter(&end_time);
+        elapsed_ms.QuadPart = end_time.QuadPart - start_time.QuadPart;
+        elapsed_ms.QuadPart *= 1000000;
+        elapsed_ms.QuadPart /= freq.QuadPart;
+        elapsed = (long)elapsed_ms.QuadPart;
+        return elapsed;
+    }
 
-	    void sleep(int ms) {
-		    sleep(ms);
-	    }
-    #endif
+	void sleep(int ms) {
+
+	}
 }};

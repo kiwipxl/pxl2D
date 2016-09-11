@@ -8,6 +8,7 @@
 #include "system/Debug.h"
 #include "system/ImageIO.h"
 #include "system/IO.h"
+#include "system/Window.h"
 
 namespace pxl {
 
