@@ -19,14 +19,14 @@ namespace pxl {
     int32 initGraphics() {
         using namespace graphics;
 
-        if (!glfwInit()) {
-            return kInitPXLGLFWError;
+        if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
+            return kInitPXLSDLError;
         }
 
         {
             // create a dummy window, and then destroy it so we can initialise openGL, which
             // is required to initialise glew
-            sys::Window* dummyWindow = sys::createWindow(1, 1, "", NULL);
+            sys::Window* dummyWindow = sys::createWindow(Rect(0, 0, 1, 1), NULL);
 
             if (glewInit()) {
                 return kInitPXLGlewError;
@@ -73,6 +73,6 @@ namespace pxl {
     }
 
     extern void terminatePXL() {
-        glfwTerminate();
+        SDL_Quit();
     }
 };

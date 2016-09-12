@@ -16,18 +16,20 @@ namespace pxl { namespace sys {
     class Window {
 
     public:
-        Window(GLFWwindow* _handle) {
-            handle = _handle;
+        Window(SDL_Window* _window, SDL_GLContext _contextHandle) {
+            window = _window;
+            contextHandle = _contextHandle;
         }
         ~Window();
 
         uint32 getWidth();
         uint32 getHeight();
 
-        GLFWwindow* handle;
+        SDL_Window* window;
+        SDL_GLContext contextHandle;
     };
 
-    extern Window* createWindow(uint32 width, uint32 height, const char* title, GLFWmonitor* monitor);
+    extern Window* createWindow(Rect rect, const char* title);
 }};
 
 #endif

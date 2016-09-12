@@ -1,4 +1,5 @@
 *.obj
 *.suo
 .vs*
-pxl2D/bin
+debug/
+pxl2D/debug/

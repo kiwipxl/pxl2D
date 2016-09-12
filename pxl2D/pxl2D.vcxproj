@@ -171,12 +171,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);D:\cpplibs\glew-2.0.0\include\GL;D:\cpplibs\libpng\include;D:\cpplibs\zlib-1.2.3\include;D:\cpplibs\freetype\include;D:\cpplibs\freetype\include\freetype2;D:\cpplibs\glfw\include;$(ProjectDir)include;$(ProjectDir)include\graphics;$(ProjectDir)include\system;$(ProjectDir)include\physics;$(ProjectDir)include\input</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);D:\cpplibs\glew-2.0.0\include\GL;D:\cpplibs\libpng\include;D:\cpplibs\zlib-1.2.3\include;D:\cpplibs\freetype\include;D:\cpplibs\freetype\include\freetype2;D:\cpplibs\SDL2\include;$(ProjectDir)include;$(ProjectDir)include\graphics;$(ProjectDir)include\system;$(ProjectDir)include\physics;$(ProjectDir)include\input</IncludePath>
     <OutDir>D:\Development\C++\pxl2D\lib</OutDir>
     <TargetName>$(ProjectName)</TargetName>
     <IntDir>debug</IntDir>
     <SourcePath>$(ProjectDir)src;$(ProjectDir)src\graphics;$(ProjectDir)src\system;$(ProjectDir)src\physics;$(ProjectDir)src\input;$(SourcePath)</SourcePath>
-    <LibraryPath>D:\cpplibs\libpng\lib;D:\cpplibs\zlib-1.2.3\lib;D:\cpplibs\freetype\lib\x86;D:\cpplibs\glfw\lib\x86;D:\cpplibs\glew-2.0.0\lib\Release\Win32;$(LibraryPath)</LibraryPath>
+    <LibraryPath>D:\cpplibs\libpng\lib;D:\cpplibs\zlib-1.2.3\lib;D:\cpplibs\freetype\lib\x86;D:\cpplibs\glew-2.0.0\lib\Release\Win32;D:\cpplibs\SDL2\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Android'">
     <SourcePath>$(ProjectDir)src;$(ProjectDir)src\graphics;$(ProjectDir)src\system;$(ProjectDir)src\physics;$(ProjectDir)src\input;$(SourcePath)</SourcePath>

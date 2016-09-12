@@ -60,10 +60,14 @@ namespace pxl {
     #endif
 };
 
-#define GLEW_STATIC
-#include <glew.h>
+//namespace gl {
+    #define GLEW_STATIC
+    #include <glew.h>
+//};
 
-#define GLFW_DLL
-#include <GLFW/glfw3.h>
+#define SDL_MAIN_HANDLED
+#include <SDL.h>
+
+#include "graphics/Structs.h"
 
 #endif

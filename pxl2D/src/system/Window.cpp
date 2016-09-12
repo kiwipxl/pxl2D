@@ -2,28 +2,32 @@
 
 namespace pxl { namespace sys {
 
-    Window* createWindow(uint32 width, uint32 height, const char* title, GLFWmonitor* monitor) {
-        GLFWwindow* handle = glfwCreateWindow(width, height, title, monitor, NULL);
+    Window* createWindow(Rect rect, const char* title) {
+        SDL_Window* window = SDL_CreateWindow(title, rect.x, rect.y, rect.w, rect.h, SDL_WINDOW_OPENGL);
         
-        // make the context current on this window
-        glfwMakeContextCurrent(handle);
-
-        return handle ? new Window(handle) : NULL;
+        if (window) {
+            SDL_GLContext context = SDL_GL_CreateContext(window);
+            
+            return new Window(window, context);
+        }else {
+            return NULL;
+        }
     }
 
     Window::~Window() {
-        glfwDestroyWindow(handle);
+        SDL_GL_DeleteContext(contextHandle);
+        SDL_DestroyWindow(window);
     }
 
     uint32 Window::getWidth() {
         int width;
-        glfwGetWindowSize(handle, &width, NULL);
+        SDL_GetWindowSize(window, &width, NULL);
         return width;
     }
 
     uint32 Window::getHeight() {
         int height;
-        glfwGetWindowSize(handle, NULL, &height);
+        SDL_GetWindowSize(window, NULL, &height);
         return height;
     }
 }};
