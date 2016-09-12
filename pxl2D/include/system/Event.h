@@ -2,7 +2,7 @@
 #define _EVENT_H
 
 #include <vector>
-#include "API.h"
+#include "PXLAPI.h"
 #include "graphics/Structs.h"
 
 namespace pxl { namespace sys {

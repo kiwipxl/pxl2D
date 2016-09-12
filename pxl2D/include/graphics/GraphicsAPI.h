@@ -1,7 +1,7 @@
 #ifndef _GRAPHICS_API_H
 #define _GRAPHICS_API_H
 
-#include "API.h"
+#include "PXLAPI.h"
 
 namespace pxl { namespace graphics {
 

@@ -1,7 +1,7 @@
 #ifndef _MATH_H
 #define _MATH_H
 
-#include "API.h"
+#include "PXLAPI.h"
 
 namespace pxl { namespace math {
 

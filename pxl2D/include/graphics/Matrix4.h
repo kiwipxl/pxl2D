@@ -3,7 +3,7 @@
 
 #include "graphics/Structs.h"
 #include "system/Math.h"
-#include "API.h"
+#include "PXLAPI.h"
 
 namespace pxl { namespace graphics {
 

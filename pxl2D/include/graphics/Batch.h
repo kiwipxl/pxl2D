@@ -11,7 +11,7 @@
 #include "graphics/ShaderProgram.h"
 #include "graphics/FrameBuffer.h"
 #include "system/Window.h"
-#include "API.h"
+#include "PXLAPI.h"
 
 namespace pxl { namespace graphics {
 

@@ -5,7 +5,7 @@
 #include "graphics/FontUtils.h"
 #include "graphics/Batch.h"
 #include "graphics/Sprite.h"
-#include "API.h"
+#include "PXLAPI.h"
 
 namespace pxl { namespace graphics {
 

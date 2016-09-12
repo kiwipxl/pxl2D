@@ -4,7 +4,7 @@
 #include "graphics/GraphicsAPI.h"
 #include "graphics/Structs.h"
 #include "graphics/Bitmap.h"
-#include "API.h"
+#include "PXLAPI.h"
 #include "system/Exception.h"
 
 namespace pxl { namespace graphics {

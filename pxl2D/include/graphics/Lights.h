@@ -4,7 +4,7 @@
 #include <iostream>
 #include <vector>
 #include "graphics/ShaderUtils.h"
-#include "API.h"
+#include "PXLAPI.h"
 
 namespace pxl { namespace graphics {
 

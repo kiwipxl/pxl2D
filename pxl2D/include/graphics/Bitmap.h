@@ -5,7 +5,7 @@
 #include "graphics/GraphicsAPI.h"
 #include "graphics/Colour.h"
 #include "graphics/Structs.h"
-#include "API.h"
+#include "PXLAPI.h"
 
 namespace pxl { namespace graphics {
 

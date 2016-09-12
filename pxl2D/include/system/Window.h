@@ -9,7 +9,7 @@
 * note: we can grab the handle object for glfw functions that are not interfaced here
 */
 
-#include "API.h"
+#include "PXLAPI.h"
 
 namespace pxl { namespace sys {
 
@@ -19,6 +19,7 @@ namespace pxl { namespace sys {
         Window(GLFWwindow* _handle) {
             handle = _handle;
         }
+        ~Window();
 
         uint32 getWidth();
         uint32 getHeight();

@@ -5,7 +5,7 @@
 #include <string>
 #include <sstream>
 
-#include "API.h"
+#include "PXLAPI.h"
 
 namespace pxl { namespace sys {
 

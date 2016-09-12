@@ -2,8 +2,9 @@
 #define _SPRITE_H
 
 #include <string>
+
 #include "graphics/Batch.h"
-#include "API.h"
+#include "PXLAPI.h"
 
 namespace pxl { namespace graphics {
 

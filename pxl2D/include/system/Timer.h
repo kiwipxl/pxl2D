@@ -2,7 +2,7 @@
 #define _TIMER_H
 
 #include <vector>
-#include "API.h"
+#include "PXLAPI.h"
 
 #include <Windows.h>
 

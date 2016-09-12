@@ -1,7 +1,7 @@
 #ifndef _COLOUR_H
 #define _COLOUR_H
 
-#include "API.h"
+#include "PXLAPI.h"
 
 #define Color Colour
 

@@ -39,10 +39,6 @@
     <ClCompile Include="src\graphics\TextureSheet.cpp" />
     <ClCompile Include="src\physics\Collision.cpp" />
     <ClCompile Include="src\PXL.cpp" />
-    <ClCompile Include="src\Graphics.cpp" />
-    <ClCompile Include="src\Input.cpp" />
-    <ClCompile Include="src\Physics.cpp" />
-    <ClCompile Include="src\System.cpp" />
     <ClCompile Include="src\system\Debug.cpp" />
     <ClCompile Include="src\system\Event.cpp" />
     <ClCompile Include="src\system\Exception.cpp" />
@@ -53,7 +49,7 @@
     <ClCompile Include="src\system\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Graphics.h" />
+    <ClInclude Include="include\PXLGraphics.h" />
     <ClInclude Include="include\graphics\Batch.h" />
     <ClInclude Include="include\graphics\Bitmap.h" />
     <ClInclude Include="include\graphics\Colour.h" />
@@ -73,10 +69,10 @@
     <ClInclude Include="include\graphics\ShaderProgram.h" />
     <ClInclude Include="include\physics\Collision.h" />
     <ClInclude Include="include\PXL.h" />
-    <ClInclude Include="include\Input.h" />
-    <ClInclude Include="include\Physics.h" />
-    <ClInclude Include="include\System.h" />
-    <ClInclude Include="include\API.h" />
+    <ClInclude Include="include\PXLInput.h" />
+    <ClInclude Include="include\PXLPhysics.h" />
+    <ClInclude Include="include\PXLSystem.h" />
+    <ClInclude Include="include\PXLAPI.h" />
     <ClInclude Include="include\system\Debug.h" />
     <ClInclude Include="include\system\Exception.h" />
     <ClInclude Include="include\system\Math.h" />

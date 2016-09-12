@@ -1,20 +1,17 @@
 #ifndef _PXL_H
 #define _PXL_H
 
-#include "Graphics.h"
-#include "System.h"
-#include "Physics.h"
-#include "Input.h"
+#include "PXLAPI.h"
 
 namespace pxl {
 
-    /** Initialises all PXL sub components
-    **/
-    extern void init();
+    const int kInitPXLUnknownError = 0x00;
+    const int kInitPXLSuccess = 0x01;
+    const int kInitPXLGLFWError = 0x02;
+    const int kInitPXLGlewError = 0x03;
 
-    #if defined(PLATFORM_ANDROID)
-	    #include <android_native_app_glue.h>
-    #endif
+    extern int32 initPXL();
+    extern void terminatePXL();
 };
 
 #endif

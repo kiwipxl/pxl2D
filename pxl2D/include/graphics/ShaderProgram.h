@@ -5,7 +5,7 @@
 #include <iostream>
 #include <vector>
 #include "graphics/GraphicsAPI.h"
-#include "API.h"
+#include "PXLAPI.h"
 
 namespace pxl { namespace graphics {
 
